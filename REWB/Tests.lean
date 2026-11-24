@@ -528,3 +528,38 @@ end BatchJoinRegression
 #print axioms REWB.TimedJoin.cross_correct
 #print axioms REWB.TimedJoin.cross_cost
 #print axioms REWB.TimedJoin.split_cover
+
+
+-- Maximal runs and their primitive-square occurrence charges.
+namespace RunCoverageRegression
+open REWB.RunGeometry REWB.RunExtension REWB.RunBudget
+
+def alternating : Nat→Nat := fun i=>i%2
+def twoRuns : Nat→Nat := fun i=>if i<4 then 0 else 1
+
+#guard squareTest alternating 8 2 2 == true
+#guard squareTest alternating 8 0 4 == false
+#guard squareTest alternating 8 5 2 == false
+#guard extend alternating 8 2 2 == (⟨0,8,2⟩ : Bounds)
+#guard enumerate alternating 8 == ([⟨0,8,2⟩] : List Bounds)
+#guard (enumerate twoRuns 8).length == 2
+#guard totalMass (enumerate alternating 8) == 5
+#guard totalMass (enumerate twoRuns 8) == 6
+#guard GridCoverage.regionLeft alternating 2 5 == 0
+#guard GridCoverage.regionEnd alternating 8 2 5 == 6
+#guard (GridCoverage.probes 100 10).length == 1111
+
+end RunCoverageRegression
+
+#print axioms REWB.RunGeometry.least_factor
+#print axioms REWB.RunGeometry.unique_overlap
+#print axioms REWB.RunGeometry.square_start_unique
+#print axioms REWB.RunExtension.extend_valid
+#print axioms REWB.RunExtension.enumerate_correct
+#print axioms REWB.RunExtension.dedup_nodup
+#print axioms REWB.GridCoverage.probes_length
+#print axioms REWB.GridCoverage.run_grid
+#print axioms REWB.RunGeometry.three_squares
+#print axioms REWB.RunBudget.totalMass_bound
+#print axioms REWB.RunBudget.cubic_phase_bound
+#print axioms REWB.RunBudget.low_exponent_equality
