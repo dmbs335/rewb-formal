@@ -68,8 +68,10 @@ theorem decidePair_correct [DecidableEq α] (P : SevenDFA α)
         decideFormula (P1Target.projection P target nT q p rho postT ph) [(m:Int)]=true := by
   unfold decidePair
   by_cases hkey : segment source phase q=segment target ph.j q
-  · rw [if_pos hkey,join_correct _ _ (P1Source.formula_good P source nS q a phase rho preS gap hS)
-      (project_good _ _ (P1Target.formula_good P target nT q p rho hT postT ph))]
+  · have hgood : FormulaGood (P1Target.projection P target nT q p rho postT ph) := by
+      unfold P1Target.projection
+      exact project_good 5 _ (P1Target.formula_good P target nT q p rho hT postT ph)
+    rw [if_pos hkey,join_correct _ _ (P1Source.formula_good P source nS q a phase rho preS gap hS) hgood]
     simp only [hkey,true_and]
   · simp [hkey]
 
