@@ -85,6 +85,7 @@ theorem end_valid (q n : Nat) (env : List Int) (hq : 0<q) :
     (endEndpoint q n).valid q n env := by
   refine ⟨Int.ofNat_nonneg _,Nat.mod_lt _ hq,?_⟩
   rw [end_pos]
+  exact Nat.le_refl _
 
 def constraints (P : SevenDFA α) (q n : Nat) (pre post : Word α)
     (L : Layout Endpoint) : List (Constraint α) :=
