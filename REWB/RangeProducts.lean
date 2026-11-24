@@ -165,7 +165,7 @@ private theorem drop_append_left (x y : List M) (l : Nat) (hl : l ≤ x.length) 
 private theorem take_append_left (x y : List M) (k : Nat) :
     (x ++ y).take (x.length+k) = x ++ y.take k := by
   induction x with
-  | nil => rfl
+  | nil => simp only [List.length_nil, Nat.zero_add, List.nil_append]
   | cons a xs ih =>
     change (a :: (xs ++ y)).take (xs.length+1+k) = a :: (xs ++ y.take k)
     have h : xs.length+1+k = (xs.length+k)+1 := by omega
