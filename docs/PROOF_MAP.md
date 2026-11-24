@@ -51,3 +51,16 @@ TraceFacts proves that generated traces restore stack depth, characterizes the d
 Remaining for the independent quadratic baseline: derive the outer-column injection relation from verified substring boundaries and a certified common-suffix limit, connect the F and D/B recurrences to P1/P2, materialize finite-state tables in an explicit cost model, and verify the two endpoint loops. The new reference matchers can be used as test oracles for this work. Kernel status remains to be checked by CI; proof scripts are not asserted to have compiled merely because they were written.
 
 OuterColumn now contains the endpoint-indexed slice calculus, a certified reference maximum for min(LCS(e,f), f-e), the shortening/gap transport identity, a pointwise equivalence for fixed outer-copy ends, and the forward seeded-scan invariant and column correctness statement. The reference maximum scans lengths, so this module alone does not establish the fast LCS computation or a quadratic time bound.
+
+
+## Indexed nested endpoint decisions and materialized masks (PR #5)
+
+The following implementation modules passed the Lean 4.19 kernel and reference-audit jobs on commit 71694ff62dedd057e40b203e7d374661662964e6 (Actions run 45389536414):
+
+- OrderedExit.Machine.run_left: ordered transition from a nondeterministic phase to a deterministic final phase, including an exit at the terminal boundary.
+- TensorRelation.tensor_comp: correctness of synchronizing a relation with a deterministic state transformer.
+- P1Index.p1_query: exact P1 anchored predicate using two indexed range products and a finite-state join at z=t-d, **given the correct Ready mask**. The A state is inserted at z, not at the first marked switch. Both switches may occur at the same boundary.
+- MaskScan.readyRow_correct: a backward scan computes all ReadyState values for fixed p, **given the correct Outer(p,e) bits**.
+- MaskScan.forward_correct and first2Row_correct: seeded forward DFA scans and P2's First2 marks, **given the correct seeds or Ready bits**.
+
+The next executable integration must construct the outer seeds from the LCS table, G transition queries and H suffix acceptance; generate all outer columns and Ready bits; then build the indexed query masks for each t and enumerate (a,t). The P1 and P2 endpoint reductions are unconditional, but the indexed implementations still have these explicit input-mask hypotheses. The current dyadic query routing is logarithmic, and the LCS table uses quadratic storage. No complete time/space bound or final strongly subquadratic theorem is asserted.
