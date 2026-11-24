@@ -191,3 +191,36 @@ def emptyP1 : SevenDFA Nat :=
 #print axioms REWB.MaskScan.readyRow_correct
 #print axioms REWB.MaskScan.forward_correct
 #print axioms REWB.MaskScan.first2Row_correct
+
+
+-- Integrated decisions have no oracle parameters. Check both nested forms
+-- with nonempty and empty captures and compare against the slow reference.
+#guard Integrated.match1 nestedPattern [1,1,1] == true
+#guard Integrated.match1 nestedPattern [1,2,1] == false
+#guard Integrated.match2 nestedPattern [1,2,1,2] == true
+#guard Integrated.match2 nestedPattern [1,2,2,1] == false
+#guard Integrated.match1 emptyP1 [] == true
+#guard Integrated.match2 emptyP1 [] == true
+#guard Integrated.match1 emptyP1 [1] == false
+#guard Integrated.match2 emptyP1 [1] == false
+
+def twoNonempty : SevenDFA Nat :=
+  ⟨onlyEmpty,nonEmpty,nonEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty⟩
+#guard Integrated.match1 twoNonempty [1,0,1,1] == true
+#guard Integrated.match2 twoNonempty [0,1,1,0,1,1] == true
+
+def binaryWords : Nat → List (Word Nat)
+  | 0 => [[]]
+  | n+1 => [] :: ((binaryWords n).flatMap (fun w => [0::w,1::w]))
+
+#guard (binaryWords 3).all (fun w =>
+  Integrated.match1 twoNonempty w == Reference.nested1 twoNonempty w &&
+  Integrated.match2 twoNonempty w == Reference.nested2 twoNonempty w)
+
+#print axioms REWB.IntervalDFA.lookup_correct
+#print axioms REWB.IntervalDFA.countedBuild_cost
+#print axioms REWB.SeedBuckets.build_correct
+#print axioms REWB.OuterTables.column_correct
+#print axioms REWB.OuterTables.readyAt_correct
+#print axioms REWB.Integrated.match1_correct
+#print axioms REWB.Integrated.match2_correct
