@@ -60,3 +60,10 @@ import REWB.KeyedJoin
 import REWB.DFACut
 import REWB.TimedJoin
 import REWB.OfflineJoin
+import REWB.RunGeometry
+import REWB.RunExtension
+import REWB.GridCoverage
+import REWB.ThreeSquares
+import REWB.RunBudget
+import REWB.PeriodicBudgets
+import REWB.LongSourceCoverage
