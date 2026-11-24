@@ -40,3 +40,4 @@ import REWB.PeriodicCoordinates
 import REWB.PeriodicSystem
 import REWB.IntegerProjection
 import REWB.AffineProjection
+import REWB.Cooper
