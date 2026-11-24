@@ -25,7 +25,9 @@ private theorem drop_sum (w : Word α) (a b : Nat) :
   | succ a ih =>
     cases w with
     | nil => simp
-    | cons c cs => simp [Nat.succ_add, List.drop, ih]
+    | cons c cs =>
+      rw [Nat.succ_add]
+      exact ih cs
 
 @[simp] theorem slice_self (w : Word α) (a : Nat) :
     slice w a a = [] := by
