@@ -157,7 +157,9 @@ theorem forwardStep_true (d : DFA α) (c : α) (prev seed : Bits d)
     (q : Fin d.stateCount) :
     bit d (forwardStep d c prev seed) q=true ↔
       bit d seed q=true ∨ ∃ r, bit d prev r=true ∧ d.step r c=q := by
-  simp only [forwardStep,bit_tab,Bool.or_eq_true,List.any_eq_true,bit,decide_eq_true_eq]
+  unfold forwardStep
+  rw [bit_tab]
+  simp only [Bool.or_eq_true,List.any_eq_true,bit,decide_eq_true_eq]
 
 /-- The supplied seed array/function is read only at the current boundary.
     Every emitted active set is materialized. -/
@@ -195,7 +197,7 @@ theorem forwardFrom_get (d : DFA α) (seed : Nat→Bits d) (w pre rest : Word α
       have hwp : w=pp++cs := by
         rw [hw]; simp [pp,List.append_assoc]
       have hchar : slice w pre.length (pre.length+1)=[c] :=
-        NestedColumns.slice_at w pre [c] cs
+        NestedColumns.slice_at w pre [c] cs pre.length (pre.length+1)
           (by simpa only [List.append_assoc,List.singleton_append] using hw) rfl rfl
       have hnext : ∀ r, bit d next r=true ↔
           OuterColumn.Active d w (fun j s=>bit d (seed j) s=true) pp.length r := by
@@ -229,6 +231,7 @@ theorem forward_correct (d : DFA α) (w : Word α) (seed : Nat→Bits d)
   cases he : (forwardFrom d seed 0 (seed 0) w)[i]? with
   | none =>
     simp only [he,Option.map,reduceCtorEq,false_iff] at h
+    simp only [bit,decide_eq_true_eq] at h
     simp [he,bit,h]
   | some s =>
     simpa only [he,Option.map,Option.getD,Option.some.injEq] using h
@@ -264,8 +267,8 @@ theorem prefixMask_correct (d : DFA α) (w : Word α) (i : Nat) (hi : i≤w.leng
 
 def firstSeed (P : SevenDFA α) (w : Word α) (ready : Nat→Bool) :
     Nat→Bits P.B :=
-  let prefix := prefixMask P.A w
-  fun p => if ready p && prefix p then [P.B.initial] else []
+  let pref := prefixMask P.A w
+  fun p => if ready p && pref p then [P.B.initial] else []
 
 theorem firstSeed_correct (P : SevenDFA α) (w : Word α) (t p : Nat)
     (ready : Nat→Bool) (hp : p≤w.length)
