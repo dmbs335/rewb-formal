@@ -23,3 +23,4 @@ import REWB.SeedBuckets
 import REWB.OuterTables
 import REWB.Integrated
 import REWB.EndpointCounts
+import REWB.FlatIndex
