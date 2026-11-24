@@ -67,6 +67,9 @@ theorem cover_collision [DecidableEq S] (xs : List S) (f : Nat→S)
         intro he
         exact hc ⟨k+1,by omega,hb,he⟩
       exact remove_mem _ _ _ hn (h _ hb)
+    have hdec : (removeOne (f 0) xs).length<xs.length := by
+      change (removeOne (f 0) xs).length+1=xs.length at hl
+      omega
     obtain ⟨i,j,hi,hj,he⟩ := cover_collision ys (fun k=>f (k+1)) hy
     exact ⟨i+1,j+1,by omega,by omega,he⟩
 termination_by xs.length
@@ -162,12 +165,12 @@ theorem findCycle_spec [DecidableEq S] (e : Enumeration S) (step : S→S) (q : S
 structure Descriptor where
   threshold : Nat
   period : Nat
-  prefix : List Nat
+  initialCounts : List Nat
   residues : List Nat
   deriving Repr
 
 def Descriptor.test (D : Descriptor) (k : Nat) : Bool :=
-  if k<D.threshold then decide (k∈D.prefix)
+  if k<D.threshold then decide (k∈D.initialCounts)
   else decide ((k-D.threshold)%D.period∈D.residues)
 
 def describe (step : S→S) (q : S) (accept : S→Bool) (i j : Nat) : Descriptor :=
@@ -201,7 +204,6 @@ theorem compress_spec [DecidableEq S] (e : Enumeration S) (step : S→S)
   obtain ⟨i,j,hf,hij,hj,he⟩ := findCycle_spec e step q
   refine ⟨describe step q accept i j,?_,?_,?_,?_,?_⟩
   · simp only [compress,hf,Option.map]
-    rfl
   · change 0<j-i
     omega
   · change i+(j-i)≤e.elems.length
@@ -217,7 +219,7 @@ theorem compress_spec [DecidableEq S] (e : Enumeration S) (step : S→S)
 theorem descriptor_ap (D : Descriptor) (hp : 0<D.period)
     (hr : ∀ r,r∈D.residues→r<D.period) (k : Nat) :
     D.test k=true ↔
-      (k<D.threshold ∧ k∈D.prefix) ∨
+      (k<D.threshold ∧ k∈D.initialCounts) ∨
       ∃ r,r∈D.residues ∧ ∃ m,k=D.threshold+r+m*D.period := by
   by_cases hk : k<D.threshold
   · simp only [Descriptor.test,hk,if_true,decide_eq_true_eq,true_and]

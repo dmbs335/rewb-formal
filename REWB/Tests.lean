@@ -319,14 +319,14 @@ def parityDFA : DFA Nat :=
   ⟨2,⟨0,by decide⟩,fun q _=>⟨(q.val+1)%2,by omega⟩,fun q=>q.val==0⟩
 
 def parityDescriptor := Periodic.factorDescriptor parityDFA (fun _=>0) 0 1 0
-#guard (parityDescriptor.map (fun d=>d.threshold,d.period,d.prefix,d.residues)) ==
+#guard (parityDescriptor.map (fun d=>d.threshold,d.period,d.initialCounts,d.residues)) ==
   some (0,2,[],[0])
 #guard (parityDescriptor.map (fun d=>d.test 100)) == some true
 #guard (parityDescriptor.map (fun d=>d.test 101)) == some false
 #guard (FiniteOrbit.compress (FiniteRelation.finEnum 3)
   (fun q : Fin 3 => if q.val==0 then ⟨1,by decide⟩ else ⟨2,by decide⟩)
   (⟨0,by decide⟩ : Fin 3) (fun q=>q.val==0 || q.val==2)).map
-    (fun d=>(d.threshold,d.period,d.prefix,d.residues)) == some (2,1,[0],[0])
+    (fun d=>(d.threshold,d.period,d.initialCounts,d.residues)) == some (2,1,[0],[0])
 
 #print axioms REWB.Periodic.fineWilf
 #print axioms REWB.Periodic.overlap_shift_multiple

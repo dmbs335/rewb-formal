@@ -23,11 +23,13 @@ theorem consecutive_gap_eq {f : Nat→α} {L delta q : Nat}
   have hle := hmin.2.2 delta hd hD
   have hdiv := least_dvd hmin hd hD hfw
   have hu : Period f (L+delta) q := extend_period hd hsmall hdiv hbig hmin.2.1
-  by_contra hn
-  have hq : q<delta := by omega
-  apply hc.2 q hmin.1 hq
-  intro i hi
-  exact hu i (by omega)
+  by_cases hn : delta=q
+  · exact hn
+  · have hq : q<delta := by omega
+    exfalso
+    apply hc.2 q hmin.1 hq
+    intro i hi
+    exact hu i (by omega)
 
 /-- Dense occurrence clusters: consecutive starts separated by at most
     half the pattern length have gap equal to the minimum period. -/
@@ -45,9 +47,10 @@ theorem separated_cluster_gap {f : Nat→α} {L delta q : Nat}
     (hd : 0<delta) (hoverlap : delta≤L) (hq : q<delta)
     (hc : Consecutive f L delta) (hmin : LeastPeriod f L q) :
     L<delta+q := by
-  by_contra hn
-  have he := consecutive_gap_eq hd hoverlap hc hmin (by omega)
-  omega
+  by_cases hn : L<delta+q
+  · exact hn
+  · have he := consecutive_gap_eq hd hoverlap hc hmin (by omega)
+    omega
 
 /-- A representative of every residue occurs in each full period block. -/
 theorem phase_rep (p a r : Nat) (hp : 0<p) (hr : r<p) :
