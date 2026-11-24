@@ -39,7 +39,9 @@ theorem executes_balanced {p : Expr α} {es : List (Event α)}
       have hclose : State.execute t [.closeCap] = some exited := by
         simp [State.execute, State.step, hf, exited]
       refine ⟨exited, ?_, ?_⟩
-      · simp [State.execute_append, hopen, ht, hclose, Option.bind]
+      · change State.execute entered (_ ++ [.closeCap]) = some exited
+        rw [State.execute_append, ht]
+        exact hclose
       · have hh : fs.length + 1 = s.frames.length + 1 := by
           simpa [entered, hf] using hlen
         change fs.length = s.frames.length

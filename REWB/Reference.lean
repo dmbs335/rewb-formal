@@ -83,7 +83,7 @@ def same [DecidableEq α] (p : FiveDFA α) (w : Word α) : Bool :=
 theorem same_correct [DecidableEq α] (p : FiveDFA α) (w : Word α) :
     same p w = true ↔ MatchesWithin p.sameValue w 2 := by
   rw [Witness.same_iff]
-  simp only [same, consume_iff, choose_iff, copy_iff, acceptB_iff]
+  simp only [same, consume_iff, choose_iff, copy_iff, acceptB_iff, List.append_assoc]
   constructor
   · rintro ⟨a,r0,h0,ha,u,r1,h1,hu,c,r2,h2,hc,r3,h3,d,r4,h4,hd,e,h5,he⟩
     exact ⟨a,u,c,d,e,ha,hu,hc,hd,he,by rw [h0,h1,h2,h3,h4,h5]⟩
@@ -103,7 +103,7 @@ def independent [DecidableEq α] (p : SevenDFA α) (w : Word α) : Bool :=
 theorem independent_correct [DecidableEq α] (p : SevenDFA α) (w : Word α) :
     independent p w = true ↔ MatchesWithin p.independent w 2 := by
   rw [Witness.independent_iff]
-  simp only [independent, consume_iff, choose_iff, copy_iff, acceptB_iff]
+  simp only [independent, consume_iff, choose_iff, copy_iff, acceptB_iff, List.append_assoc]
   constructor
   · rintro ⟨a,r0,h0,ha,u,r1,h1,hu,c,r2,h2,hc,r3,h3,d,r4,h4,hd,
       v,r5,h5,hv,g,r6,h6,hg,h,h7,hh⟩
@@ -130,10 +130,15 @@ theorem nested1_correct [DecidableEq α] (p : SevenDFA α) (w : Word α) :
   · rintro ⟨a,r0,h0,ha,u,r1,h1,hu,c,r2,h2,hc,v,r3,h3,
       ⟨d,r4,h4,hd,f,h5,hf⟩,g,r5,h6,hg,h,h7,hh⟩
     refine ⟨a,u,c,d,f,g,h,ha,hu,hc,hd,hf,hg,hh,?_⟩
-    rw [h0,h1,h2,h3,h6,h7,h4,h5]
+    rw [h0,h1,h2,h3,h6,h7,h4,h5] <;> simp only [List.append_assoc]
   · rintro ⟨a,u,c,d,f,g,h,ha,hu,hc,hd,hf,hg,hh,rfl⟩
-    exact ⟨a,_,rfl,ha,u,_,rfl,hu,c,_,rfl,hc,d ++ u ++ f,_,rfl,
-      ⟨d,u ++ f,rfl,hd,f,rfl,hf⟩,g,_,rfl,hg,h,rfl,hh⟩
+    let v := d ++ u ++ f
+    refine ⟨a,u ++ (c ++ (v ++ (g ++ (v ++ h)))),?_,ha,
+      u,c ++ (v ++ (g ++ (v ++ h))),rfl,hu,
+      c,v ++ (g ++ (v ++ h)),rfl,hc,
+      v,g ++ (v ++ h),rfl,
+      ⟨d,u ++ f,?_,hd,f,rfl,hf⟩,g,v ++ h,rfl,hg,h,rfl,hh⟩
+    all_goals simp only [v, List.append_assoc]
 
 def nested2 [DecidableEq α] (p : SevenDFA α) (w : Word α) : Bool :=
   consume p.A w fun r0 =>
@@ -152,10 +157,13 @@ theorem nested2_correct [DecidableEq α] (p : SevenDFA α) (w : Word α) :
   · rintro ⟨a,r0,h0,ha,v,r1,h1,
       ⟨b,r2,h2,hb,u,r3,h3,hu,d,r4,h4,hd,f,h5,hf⟩,g,r5,h6,hg,h,h7,hh⟩
     refine ⟨a,b,u,d,f,g,h,ha,hb,hu,hd,hf,hg,hh,?_⟩
-    rw [h0,h1,h6,h7,h2,h3,h4,h5]
+    rw [h0,h1,h6,h7,h2,h3,h4,h5] <;> simp only [List.append_assoc]
   · rintro ⟨a,b,u,d,f,g,h,ha,hb,hu,hd,hf,hg,hh,rfl⟩
-    exact ⟨a,_,rfl,ha,b ++ u ++ d ++ u ++ f,_,rfl,
-      ⟨b,_,rfl,hb,u,_,rfl,hu,d,_,rfl,hd,f,rfl,hf⟩,
-      g,_,rfl,hg,h,rfl,hh⟩
+    let v := b ++ u ++ d ++ u ++ f
+    refine ⟨a,v ++ (g ++ (v ++ h)),?_,ha,v,g ++ (v ++ h),rfl,
+      ⟨b,u ++ (d ++ (u ++ f)),?_,hb,u,d ++ (u ++ f),rfl,hu,
+        d,u ++ f,rfl,hd,f,rfl,hf⟩,
+      g,v ++ h,rfl,hg,h,rfl,hh⟩
+    all_goals simp only [v, List.append_assoc]
 
 end REWB.Reference
