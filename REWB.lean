@@ -38,3 +38,4 @@ import REWB.FiniteOrbit
 import REWB.ClusterGeometry
 import REWB.PeriodicCoordinates
 import REWB.PeriodicSystem
+import REWB.IntegerProjection
