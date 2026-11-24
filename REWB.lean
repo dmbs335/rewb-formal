@@ -15,3 +15,5 @@ import REWB.MatrixTable
 import REWB.DyadicIndex
 import REWB.LCSTable
 import REWB.IndexedMarked
+import REWB.OrderedExit
+import REWB.P1Index
