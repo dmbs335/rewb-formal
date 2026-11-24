@@ -28,7 +28,7 @@ theorem executes_balanced {p : Expr α} {es : List (Event α)}
     obtain ⟨u,hu,hlen'⟩ := ihq t
     exact ⟨u,by simp [State.execute_append, ht, hu],
       hlen'.trans hlen⟩
-  | capture hp ih =>
+  | @capture p xs hp ih =>
     let entered : State α := { s with frames := [] :: s.frames }
     have hopen : State.execute s [.openCap] = some entered := rfl
     obtain ⟨t,ht,hlen⟩ := ih entered
@@ -39,9 +39,8 @@ theorem executes_balanced {p : Expr α} {es : List (Event α)}
       have hclose : State.execute t [.closeCap] = some exited := by
         simp [State.execute, State.step, hf, exited]
       refine ⟨exited, ?_, ?_⟩
-      · change State.execute entered (_ ++ [.closeCap]) = some exited
-        rw [State.execute_append]
-        simp only [List.nil_append, ht, Option.bind]
+      · change State.execute entered (xs ++ [.closeCap]) = some exited
+        rw [State.execute_append, ht]
         exact hclose
       · have hh : fs.length + 1 = s.frames.length + 1 := by
           simpa [entered, hf] using hlen
