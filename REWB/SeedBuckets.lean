@@ -85,7 +85,7 @@ theorem build_correct (d : DFA α) (n : Nat) (es : List (Nat × Fin d.stateCount
   rw [fill_correct d _ es i (by simp; omega) q]
   have hz : read d (Array.replicate (n+1) []) i=[] := by
     unfold read
-    simp [Array.getElem?_replicate]
+    simp [Array.getElem?_replicate,show i<n+1 by omega]
   simp [hz,bit]
 
 end REWB.SeedBuckets
