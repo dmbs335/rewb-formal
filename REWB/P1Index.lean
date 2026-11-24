@@ -36,7 +36,7 @@ theorem left_product (P : SevenDFA α) (w : MarkedWord α) :
     change ident = TensorRelation.tensor ident (id : Fin P.A.stateCount → Fin P.A.stateCount)
     exact TensorRelation.tensor_ident.symm
   | cons x xs ih =>
-    rw [OrderedExit.leftProduct_cons,ih]
+    rw [OrderedExit.Machine.leftProduct_cons,ih]
     change comp (TensorRelation.pairEnum (cdEnum P) (finEnum P.A.stateCount))
       (TensorRelation.tensor (MarkedTransfer.letter P.C P.D x) (fun q => P.A.step q x.1))
       (TensorRelation.tensor (MarkedTransfer.transfer P.C P.D xs)
@@ -63,7 +63,7 @@ theorem right_spec (P : SevenDFA α) (terminal : Bool) (w : MarkedWord α)
         P.A.final (P.A.run qa (MarkedDP.text x))=true ∧
         MarkedTransfer.run P.C P.D (MarkedDP.markAtHead terminal y) x s=true ∧
         P.B.accepts (MarkedDP.text y) := by
-  rw [OrderedExit.run_left]
+  rw [OrderedExit.Machine.run_left]
   constructor
   · rintro ⟨x,y,he,hg,hb⟩
     rw [left_product] at hg
