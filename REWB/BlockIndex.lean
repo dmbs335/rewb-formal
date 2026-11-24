@@ -386,6 +386,7 @@ theorem query_correct (o : Ops M) (f : α × Bool→M) (w : List α) (b : Nat)
         (product o (slice (word f w m) (j*b) r))))=_
     rw [← product_append,← product_append]
     rw [← OuterColumn.slice_split _ (i*b+b) (j*b) r (by simpa [Nat.add_mul] using hmid) (by omega)]
+    have hmid' : i*b+b≤j*b := by simpa only [Nat.add_mul,Nat.one_mul] using hmid
     rw [← OuterColumn.slice_split _ l (i*b+b) r (by omega) (by omega)]
 
 end REWB.BlockIndex
