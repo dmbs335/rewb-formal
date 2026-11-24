@@ -54,6 +54,7 @@ theorem regular_eq (q n : Nat) (s : Nat→α) (d : DFA α) (a b : Endpoint) :
   · by_cases hb : b.phase<q
     · rw [PeriodicCache.descriptor_correct d s q a.phase (tailLen q a b) ha
         (Nat.le_of_lt (tail_lt q a b ha hb))]
+      rfl
     · rw [order_empty_right q n a b hb,both_nil_left,both_nil_left]
   · rw [order_empty_left q n a b ha,both_nil_left,both_nil_left]
 
@@ -71,7 +72,7 @@ def Prepared.Good (q : Nat) (s : Nat→α) : Prepared α→Prop
 
 def Prepared.compile [DecidableEq α] (q n : Nat) (s : Nat→α) : Prepared α→Formula
   | .plain c => c.compile q n s
-  | .regular d T a b => regular q n d T a b
+  | .regular d T a b => CachedPhase.regular q n d T a b
 
 theorem Prepared.compile_eq [DecidableEq α] (q n : Nat) (s : Nat→α)
     (c : Prepared α) (h : c.Good q s) :
@@ -144,8 +145,7 @@ theorem constraints_good (P : SevenDFA α) (s : Nat→α) (q n : Nat)
   intro c hc
   simp only [constraints,List.mem_cons] at hc
   rcases hc with h|h|h|h|h|h|h|h|h|h
-  all_goals try (subst c; rfl)
-  simp at h
+  all_goals first | (subst c; rfl) | (simp at h)
 
 theorem forget_constraints (P : SevenDFA α) (q n : Nat) (pre post : Word α)
     (I : Shared P pre post) (L : P2Periodic.Layout Endpoint) :
