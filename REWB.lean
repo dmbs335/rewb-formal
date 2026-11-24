@@ -18,3 +18,6 @@ import REWB.IndexedMarked
 import REWB.OrderedExit
 import REWB.P1Index
 import REWB.MaskScan
+import REWB.IntervalDFA
+import REWB.SeedBuckets
+import REWB.OuterTables
