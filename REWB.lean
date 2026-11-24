@@ -12,3 +12,5 @@ import REWB.NestedColumns
 import REWB.RangeProducts
 import REWB.MarkedTransfer
 import REWB.MatrixTable
+import REWB.DyadicIndex
+import REWB.LCSTable
