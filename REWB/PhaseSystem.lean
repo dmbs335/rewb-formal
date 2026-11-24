@@ -145,6 +145,17 @@ theorem prefix_quantify (F : Formula) (k : Nat) (env : List Int) :
     · rintro ⟨x,hx⟩
       exact ⟨x,(ih (x::env)).mpr hx⟩
 
+private theorem snoc_exists (xs : List Int) (hne : xs≠[]) :
+    ∃ ys x,xs=ys++[x] := by
+  induction xs with
+  | nil => contradiction
+  | cons a as ih =>
+    cases as with
+    | nil => exact ⟨[],a,rfl⟩
+    | cons b bs =>
+      obtain ⟨ys,x,he⟩ := ih (by simp)
+      exact ⟨a::ys,x,congrArg (List.cons a) he⟩
+
 theorem quantify_env (P : List Int→Prop) (k : Nat) (env : List Int) :
     Quantify P k env ↔ ∃ xs : List Int,xs.length=k ∧ P (xs++env) := by
   induction k generalizing env with
@@ -163,12 +174,13 @@ theorem quantify_env (P : List Int→Prop) (k : Nat) (env : List Int) :
       exact ⟨ys++[x],by simp [hy],by simpa only [List.append_assoc,List.singleton_append] using h⟩
     · rintro ⟨xs,hxs,h⟩
       have hne : xs≠[] := by intro he; simp [he] at hxs
-      have hsplit : xs=xs.dropLast++[xs.getLast hne] :=
-        (List.dropLast_append_getLast hne).symm
-      have hlen : xs.dropLast.length=k := by rw [List.length_dropLast,hxs]; omega
-      refine ⟨xs.getLast hne,(ih _).mpr ⟨xs.dropLast,hlen,?_⟩⟩
-      rw [hsplit,List.append_assoc,List.singleton_append] at h
-      exact h
+      obtain ⟨ys,x,hsplit⟩ := snoc_exists xs hne
+      have hlen : ys.length=k := by
+        rw [hsplit,List.length_append] at hxs
+        simp at hxs
+        omega
+      refine ⟨x,(ih _).mpr ⟨ys,hlen,?_⟩⟩
+      simpa only [hsplit,List.append_assoc,List.singleton_append] using h
 
 def solveSystem [DecidableEq α] (p n : Nat) (f : Nat→α)
     (cs : List (Constraint α)) (k : Nat) (env : List Int) : Bool :=
