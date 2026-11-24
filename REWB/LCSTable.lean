@@ -173,7 +173,7 @@ theorem table_cells [DecidableEq α] (x y : Word α) :
   | cons x xs ih =>
     change (rowSpec (x::xs) y).length+cells (tableSpec xs y) =
       (xs.length+1+1)*(y.length+1)
-    rw [row_length,ih,Nat.add_mul,Nat.one_mul]
+    simp only [row_length,ih,Nat.add_mul,Nat.one_mul]
     omega
 
 theorem build_cells [DecidableEq α] (x y : Word α) :
@@ -249,8 +249,12 @@ theorem rev_end (w : Word α) (e : Nat) (he : e ≤ w.length) :
     w.reverse.drop (w.length-e) =
         ((slice w e w.length).reverse ++ (slice w 0 e).reverse).drop
           ((slice w e w.length).reverse.length) := by
-      exact congrArg (fun v => v.drop (w.length-e)) hr |>.trans
-        (by rw [hlen])
+      calc
+        _ = ((slice w e w.length).reverse ++ (slice w 0 e).reverse).drop
+            (w.length-e) := congrArg (fun v => v.drop (w.length-e)) hr
+        _ = _ := congrArg
+          (fun k => ((slice w e w.length).reverse ++ (slice w 0 e).reverse).drop k)
+          hlen.symm
     _ = _ := drop_prefix _ _
 
 theorem rev_end_take (w : Word α) (e k : Nat) (he : e ≤ w.length) (hk : k ≤ e) :
