@@ -224,3 +224,8 @@ def binaryWords : Nat → List (Word Nat)
 #print axioms REWB.OuterTables.readyAt_correct
 #print axioms REWB.Integrated.match1_correct
 #print axioms REWB.Integrated.match2_correct
+
+#guard (EndpointCounts.match1 twoNonempty [1,0,1,1]).1 == true
+#guard (EndpointCounts.match2 twoNonempty [0,1,1,0,1,1]).1 == true
+#print axioms REWB.EndpointCounts.match1_spec
+#print axioms REWB.EndpointCounts.match2_spec
