@@ -279,8 +279,8 @@ def starPlan : Plan Nat :=
   .seq (.seq (.cap (.literal [7])) (.seq (.cap (.literal [1])) .nil)) .recall
 
 theorem starPlan_derivation : PlanOf starExpr starPlan := by
-  exact .seq (.starCons (.capture (.atom allWords [7] (by decide)))
-    (.starCons (.capture (.atom allWords [1] (by decide))) (.starNil _))) .reference
+  exact .seq (.starCons (.capture (.atom allWords [7] (by rfl)))
+    (.starCons (.capture (.atom allWords [1] (by rfl))) (.starNil _))) .reference
 
 #guard (starPlan.prune false).2.caps == 1
 #guard (starPlan.prune false).2.eval [] == ([7,1,1],[1])
