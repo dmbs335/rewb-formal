@@ -127,7 +127,7 @@ theorem extend_valid (f : Nat→α) (n i p : Nat) (h : PrimitiveSquare f n i p) 
 theorem extend_unique (f : Nat→α) (n i p : Nat) (h : PrimitiveSquare f n i p)
     (R : Bounds) (hR : R.Valid f n) (hp : R.period=p) (hi : R.SquareStart i) :
     R=extend f n i p :=
-  square_start_unique f n R _ hR (extend_valid f n i p h) hp hi
+  square_start_unique f n R _ hR (extend_valid f n i p h) i hp hi
     (extend_contains f n i p h)
 
 /-- A reference implementation of the equality predicate for finite
@@ -188,8 +188,36 @@ def candidates (f : Nat→α) (n : Nat) : List Bounds :=
   (List.range (n+1)).flatMap fun i =>
     ((List.range (n+1)).filter (squareTest f n i)).map (extend f n i)
 
+def dedup : List Bounds→List Bounds
+  | [] => []
+  | R::Rs => if R∈Rs then dedup Rs else R::dedup Rs
+
+theorem dedup_mem (Rs : List Bounds) (R : Bounds) :
+    R∈dedup Rs ↔ R∈Rs := by
+  induction Rs with
+  | nil => rfl
+  | cons S Ss ih =>
+    by_cases h : S∈Ss
+    · rw [dedup,if_pos h,ih,List.mem_cons]
+      constructor
+      · exact Or.inr
+      · rintro (he|hm)
+        · subst R
+          exact h
+        · exact hm
+    · rw [dedup,if_neg h,List.mem_cons,List.mem_cons,ih]
+
+theorem dedup_nodup (Rs : List Bounds) : (dedup Rs).Nodup := by
+  induction Rs with
+  | nil => exact List.nodup_nil
+  | cons R Rs ih =>
+    by_cases h : R∈Rs
+    · rwa [dedup,if_pos h]
+    · rw [dedup,if_neg h,List.nodup_cons]
+      exact ⟨fun hm=>h ((dedup_mem Rs R).mp hm),ih⟩
+
 def enumerate (f : Nat→α) (n : Nat) : List Bounds :=
-  (candidates f n).eraseDups
+  dedup (candidates f n)
 
 theorem candidate_iff (f : Nat→α) (n : Nat) (R : Bounds) :
     R∈candidates f n ↔ R.Valid f n := by
@@ -202,6 +230,7 @@ theorem candidate_iff (f : Nat→α) (n : Nat) (R : Bounds) :
   · intro h
     have hs : R.SquareStart R.lo := by
       have hh := h.2.2.1
+      have hlo := h.1
       exact ⟨Nat.le_refl _,by omega⟩
     have hsq := square_start_sound f n R h R.lo hs
     have hp := hsq.1
@@ -213,7 +242,7 @@ theorem candidate_iff (f : Nat→α) (n : Nat) (R : Bounds) :
 theorem enumerate_correct (f : Nat→α) (n : Nat) (R : Bounds) :
     R∈enumerate f n ↔ R.Valid f n := by
   unfold enumerate
-  rw [List.mem_eraseDups]
+  rw [dedup_mem]
   exact candidate_iff f n R
 
 end REWB.RunExtension
