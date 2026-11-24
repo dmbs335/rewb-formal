@@ -159,6 +159,7 @@ theorem formula_good [DecidableEq α] (P : SevenDFA α) (s : Nat→α)
     (n q p rho : Nat) (h : LeastPeriod s n q) (post : Word α) (ph : Layout Nat) :
     FormulaGood (formula P s n q p rho post ph) := by
   unfold formula
+  dsimp only
   split
   · exact both_good _ _ (compileSystem_good q n s h _) (eq_good _ _)
   · intro C hC
