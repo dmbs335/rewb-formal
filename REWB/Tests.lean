@@ -453,3 +453,39 @@ end FixedPhaseRegression
 #print axioms REWB.P2Periodic.solveFamily_sound
 #print axioms REWB.P2Periodic.solveFamily_complete_long
 #print axioms REWB.AffineProjection.LiteralShape.project_branches
+
+
+namespace PeriodicJoinRegression
+open REWB.AffineProjection REWB.PhaseSolver
+
+def cache := PeriodicCache.build parityDFA twoPhaseText 2
+
+#guard cache.2 == 8
+#guard (PeriodicCache.descriptor parityDFA cache.1 2 1 1).map (fun d=>d.test 100) == some false
+#guard (PeriodicCache.descriptor parityDFA cache.1 2 1 0).map (fun d=>d.test 100) == some true
+
+def sourcePattern : SevenDFA Nat :=
+  ⟨allWords,nonEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty⟩
+def sourceFormula := P1Source.formula sourcePattern (fun _=>1) 4 1 4 0 0 [] []
+#guard decideFormula sourceFormula [3] == true
+#guard decideFormula sourceFormula [5] == false
+
+-- Join a residue class with a singleton. Large constants do not enlarge
+-- the candidate set of a one-variable projection.
+def evenCounts : Formula := [progression (.var 0) 0 2]
+#guard P1Join.join evenCounts [exactCount (.var 0) 1000000] == true
+#guard P1Join.join evenCounts [exactCount (.var 0) 1000001] == false
+
+end PeriodicJoinRegression
+
+#print axioms REWB.PeriodicCache.build_cost
+#print axioms REWB.PeriodicCache.lookup_correct
+#print axioms REWB.PeriodicCache.descriptor_correct
+#print axioms REWB.CachedP2.solveFamily_eq
+#print axioms REWB.P1Target.projection_correct
+#print axioms REWB.P1Target.projected_join_sound
+#print axioms REWB.P1Source.source_sound
+#print axioms REWB.P1Source.join_sources
+#print axioms REWB.P1Join.join_correct
+#print axioms REWB.P1Join.decidePair_sound
+#print axioms REWB.P2Periodic.fixed_formula_bound
