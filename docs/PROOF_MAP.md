@@ -38,3 +38,14 @@ Cost.lean checks scaled integer exponents (57/30 and 75/39). Establish actual al
 - Primitive-square occurrence bounds; fixed-dimensional integer feasibility and fixed-coefficient Presburger elimination.
 
 No claim of novelty, priority, or optimality is made. Revisit the original natural-language proof and resolve each obligation independently.
+
+
+## Baseline formalization branch
+
+The new Reference module implements exhaustive finite split enumeration and four exact Boolean matchers. Their correctness statements refer to the operational MatchesWithin relation through the concrete normal-form witness theorems. They deliberately make no quadratic or subquadratic time claim.
+
+MarkedDP isolates two central finite-state invariants: accepting a prefix ending at an arbitrary eligible mark (the backwards F absorption), and choosing exactly one marked switch from D into B, preserving the same split for both conditions. Marks are allowed at the terminal position. The shortening lemma transports the removed common prefix into the gap between equal copies.
+
+TraceFacts proves that generated traces restore stack depth, characterizes the dynamic-use promise via the syntactic trace count, and proves the emitted-text erasure property for traces without recalls. General supplier selection and compilation of regular inter-event regions remain open.
+
+Remaining for the independent quadratic baseline: derive the outer-column injection relation from verified substring boundaries and a certified common-suffix limit, connect the F and D/B recurrences to P1/P2, materialize finite-state tables in an explicit cost model, and verify the two endpoint loops. The new reference matchers can be used as test oracles for this work. Kernel status remains to be checked by CI; proof scripts are not asserted to have compiled merely because they were written.

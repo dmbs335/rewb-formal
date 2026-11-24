@@ -4,3 +4,6 @@ import REWB.NormalForms
 import REWB.Reductions
 import REWB.Cost
 import REWB.Specifications
+import REWB.Reference
+import REWB.MarkedDP
+import REWB.TraceFacts
