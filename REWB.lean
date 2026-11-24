@@ -66,3 +66,4 @@ import REWB.GridCoverage
 import REWB.ThreeSquares
 import REWB.RunBudget
 import REWB.PeriodicBudgets
+import REWB.LongSourceCoverage
