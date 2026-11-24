@@ -127,8 +127,8 @@ theorem Norm.guard_period (N : Norm) (env : List Int) (K : Nat)
 
 /-- Build affine candidates rather than evaluating the bounds. -/
 def Norm.candidates (N : Norm) (K : Nat) : List Aff :=
-  if N.lower.isEmpty then (List.range K).map (fun r=>Aff.lit (r:Int))
-  else N.lower.flatMap (fun l=>(List.range K).map (fun r=>Aff.add l (.lit (r:Int))))
+  if N.lower.isEmpty then (List.range K).map (fun r : Nat=>Aff.lit (r:Int))
+  else N.lower.flatMap (fun l=>(List.range K).map (fun r : Nat=>Aff.add l (.lit (r:Int))))
 
 theorem Norm.candidates_eval (N : Norm) (K : Nat) (env : List Int) :
     (N.candidates K).map (Aff.eval env)=
@@ -137,10 +137,10 @@ theorem Norm.candidates_eval (N : Norm) (K : Nat) (env : List Int) :
   cases h : N.lower with
   | nil => simp [h,Aff.eval,List.map_map,Function.comp_def]
   | cons l ls =>
-    simp only [h,List.isEmpty_cons,if_false,List.map_cons]
+    simp only [h,List.isEmpty_cons,Bool.false_eq_true,if_false,List.map_cons]
     have he : ∀ xs : List Aff,
-        (xs.flatMap (fun l=>(List.range K).map (fun r=>Aff.add l (.lit (r:Int))))).map (Aff.eval env)=
-          (xs.map (Aff.eval env)).flatMap (fun l=>(List.range K).map (fun r=>l+(r:Int))) := by
+        (xs.flatMap (fun l=>(List.range K).map (fun r : Nat=>Aff.add l (.lit (r:Int))))).map (Aff.eval env)=
+          (xs.map (Aff.eval env)).flatMap (fun l=>(List.range K).map (fun r : Nat=>l+(r:Int))) := by
       intro xs
       induction xs with
       | nil => rfl
@@ -209,7 +209,7 @@ theorem Norm.substitute_correct (N : Norm) (c : Aff) (env : List Int) :
   cases h : N.lower with
   | nil => simp [h,Holds,Norm.guardHolds]
   | cons l ls =>
-    simp only [h,List.isEmpty_cons,if_false,holds_append,lower_map,upper_map,feasible,Norm.guardHolds]
+    simp only [h,List.isEmpty_cons,Bool.false_eq_true,if_false,holds_append,lower_map,upper_map,feasible,Norm.guardHolds]
     constructor
     · rintro ⟨⟨hf,hl,hu⟩,hg⟩
       exact ⟨hf,hl,hu,hg⟩
@@ -227,7 +227,8 @@ theorem Norm.eliminate_correct (N : Norm) (K : Nat) (env : List Int)
   let lo := N.lower.map (Aff.eval env)
   let hi := N.upper.map (Aff.eval env)
   have h := finite_elimination lo hi K hK (N.guardHolds env) (N.guard_period env K hd)
-  have hempty : lo.isEmpty=N.lower.isEmpty := by simp [lo]
+  have hempty : lo.isEmpty=N.lower.isEmpty := by
+    cases h : N.lower <;> simp [lo,h]
   rw [hempty,← N.candidates_eval K env] at h
   unfold Satisfies Norm.eliminate
   constructor
