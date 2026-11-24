@@ -83,6 +83,7 @@ theorem residual_mod (q a b : Nat) (hq : 0<q) (hab : a≤b) :
   change residual q (coord q a) (coord q b)=(b-a)%q
   rw [he,Nat.add_mod,Nat.mul_mod,Nat.mod_self,Nat.mul_zero,Nat.zero_mod,Nat.zero_add,
     Nat.mod_eq_of_lt hlen.2.1]
+  exact (Nat.mod_eq_of_lt hlen.2.1).symm
 
 theorem phase_family (P : SevenDFA α) (s : Nat→α) (q n : Nat)
     (h : LeastPeriod s n q) (pre post : Word α) (x : Layout Nat)
