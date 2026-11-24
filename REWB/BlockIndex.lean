@@ -150,7 +150,7 @@ theorem positions_drop (off k i : Nat) :
   | zero => simp only [List.drop_zero,Nat.add_zero,Nat.sub_zero]
   | succ i ih =>
     cases k with
-    | zero => rfl
+    | zero => simp [positions]
     | succ k =>
       change (positions (off+1) k).drop i=positions (off+(i+1)) (k+1-(i+1))
       rw [ih,show off+1+i=off+(i+1) by omega,show k+1-(i+1)=k-i by omega]
@@ -331,25 +331,27 @@ theorem query_correct (o : Ops M) (f : α × Bool→M) (w : List α) (b : Nat)
     dsimp [j,y]
     rw [Nat.mul_comm (r/b) b,Nat.add_comm]
     exact Nat.mod_add_div r b
-  have hij : i≤j := Nat.div_le_div_right hl
-  have hjn : j<count n b := by
-    have h := (Nat.div_le_div_right hr : r/b≤w.length/b)
+  have hij : i≤j := by
+    change l/b≤r/b
+    exact (Nat.le_div_iff_mul_le hb).mpr (Nat.le_trans (Nat.div_mul_le_self l b) hl)
+  have hjn : j<count w.length b := by
+    have h : j≤w.length/b :=
+      (Nat.le_div_iff_mul_le hb).mpr (Nat.le_trans (Nat.div_mul_le_self r b) hr)
     unfold count
-    change r/b<n/b+1
     omega
-  have hin : i<count n b := by omega
+  have hin : i<count w.length b := by omega
   have hx : x<b := Nat.mod_lt _ hb
   have hy : y<b := Nat.mod_lt _ hb
   have hyl : y≤len n b j := by
     have h1 : j*b+y≤n := by omega
     have h2 : j*b+y≤(j+1)*b := by rw [Nat.add_mul,Nat.one_mul]; omega
-    have hh := Nat.le_min.mpr (a:=j*b+y) ⟨h2,h1⟩
+    have hh : j*b+y≤min ((j+1)*b) n := Nat.le_min.mpr ⟨h2,h1⟩
     unfold len stop
     omega
   have hxl : x≤len n b i := by
     have h1 : i*b+x≤n := by omega
     have h2 : i*b+x≤(i+1)*b := by rw [Nat.add_mul,Nat.one_mul]; omega
-    have hh := Nat.le_min.mpr (a:=i*b+x) ⟨h2,h1⟩
+    have hh : i*b+x≤min ((i+1)*b) n := Nat.le_min.mpr ⟨h2,h1⟩
     unfold len stop
     omega
   let C := buildColumn o (prepare o f w b) m
@@ -379,6 +381,9 @@ theorem query_correct (o : Ops M) (f : α × Bool→M) (w : List α) (b : Nat)
     have hmacro' := macro_slice o (word f w m) b (i+1) j hij'
       (by rw [word_length]; omega) (by rw [word_length]; exact hjb)
     rw [hmacro',Nat.add_mul i 1 b,Nat.one_mul]
+    change some (o.mul (product o (slice (word f w m) l (i*b+b)))
+      (o.mul (product o (slice (word f w m) (i*b+b) (j*b)))
+        (product o (slice (word f w m) (j*b) r))))=_
     rw [← product_append,← product_append]
     rw [← OuterColumn.slice_split _ (i*b+b) (j*b) r (by simpa [Nat.add_mul] using hmid) (by omega)]
     rw [← OuterColumn.slice_split _ l (i*b+b) r (by omega) (by omega)]
