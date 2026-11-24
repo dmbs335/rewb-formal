@@ -169,7 +169,7 @@ theorem switch_iff_offset (d b : DFA α) (m : Nat → Bool) (off : Nat)
       calc
         decorate m off w = decorate m off (w.take k ++ w.drop k) :=
           congrArg (decorate m off) (List.take_append_drop k w).symm
-        _ = _ := by rw [decorate_append,hlen]; rfl
+        _ = _ := by rw [decorate_append,hlen]
     refine ⟨pre,suf,he,?_,?_,?_⟩
     · simpa only [suf,mark_after_drop m off w k hk] using hm
     · simpa only [pre,decorate_text] using hd
