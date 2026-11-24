@@ -161,3 +161,33 @@ example : (IndexedMarked.query onlyEmpty onlyEmpty true
 #print axioms REWB.LCSTable.lcs_comparisons
 #print axioms REWB.LCSTable.build_cells
 #print axioms REWB.IndexedMarked.p2_query
+
+-- P1: the first marked switch may occur before, at, or after the A reset.
+def beforeReset : SevenDFA Nat :=
+  ⟨onlyEmpty,nonEmpty,nonEmpty,nonEmpty,onlyEmpty,onlyEmpty,onlyEmpty⟩
+def atReset : SevenDFA Nat :=
+  ⟨onlyEmpty,nonEmpty,nonEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty⟩
+def afterReset : SevenDFA Nat :=
+  ⟨nonEmpty,nonEmpty,nonEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty⟩
+def markOne : Nat → Bool := fun i => i==1
+def markTwo : Nat → Bool := fun i => i==2
+#guard P1Index.query beforeReset (P1Index.build beforeReset
+    (IndexedMarked.decorate markOne 0 [1,2,3])) false 0 2 3 beforeReset.A.initial == some true
+#guard P1Index.query atReset (P1Index.build atReset
+    (IndexedMarked.decorate markOne 0 [1,2])) false 0 1 2 atReset.A.initial == some true
+#guard P1Index.query afterReset (P1Index.build afterReset
+    (IndexedMarked.decorate markTwo 0 [1,2,3])) false 0 1 3 afterReset.A.initial == some true
+#guard P1Index.query afterReset (P1Index.build afterReset
+    (IndexedMarked.decorate (fun _ => false) 0 [1,2,3])) false 0 1 3 afterReset.A.initial == some false
+def emptyP1 : SevenDFA Nat :=
+  ⟨onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty⟩
+#guard P1Index.query emptyP1 (P1Index.build emptyP1 []) true 0 0 0 emptyP1.A.initial == some true
+#guard P1Index.query emptyP1 (P1Index.build emptyP1 []) false 0 0 0 emptyP1.A.initial == some false
+
+#print axioms REWB.OrderedExit.Machine.run_left
+#print axioms REWB.TensorRelation.tensor_comp
+#print axioms REWB.P1Index.whole_indices
+#print axioms REWB.P1Index.p1_query
+#print axioms REWB.MaskScan.readyRow_correct
+#print axioms REWB.MaskScan.forward_correct
+#print axioms REWB.MaskScan.first2Row_correct
