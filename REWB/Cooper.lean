@@ -102,11 +102,11 @@ private theorem scale_positive (D : Nat) (c : Int)
       Int.ofNat (D/c.natAbs) * (Int.ofNat c.natAbs)=Int.ofNat D := by
   have he : (D/c.natAbs)*c.natAbs=D := Nat.div_mul_cancel hd
   have hs : 0<D/c.natAbs := by
-    by_cases h : D/c.natAbs=0
-    · rw [h,Nat.zero_mul] at he
-      omega
-    · omega
-  refine ⟨by omega,?_⟩
+    apply Nat.pos_of_ne_zero
+    intro h
+    have hz : D=0 := by simpa only [h,Nat.zero_mul] using he.symm
+    exact (Nat.ne_of_gt hD) hz
+  refine ⟨Int.ofNat_pos.mpr hs,?_⟩
   exact (by simpa only [Int.ofNat_mul] using congrArg Int.ofNat he)
 
 private theorem scale_le_zero (s v : Int) (hs : 0<s) :
@@ -252,7 +252,7 @@ theorem normalizeAtom_moduli (D : Nat) (A : Atom)
     · split at hg <;> simp at hg
   | dvd m a =>
     change g∈[⟨D*m,a.split.1,.scale (Int.ofNat D) a.split.2⟩] at hg
-    simp only [List.mem_cons,List.mem_nil,false_or] at hg
+    simp at hg
     subst g
     exact Nat.mul_pos hD ha
 
@@ -277,7 +277,7 @@ theorem normalize_moduli (C : Conj) (hC : Good C) :
   rcases List.mem_append.mp hg with h|h
   · exact normalizeRows_moduli D C hD hC g h
   · change g∈[⟨D,1,.lit 0⟩] at h
-    simp only [List.mem_cons,List.mem_nil,false_or] at h
+    simp at h
     subst g
     exact hD
 
