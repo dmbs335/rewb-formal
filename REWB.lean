@@ -48,3 +48,4 @@ import REWB.PhaseSystem
 import REWB.P2Periodic
 import REWB.P2PhaseFamily
 import REWB.LiteralShape
+import REWB.PhaseBounds
