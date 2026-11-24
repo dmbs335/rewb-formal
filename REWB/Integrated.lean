@@ -38,7 +38,9 @@ theorem test1_correct [DecidableEq α] (P : SevenDFA α) (w : Word α)
   have hd := OuterColumn.maxCommon_isMax w a t
   have hbound : OuterColumn.maxCommon w a t a≤t-a := hd.1.2.1
   unfold test1
-  rw [common_correct P w a t hat ht,aAt_correct P w _ (by omega),option_true]
+  rw [common_correct P w a t hat ht]
+  dsimp only
+  rw [aAt_correct P w _ (by omega),option_true]
   exact P1Index.p1_query P w a t _ m hat ht hbound hm
 
 theorem test2_correct [DecidableEq α] (P : SevenDFA α) (w : Word α)
@@ -49,7 +51,9 @@ theorem test2_correct [DecidableEq α] (P : SevenDFA α) (w : Word α)
   have hd := OuterColumn.maxCommon_isMax w a t
   have hbound : OuterColumn.maxCommon w a t a≤t-a := hd.1.2.1
   unfold test2
-  rw [common_correct P w a t hat ht,dAt_correct P w a _ (by omega) (by omega),option_true]
+  rw [common_correct P w a t hat ht]
+  dsimp only
+  rw [dAt_correct P w a _ (by omega) (by omega),option_true]
   exact IndexedMarked.p2_query P w a t _ m hat ht hm
 
 def col1 (P : SevenDFA α) (w : Word α) (I : Prepared P) (R : ReadyTable P)
