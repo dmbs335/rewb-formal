@@ -395,3 +395,97 @@ end ProjectionRegression
 #print axioms REWB.AffineProjection.project_correct
 #print axioms REWB.AffineProjection.solve_correct
 #print axioms REWB.AffineProjection.descriptorFormula_correct
+
+
+-- Fixed phase constraint regression. These tests evaluate the generated
+-- DNF at selected coordinates, not the full eight-variable elimination.
+namespace FixedPhaseRegression
+open REWB.PhaseSolver REWB.AffineProjection
+
+def a0 : Endpoint := (.var 0,0)
+def b0 : Endpoint := (.var 1,0)
+def c1 : Endpoint := (.var 2,1)
+def d1 : Endpoint := (.var 3,1)
+def c0 : Endpoint := (.var 2,0)
+def d0 : Endpoint := (.var 3,0)
+
+#guard decideFormula (orderFormula 2 8 a0 b0) [1,2] == true
+#guard decideFormula (orderFormula 2 8 a0 b0) [2,1] == false
+#guard decideFormula (orderFormula 2 8 a0 b0) [-1,1] == false
+#guard decideFormula (orderFormula 2 8 a0 b0) [0,5] == false
+
+#guard decideFormula (equalFormula 2 8 twoPhaseText a0 b0 c0 d0) [0,1,2,3] == true
+#guard decideFormula (equalFormula 2 8 twoPhaseText a0 b0 c0 d0) [0,1,2,4] == false
+#guard decideFormula (equalFormula 2 8 twoPhaseText a0 b0 c1 d1) [0,1,2,3] == false
+#guard decideFormula (equalFormula 2 8 twoPhaseText a0 b0 c1 d1) [0,0,1,1] == true
+
+#guard (P2Periodic.choices 2).length == 32
+#guard (P2Periodic.choices 3).length == 243
+
+-- P2 witness: a single-symbol inner capture, then its copy, and a
+-- length-two outer capture copied once. Both copies have phase zero.
+def testP2 : SevenDFA Nat :=
+  ⟨onlyEmpty,onlyEmpty,nonEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty⟩
+
+def sampleLayout : P2Periodic.Layout Nat := ⟨0,0,1,1,2,2,2,4⟩
+def sampleFormula :=
+  compileSystem 1 4 (fun _=>1) (P2Periodic.constraints testP2 1 4 [] []
+    (P2Periodic.endpoints (P2Periodic.phaseOf 1 sampleLayout)))
+#guard decideFormula sampleFormula (P2Periodic.envOf 1 sampleLayout) == true
+#guard decideFormula sampleFormula [0,0,1,1,2,2,2,3] == false
+
+#guard (project 1 (ProjectionRegression.evenEquation 1000000)).length ==
+  (project 1 (ProjectionRegression.evenEquation (-1000001))).length
+
+end FixedPhaseRegression
+
+#print axioms REWB.PhaseSolver.Endpoint.bound_correct
+#print axioms REWB.PhaseSolver.order_iff
+#print axioms REWB.PhaseSolver.regularFormula_correct
+#print axioms REWB.PhaseSolver.equalityCore_correct
+#print axioms REWB.PhaseSolver.solveSystem_correct
+#print axioms REWB.P2Periodic.plain_iff
+#print axioms REWB.P2Periodic.solveAt_correct
+#print axioms REWB.P2Periodic.solveAt_sound
+#print axioms REWB.P2Periodic.solveAt_complete
+#print axioms REWB.P2Periodic.choices_length
+#print axioms REWB.P2Periodic.phase_family
+#print axioms REWB.P2Periodic.solveFamily_sound
+#print axioms REWB.P2Periodic.solveFamily_complete_long
+#print axioms REWB.AffineProjection.LiteralShape.project_branches
+
+
+namespace PeriodicJoinRegression
+open REWB.AffineProjection REWB.PhaseSolver
+
+def cache := PeriodicCache.build parityDFA twoPhaseText 2
+
+#guard cache.2 == 8
+#guard (PeriodicCache.descriptor parityDFA cache.1 2 1 1).map (fun d=>d.test 100) == some false
+#guard (PeriodicCache.descriptor parityDFA cache.1 2 1 0).map (fun d=>d.test 100) == some true
+
+def sourcePattern : SevenDFA Nat :=
+  ⟨allWords,nonEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty,onlyEmpty⟩
+def sourceFormula := P1Source.formula sourcePattern (fun _=>1) 4 1 4 0 0 [] []
+#guard decideFormula sourceFormula [3] == true
+#guard decideFormula sourceFormula [5] == false
+
+-- Join a residue class with a singleton. Large constants do not enlarge
+-- the candidate set of a one-variable projection.
+def evenCounts : Formula := [progression (.var 0) 0 2]
+#guard P1Join.join evenCounts [exactCount (.var 0) 1000000] == true
+#guard P1Join.join evenCounts [exactCount (.var 0) 1000001] == false
+
+end PeriodicJoinRegression
+
+#print axioms REWB.PeriodicCache.build_cost
+#print axioms REWB.PeriodicCache.lookup_correct
+#print axioms REWB.PeriodicCache.descriptor_correct
+#print axioms REWB.CachedP2.solveFamily_eq
+#print axioms REWB.P1Target.projection_correct
+#print axioms REWB.P1Target.projected_join_sound
+#print axioms REWB.P1Source.source_sound
+#print axioms REWB.P1Source.join_sources
+#print axioms REWB.P1Join.join_correct
+#print axioms REWB.P1Join.decidePair_sound
+#print axioms REWB.P2Periodic.fixed_formula_bound
