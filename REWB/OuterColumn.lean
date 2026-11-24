@@ -28,7 +28,8 @@ private theorem drop_sum (w : Word α) (a b : Nat) :
     | cons c cs => simp [Nat.succ_add, List.drop, ih]
 
 @[simp] theorem slice_self (w : Word α) (a : Nat) :
-    slice w a a = [] := by simp [slice]
+    slice w a a = [] := by
+  simp only [slice, Nat.sub_self, List.take_zero]
 
 theorem slice_split (w : Word α) (a b c : Nat) (hab : a ≤ b) (hbc : b ≤ c) :
     slice w a c = slice w a b ++ slice w b c := by
