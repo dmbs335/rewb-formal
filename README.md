@@ -35,6 +35,9 @@ Soft-O hides polylogarithmic factors. Constants depend on the fixed pattern.
 - REWB/IndexedMarked.lean: P2 indexed query, conditional on its First2 mask.
 - REWB/OrderedExit.lean, REWB/P1Index.lean: P1 two-range indexed query, conditional on its Ready mask.
 - REWB/MaskScan.lean: materialized forward and backward DFA scans, with correctness of Ready and First2 given correct input masks.
+- REWB/IntervalDFA.lean, REWB/SeedBuckets.lean, REWB/OuterTables.lean: executable LCS-derived outer seeds and complete Outer/Ready tables.
+- REWB/Integrated.lean: complete executable P1 and P2 decisions with unconditional correctness against MatchesWithin.
+- REWB/EndpointCounts.lean: instrumented endpoint loops with verified quadratic candidate-test bounds.
 - REWB/Tests.lean: regression examples and theorem dependency reports.
 - audits/: nine Python reference audits.
 - docs/PROOF_MAP.md: proof obligations and dependency map.
@@ -48,14 +51,13 @@ bash scripts/check.sh
 bash scripts/audit.sh
 ```
 
-The core modules and both indexed endpoint-query reductions have passed Lean 4.19 kernel checks in GitHub Actions (see the PR and CI history). The reference audits also pass. Check CI for the precise revision. These results do not yet prove a complete quadratic-time matcher or the headline exponent. No unresolved proof placeholders or custom axioms should be used to bypass the proof obligations. Python audits are independent finite tests; they do not validate the claimed asymptotic bounds.
+The complete nested-form matchers and endpoint-test bounds passed Lean 4.19 kernel checks and all nine Python reference audits at PR #6 (Actions run 45401399876). Their correctness theorems do not require externally supplied masks. The implementation uses quadratic-space tables and logarithmic dyadic routing; a full machine-level cost proof, strict quadratic time, general normalization, and the headline exponent remain open. No unresolved proof placeholders or custom axioms should be used to bypass the proof obligations. Python audits are independent finite tests; they do not validate the claimed asymptotic bounds.
 
 ## Next milestones
 
-1. Implement and verify the outer-copy seed table from the LCS and DFA indices, then connect the two nested indexed queries to a complete matcher.
-2. Verify direct-addressed interval products, actual cost bounds, and the desired space bounds.
-3. Extract selected suppliers from arbitrary traces and prove full normalization.
-4. Verify the subquadratic masked all-start and boundary-aware indexes, periodic projection, and concrete word-RAM implementation.
-5. Combine correctness, coverage and actual cost inequalities into the final theorem.
+1. Verify direct-addressed interval products and microblocks, complete the machine-level cost proof, and improve the space bounds.
+2. Extract selected suppliers from arbitrary traces and prove full normalization.
+3. Verify the subquadratic masked all-start and boundary-aware indexes, periodic projection, and concrete word-RAM implementation.
+4. Combine correctness, coverage and actual cost inequalities into the final theorem.
 
 See [the proof ledger](docs/PROOF_MAP.md).
