@@ -229,3 +229,34 @@ def binaryWords : Nat → List (Word Nat)
 #guard (EndpointCounts.match2 twoNonempty [0,1,1,0,1,1]).1 == true
 #print axioms REWB.EndpointCounts.match1_spec
 #print axioms REWB.EndpointCounts.match2_spec
+
+
+-- Direct-addressed blocks: test noncommutative products, truncated and
+-- empty final blocks, and both integrated decisions.
+def markedLetter (x : Nat × Bool) : List Nat :=
+  [x.1 + (if x.2 then 10 else 0)]
+
+def blockSample := BlockIndex.prepare wordOps markedLetter [1,2,3,4,5] 2
+def blockSampleCol := BlockIndex.buildColumn wordOps blockSample markTwo
+#guard BlockIndex.query wordOps blockSample blockSampleCol 0 5 == some [1,2,13,4,5]
+#guard BlockIndex.query wordOps blockSample blockSampleCol 1 4 == some [2,13,4]
+#guard BlockIndex.query wordOps blockSample blockSampleCol 2 3 == some [13]
+#guard BlockIndex.query wordOps blockSample blockSampleCol 5 5 == some []
+def exactBlockSample := BlockIndex.prepare wordOps markedLetter [1,2,3,4] 2
+def exactBlockCol := BlockIndex.buildColumn wordOps exactBlockSample markTwo
+#guard BlockIndex.query wordOps exactBlockSample exactBlockCol 0 4 == some [1,2,13,4]
+#guard BlockIndex.query wordOps exactBlockSample exactBlockCol 4 4 == some []
+
+#guard BlockMatcher.match1With twoNonempty [1,0,1,1] 2 == true
+#guard BlockMatcher.match2With twoNonempty [0,1,1,0,1,1] 2 == true
+#guard BlockMatcher.match1 emptyP1 [] == true
+#guard BlockMatcher.match2 emptyP1 [] == true
+#guard (binaryWords 3).all (fun w =>
+  BlockMatcher.match1With twoNonempty w 2 == Reference.nested1 twoNonempty w &&
+  BlockMatcher.match2With twoNonempty w 2 == Reference.nested2 twoNonempty w)
+
+#print axioms REWB.FlatIndex.query_correct
+#print axioms REWB.Microblock.countedDictionary_cost
+#print axioms REWB.BlockIndex.query_correct
+#print axioms REWB.BlockMatcher.match1_correct
+#print axioms REWB.BlockMatcher.match2_correct
