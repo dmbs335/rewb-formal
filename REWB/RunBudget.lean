@@ -62,6 +62,7 @@ theorem charge_mem (f : Nat→α) (n : Nat) (R : Bounds) (h : R.Valid f n)
     (x : Key) :
     x∈charge R ↔ R.SquareStart x.1 ∧ x.2=R.period := by
   have hlen := h.2.2.1
+  have hlo := h.1
   unfold charge mass Bounds.SquareStart
   rw [starts_mem]
   constructor
@@ -186,10 +187,10 @@ theorem one_position_bound (f : Nat→α) (n i b : Nat) (xs : List Key)
   | nil => decide
   | cons x xs =>
     cases xs with
-    | nil => decide
+    | nil => simp
     | cons y ys =>
       cases ys with
-      | nil => decide
+      | nil => simp
       | cons z zs =>
         obtain ⟨hx,hxs⟩ := List.nodup_cons.mp hd
         obtain ⟨hy,hys⟩ := List.nodup_cons.mp hxs
