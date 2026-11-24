@@ -68,27 +68,32 @@ theorem formula_correct (P : SevenDFA α) (s : Nat→α) (n q a phase rho m : Na
   let r := endEndpoint q a
   change Satisfies (if decide (tailLen q l r=rho) && P.C.final (P.C.run P.C.initial gap) then
     both (regularFormula q n s (contextual P.A pre []) zeroEndpoint l)
-      (orderFormula q n l r) else []) [(m:Int)] ↔ _
+      (orderFormula q n l r) else []) [(m:Int)] ↔
+    l.valid q n [(m:Int)] ∧ r.valid q n [(m:Int)] ∧
+      l.pos q [(m:Int)]≤a ∧ tailLen q l r=rho ∧
+      P.A.accepts (pre++factor s 0 (l.pos q [(m:Int)])) ∧ P.C.accepts gap
   by_cases hr : tailLen q l r=rho
   · by_cases hc : P.C.final (P.C.run P.C.initial gap)=true
-    · simp only [hr,decide_true,hc,Bool.true_and,if_true,both_correct,
-        regularFormula_correct _ _ _ _ _ _ _ hq h,orderFormula_correct _ _ _ _ _ hq,
-        zero_pos,end_pos,interval_factor,contextual_accepts,List.append_nil,true_and]
+    · have hcond : (decide (tailLen q l r=rho) && P.C.final (P.C.run P.C.initial gap))=true := by simp [hr,hc]
+      rw [if_pos hcond,both_correct,regularFormula_correct _ _ _ _ _ _ _ hq h,
+        orderFormula_correct _ _ _ _ _ hq]
+      have hpos : r.pos q [(m:Int)]=a := end_pos q a _
+      simp only [zero_pos,interval_factor,contextual_accepts,List.append_nil,hpos]
       constructor
       · rintro ⟨⟨_,_,_,hA⟩,hl,hr',ho⟩
-        exact ⟨hl,hr',ho,hA,hc⟩
-      · rintro ⟨hl,hr',ho,hA,hC⟩
+        exact ⟨hl,hr',ho,hr,hA,hc⟩
+      · rintro ⟨hl,hr',ho,_,hA,_⟩
         exact ⟨⟨zero_valid q n _ hq,hl,Nat.zero_le _,hA⟩,hl,hr',ho⟩
-    · have he : P.C.final (P.C.run P.C.initial gap)=false := by
-        cases hx : P.C.final (P.C.run P.C.initial gap) <;> simp_all
-      simp only [hr,decide_true,he,Bool.true_and,Bool.false_eq_true,if_false]
+    · have hcond : ¬(decide (tailLen q l r=rho) && P.C.final (P.C.run P.C.initial gap))=true := by
+        simp [hr,hc]
+      rw [if_neg hcond]
       constructor
       · rintro ⟨C,hC,_⟩
         simp at hC
-      · rintro ⟨_,_,_,_,hC⟩
+      · rintro ⟨_,_,_,_,_,hC⟩
         exact False.elim (hc hC)
-  · have he : decide (tailLen q l r=rho)=false := by simp [hr]
-    simp only [he,Bool.false_and,Bool.false_eq_true,if_false]
+  · have hcond : ¬(decide (tailLen q l r=rho) && P.C.final (P.C.run P.C.initial gap))=true := by simp [hr]
+    rw [if_neg hcond]
     constructor
     · rintro ⟨C,hC,_⟩
       simp at hC
