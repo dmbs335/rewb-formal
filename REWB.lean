@@ -54,3 +54,9 @@ import REWB.P1Target
 import REWB.P1Source
 import REWB.CachedPhase
 import REWB.P1Join
+import REWB.ExponentIntervals
+import REWB.IntervalSweep
+import REWB.KeyedJoin
+import REWB.DFACut
+import REWB.TimedJoin
+import REWB.OfflineJoin

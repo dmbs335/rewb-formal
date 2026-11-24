@@ -489,3 +489,42 @@ end PeriodicJoinRegression
 #print axioms REWB.P1Join.join_correct
 #print axioms REWB.P1Join.decidePair_sound
 #print axioms REWB.P2Periodic.fixed_formula_bound
+
+
+-- Residue intervals, exact-key joins and chronological cut checks.
+namespace BatchJoinRegression
+open REWB.AffineProjection
+
+def evens : Formula := [progression (.var 0) 0 2]
+def million : Formula := [exactCount (.var 0) 1000000]
+def oddMillion : Formula := [exactCount (.var 0) 1000001]
+
+#guard (KeyedJoin.batch 2 1000001 [⟨7,evens⟩] [⟨7,million⟩]).1 == true
+#guard (KeyedJoin.batch 2 1000001 [⟨7,evens⟩] [⟨8,million⟩]).1 == false
+#guard (KeyedJoin.batch 2 1000001 [⟨7,evens⟩] [⟨7,oddMillion⟩]).1 == false
+#guard (KeyedJoin.batch 2 999999 [⟨7,evens⟩] [⟨7,million⟩]).1 == false
+#guard (IntervalSweep.batch [⟨10,2⟩,⟨-5,4⟩,⟨15,25⟩] [⟨9,14⟩]).1 == false
+#guard (IntervalSweep.batch [⟨15,25⟩,⟨-5,4⟩] [⟨25,26⟩]).1 == true
+
+def s (a : Nat) : TimedJoin.TimedEntry := ⟨a,⟨7,evens⟩⟩
+def t (a : Nat) : TimedJoin.TimedEntry := ⟨a,⟨7,million⟩⟩
+
+#guard (TimedJoin.cross onlyEmpty [1,2] [3] 2 1000001 [s 2] [t 2]).1 == true
+#guard (TimedJoin.cross onlyEmpty [1,2] [3] 2 1000001 [s 1] [t 2]).1 == false
+#guard (TimedJoin.cross nonEmpty [1,2] [3] 2 1000001 [s 1] [t 2]).1 == true
+#guard (TimedJoin.cross nonEmpty [1,2] [3] 2 1000001 [s 2] [t 3]).1 == true
+#guard (TimedJoin.cross nonEmpty [1,2] [3] 2 1000001 [s 2] [t 2]).1 == false
+
+end BatchJoinRegression
+
+#print axioms REWB.ExponentIntervals.clip_correct
+#print axioms REWB.ExponentIntervals.windows_correct
+#print axioms REWB.ExponentIntervals.allWindows_length
+#print axioms REWB.IntervalSweep.batch_correct
+#print axioms REWB.IntervalSweep.batch_cost
+#print axioms REWB.KeyedJoin.batch_correct
+#print axioms REWB.KeyedJoin.batch_cost
+#print axioms REWB.DFACut.crossing_accepts
+#print axioms REWB.TimedJoin.cross_correct
+#print axioms REWB.TimedJoin.cross_cost
+#print axioms REWB.TimedJoin.split_cover

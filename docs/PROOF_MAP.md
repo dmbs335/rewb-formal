@@ -86,3 +86,19 @@ The Lean and audit jobs at commit 624c2c4c407258d25499b8ca6c3ccc878fcf7418 (run 
 PeriodicSystem extends this to simultaneous regular/equality atoms on shared coordinates. Check its precise CI revision. The semantic reduction is not the integer feasibility/projection algorithm.
 
 Remaining: instantiate the compact system for every P1/P2 run case; handle external P1 sources; prove effective fixed-coefficient Presburger projection and source joins; construct and count runs and primitive-square occurrences; certify global mask-cluster maintenance and amortization. The proposed exponent n^(25/13) is still not a theorem of the library.
+
+
+## Batch periodic joins (PR #12)
+
+PR #11 passed Lean and the nine reference audits (run 45418319688), including the five-phase P2 enumeration, phase-cache equivalence, fixed-phase formula size, and P1 per-pair exponent projection/join.
+
+PR #12 adds a different route for batching P1 source and target events. It does not require an online small-to-large union of special prefix-anchored progressions.
+
+- ExponentIntervals: for a supplied positive common modulus K, every unary DNF formula on 0 <= m <= N is converted into at most K times its number of conjunctions bounded quotient intervals. Each residue is processed independently. Signed floor/ceiling division treats general linear inequalities; empty intervals are allowed.
+- IntervalSweep: filter invalid intervals, sort by lower bound, and use a two-pointer intersection test. The number of examined pairs is bounded by the sum of the input list lengths. Sorting complexity is not counted by that counter.
+- KeyedJoin: pack a collision-free key rank and a residue into a distinct integer slab of width N+1; two slabs can meet only when both the key and residue agree. A single interval sweep decides an entire batch of formulas. The checked sweep bound is K times the sum of the DNF branch counts (see exact CI revision).
+- DFACut and TimedJoin: store the DFA state from each source end to the cut, and the acceptable incoming states from the cut to each target start. Refine the key with this state. The cross-cut batch is equivalent to an ordered witness with C acceptance. The left/right/crossing partition is the coverage invariant for a recursive offline join (check current CI).
+
+An offline chronological join can recursively divide the text's boundary positions. At each node, form the crossing batch with only left sources and right targets, then recurse on same-side events; equal positions belong to the same leaf. The C-state vectors can be built on the node's local text in linear time for fixed C. Under a uniform constant bound on K and the input formula sizes, the standard sorting-based analysis is O((n+E) log^2(n+E)) for E events, provided keys are already collision-free integer ranks and events are distributed once per depth. The full recursive implementation and its amortized/machine-level cost are separate obligations.
+
+Important remaining gaps: uniform bounded coefficients/moduli across actual projected P1/P2 formulas; precompute short periodic equality tests and exterior DFA contexts so q^5 phase enumeration does not hide an extra factor q or n; source and target event enumeration completeness, run construction/counts, exact key ranks, the short-source branch and masked all-start/boundary-aware index. The final exponent remains unproved.
