@@ -68,3 +68,13 @@ example : (MarkedDP.summarize nonEmpty nonEmpty false [(1,true),(2,false)]).canS
 #print axioms REWB.Reference.nested2_correct
 #print axioms REWB.MarkedDP.reachEnd_correct
 #print axioms REWB.MarkedDP.canSwitch_correct
+
+-- The maximum includes the nonoverlap limit even for a repeated character.
+example : OuterColumn.maxCommon ([1,1,1,1] : Word Nat) 3 4 3 = 1 := by decide
+example : OuterColumn.maxCommon ([1,2,1,2] : Word Nat) 2 4 2 = 2 := by decide
+example : OuterColumn.maxCommon ([1,2,3,4] : Word Nat) 2 4 2 = 0 := by decide
+#print axioms REWB.OuterColumn.common_transport
+#print axioms REWB.OuterColumn.maxCommon_isMax
+#print axioms REWB.OuterColumn.anchored_iff
+#print axioms REWB.OuterColumn.active_succ
+#print axioms REWB.OuterColumn.column_correct
