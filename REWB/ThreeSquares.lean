@@ -1,4 +1,4 @@
-import REWB.GridCoverage
+import REWB.RunGeometry
 
 /-! A weak three-prefix-squares lemma proved from Fine-Wilf alone.
     Three distinct primitive-square periods at one start cannot lie
