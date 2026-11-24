@@ -23,3 +23,7 @@ import REWB.SeedBuckets
 import REWB.OuterTables
 import REWB.Integrated
 import REWB.EndpointCounts
+import REWB.FlatIndex
+import REWB.Microblock
+import REWB.BlockIndex
+import REWB.BlockMatcher
