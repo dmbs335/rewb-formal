@@ -27,3 +27,4 @@ import REWB.FlatIndex
 import REWB.Microblock
 import REWB.BlockIndex
 import REWB.BlockMatcher
+import REWB.Periodic
