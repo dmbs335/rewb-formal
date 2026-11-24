@@ -86,8 +86,6 @@ theorem execute_events (p : Plan α) (s : State α) :
     rw [hq]
     simp only [eval,refs,State.appendText,map_append_frames,List.append_assoc,Nat.add_assoc]
   | cap p hp =>
-    change State.execute s ([.openCap] ++ p.events ++ [.closeCap])=_
-    rw [State.execute_append]
     change State.execute { s with frames := []::s.frames } (p.events ++ [.closeCap])=_
     rw [State.execute_append,hp]
     simp [State.execute,State.step,State.appendText,eval,refs]
@@ -165,7 +163,7 @@ theorem prune_budget (p : Plan α) (live : Bool) :
     change 0+credit live≤0+credit live
     exact Nat.le_refl _
   | recall =>
-    cases live <;> decide
+    cases live <;> simp [prune,caps,refs,credit]
   | seq p q hp hq =>
     have ha := hp (q.prune live).1
     have hb := hq live
