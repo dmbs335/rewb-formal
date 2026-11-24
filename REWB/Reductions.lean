@@ -22,11 +22,11 @@ theorem outer_context_split (g h : DFA α) (middle suffix x y : Word α) :
   · intro hh
     rcases hh with ⟨hg, hh⟩
     refine ⟨g.run g.initial y, ?_, rfl, hh⟩
-    simpa [boundaryLeft, DFA.accepts, DFA.run_append_three] using hg
+    simpa [boundaryLeft, DFA.accepts, DFA.run_append] using hg
   · intro hh
     rcases hh with ⟨q, hg, heq, hh⟩
     subst q
-    exact ⟨by simpa [boundaryLeft, DFA.accepts, DFA.run_append_three] using hg, hh⟩
+    exact ⟨by simpa [boundaryLeft, DFA.accepts, DFA.run_append] using hg, hh⟩
 
 /-- Fixed region X has the shape x ++ d ++ u ++ f ++ y. The first inner
     occurrence can precede or cross the beginning of X.  This witness

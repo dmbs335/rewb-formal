@@ -25,6 +25,9 @@ Soft-O hides polylogarithmic factors. Constants depend on the fixed pattern.
 - REWB/Reductions.lean: disjoint identical-region reduction.
 - REWB/Cost.lean: exponent arithmetic only.
 - REWB/Specifications.lean: open matcher, normalization and index contracts.
+- REWB/Reference.lean: executable split-enumeration reference matchers and correctness statements.
+- REWB/MarkedDP.lean: marked-end absorption and single-switch dynamic programming.
+- REWB/TraceFacts.lean: balance and dynamic-use invariants for arbitrary traces.
 - REWB/Tests.lean: regression examples and theorem dependency reports.
 - audits/: nine Python reference audits.
 - docs/PROOF_MAP.md: proof obligations and dependency map.
