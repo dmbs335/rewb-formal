@@ -16,6 +16,8 @@ structure Machine (S α : Type) where
   gate : Bool → S → Bool
   right : DFA α
 
+namespace Machine
+
 variable (M : Machine S α)
 
 abbrev State := Sum S (Fin M.right.stateCount)
@@ -159,6 +161,7 @@ theorem run_left (terminal : Bool) (w : MarkedDP.MarkedWord α) (p : S) :
         obtain ⟨q,hq,hv⟩ := hg
         exact Or.inr ⟨q,hq,(ih q).mpr ⟨ys,suf,h,hv,hb⟩⟩
 
+end Machine
 end REWB.OrderedExit
 
 namespace REWB.TensorRelation
