@@ -141,8 +141,10 @@ theorem slice_right (x y : List M) (l r : Nat) (hl : x.length ≤ l) (hr : l ≤
   unfold slice
   have he : l=x.length+(l-x.length) := by omega
   have hdrop : (x++y).drop l = y.drop (l-x.length) := by
-    conv_lhs => rw [he]
-    exact drop_past x y _
+    calc
+      (x++y).drop l = (x++y).drop (x.length+(l-x.length)) :=
+        congrArg (fun k => (x++y).drop k) he
+      _ = _ := drop_past x y _
   rw [hdrop,show r-x.length-(l-x.length)=r-l by omega]
 
 theorem query_correct (o : Ops M) (h : Nat) (xs : List M) (l r : Nat)
@@ -231,7 +233,7 @@ def heightFor (n : Nat) : Nat := Nat.log2 n + 1
 
 theorem capacity (n : Nat) : n ≤ 2^(heightFor n) := by
   unfold heightFor
-  exact Nat.le_of_lt (Nat.lt_pow_succ_log2 n)
+  exact Nat.le_of_lt (Nat.lt_log2_self (n := n))
 
 def buildFor (o : Ops M) (xs : List M) : Tree M × Nat :=
   build o (heightFor xs.length) xs
