@@ -145,7 +145,8 @@ def seeds (P : SevenDFA α) (I : Prepared P) (e : Nat) : Nat→Bits P.G :=
 theorem seeds_correct [DecidableEq α] (P : SevenDFA α) (w : Word α)
     (e a : Nat) (ha : a≤w.length) (q : Fin P.G.stateCount) :
     bit P.G (seeds P (prepare P w) e a) q=true ↔ OuterColumn.Seed P.G P.H w e a q := by
-  unfold seeds
+  change bit P.G (SeedBuckets.read P.G (SeedBuckets.build P.G w.length
+    (events P (prepare P w) e)) a) q=true ↔ _
   rw [SeedBuckets.build_correct P.G _ _ _ ha q,events_correct]
 
 def column (P : SevenDFA α) (w : Word α) (I : Prepared P) (e : Nat) :
