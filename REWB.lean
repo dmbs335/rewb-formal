@@ -29,3 +29,4 @@ import REWB.BlockIndex
 import REWB.BlockMatcher
 import REWB.Periodic
 import REWB.PeriodicFactor
+import REWB.FiniteOrbit
