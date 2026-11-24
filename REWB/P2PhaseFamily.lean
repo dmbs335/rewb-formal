@@ -41,13 +41,13 @@ private theorem flat_length {X Y : Type} (xs : List X) (f : X→List Y)
 theorem choices_length (q : Nat) : (choices q).length=q^5 := by
   unfold choices
   rw [flat_length _ _ (q^4)]
-  · rw [List.length_range,Nat.pow_succ,Nat.mul_comm]
+  · rw [List.length_range,Nat.mul_comm q (q^4)] <;> rfl
   · intro p
     rw [flat_length _ _ (q^3)]
-    · rw [List.length_range,Nat.pow_succ,Nat.mul_comm]
+    · rw [List.length_range,Nat.mul_comm q (q^3)] <;> rfl
     · intro i
       rw [flat_length _ _ (q^2)]
-      · rw [List.length_range,Nat.pow_succ,Nat.mul_comm]
+      · rw [List.length_range,Nat.mul_comm q (q^2)] <;> rfl
       · intro a
         rw [flat_length _ _ q]
         · rw [List.length_range]
@@ -80,10 +80,9 @@ theorem residual_mod (q a b : Nat) (hq : 0<q) (hab : a≤b) :
     (coord_phase q a hq) (coord_phase q b hq) ho
   rw [coord_pos,coord_pos] at hlen
   have he := hlen.2.2
-  conv_rhs => rw [he]
-  rw [Nat.add_mod,Nat.mul_mod,Nat.mod_self,Nat.mul_zero,Nat.zero_mod,Nat.zero_add,
+  change residual q (coord q a) (coord q b)=(b-a)%q
+  rw [he,Nat.add_mod,Nat.mul_mod,Nat.mod_self,Nat.mul_zero,Nat.zero_mod,Nat.zero_add,
     Nat.mod_eq_of_lt hlen.2.1]
-  rfl
 
 theorem phase_family (P : SevenDFA α) (s : Nat→α) (q n : Nat)
     (h : LeastPeriod s n q) (pre post : Word α) (x : Layout Nat)
@@ -106,7 +105,7 @@ theorem phase_family (P : SevenDFA α) (s : Nat→α) (q n : Nat)
   have ht : x.t%q=(x.j%q+residual q ⟨0,x.i%q⟩ ⟨0,x.a%q⟩)%q := by
     rw [residual_mod q x.i x.a h.1 hia]
     have hh : x.t=x.j+(x.a-x.i) := by omega
-    conv_lhs => rw [hh,Nat.add_mod]
+    rw [hh,Nat.add_mod]
   let v : Five := ⟨x.p%q,x.i%q,x.a%q,x.j%q,x.e%q⟩
   refine ⟨v,choices_mem q v (Nat.mod_lt _ h.1) (Nat.mod_lt _ h.1)
     (Nat.mod_lt _ h.1) (Nat.mod_lt _ h.1) (Nat.mod_lt _ h.1),?_⟩

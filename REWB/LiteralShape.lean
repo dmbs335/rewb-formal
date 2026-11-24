@@ -168,6 +168,7 @@ theorem eliminateFormula_shape (F : Formula) :
     change (eliminateConj C).map conj=(eliminateConj (conj C)).map conj at h
     change (eliminateFormula Cs).map conj=(eliminateFormula (formula Cs)).map conj at ih
     rw [h,ih]
+    rfl
 
 /-- All stages have exactly the same erased formula when the starting
     coefficient/modulus structure agrees. In particular branch counts
