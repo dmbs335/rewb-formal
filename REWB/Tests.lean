@@ -319,7 +319,7 @@ def parityDFA : DFA Nat :=
   ⟨2,⟨0,by decide⟩,fun q _=>⟨(q.val+1)%2,by omega⟩,fun q=>q.val==0⟩
 
 def parityDescriptor := Periodic.factorDescriptor parityDFA (fun _=>0) 0 1 0
-#guard (parityDescriptor.map (fun d=>d.threshold,d.period,d.initialCounts,d.residues)) ==
+#guard (parityDescriptor.map (fun d=>(d.threshold,d.period,d.initialCounts,d.residues))) ==
   some (0,2,[],[0])
 #guard (parityDescriptor.map (fun d=>d.test 100)) == some true
 #guard (parityDescriptor.map (fun d=>d.test 101)) == some false
