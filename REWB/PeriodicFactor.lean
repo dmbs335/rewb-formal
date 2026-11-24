@@ -42,7 +42,7 @@ theorem maximal_equality_run (f : Nat→α) (n l L delta p : Nat)
   obtain ⟨k,hk⟩ := hdiv
   have hk' : k*p=delta := by rw [Nat.mul_comm,← hk]
   have hlen : l+L+delta-l=L+delta := by omega
-  refine ⟨hdiv,by omega,hn,by omega,?_,?_,?_⟩
+  refine ⟨⟨k,hk⟩,by omega,hn,by omega,?_,?_,?_⟩
   · rwa [hlen]
   · rcases hleft with h|h
     · exact Or.inl h
@@ -112,7 +112,7 @@ theorem segment_repeated {f : Nat→α} {n p : Nat}
   | zero => simp [segment,repeatWord]
   | succ k ih =>
     rw [Nat.add_mul,Nat.one_mul] at hk ⊢
-    rw [segment_append,ih (by omega),← segment_same_phase h a k p hk]
+    rw [segment_append,ih (by omega),← segment_same_phase h a k p (by omega)]
     rfl
 
 /-- Every factor of a periodic run is represented by a phase-specific
@@ -190,9 +190,11 @@ theorem compressed_dfa (d : DFA α) {f : Nat→α} {n p : Nat}
       (RangeProducts.dfaOps d).mul
         (power (RangeProducts.dfaOps d) (d.transition (segment f a p)) (L/p))
         (d.transition (segment f a (L%p))) := by
-  have hmap := map_period (fun c q=>d.step q c) h
-  have he := compressed_product (RangeProducts.dfaOps d) hmap a L hL
-  rw [← segment_map,← segment_map,← segment_map] at he
-  simpa only [RangeProducts.dfa_product] using he
+  rw [← RangeProducts.dfa_product d (segment f a L),
+    ← RangeProducts.dfa_product d (segment f a p),
+    ← RangeProducts.dfa_product d (segment f a (L%p))]
+  simp only [segment_map]
+  exact compressed_product (RangeProducts.dfaOps d)
+    (map_period (fun c q=>d.step q c) h) a L hL
 
 end REWB.Periodic
