@@ -150,4 +150,78 @@ theorem matrix_product_correct (d b : DFA α) (w : MarkedDP.MarkedWord α) :
   unfold matrixLetters transfer
   simp only [List.map_map,Function.comp_def,MatrixTable.denote_ofRel]
 
+
+private theorem map_drop_aux {X Y : Type} (f : X → Y) (w : List X) (i : Nat) :
+    (w.map f).drop i = (w.drop i).map f := by
+  induction i generalizing w with
+  | zero => rfl
+  | succ i ih =>
+    cases w with
+    | nil => rfl
+    | cons x xs => exact ih xs
+
+private theorem map_take_aux {X Y : Type} (f : X → Y) (w : List X) (i : Nat) :
+    (w.map f).take i = (w.take i).map f := by
+  induction i generalizing w with
+  | zero => rfl
+  | succ i ih =>
+    cases w with
+    | nil => rfl
+    | cons x xs =>
+      change f x :: (xs.map f).take i = f x :: (xs.take i).map f
+      rw [ih]
+
+theorem matrixLetters_append (d b : DFA α) (x y : MarkedDP.MarkedWord α) :
+    matrixLetters d b (x ++ y) = matrixLetters d b x ++ matrixLetters d b y := by
+  simp only [matrixLetters,List.map_append]
+
+theorem matrixLetters_slice (d b : DFA α) (w : MarkedDP.MarkedWord α)
+    (l r : Nat) :
+    Spec.slice (matrixLetters d b w) l r = matrixLetters d b (Spec.slice w l r) := by
+  simp only [Spec.slice,matrixLetters,map_drop_aux,map_take_aux]
+
+def buildMarkedCut (d b : DFA α) (left right : MarkedDP.MarkedWord α) :
+    RangeProducts.CutIndex (MatrixTable.Matrix (enum d b)) × Nat :=
+  RangeProducts.buildCut (MatrixTable.ops (enum d b))
+    (matrixLetters d b left) (matrixLetters d b right)
+
+def queryMarkedCut (d b : DFA α) (terminal : Bool)
+    (idx : RangeProducts.CutIndex (MatrixTable.Matrix (enum d b)))
+    (l r : Nat) (q : Phase d b) : Option Bool :=
+  (RangeProducts.queryCut (MatrixTable.ops (enum d b)) idx l r).map
+    (fun m => pre (enum d b) (MatrixTable.denote m)
+      (pre (enum d b) (epsilon d b terminal) (final d b)) q)
+
+theorem buildMarkedCut_cost (d b : DFA α) (left right : MarkedDP.MarkedWord α) :
+    (buildMarkedCut d b left right).2 = left.length + right.length := by
+  simp only [buildMarkedCut,RangeProducts.cut_cost,matrixLetters_length]
+
+theorem queryMarkedCut_correct (d b : DFA α) (terminal : Bool)
+    (left right : MarkedDP.MarkedWord α) (l r : Nat) (q : Phase d b)
+    (hl : l ≤ left.length) (hc : left.length ≤ r)
+    (hr : r ≤ left.length + right.length) :
+    queryMarkedCut d b terminal (buildMarkedCut d b left right).1 l r q =
+      some (run d b terminal (Spec.slice (left ++ right) l r) q) := by
+  have hl' : l ≤ (matrixLetters d b left).length := by
+    simpa only [matrixLetters_length] using hl
+  have hc' : (matrixLetters d b left).length ≤ r := by
+    simpa only [matrixLetters_length] using hc
+  have hr' : r ≤ (matrixLetters d b left).length + (matrixLetters d b right).length := by
+    simpa only [matrixLetters_length] using hr
+  unfold queryMarkedCut buildMarkedCut
+  rw [RangeProducts.queryCut_correct _ _ _ _ _ hl' hc' hr']
+  simp only [Option.map,← matrixLetters_append,matrixLetters_slice,matrix_product_correct]
+  rfl
+
+theorem queryMarkedCut_switch (d b : DFA α) (terminal : Bool)
+    (left right : MarkedDP.MarkedWord α) (l r : Nat) (q : Fin d.stateCount)
+    (hl : l ≤ left.length) (hc : left.length ≤ r)
+    (hr : r ≤ left.length + right.length) :
+    queryMarkedCut d b terminal (buildMarkedCut d b left right).1 l r (.inl q) = some true ↔
+      ∃ x y, Spec.slice (left ++ right) l r = x ++ y ∧
+        MarkedDP.markAtHead terminal y = true ∧
+        d.final (d.run q (MarkedDP.text x)) = true ∧ b.accepts (MarkedDP.text y) := by
+  rw [queryMarkedCut_correct d b terminal left right l r (.inl q) hl hc hr,
+    Option.some.injEq,run_correct]
+
 end REWB.MarkedTransfer
