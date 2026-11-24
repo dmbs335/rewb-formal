@@ -59,3 +59,4 @@ import REWB.IntervalSweep
 import REWB.KeyedJoin
 import REWB.DFACut
 import REWB.TimedJoin
+import REWB.OfflineJoin
