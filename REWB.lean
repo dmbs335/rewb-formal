@@ -55,3 +55,4 @@ import REWB.P1Source
 import REWB.CachedPhase
 import REWB.P1Join
 import REWB.ExponentIntervals
+import REWB.IntervalSweep
