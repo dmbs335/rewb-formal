@@ -260,3 +260,82 @@ def exactBlockCol := BlockIndex.buildColumn wordOps exactBlockSample markTwo
 #print axioms REWB.BlockIndex.query_correct
 #print axioms REWB.BlockMatcher.match1_correct
 #print axioms REWB.BlockMatcher.match2_correct
+
+
+-- Backward liveness through overwrite, nesting, and a repeated capture.
+def overwritePlan : Plan Nat :=
+  .seq (.cap (.literal [7]))
+    (.seq (.cap (.literal [1])) (.seq (.cap (.seq .recall (.literal [2]))) .recall))
+
+#guard (overwritePlan.prune false).2.caps == 2
+#guard (overwritePlan.prune false).2.refs == 2
+#guard (overwritePlan.prune false).2.eval [] == overwritePlan.eval []
+-- In this example the outgoing value also happens to be unchanged,
+-- because the last event reads the last retained capture.
+#guard ((overwritePlan.prune false).2.code.filterMap controlOf).length == 6
+
+def starExpr : Expr Nat := .star (.capture (.atom allWords)) ⋙ .reference
+def starPlan : Plan Nat :=
+  .seq (.seq (.cap (.literal [7])) (.seq (.cap (.literal [1])) .nil)) .recall
+
+theorem starPlan_derivation : PlanOf starExpr starPlan := by
+  exact .seq (.starCons (.capture (.atom allWords [7] (by rfl)))
+    (.starCons (.capture (.atom allWords [1] (by rfl))) (.starNil _))) .reference
+
+#guard (starPlan.prune false).2.caps == 1
+#guard (starPlan.prune false).2.eval [] == ([7,1,1],[1])
+
+example : LiveCompiler.denote (LiveCompiler.compiled starExpr)
+    [.inl 7,.inr .openCap,.inl 1,.inr .closeCap,.inr .recall] := by
+  apply (LiveCompiler.compiled_correct _ _).mpr
+  exact ⟨false,starPlan,starPlan_derivation,rfl,rfl⟩
+
+example : MatchesWithin starExpr [7,1,1] 1 := by
+  apply (matches_iff_plan _ _ _).mpr
+  exact ⟨starPlan,starPlan_derivation,by decide,rfl⟩
+
+#print axioms REWB.Plan.execute_events
+#print axioms REWB.Plan.prune_eval
+#print axioms REWB.Plan.prune_budget
+#print axioms REWB.matches_iff_pruned
+#print axioms REWB.matches_iff_skeletons
+#print axioms REWB.LiveLanguage.shape_iff_walk
+#print axioms REWB.LiveCompiler.compile_correct
+#print axioms REWB.LiveCompiler.match_compiled
+
+
+-- Period/phase and finite-orbit compression.
+def twoPhaseText (i : Nat) : Nat := i%2
+
+example : Periodic.Period twoPhaseText 8 2 := by
+  intro i hi
+  unfold twoPhaseText
+  omega
+
+#guard Periodic.segment twoPhaseText 1 7 ==
+  Periodic.repeatWord (Periodic.segment twoPhaseText 1 2) 3 ++ [1]
+
+def parityDFA : DFA Nat :=
+  ⟨2,⟨0,by decide⟩,fun q _=>⟨(q.val+1)%2,by omega⟩,fun q=>q.val==0⟩
+
+def parityDescriptor := Periodic.factorDescriptor parityDFA (fun _=>0) 0 1 0
+#guard (parityDescriptor.map (fun d=>d.threshold,d.period,d.prefix,d.residues)) ==
+  some (0,2,[],[0])
+#guard (parityDescriptor.map (fun d=>d.test 100)) == some true
+#guard (parityDescriptor.map (fun d=>d.test 101)) == some false
+#guard (FiniteOrbit.compress (FiniteRelation.finEnum 3)
+  (fun q : Fin 3 => if q.val==0 then ⟨1,by decide⟩ else ⟨2,by decide⟩)
+  (⟨0,by decide⟩ : Fin 3) (fun q=>q.val==0 || q.val==2)).map
+    (fun d=>(d.threshold,d.period,d.prefix,d.residues)) == some (2,1,[0],[0])
+
+#print axioms REWB.Periodic.fineWilf
+#print axioms REWB.Periodic.overlap_shift_multiple
+#print axioms REWB.Periodic.maximal_equality_run
+#print axioms REWB.Periodic.compress_factor
+#print axioms REWB.Periodic.compressed_dfa
+#print axioms REWB.FiniteOrbit.compress_spec
+#print axioms REWB.FiniteOrbit.descriptor_ap
+#print axioms REWB.Periodic.factorDescriptor_spec
+#print axioms REWB.Periodic.dense_consecutive_gap
+#print axioms REWB.Periodic.separated_cluster_gap
+#print axioms REWB.Periodic.equal_long_factor_same_phase
