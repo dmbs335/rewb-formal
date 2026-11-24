@@ -97,7 +97,8 @@ theorem bound_correct (a : Endpoint) (p n : Nat) (env : List Int) (hp : 0<p) :
     constructor
     · rintro ⟨h0,hle⟩
       have hb := a.cast_block env h0
-      have ht : (a.coordinate env).block≤(n-a.phase)/p := by omega
+      rw [← hb] at hle
+      have ht : (a.coordinate env).block≤(n-a.phase)/p := Int.ofNat_le.mp hle
       have hm := (Nat.le_div_iff_mul_le hp).mp ht
       refine ⟨h0,h.1,?_⟩
       change (a.coordinate env).block*p+a.phase≤n
@@ -106,7 +107,7 @@ theorem bound_correct (a : Endpoint) (p n : Nat) (env : List Int) (hp : 0<p) :
       have hb := a.cast_block env h0
       change (a.coordinate env).block*p+a.phase≤n at hpos
       have ht := (Nat.le_div_iff_mul_le hp).mpr (show (a.coordinate env).block*p≤n-a.phase by omega)
-      exact ⟨h0,by omega⟩
+      exact ⟨h0,by rw [← hb]; exact Int.ofNat_le.mpr ht⟩
   · rw [if_neg h]
     constructor
     · rintro ⟨C,hC,_⟩
@@ -135,6 +136,7 @@ def countExpr (a b : Endpoint) : Aff :=
 theorem count_eval (a b : Endpoint) (env : List Int) :
     (countExpr a b).eval env=b.number env-a.number env-(carry a b:Int) := by
   simp only [countExpr,Aff.eval_sub,Aff.eval,Endpoint.number]
+  rfl
 
 theorem carry_eq (a b : Endpoint) (env : List Int) :
     borrow (a.coordinate env) (b.coordinate env)=carry a b := rfl
@@ -273,6 +275,7 @@ theorem divisible_phase (a b : Endpoint) (env : List Int) (p : Nat)
   obtain ⟨k,hk⟩ := hd
   have he : b.pos p env=a.pos p env+p*k := by omega
   have hm := congrArg (fun x : Nat=>x%p) he
+  change (b.pos p env)%p=(a.pos p env+p*k)%p at hm
   rw [phase_mod b env p hb,Nat.add_mod,Nat.mul_mod,Nat.mod_self,Nat.zero_mul,Nat.zero_mod,
     Nat.add_zero,Nat.mod_mod,phase_mod a env p ha] at hm
   exact hm.symm
@@ -377,6 +380,8 @@ theorem equalityCore_correct [DecidableEq α] (p n : Nat) (f : Nat→α)
       · rw [if_pos ht,both_correct,eq_correct,eq_correct,hA,hC]
         constructor
         · rintro ⟨hm,hk⟩
+          change (m:Int)=0 at hm
+          change (k:Int)=0 at hk
           have hm' : m=0 := by omega
           have hk' : k=0 := by omega
           simp only [hword,hword',hm',hk',Nat.zero_mul,Nat.zero_add]
@@ -384,6 +389,7 @@ theorem equalityCore_correct [DecidableEq α] (p n : Nat) (f : Nat→α)
         · intro he
           have hm := short he hphase
           have hk := (lengths he).1
+          change (m:Int)=0 ∧ (k:Int)=0
           exact ⟨by omega,by omega⟩
       · rw [if_neg ht]
         constructor
