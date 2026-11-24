@@ -117,10 +117,12 @@ theorem extend_run_exact (f : Nat→α) (n : Nat) (R : Bounds)
   have hright := RunExtension.right_spec f p (n-p-i) i
   change l≤i ∧ _ at hleft
   change i≤r ∧ r≤i+(n-p-i) ∧ _ at hright
+  have hLeftEq : ∀ j,l≤j→j<i→f j=f (j+p) := hleft.2.1
+  have hRightEq : ∀ j,i≤j→j<r→f j=f (j+p) := hright.2.2.1
   have heL : l=a := by
     by_cases ht : l=a
     · exact ht
-    · have he : f (a-1)=f (a-1+p) := hleft.2.1 _ (by omega) (by omega)
+    · have he : f (a-1)=f (a-1+p) := hLeftEq _ (by omega) (by omega)
       have hext := on_extend_left f a b p hP (by omega) he
       have hper := (on_iff f (a-1) b p).mp hext
       rw [show b-(a-1)=b-a+1 by omega] at hper
@@ -132,7 +134,7 @@ theorem extend_run_exact (f : Nat→α) (n : Nat) (R : Bounds)
     by_cases ht : r+p=b
     · exact ht
     · have he : f (b-p)=f b := by
-        have hh := hright.2.2.1 (b-p) (by omega) (by omega)
+        have hh := hRightEq (b-p) (by omega) (by omega)
         rw [show b-p+p=b by omega] at hh
         exact hh
       have hext := on_extend_right f a b p hP hp (by omega) he
