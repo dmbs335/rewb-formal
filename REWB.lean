@@ -21,3 +21,4 @@ import REWB.MaskScan
 import REWB.IntervalDFA
 import REWB.SeedBuckets
 import REWB.OuterTables
+import REWB.Integrated
