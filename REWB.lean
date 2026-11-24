@@ -56,3 +56,4 @@ import REWB.CachedPhase
 import REWB.P1Join
 import REWB.ExponentIntervals
 import REWB.IntervalSweep
+import REWB.KeyedJoin
