@@ -13,7 +13,12 @@ def Below (xs : List Int) (x : Int) : Prop := ∀ a,a∈xs→x≤a
 theorem maximum (a : Int) (xs : List Int) :
     ∃ m,m∈a::xs ∧ Above (a::xs) m := by
   induction xs generalizing a with
-  | nil => exact ⟨a,by simp,by intro v hv; have he : v=a := by simpa using hv; subst v; omega⟩
+  | nil =>
+    refine ⟨a,by simp,?_⟩
+    intro v hv
+    have he : v=a := by simpa using hv
+    subst v
+    exact Int.le_refl _
   | cons b bs ih =>
     obtain ⟨m,hm,hmax⟩ := ih b
     by_cases h : a≤m
@@ -32,7 +37,12 @@ theorem maximum (a : Int) (xs : List Int) :
 theorem minimum (a : Int) (xs : List Int) :
     ∃ m,m∈a::xs ∧ Below (a::xs) m := by
   induction xs generalizing a with
-  | nil => exact ⟨a,by simp,by intro v hv; have he : v=a := by simpa using hv; subst v; omega⟩
+  | nil =>
+    refine ⟨a,by simp,?_⟩
+    intro v hv
+    have he : v=a := by simpa using hv
+    subst v
+    exact Int.le_refl _
   | cons b bs ih =>
     obtain ⟨m,hm,hmin⟩ := ih b
     by_cases h : m≤a
