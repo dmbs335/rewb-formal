@@ -28,6 +28,13 @@ Soft-O hides polylogarithmic factors. Constants depend on the fixed pattern.
 - REWB/Reference.lean: executable split-enumeration reference matchers and correctness statements.
 - REWB/MarkedDP.lean: marked-end absorption and single-switch dynamic programming.
 - REWB/TraceFacts.lean: balance and dynamic-use invariants for arbitrary traces.
+- REWB/OuterColumn.lean, REWB/NestedColumns.lean: common-suffix transport and exact nested endpoint reductions.
+- REWB/RangeProducts.lean, REWB/MarkedTransfer.lean, REWB/MatrixTable.lean: executable ordered range products and materialized Boolean transition relations.
+- REWB/DyadicIndex.lean: arbitrary interval index with logarithmic routing, at most one monoid multiplication, and checked construction counts.
+- REWB/LCSTable.lean: quadratic-space common-suffix table with checked comparison count and clipped maximum.
+- REWB/IndexedMarked.lean: P2 indexed query, conditional on its First2 mask.
+- REWB/OrderedExit.lean, REWB/P1Index.lean: P1 two-range indexed query, conditional on its Ready mask.
+- REWB/MaskScan.lean: materialized forward and backward DFA scans, with correctness of Ready and First2 given correct input masks.
 - REWB/Tests.lean: regression examples and theorem dependency reports.
 - audits/: nine Python reference audits.
 - docs/PROOF_MAP.md: proof obligations and dependency map.
@@ -41,14 +48,14 @@ bash scripts/check.sh
 bash scripts/audit.sh
 ```
 
-The starter proof source has not been built in the authoring environment, which lacks Lean/Lake. CI is configured to attempt the build. Check actual CI status rather than treating the theorem declarations as verified. No unresolved proof placeholders or custom axioms should be used to bypass the proof obligations. Python audits are independent finite tests; they do not validate the claimed asymptotic bounds.
+The core modules and both indexed endpoint-query reductions have passed Lean 4.19 kernel checks in GitHub Actions (see the PR and CI history). The reference audits also pass. Check CI for the precise revision. These results do not yet prove a complete quadratic-time matcher or the headline exponent. No unresolved proof placeholders or custom axioms should be used to bypass the proof obligations. Python audits are independent finite tests; they do not validate the claimed asymptotic bounds.
 
 ## Next milestones
 
-1. Pass the initial Lean kernel build.
-2. Extract selected suppliers from arbitrary traces and prove normalization.
-3. Prove the independent quadratic baseline and actual costs.
-4. Verify masked all-start matching, both range indexes, periodic projection, and the concrete word-RAM implementation.
-5. Combine correctness, coverage and cost inequalities into the final theorem.
+1. Implement and verify the outer-copy seed table from the LCS and DFA indices, then connect the two nested indexed queries to a complete matcher.
+2. Verify direct-addressed interval products, actual cost bounds, and the desired space bounds.
+3. Extract selected suppliers from arbitrary traces and prove full normalization.
+4. Verify the subquadratic masked all-start and boundary-aware indexes, periodic projection, and concrete word-RAM implementation.
+5. Combine correctness, coverage and actual cost inequalities into the final theorem.
 
 See [the proof ledger](docs/PROOF_MAP.md).
