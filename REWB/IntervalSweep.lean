@@ -83,18 +83,20 @@ theorem scan_cost (fuel : Nat) (xs ys : List Window) :
   | zero => exact Nat.zero_le _
   | succ k ih =>
     cases xs with
-    | nil => exact Nat.zero_le _
+    | nil => cases ys <;> simp [scan]
     | cons a as =>
       cases ys with
-      | nil => exact Nat.zero_le _
+      | nil => simp [scan]
       | cons b bs =>
         by_cases h : a.hi<b.lo
         · rw [scan,if_pos h]
           have hh := ih as (b::bs)
+          change (scan k as (b::bs)).2+1≤k+1
           omega
         · by_cases h' : b.hi<a.lo
           · rw [scan,if_neg h,if_pos h']
             have hh := ih (a::as) bs
+            change (scan k (a::as) bs).2+1≤k+1
             omega
           · simp [scan,h,h']
 
@@ -146,7 +148,12 @@ theorem prepare_sorted (xs : List Window) : Sorted (prepare xs) := by
       have h1' : a.lo≤b.lo := of_decide_eq_true h1
       have h2' : b.lo≤c.lo := of_decide_eq_true h2
       exact decide_eq_true (Int.le_trans h1' h2'))
-    (fun a b=>by unfold ordered; omega) _
+    (fun a b=>by
+      unfold ordered
+      by_cases h : a.lo≤b.lo
+      · simp [h]
+      · have hh : b.lo≤a.lo := by omega
+        simp [h,hh]) _
 
 theorem prepare_length (xs : List Window) : (prepare xs).length≤xs.length := by
   unfold prepare
