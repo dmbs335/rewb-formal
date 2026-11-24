@@ -302,3 +302,49 @@ example : MatchesWithin starExpr [7,1,1] 1 := by
 #print axioms REWB.LiveLanguage.shape_iff_walk
 #print axioms REWB.LiveCompiler.compile_correct
 #print axioms REWB.LiveCompiler.match_compiled
+
+
+-- Period/phase and finite-orbit compression.
+def twoPhaseText (i : Nat) : Nat := i%2
+
+example : Periodic.Period twoPhaseText 8 2 := by
+  intro i hi
+  unfold twoPhaseText
+  omega
+
+#guard Periodic.segment twoPhaseText 1 7 ==
+  Periodic.repeatWord (Periodic.segment twoPhaseText 1 2) 3 ++ [1]
+
+def parityDFA : DFA Nat :=
+  ⟨2,⟨0,by decide⟩,fun q _=>⟨(q.val+1)%2,by omega⟩,fun q=>q.val==0⟩
+
+def parityDescriptor := Periodic.factorDescriptor parityDFA (fun _=>0) 0 1 0
+#guard (parityDescriptor.map (fun d=>(d.threshold,d.period,d.initialCounts,d.residues))) ==
+  some (0,2,[],[0])
+#guard (parityDescriptor.map (fun d=>d.test 100)) == some true
+#guard (parityDescriptor.map (fun d=>d.test 101)) == some false
+#guard (FiniteOrbit.compress (FiniteRelation.finEnum 3)
+  (fun q : Fin 3 => if q.val==0 then ⟨1,by decide⟩ else ⟨2,by decide⟩)
+  (⟨0,by decide⟩ : Fin 3) (fun q=>q.val==0 || q.val==2)).map
+    (fun d=>(d.threshold,d.period,d.initialCounts,d.residues)) == some (2,1,[0],[0])
+
+#print axioms REWB.Periodic.fineWilf
+#print axioms REWB.Periodic.overlap_shift_multiple
+#print axioms REWB.Periodic.maximal_equality_run
+#print axioms REWB.Periodic.compress_factor
+#print axioms REWB.Periodic.compressed_dfa
+#print axioms REWB.FiniteOrbit.compress_spec
+#print axioms REWB.FiniteOrbit.descriptor_ap
+#print axioms REWB.Periodic.factorDescriptor_spec
+#print axioms REWB.Periodic.dense_consecutive_gap
+#print axioms REWB.Periodic.separated_cluster_gap
+#print axioms REWB.Periodic.equal_long_factor_same_phase
+
+
+#print axioms REWB.Periodic.coordinate_length
+#print axioms REWB.Periodic.coordinate_descriptor
+#print axioms REWB.Periodic.factor_equality
+#print axioms REWB.Periodic.regularCode_iff
+#print axioms REWB.Periodic.equalityCode_iff
+#print axioms REWB.Periodic.system_iff
+#print axioms REWB.Periodic.contextual_accepts

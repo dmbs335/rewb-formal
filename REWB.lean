@@ -32,3 +32,9 @@ import REWB.PrunedSkeletons
 import REWB.LiveLanguage
 import REWB.LiveCompiler
 import REWB.CodeInterpretation
+import REWB.Periodic
+import REWB.PeriodicFactor
+import REWB.FiniteOrbit
+import REWB.ClusterGeometry
+import REWB.PeriodicCoordinates
+import REWB.PeriodicSystem

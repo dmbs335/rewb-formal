@@ -64,3 +64,25 @@ The following implementation modules passed the Lean 4.19 kernel and reference-a
 - MaskScan.forward_correct and first2Row_correct: seeded forward DFA scans and P2's First2 marks, **given the correct seeds or Ready bits**.
 
 The next executable integration must construct the outer seeds from the LCS table, G transition queries and H suffix acceptance; generate all outer columns and Ready bits; then build the indexed query masks for each t and enumerate (a,t). The P1 and P2 endpoint reductions are unconditional, but the indexed implementations still have these explicit input-mask hypotheses. The current dyadic query routing is logarithmic, and the LCS table uses quadratic storage. No complete time/space bound or final strongly subquadratic theorem is asserted.
+
+
+## Verified block matchers and trace compiler
+
+PR #7 (run 45403444877) checks both complete BlockMatcher matchers, the microblock dictionary, and direct-addressed block query correctness. The O(n²) algorithmic analysis assumes a conventional fixed-word RAM with constant-size finite-state matrices. A complete machine-level proof is open.
+
+PR #8 (run 45408509241) proves backward capture liveness, the at-most-3k control-symbol bound, and an exact regular-syntax compiler plus trace-code interpreter. This is not yet the full finite union of concrete DFA normal forms; DFA closure/construction, fixed-marker factor decomposition and classification including empty/unset initial captures remain to be connected.
+
+## Periodic core (PR #9)
+
+The Lean and audit jobs at commit 624c2c4c407258d25499b8ca6c3ccc878fcf7418 (run 45410262387) passed for:
+
+- Periodic.fineWilf: the sharp threshold, proved by Euclidean subtraction.
+- Periodic.overlap_shift_multiple and maximal_equality_run: divisibility of the displacement by the minimum period and maximal-run geometry.
+- Periodic.compress_factor and compressed_dfa: exact phase block, repetition count and residual decomposition.
+- FiniteOrbit.compress_spec, descriptor_ap and Periodic.factorDescriptor_spec: executable cycle detection and a finite exceptional prefix plus residue classes, with threshold + cycle bounded by the state count. The descriptor concerns one fixed phase and residual; its current constructor may scan the phase block. An accelerated implementation should reuse precomputed transition tables rather than charge an unproved O(1) construction per factor.
+- Periodic.dense_consecutive_gap, separated_cluster_gap and equal_long_factor_same_phase: local dense-cluster geometry and the long-factor equality phase restriction.
+- PeriodicCoordinates: quotient/phase coordinates, borrow, length formula and regular factor descriptor.
+
+PeriodicSystem extends this to simultaneous regular/equality atoms on shared coordinates. Check its precise CI revision. The semantic reduction is not the integer feasibility/projection algorithm.
+
+Remaining: instantiate the compact system for every P1/P2 run case; handle external P1 sources; prove effective fixed-coefficient Presburger projection and source joins; construct and count runs and primitive-square occurrences; certify global mask-cluster maintenance and amortization. The proposed exponent n^(25/13) is still not a theorem of the library.
