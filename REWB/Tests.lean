@@ -348,3 +348,50 @@ def parityDescriptor := Periodic.factorDescriptor parityDFA (fun _=>0) 0 1 0
 #print axioms REWB.Periodic.equalityCode_iff
 #print axioms REWB.Periodic.system_iff
 #print axioms REWB.Periodic.contextual_accepts
+
+
+-- Integer projection. No enumeration of the numeric RHS range.
+namespace ProjectionRegression
+open REWB.AffineProjection
+
+def evenEquation (v : Int) : Formula :=
+  [[.le ((Aff.scale 2 (.var 0)).sub (.lit v)),
+    .le ((Aff.lit v).sub (.scale 2 (.var 0)))]]
+#guard solve 1 (evenEquation 1000000) [] == true
+#guard solve 1 (evenEquation 1000001) [] == false
+#guard solve 1 (evenEquation (-1000000)) [] == true
+#guard solve 1 (evenEquation (-1000001)) [] == false
+
+def upperOnly : Formula :=
+  [[.le (.add (.var 0) (.lit 1000000)),
+    .dvd 3 ((Aff.var 0).sub (.lit 1))]]
+#guard solve 1 upperOnly [] == true
+
+def relation : Formula :=
+  [[.le (((Aff.var 0).sub (.var 1)).sub (.lit 1)),
+    .le ((Aff.lit 1).sub ((Aff.var 0).sub (.var 1))),
+    .dvd 2 (.var 0)]]
+def projected : Formula := project 1 relation
+#guard decideFormula projected [2] == false
+#guard decideFormula projected [3] == true
+#guard decideFormula projected [-3] == true
+
+def demoDescriptor : FiniteOrbit.Descriptor := ⟨2,3,[1],[1]⟩
+def demoFormula := descriptorFormula demoDescriptor (.var 0)
+#guard decideFormula demoFormula [1] == true
+#guard decideFormula demoFormula [2] == false
+#guard decideFormula demoFormula [3] == true
+#guard decideFormula demoFormula [6] == true
+#guard decideFormula demoFormula [7] == false
+
+end ProjectionRegression
+
+#print axioms REWB.IntegerProjection.finite_elimination
+#print axioms REWB.IntegerProjection.candidates_length
+#print axioms REWB.AffineProjection.Norm.eliminate_correct
+#print axioms REWB.AffineProjection.Norm.eliminate_length
+#print axioms REWB.AffineProjection.normalize_correct
+#print axioms REWB.AffineProjection.eliminateConj_correct
+#print axioms REWB.AffineProjection.project_correct
+#print axioms REWB.AffineProjection.solve_correct
+#print axioms REWB.AffineProjection.descriptorFormula_correct
