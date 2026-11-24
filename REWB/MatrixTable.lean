@@ -22,7 +22,7 @@ def read (data : List (Cell S)) : Rel S :=
 theorem rows_length (xs ys : List S) (r : Rel S) :
     (rows xs ys r).length = xs.length * ys.length := by
   induction xs with
-  | nil => rfl
+  | nil => simp [rows]
   | cons p xs ih =>
     change ((ys.map (fun q => (p,q,r p q))) ++ rows xs ys r).length =
       (xs.length+1)*ys.length
