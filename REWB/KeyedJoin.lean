@@ -79,7 +79,7 @@ theorem records_mem (K N : Nat) (E : Entry) (W : Window) :
     obtain ⟨s,hs,hm⟩ := List.mem_flatMap.mp hm
     obtain ⟨J,hJ,hj⟩ := List.mem_map.mp hm
     cases hj
-    exact ⟨s,List.mem_range.mp hs,J,hJ,he⟩
+    exact ⟨r,List.mem_range.mp hs,I,hJ,he⟩
   · rintro ⟨r,hr,I,hI,rfl⟩
     exact List.mem_map.mpr ⟨(r,I),List.mem_flatMap.mpr
       ⟨r,List.mem_range.mpr hr,List.mem_map.mpr ⟨I,hI,rfl⟩⟩,rfl⟩
