@@ -21,7 +21,7 @@ theorem normalizeAtom_free (D : Nat) (a : Atom) : Good (normalizeAtom D a).free 
     unfold normalizeAtom at hx
     dsimp only at hx
     split at hx
-    · simp only [List.mem_cons,List.mem_nil,false_or] at hx
+    · simp at hx
       subst x
       trivial
     · split at hx <;> simp at hx
