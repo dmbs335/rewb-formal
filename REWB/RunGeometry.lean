@@ -47,7 +47,7 @@ theorem on_extend_right (f : Nat→α) (l r p : Nat)
   · exact h i hi hlt
   · have h1 : i=r-p := by omega
     have h2 : i+p=r := by omega
-    rw [h1,h2]
+    rw [h1,show r-p+p=r by omega]
     exact he
 
 /-- A length >= 2p factor of a least-period-p interval also has
@@ -164,7 +164,7 @@ theorem unique_overlap (f : Nat→α) (n l r a b p : Nat)
       have hx := on_extend_right f l b p hQ hp hl he
       have hy := (on_iff f l (b+1) p).mp hx
       rw [show b+1-l=b-l+1 by have hh := h2.1; omega] at hy
-      rcases h2.2.2.2.2 with hz|hz
+      rcases h2.2.2.2.2.2 with hz|hz
       · have hh := h1.2.1
         omega
       · exact False.elim (hz hy)
