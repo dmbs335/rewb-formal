@@ -65,3 +65,4 @@ import REWB.RunExtension
 import REWB.GridCoverage
 import REWB.ThreeSquares
 import REWB.RunBudget
+import REWB.PeriodicBudgets
