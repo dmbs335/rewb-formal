@@ -28,3 +28,4 @@ import REWB.Microblock
 import REWB.BlockIndex
 import REWB.BlockMatcher
 import REWB.Periodic
+import REWB.PeriodicFactor
