@@ -63,3 +63,4 @@ import REWB.OfflineJoin
 import REWB.RunGeometry
 import REWB.RunExtension
 import REWB.GridCoverage
+import REWB.ThreeSquares
