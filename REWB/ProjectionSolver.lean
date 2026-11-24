@@ -130,7 +130,7 @@ theorem Atom.test_correct (a : Atom) (env : List Int) (h : a.good) :
   | dvd m a =>
     change (decide (a.eval env%(m:Int)=0)=true) ↔ (m:Int)∣a.eval env
     rw [decide_eq_true_eq]
-    exact (Int.dvd_iff_emod_eq_zero _ _).symm
+    exact Int.dvd_iff_emod_eq_zero.symm
 
 def decideFormula (F : Formula) (env : List Int) : Bool :=
   F.any (fun C=>C.all (Atom.test env))
