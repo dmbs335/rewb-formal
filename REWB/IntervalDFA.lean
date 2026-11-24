@@ -107,7 +107,7 @@ def countedBuild (d : DFA α) (w : Word α) :
 
 theorem countedBuild_correct (d : DFA α) (w : Word α) :
     (countedBuild d w).1=build d w := by
-  unfold countedBuild build
+  change ((countedRows d w).1.map List.toArray).toArray = (rows d w).map List.toArray |>.toArray
   rw [countedRows_correct]
 
 theorem countedBuild_cost (d : DFA α) (w : Word α) :
