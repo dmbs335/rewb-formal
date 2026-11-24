@@ -22,3 +22,4 @@ import REWB.IntervalDFA
 import REWB.SeedBuckets
 import REWB.OuterTables
 import REWB.Integrated
+import REWB.EndpointCounts
