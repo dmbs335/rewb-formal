@@ -194,7 +194,7 @@ theorem split_cover (d : DFA α) (w : Word α) (N c : Nat) (es fs : List TimedEn
       · exact Or.inl ⟨e,List.mem_filter.mpr ⟨he,by simp [h1]⟩,
           f,List.mem_filter.mpr ⟨hf,by simp [h2]⟩,horder,hn,hkey,hc,m,hm,hS,hT⟩
       · exact Or.inr (Or.inr ⟨e,List.mem_filter.mpr ⟨he,by simp [h1]⟩,
-          f,List.mem_filter.mpr ⟨hf,by have : c≤f.pos := by omega; simp [this]⟩,
+          f,List.mem_filter.mpr ⟨hf,by exact decide_eq_true (show c≤f.pos by omega)⟩,
           horder,hn,hkey,hc,m,hm,hS,hT⟩)
     · have h2 : c≤f.pos := by omega
       have h3 : c≤e.pos := by omega
