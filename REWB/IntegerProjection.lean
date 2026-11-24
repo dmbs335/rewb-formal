@@ -13,7 +13,7 @@ def Below (xs : List Int) (x : Int) : Prop := ∀ a,a∈xs→x≤a
 theorem maximum (a : Int) (xs : List Int) :
     ∃ m,m∈a::xs ∧ Above (a::xs) m := by
   induction xs generalizing a with
-  | nil => exact ⟨a,by simp,by intro v hv; simpa using hv⟩
+  | nil => exact ⟨a,by simp,by intro v hv; have he : v=a := by simpa using hv; subst v; omega⟩
   | cons b bs ih =>
     obtain ⟨m,hm,hmax⟩ := ih b
     by_cases h : a≤m
@@ -32,7 +32,7 @@ theorem maximum (a : Int) (xs : List Int) :
 theorem minimum (a : Int) (xs : List Int) :
     ∃ m,m∈a::xs ∧ Below (a::xs) m := by
   induction xs generalizing a with
-  | nil => exact ⟨a,by simp,by intro v hv; simpa using hv⟩
+  | nil => exact ⟨a,by simp,by intro v hv; have he : v=a := by simpa using hv; subst v; omega⟩
   | cons b bs ih =>
     obtain ⟨m,hm,hmin⟩ := ih b
     by_cases h : m≤a
@@ -64,12 +64,14 @@ theorem dvd_guard (K m a b : Int) (h : m∣K) :
   have he : a*(x+K*z)+b=(a*x+b)+a*(K*z) := by
     rw [Int.mul_add]
     omega
+  change (m∣a*(x+K*z)+b) ↔ m∣a*x+b
   rw [he,Int.dvd_add_left hd]
 
 theorem and_guard (K : Int) (P Q : Int→Prop)
     (hp : ShiftInvariant K P) (hq : ShiftInvariant K Q) :
     ShiftInvariant K (fun x=>P x ∧ Q x) := by
   intro x z
+  change (P (x+K*z) ∧ Q (x+K*z)) ↔ P x ∧ Q x
   rw [hp,hq]
 
 theorem emod_range (x : Int) (K : Nat) (hK : 0<K) :
@@ -154,7 +156,7 @@ theorem eliminate_empty (hi : List Int) (K : Nat) (hK : 0<K)
     depends only on the common congruence period, not on the bounds. -/
 def candidates (lo : List Int) (K : Nat) : List Int :=
   if lo.isEmpty then (List.range K).map Int.ofNat
-  else lo.flatMap (fun l=>(List.range K).map (fun r=>l+(r:Int)))
+  else lo.flatMap (fun l=>(List.range K).map (fun r : Nat=>l+(r:Int)))
 
 def feasible (lo hi : List Int) (P : Int→Prop) (x : Int) : Prop :=
   Above lo x ∧ Below hi x ∧ P x
@@ -178,7 +180,7 @@ theorem finite_elimination (lo hi : List Int) (K : Nat) (hK : 0<K)
   | cons l ls =>
     unfold feasible
     rw [eliminate_nonempty (l::ls) hi K hK P hP (by simp)]
-    simp only [candidates,List.isEmpty_cons,if_false,List.mem_flatMap,List.mem_map,List.mem_range]
+    simp only [candidates,List.isEmpty_cons,Bool.false_eq_true,if_false,List.mem_flatMap,List.mem_map,List.mem_range]
     constructor
     · rintro ⟨a,ha,r,hr,h1,h2,h3⟩
       exact ⟨a+r,⟨a,ha,r,hr,rfl⟩,h1,h2,h3⟩
@@ -188,7 +190,7 @@ theorem finite_elimination (lo hi : List Int) (K : Nat) (hK : 0<K)
 theorem candidates_length (lo : List Int) (K : Nat) :
     (candidates lo K).length=(max 1 lo.length)*K := by
   have aux : ∀ xs : List Int,
-      (xs.flatMap (fun l=>(List.range K).map (fun r=>l+(r:Int)))).length=xs.length*K := by
+      (xs.flatMap (fun l=>(List.range K).map (fun r : Nat=>l+(r:Int)))).length=xs.length*K := by
     intro xs
     induction xs with
     | nil => simp
@@ -199,7 +201,7 @@ theorem candidates_length (lo : List Int) (K : Nat) :
   cases lo with
   | nil => simp [candidates]
   | cons l ls =>
-    simp only [candidates,List.isEmpty_cons,if_false,aux]
+    simp only [candidates,List.isEmpty_cons,Bool.false_eq_true,if_false,aux]
     rw [Nat.max_eq_right (by simp)]
 
 end REWB.IntegerProjection
