@@ -9,3 +9,6 @@ import REWB.MarkedDP
 import REWB.TraceFacts
 import REWB.OuterColumn
 import REWB.NestedColumns
+import REWB.RangeProducts
+import REWB.MarkedTransfer
+import REWB.MatrixTable

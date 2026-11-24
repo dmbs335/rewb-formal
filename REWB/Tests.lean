@@ -78,3 +78,25 @@ example : OuterColumn.maxCommon ([1,2,3,4] : Word Nat) 2 4 2 = 0 := by decide
 #print axioms REWB.OuterColumn.anchored_iff
 #print axioms REWB.OuterColumn.active_succ
 #print axioms REWB.OuterColumn.column_correct
+
+-- The terminal mark is independent of the characters inside the queried slice.
+example : MarkedTransfer.queryMarkedCut nonEmpty nonEmpty false
+    (MarkedTransfer.buildMarkedCut nonEmpty nonEmpty
+      [(1,false)] [(2,true)]).1 0 2 (.inl nonEmpty.initial) = some true := by decide
+example : MarkedTransfer.queryMarkedCut nonEmpty nonEmpty false
+    (MarkedTransfer.buildMarkedCut nonEmpty nonEmpty
+      [(1,true)] [(2,false)]).1 0 2 (.inl nonEmpty.initial) = some false := by decide
+example : MarkedTransfer.queryMarkedCut onlyEmpty onlyEmpty true
+    (MarkedTransfer.buildMarkedCut onlyEmpty onlyEmpty [] []).1
+      0 0 (.inl onlyEmpty.initial) = some true := by decide
+example : MarkedTransfer.queryMarkedCut onlyEmpty onlyEmpty false
+    (MarkedTransfer.buildMarkedCut onlyEmpty onlyEmpty [] []).1
+      0 0 (.inl onlyEmpty.initial) = some false := by decide
+#print axioms REWB.NestedColumns.nested1_reduced
+#print axioms REWB.NestedColumns.nested2_reduced
+#print axioms REWB.RangeProducts.queryCut_correct
+#print axioms REWB.RangeProducts.cut_cost
+#print axioms REWB.FiniteRelation.comp_assoc
+#print axioms REWB.MarkedTransfer.run_correct
+#print axioms REWB.MatrixTable.denote_product
+#print axioms REWB.MarkedTransfer.queryMarkedCut_switch
