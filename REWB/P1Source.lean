@@ -47,6 +47,7 @@ theorem formula_good (P : SevenDFA α) (s : Nat→α) (n q a phase rho : Nat)
     (pre gap : Word α) (h : Period s n q) :
     FormulaGood (formula P s n q a phase rho pre gap) := by
   unfold formula
+  dsimp only
   split
   · exact both_good _ _ (regularFormula_good _ _ _ _ _ _ h) (orderFormula_good _ _ _ _)
   · intro C hC
