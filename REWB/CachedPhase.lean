@@ -145,7 +145,7 @@ theorem constraints_good (P : SevenDFA α) (s : Nat→α) (q n : Nat)
   intro c hc
   simp only [constraints,List.mem_cons] at hc
   rcases hc with h|h|h|h|h|h|h|h|h|h
-  all_goals first | (subst c; rfl) | (simp at h)
+  all_goals first | (subst c; exact True.intro) | (subst c; rfl) | (simp at h)
 
 theorem forget_constraints (P : SevenDFA α) (q n : Nat) (pre post : Word α)
     (I : Shared P pre post) (L : P2Periodic.Layout Endpoint) :
