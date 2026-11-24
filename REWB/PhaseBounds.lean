@@ -44,7 +44,7 @@ theorem eq_length (a b : Aff) : (eq a b).length=1 := rfl
 theorem bound_length (a : Endpoint) (q n : Nat) : (a.bound q n).length≤1 := by
   unfold Endpoint.bound
   split
-  · simp only [both_length,le_length]
+  · simp [both_length,le_length]
   · simp
 
 theorem order_length (q n : Nat) (a b : Endpoint) : (orderFormula q n a b).length≤1 := by
