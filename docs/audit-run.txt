@@ -1,0 +1,15 @@
+=== rewb_nested_quadratic.py ===
+exit status: 124
+=== rewb_boundary_index_audit.py ===
+fixed-source-end queries 6690 fixed-target-start queries 6513 separated endpoint bits 1081 boundary queries 4000 positive 209
+exit status: 0
+=== rewb_masked_cluster_audit.py ===
+masked cross-cluster families 7922 shortened 4422 positive 448 masked periodic cases 3500
+exit status: 0
+=== rewb_p1_periodic_audit.py ===
+{'short_cases': 420, 'short_positive': 80, 'periodic_cases': 423, 'periodic_positive': 61, 'nonempty_source_records': 678, 'short_target_records': 1081, 'long_target_records': 83}
+exit status: 0
+=== rewb_nested_quadratic.py (second run, 12-second limit) ===
+nested comparisons: [2516, 2516] positive: [469, 419]
+outer columns: 8006 LCS entries: 82230 range products: 10000
+exit status: 0

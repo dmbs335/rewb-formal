@@ -1,0 +1,1 @@
+Authoring runtime: Lean/Lake unavailable. Local kernel check was not completed (lake not found). GitHub Actions is the first attempted remote build; inspect the run status.

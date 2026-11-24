@@ -1,0 +1,6 @@
+name = "rewb_formal"
+version = "0.1.0"
+defaultTargets = ["REWB"]
+
+[[lean_lib]]
+name = "REWB"
