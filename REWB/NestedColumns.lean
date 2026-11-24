@@ -110,6 +110,7 @@ theorem first2_active (P : SevenDFA α) (w : Word α) (i t : Nat) :
 private theorem equal_prefix {x y z v : Word α}
     (h : x ++ y = z ++ v) (hlen : x.length = z.length) : x = z := by
   have hx := congrArg (fun t : Word α => t.take x.length) h
+  change (x ++ y).take x.length = (z ++ v).take x.length at hx
   rw [take_prefix] at hx
   rw [hlen,take_prefix] at hx
   exact hx
@@ -242,48 +243,48 @@ theorem nested1_iff_endpoints (P : SevenDFA α) (w : Word α) :
     have s0 : slice w 0 i = a0 := by
       apply slice_at w ([]) (a0) (u ++ c ++ d ++ u ++ ff ++ gg ++ (d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s1 : slice w i a = u := by
       apply slice_at w (a0) (u) (c ++ d ++ u ++ ff ++ gg ++ (d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s2 : slice w a p = c := by
       apply slice_at w (a0 ++ u) (c) (d ++ u ++ ff ++ gg ++ (d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s3 : slice w p j = d := by
       apply slice_at w (a0 ++ u ++ c) (d) (u ++ ff ++ gg ++ (d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s4 : slice w j t = u := by
       apply slice_at w (a0 ++ u ++ c ++ d) (u) (ff ++ gg ++ (d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s5 : slice w t e = ff := by
       apply slice_at w (a0 ++ u ++ c ++ d ++ u) (ff) (gg ++ (d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s6 : slice w e k = gg := by
       apply slice_at w (a0 ++ u ++ c ++ d ++ u ++ ff) (gg) ((d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s7 : slice w k f = (d ++ u ++ ff) := by
       apply slice_at w (a0 ++ u ++ c ++ d ++ u ++ ff ++ gg) ((d ++ u ++ ff)) (hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s8 : slice w f w.length = hh := by
       apply slice_at w (a0 ++ u ++ c ++ d ++ u ++ ff ++ gg ++ (d ++ u ++ ff)) (hh) ([])
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · rw [hn]; dsimp [i,a,p,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · rw [hn] <;> (try dsimp [i,a,p,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have sv : slice w p e = (d ++ u ++ ff) := by
       rw [OuterColumn.slice_split w p j e (by dsimp [i,a,p,j,t,e,k,f]; omega) (by dsimp [i,a,p,j,t,e,k,f]; omega)]
       rw [OuterColumn.slice_split w j t e (by dsimp [i,a,p,j,t,e,k,f]; omega) (by dsimp [i,a,p,j,t,e,k,f]; omega)]
@@ -356,48 +357,48 @@ theorem nested2_iff_endpoints (P : SevenDFA α) (w : Word α) :
     have s0 : slice w 0 p = a0 := by
       apply slice_at w ([]) (a0) (b ++ u ++ d ++ u ++ ff ++ gg ++ (b ++ u ++ d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s1 : slice w p i = b := by
       apply slice_at w (a0) (b) (u ++ d ++ u ++ ff ++ gg ++ (b ++ u ++ d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s2 : slice w i a = u := by
       apply slice_at w (a0 ++ b) (u) (d ++ u ++ ff ++ gg ++ (b ++ u ++ d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s3 : slice w a j = d := by
       apply slice_at w (a0 ++ b ++ u) (d) (u ++ ff ++ gg ++ (b ++ u ++ d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s4 : slice w j t = u := by
       apply slice_at w (a0 ++ b ++ u ++ d) (u) (ff ++ gg ++ (b ++ u ++ d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s5 : slice w t e = ff := by
       apply slice_at w (a0 ++ b ++ u ++ d ++ u) (ff) (gg ++ (b ++ u ++ d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s6 : slice w e k = gg := by
       apply slice_at w (a0 ++ b ++ u ++ d ++ u ++ ff) (gg) ((b ++ u ++ d ++ u ++ ff) ++ hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s7 : slice w k f = (b ++ u ++ d ++ u ++ ff) := by
       apply slice_at w (a0 ++ b ++ u ++ d ++ u ++ ff ++ gg) ((b ++ u ++ d ++ u ++ ff)) (hh)
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have s8 : slice w f w.length = hh := by
       apply slice_at w (a0 ++ b ++ u ++ d ++ u ++ ff ++ gg ++ (b ++ u ++ d ++ u ++ ff)) (hh) ([])
       · rw [hw]; simp only [List.append_assoc, List.nil_append, List.append_nil]
-      · dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
-      · rw [hn]; dsimp [p,i,a,j,t,e,k,f] <;> simp only [List.length_append, List.length_nil] <;> omega
+      · (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
+      · rw [hn] <;> (try dsimp [p,i,a,j,t,e,k,f]) <;> (try simp only [List.length_append, List.length_nil]) <;> omega
     have sv : slice w p e = (b ++ u ++ d ++ u ++ ff) := by
       rw [OuterColumn.slice_split w p i e (by dsimp [p,i,a,j,t,e,k,f]; omega) (by dsimp [p,i,a,j,t,e,k,f]; omega)]
       rw [OuterColumn.slice_split w i a e (by dsimp [p,i,a,j,t,e,k,f]; omega) (by dsimp [p,i,a,j,t,e,k,f]; omega)]
