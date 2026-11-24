@@ -22,7 +22,7 @@ def Window.has (I : Window) (x : Int) : Prop := I.lo ≤ x ∧ x ≤ I.hi
 def empty : Window := ⟨1,0⟩
 
 theorem empty_has (x : Int) : ¬empty.has x := by
-  unfold empty Window.has
+  change ¬((1:Int)≤x ∧ x≤0)
   omega
 
 def Window.meet (I J : Window) : Window :=
