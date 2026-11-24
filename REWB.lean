@@ -14,3 +14,4 @@ import REWB.MarkedTransfer
 import REWB.MatrixTable
 import REWB.DyadicIndex
 import REWB.LCSTable
+import REWB.IndexedMarked
