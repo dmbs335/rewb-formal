@@ -34,7 +34,12 @@ theorem reachEnd_correct (d : DFA α) (terminal : Bool)
     · rintro ⟨hm,hq⟩
       exact ⟨[],[],rfl,hm,hq⟩
     · rintro ⟨pre,suf,he,hm,hq⟩
-      cases pre <;> cases suf <;> simp_all [text, markAtHead, DFA.run]
+      cases pre with
+      | nil =>
+        have hs : ([] : MarkedWord α) = suf := he
+        subst suf
+        exact ⟨hm,hq⟩
+      | cons x xs => cases he
   | cons x xs ih =>
     rcases x with ⟨c,m⟩
     simp only [reachEnd, Bool.or_eq_true, Bool.and_eq_true, ih]
@@ -90,7 +95,12 @@ theorem canSwitch_correct (d b : DFA α) (terminal : Bool)
     · rintro ⟨⟨hm,hq⟩,hb⟩
       exact ⟨[],[],rfl,hm,hq,hb⟩
     · rintro ⟨pre,suf,he,hm,hq,hb⟩
-      cases pre <;> cases suf <;> simp_all [text, markAtHead, DFA.run, DFA.accepts]
+      cases pre with
+      | nil =>
+        have hs : ([] : MarkedWord α) = suf := he
+        subst suf
+        exact ⟨⟨hm,hq⟩,hb⟩
+      | cons x xs => cases he
   | cons x xs ih =>
     rcases x with ⟨c,m⟩
     simp only [summarize, Bool.or_eq_true, Bool.and_eq_true,
