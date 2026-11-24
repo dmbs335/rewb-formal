@@ -339,3 +339,12 @@ def parityDescriptor := Periodic.factorDescriptor parityDFA (fun _=>0) 0 1 0
 #print axioms REWB.Periodic.dense_consecutive_gap
 #print axioms REWB.Periodic.separated_cluster_gap
 #print axioms REWB.Periodic.equal_long_factor_same_phase
+
+
+#print axioms REWB.Periodic.coordinate_length
+#print axioms REWB.Periodic.coordinate_descriptor
+#print axioms REWB.Periodic.factor_equality
+#print axioms REWB.Periodic.regularCode_iff
+#print axioms REWB.Periodic.equalityCode_iff
+#print axioms REWB.Periodic.system_iff
+#print axioms REWB.Periodic.contextual_accepts
