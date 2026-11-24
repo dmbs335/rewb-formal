@@ -126,7 +126,8 @@ theorem suffixCells_eq (d : DFA α) (w : Word α) :
   | nil => simp [suffixCells]
   | cons c cs ih =>
     change d.stateCount+suffixCells d cs=(cs.length+1+1)*d.stateCount
-    rw [ih,Nat.add_mul,Nat.one_mul]
+    rw [ih]
+    simp only [Nat.add_mul,Nat.one_mul]
     omega
 
 end REWB.DFACut
