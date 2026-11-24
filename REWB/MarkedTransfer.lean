@@ -239,8 +239,8 @@ theorem run_left (d b : DFA α) (terminal : Bool) (w : MarkedDP.MarkedWord α)
   | cons x xs ih =>
     rcases x with ⟨c,m⟩
     rw [run_cons,epsilon_left]
-    change run d b terminal xs (.inl (d.step q c)) ||
-      ((m && d.final q) && run d b terminal xs (.inr (b.step b.initial c))) =
+    change (run d b terminal xs (.inl (d.step q c)) ||
+      ((m && d.final q) && run d b terminal xs (.inr (b.step b.initial c)))) =
         (((m && d.final q) &&
           (MarkedDP.summarize d b terminal xs).suffixAccept (b.step b.initial c)) ||
           (MarkedDP.summarize d b terminal xs).canSwitch (d.step q c))
