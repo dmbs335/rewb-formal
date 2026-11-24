@@ -260,3 +260,45 @@ def exactBlockCol := BlockIndex.buildColumn wordOps exactBlockSample markTwo
 #print axioms REWB.BlockIndex.query_correct
 #print axioms REWB.BlockMatcher.match1_correct
 #print axioms REWB.BlockMatcher.match2_correct
+
+
+-- Backward liveness through overwrite, nesting, and a repeated capture.
+def overwritePlan : Plan Nat :=
+  .seq (.cap (.literal [7]))
+    (.seq (.cap (.literal [1])) (.seq (.cap (.seq .recall (.literal [2]))) .recall))
+
+#guard (overwritePlan.prune false).2.caps == 2
+#guard (overwritePlan.prune false).2.refs == 2
+#guard (overwritePlan.prune false).2.eval [] == overwritePlan.eval []
+-- In this example the outgoing value also happens to be unchanged,
+-- because the last event reads the last retained capture.
+#guard ((overwritePlan.prune false).2.code.filterMap controlOf).length == 6
+
+def starExpr : Expr Nat := .star (.capture (.atom allWords)) ⋙ .reference
+def starPlan : Plan Nat :=
+  .seq (.seq (.cap (.literal [7])) (.seq (.cap (.literal [1])) .nil)) .recall
+
+theorem starPlan_derivation : PlanOf starExpr starPlan := by
+  exact .seq (.starCons (.capture (.atom allWords [7] (by decide)))
+    (.starCons (.capture (.atom allWords [1] (by decide))) (.starNil _))) .reference
+
+#guard (starPlan.prune false).2.caps == 1
+#guard (starPlan.prune false).2.eval [] == ([7,1,1],[1])
+
+example : LiveCompiler.denote (LiveCompiler.compiled starExpr)
+    [.inl 7,.inr .openCap,.inl 1,.inr .closeCap,.inr .recall] := by
+  apply (LiveCompiler.compiled_correct _ _).mpr
+  exact ⟨false,starPlan,starPlan_derivation,rfl,rfl⟩
+
+example : MatchesWithin starExpr [7,1,1] 1 := by
+  apply (matches_iff_plan _ _ _).mpr
+  exact ⟨starPlan,starPlan_derivation,by decide,rfl⟩
+
+#print axioms REWB.Plan.execute_events
+#print axioms REWB.Plan.prune_eval
+#print axioms REWB.Plan.prune_budget
+#print axioms REWB.matches_iff_pruned
+#print axioms REWB.matches_iff_skeletons
+#print axioms REWB.LiveLanguage.shape_iff_walk
+#print axioms REWB.LiveCompiler.compile_correct
+#print axioms REWB.LiveCompiler.match_compiled
