@@ -53,7 +53,7 @@ theorem route_bound (h n l r : Nat) :
     (route h n l r).addr+1 < 2^(h+1) ∧
       (route h n l r).visits≤h+1 := by
   induction h generalizing n l r with
-  | zero => decide
+  | zero => simp [route]
   | succ h ih =>
     let c := min (2^h) n
     let p := if r≤c then
@@ -200,10 +200,9 @@ theorem query_correct (o : Ops M) (xs : List M) (l r : Nat)
       some (product o (slice xs l r)) := by
   unfold query
   rw [lookupRoute_correct xs.length l r (by omega) hr]
-  change (((flatten (DyadicIndex.buildFor o xs).1).toArray
-    [(route (DyadicIndex.heightFor xs.length) xs.length l r).addr]?).bind
-    (fun e=>eval o e (route (DyadicIndex.heightFor xs.length) xs.length l r).lo
-      (route (DyadicIndex.heightFor xs.length) xs.length l r).hi))=_
+  let p := route (DyadicIndex.heightFor xs.length) xs.length l r
+  change (((flatten (DyadicIndex.buildFor o xs).1).toArray)[p.addr]?).bind
+    (fun e=>eval o e p.lo p.hi) = _
   rw [List.getElem?_toArray]
   change listQuery o (flatten (DyadicIndex.build o (DyadicIndex.heightFor xs.length) xs).1)
     (route (DyadicIndex.heightFor xs.length) xs.length l r)=_
