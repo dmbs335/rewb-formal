@@ -78,7 +78,7 @@ theorem coordinate_length (p : Nat) (a b : Coord)
   · simp only [residual,he,if_true,borrow,Nat.zero_mul,Nat.add_zero] at hm ⊢
     exact ⟨by omega,by omega,by omega⟩
   · simp only [residual,he,if_false,borrow,Nat.one_mul] at hm ⊢
-    exact ⟨ho,by omega,by omega⟩
+    exact ⟨by simpa only [borrow,he,if_false] using ho,by omega,by omega⟩
 
 /-- A factor at an arbitrary absolute coordinate is exactly its canonical
     phase factor with the same length. -/
