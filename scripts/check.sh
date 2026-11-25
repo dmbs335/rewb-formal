@@ -75,3 +75,5 @@ if grep -Eq 'sorryAx' "$log"; then
   echo 'Unexpected proof dependency.' >&2
   exit 1
 fi
+
+python3 scripts/check-principal-axioms.py REWB/Tests.lean "$log"

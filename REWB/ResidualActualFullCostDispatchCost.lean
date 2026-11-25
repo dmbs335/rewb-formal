@@ -28,21 +28,34 @@ theorem p2_inputs_rounded (P : SevenDFA (Fin σ)) (text : Array (Fin σ)) (fallb
   exact Nat.le_trans h (by
     simpa only [Nat.mul_assoc,Nat.mul_comm,Nat.mul_left_comm] using hr)
 
+theorem periodic_rounded (P : SevenDFA (Fin σ)) (f : Nat→Fin σ) (n : Nat) :
+    PeriodicActual.FullCost.roundedWork P f n≤
+      PeriodicActual.FullCost.roundedCoefficient P*(ThresholdBudget.base n)^75*(height n)^3 := by
+  have h:=PeriodicActual.FullCost.rounded_bound P f n
+  change _≤PeriodicActual.FullCost.roundedCoefficient P*(ThresholdBudget.base n)^75*height n at h
+  have hp:=REWB.Cost.pow_mono_exponent (height n) 1 3 (by unfold height; omega) (by decide)
+  simp only [Nat.pow_one] at hp
+  exact Nat.le_trans h (Nat.mul_le_mul_left
+    (PeriodicActual.FullCost.roundedCoefficient P*(ThresholdBudget.base n)^75) hp)
+
 theorem auto_charged_bound (P : SevenDFA (Fin σ)) (charge : Nat) :
     ∃coefficient,∀(text : Array (Fin σ)) (fallback : Fin σ),
       (P1.auto P text fallback).accountedWork+(P2.auto P text fallback).accountedWork+
         charge*((P1.auto P text fallback).fixedPatternBuilds+(P2.auto P text fallback).fixedPatternBuilds)≤
         coefficient*(ThresholdBudget.base text.size)^75*(height text.size)^3 := by
   obtain ⟨coefficient,hc⟩:=Periodic.Cost.auto_charged_bound P charge
-  refine ⟨coefficient+3*p1Coefficient P 0+3*p2Coefficient P 0,?_⟩
+  refine ⟨coefficient+3*p1Coefficient P 0+3*p2Coefficient P 0+
+    PeriodicActual.FullCost.roundedCoefficient P,?_⟩
   intro text fallback
   have hold:=hc text fallback
   have h₁:=P1.auto_work_le_base P text fallback
   have h₂:=P2.auto_work_le_base P text fallback
   have hr₁:=p1_inputs_rounded P text fallback
   have hr₂:=p2_inputs_rounded P text fallback
+  have hp:=periodic_rounded P (ArrayText.read text fallback) text.size
+  unfold PeriodicActual.FullCost.roundedWork at hp
   rw [P1.auto_builds,P2.auto_builds]
-  simp only [Nat.add_mul,Nat.mul_assoc] at hold hr₁ hr₂ ⊢
+  simp only [Nat.add_mul,Nat.mul_assoc] at hold hr₁ hr₂ hp ⊢
   omega
 
 theorem auto_bound (P : SevenDFA (Fin σ)) :

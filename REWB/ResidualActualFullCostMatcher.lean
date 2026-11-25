@@ -16,6 +16,9 @@ namespace REWB.ResidualActual.FullCost.Matcher
 open REWB.CompleteNormalization (Form)
 variable {σ : Nat}
 
+set_option maxRecDepth 4096
+set_option maxHeartbeats 4000000
+
 structure Execution where
   answer : Bool
   accountedWork : Nat
@@ -40,25 +43,33 @@ def form : Form (Fin σ)→Array (Fin σ)→Fin σ→Execution
     let out:=FullCost.P2.auto P text fallback
     ⟨out.answer,out.accountedWork+3,out.fixedPatternBuilds⟩
 
-theorem form_correct (F : Form (Fin σ)) (text : Array (Fin σ)) (fallback : Fin σ) :
-    (form F text fallback).answer=true ↔ MatchesWithin F.expr text.toList 2 := by
-  cases F with
-  | regular A => exact (CompleteNormalization.atom_matches A text.toList).symm
-  | once A B C E =>
-    exact (FullCost.P2.auto_correct (ResidualActual.oncePattern A B C E) text fallback).trans
-      (ResidualActual.oncePattern_correct A B C E text.toList)
-  | sameValue P =>
-    exact (FullCost.P1.auto_correct (ResidualActual.samePattern P) text fallback).trans
-      (ResidualActual.samePattern_correct P text.toList)
-  | independent P => exact FullCost.Independent.execute_correct P text fallback
-  | nested1 P => exact FullCost.P1.auto_correct P text fallback
-  | nested2 P => exact FullCost.P2.auto_correct P text fallback
-
 theorem form_answer (F : Form (Fin σ)) (text : Array (Fin σ)) (fallback : Fin σ) :
     (form F text fallback).answer=(ResidualActual.Matcher.form F text fallback).answer := by
-  have hh:=(form_correct F text fallback).trans (ResidualActual.Matcher.form_correct F text fallback).symm
-  cases h₁ : (form F text fallback).answer <;>
-    cases h₂ : (ResidualActual.Matcher.form F text fallback).answer <;> simp_all
+  cases F with
+  | regular A=>rfl
+  | once A B C E=>
+    change (FullCost.P2.auto (ResidualActual.oncePattern A B C E) text fallback).answer=
+      (ResidualActual.P2.auto (ResidualActual.oncePattern A B C E) text fallback).answer
+    rw [FullCost.P2.auto_answer,Periodic.P2.auto_answer]
+  | sameValue P=>
+    change (FullCost.P1.auto (ResidualActual.samePattern P) text fallback).answer=
+      (ResidualActual.P1.auto (ResidualActual.samePattern P) text fallback).answer
+    rw [FullCost.P1.auto_answer,Periodic.P1.auto_answer]
+  | independent P=>
+    change (FullCost.Independent.execute P text fallback).1.answer=
+      (ResidualActual.Independent.execute P text fallback).answer
+    rw [FullCost.Independent.execute_value]
+  | nested1 P=>
+    change (FullCost.P1.auto P text fallback).answer=(ResidualActual.P1.auto P text fallback).answer
+    rw [FullCost.P1.auto_answer,Periodic.P1.auto_answer]
+  | nested2 P=>
+    change (FullCost.P2.auto P text fallback).answer=(ResidualActual.P2.auto P text fallback).answer
+    rw [FullCost.P2.auto_answer,Periodic.P2.auto_answer]
+
+theorem form_correct (F : Form (Fin σ)) (text : Array (Fin σ)) (fallback : Fin σ) :
+    (form F text fallback).answer=true ↔ MatchesWithin F.expr text.toList 2 := by
+  rw [form_answer]
+  exact ResidualActual.Matcher.form_correct F text fallback
 
 abbrev Compiled (σ : Nat) := List (Form (Fin σ))
 

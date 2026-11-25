@@ -89,6 +89,7 @@ jobs:
         run: |
           set -euo pipefail
           lake env lean ${{ matrix.audit }} | tee /tmp/recovery-axioms.log
+          python3 scripts/check-principal-axioms.py ${{ matrix.audit }} /tmp/recovery-axioms.log
           if grep -q sorryAx /tmp/recovery-axioms.log; then
             echo 'Unexpected proof dependency.' >&2
             exit 1
@@ -102,8 +103,8 @@ jobs:
       - name: Compare measured finite cut execution
         if: matrix.group == 'finite-cut'
         run: lake env lean --run audits/periodic_cut_construction_smoke.lean
-      - name: Compare actual periodic branch execution
-        if: matrix.group == 'periodic-branch'
+      - name: Optional full positive periodic runtime diagnostic
+        if: matrix.group == 'periodic-branch' && github.event_name == 'workflow_dispatch'
         run: timeout 300s lake env lean --run audits/periodic_actual_smoke.lean
       - name: Audit actual periodic residual value theorems
         if: matrix.group == 'periodic-residual'
@@ -141,17 +142,20 @@ jobs:
         if: matrix.group == 'periodic-keys'
         run: timeout 120s lake env lean --run audits/periodic_keys_construction_smoke.lean
       - name: Isolate actual positive P2 diagnostic
-        if: always() && matrix.group == 'periodic-branch'
+        if: always() && matrix.group == 'periodic-branch' && github.event_name == 'workflow_dispatch'
         run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean p2
       - name: Isolate actual positive P1 projection diagnostic
-        if: always() && matrix.group == 'periodic-branch'
+        if: always() && matrix.group == 'periodic-branch' && github.event_name == 'workflow_dispatch'
         run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean projection
       - name: Isolate actual long preparation and join diagnostic
-        if: always() && matrix.group == 'periodic-diagnostics'
+        if: always() && matrix.group == 'periodic-diagnostics' && github.event_name == 'workflow_dispatch'
         run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean long
       - name: Isolate actual short preparation and join diagnostic
-        if: always() && matrix.group == 'periodic-diagnostics'
+        if: always() && matrix.group == 'periodic-diagnostics' && github.event_name == 'workflow_dispatch'
         run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean short
+      - name: Compare actual fully constructed periodic branches
+        if: matrix.group == 'full-periodic-branch'
+        run: timeout 120s lake env lean --run audits/periodic_actual_full_cost_smoke.lean
       - name: Save compiled recovery dependencies
         if: always() && !cancelled()
         uses: actions/cache/save@v4

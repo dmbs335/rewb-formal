@@ -7,7 +7,7 @@ polylogarithmic envelope. Existing transition/query ledgers and the new
 construction ledgers are combined explicitly; this is not a machine-bit,
 reference-counting or allocation theorem. -/
 namespace REWB.ResidualActual.FullCost.Independent.Cost
-open REWB.ResidualCached.Growth
+open REWB.BoundaryRange REWB.ResidualCached.Growth
 variable {σ : Nat}
 
 theorem execute_charged_closed (P : SevenDFA (Fin σ)) (charge : Nat) :

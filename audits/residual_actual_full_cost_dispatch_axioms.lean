@@ -26,3 +26,17 @@ import REWB.ResidualActualFullCostDispatchCost
 #print axioms REWB.ResidualActual.FullCost.Cost.p1_target
 #print axioms REWB.ResidualActual.FullCost.Cost.p2_charged_bound
 #print axioms REWB.ResidualActual.FullCost.Cost.p2_target
+
+#print axioms REWB.ResidualActual.FullCost.Cached.P1.execute_periodic
+#print axioms REWB.ResidualActual.FullCost.Cached.P1.execute_answer
+#print axioms REWB.ResidualActual.FullCost.Cached.P1.execute_residual_eq
+#print axioms REWB.ResidualActual.FullCost.Cached.P1.execute_correct
+#print axioms REWB.ResidualActual.FullCost.Cached.P1.execute_accountedWork
+#print axioms REWB.ResidualActual.FullCost.Cached.P1.execute_work_le_old
+#print axioms REWB.ResidualActual.FullCost.Cached.P2.execute_periodic
+#print axioms REWB.ResidualActual.FullCost.Cached.P2.execute_answer
+#print axioms REWB.ResidualActual.FullCost.Cached.P2.execute_residual_eq
+#print axioms REWB.ResidualActual.FullCost.Cached.P2.execute_correct
+#print axioms REWB.ResidualActual.FullCost.Cached.P2.execute_accountedWork
+#print axioms REWB.ResidualActual.FullCost.Cached.P2.execute_work_le_old
+#print axioms REWB.ResidualActual.FullCost.Cost.periodic_rounded

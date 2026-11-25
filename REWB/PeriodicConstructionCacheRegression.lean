@@ -38,7 +38,7 @@ theorem zero_preparation [DecidableEq α] (P : SevenDFA α) (s : Nat→α)
 
 theorem noninjective_row :
     PeriodicCache.lookup seen (transitions seen (read #[false,true,false]) 3).1.1
-      0 3 0=some 1 := by decide
+      0 3 ⟨0,by decide⟩=some ⟨1,by decide⟩ := by decide
 
 theorem final_prefix_comparison :
     PhaseEqualityCache.lookup (equality (read #[true,false,true,false]) 3).1.1

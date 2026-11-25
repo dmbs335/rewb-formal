@@ -72,6 +72,7 @@ theorem solve_expr (P : SevenDFA (Fin σ)) (f : Nat→Fin σ) (n Q : Nat) :
   have hrr:=Nat.mul_le_mul_left (Short.branchCoefficient P)
     (show (shortExpr P).eval n Q≤(expr P).eval n Q by change _≤_+_; omega)
   have hi:=PeriodicActual.Cubic.expr_input P n Q
+  change n+1≤(expr P).eval n Q at hi
   rw [solve_work]
   unfold coefficient
   simp only [Nat.add_mul]
