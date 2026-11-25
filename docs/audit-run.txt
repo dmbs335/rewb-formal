@@ -1,5 +1,4 @@
-Local verification, 2026-11-25 (Asia/Seoul). No remote CI claim.
-Command: bash scripts/audit.sh
+Local Python finite audits, 2026-11-25. All nine scripts passed, exit status 0.
 
 === rewb_affine_rare_audit.py ===
 literal-chain relation cut checks: 8566

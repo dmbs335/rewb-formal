@@ -1,5 +1,5 @@
-Local compiled-path audit gate, 2026-11-25.
-All nineteen scripts exited successfully. The original sixteen-script run and three additional frozen-path runs are concatenated below.
+Local compiled-path audits, 2026-11-25. All 24 audits passed; exit status 0.
+The logs describe finite probes and component operation counters, not a complete matcher time theorem.
 
 Running masked_reporting_smoke
 'REWB.MaskedReporting.report_correct' depends on axioms: [propext, Quot.sound]
@@ -120,34 +120,33 @@ Running masked_periodic_smoke
 'REWB.MaskedPeriodic.Regression.projected_boundary_cases' depends on axioms: [propext, Quot.sound]
 preparing fixed-pattern modulus: states=2,1,2
 prepared pattern modulus: 2
-pattern preparation: 7519 ms
-case 1/1: answer=true, elapsed=17880 ms
+pattern preparation: 7009 ms
+case 1/1: answer=true, elapsed=16051 ms
 joint-cut/direct-factor regression: queries=1, hits=1, mismatches=0
 observed maxima: cut/range products=1, index visits=6, mask slots=2, mask-query scalar charge=225
 Compiler construction work is separate from the reported mask-query counters.
 preparing fixed-pattern modulus: states=2,1,1
 prepared pattern modulus: 2
-pattern preparation: 1060 ms
-case 1/5: answer=true, elapsed=168 ms
-case 2/5: answer=true, elapsed=215 ms
-case 3/5: answer=false, elapsed=240 ms
-case 4/5: answer=false, elapsed=288 ms
-case 5/5: answer=false, elapsed=346 ms
+pattern preparation: 1143 ms
+case 1/5: answer=true, elapsed=169 ms
+case 2/5: answer=true, elapsed=222 ms
+case 3/5: answer=false, elapsed=248 ms
+case 4/5: answer=false, elapsed=303 ms
+case 5/5: answer=false, elapsed=357 ms
 joint-cut/direct-factor regression: queries=5, hits=2, mismatches=0
 observed maxima: cut/range products=8, index visits=35, mask slots=12, mask-query scalar charge=829
 Compiler construction work is separate from the reported mask-query counters.
 preparing fixed-pattern modulus: states=1,1,2
 prepared pattern modulus: 2
-pattern preparation: 1031 ms
-case 1/5: answer=true, elapsed=262 ms
-case 2/5: answer=true, elapsed=333 ms
-case 3/5: answer=false, elapsed=369 ms
-case 4/5: answer=false, elapsed=465 ms
-case 5/5: answer=false, elapsed=548 ms
+pattern preparation: 1087 ms
+case 1/5: answer=true, elapsed=269 ms
+case 2/5: answer=true, elapsed=350 ms
+case 3/5: answer=false, elapsed=388 ms
+case 4/5: answer=false, elapsed=463 ms
+case 5/5: answer=false, elapsed=552 ms
 joint-cut/direct-factor regression: queries=5, hits=2, mismatches=0
 observed maxima: cut/range products=8, index visits=35, mask slots=8, mask-query scalar charge=789
 Compiler construction work is separate from the reported mask-query counters.
-
 Running masked_ordered_smoke
 'REWB.MaskedOrdered.Tree.insert_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedOrdered.Tree.pred_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -161,10 +160,8 @@ Running masked_ordered_smoke
 'REWB.MaskedOrdered.run_work_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedOrdered.run_balance' depends on axioms: [propext, Classical.choice, Quot.sound]
 positions=4096 capacity=1048576 height=20 imports=24576 fresh=41570 retired=37475 work=15786735 sparse40Work=413
-
 Running boundary_subset_smoke
 nodeRows=35 heterogeneousSubsetQueries=true allClosedCuts=true importWork=60060 subsetColors=4
-
 Running masked_periodic_text_smoke
 'REWB.MaskedPeriodic.Text.families_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedPeriodic.Text.actual_equal_copies' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -174,12 +171,52 @@ Running masked_periodic_text_smoke
 'REWB.MaskedPeriodic.Text.Regression.indexed_real_text' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedPeriodic.Text.Regression.actual_ending_witness' depends on axioms: [propext]
 actual-text suite states=2,1,1; modulus=2
-pattern preparation: 922 ms
-actual-text queries=24, hits=10, suffix-mode differences=0, mismatches=0; execution=3928 ms
+pattern preparation: 1007 ms
+actual-text queries=24, hits=10, suffix-mode differences=0, mismatches=0; execution=4118 ms
 observed query maxima: products=6, visits=52, mask slots=8, scalar charge=756
 The scalar charge includes fixed endpoint arithmetic; compiler construction and shared index preparation have separate ledgers.
 actual-text suite states=1,1,2; modulus=2
-pattern preparation: 994 ms
-actual-text queries=24, hits=12, suffix-mode differences=2, mismatches=0; execution=5941 ms
+pattern preparation: 1023 ms
+actual-text queries=24, hits=12, suffix-mode differences=2, mismatches=0; execution=6093 ms
 observed query maxima: products=6, visits=52, mask slots=8, scalar charge=796
 The scalar charge includes fixed endpoint arithmetic; compiler construction and shared index preparation have separate ledgers.
+Running masked_owner_enumeration_smoke
+'REWB.MaskedOrdered.Owner.location_owner_mem' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedOrdered.Owner.visit_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.visit_at_event' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.suffix_event_certified' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.probe_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.collect_mem' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedOrdered.Owner.enumerateAuto_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.enumerateAuto_nodup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.enumerateAuto_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+exhaustive binary texts=1023 maxLength=9 passed
+exhaustive ternary texts=1093 maxLength=6 passed
+equal-depth snapshots=19 staleWork=46 trueGapWork=110 passed
+periodic n=1024 period=1 nodes=2049 events=1024 work=5120344
+periodic n=2048 period=2 nodes=4097 events=4094 work=13417677
+periodic n=1536 period=3 nodes=3073 events=3580 work=9094365
+Running boundary_heavy_empty
+emptyHeavyNodes=3 emptyImports=1 emptyQuery=true emptyVisits=2
+Running boundary_heavy_smoke
+smallChecks=901 accepted=24 maxVisits=3
+fixedEndChecks=901 accepted=24 maxVisits=3 deepNodes=1027 deepImports=513 deepVisits=2 work=1741630 exactClosedCuts=true directHeadJumps=true
+Running masked_cluster_smoke
+'REWB.MaskedCluster.pairQuery_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.cell_words' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.cell_direct_first' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.certificate_onPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.cell_direct_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.matrix_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.pointCell_direct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Regression.singleton_not_unary' does not depend on any axioms
+cluster matrices=15, cells=375, true cells=31, mismatches=0, elapsed=42 ms
+states C/E=2/2, K=2; maxima: context+tail products=8, visits=42, AP+matrix work=434
+Compiler construction and global update/report scheduling are not included in the AP+matrix counter.
+cluster matrices=15, cells=375, true cells=31, mismatches=0, elapsed=35 ms
+states C/E=2/2, K=2; maxima: context+tail products=8, visits=42, AP+matrix work=400
+Compiler construction and global update/report scheduling are not included in the AP+matrix counter.
+Running masked_periodic_batch_smoke
+periodic all-source batches=149 acceptedSources=46 mismatches=0 durationMs=30119
+Cases cover empty/truncated masks, source filtering, multiple runs, phase shifts and full-input suffixes.
+The measured query ledger retains finite-compiler construction exclusions.

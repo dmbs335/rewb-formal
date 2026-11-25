@@ -13,6 +13,10 @@ import REWB.BoundaryApplicationRegression
 import REWB.MaskedPeriodicRegression
 import REWB.MaskedOrderedRegression
 import REWB.MaskedPeriodicTextRegression
+import REWB.MaskedOrderedOwnerRegression
+import REWB.BoundaryApplicationHeavyRegression
+import REWB.MaskedClusterRegression
+import REWB.MaskedPeriodicBatchRegression
 
 open REWB
 
@@ -961,3 +965,75 @@ end CompletedPipelineRegression
 #print axioms REWB.MaskedClusterStage.jumpVector_decode
 #print axioms REWB.MaskedClusterStage.anchored_exact
 #print axioms REWB.MaskedClusterStage.twoJumps_correct
+
+-- Complete owner-event enumeration and its closed preparation/execution bound.
+#print axioms REWB.MaskedOrdered.Owner.visit_at
+#print axioms REWB.MaskedOrdered.Owner.visit_at_event
+#print axioms REWB.MaskedOrdered.Owner.location_owner_mem
+#print axioms REWB.MaskedOrdered.Owner.suffix_event_certified
+#print axioms REWB.MaskedOrdered.Owner.probe_sound
+#print axioms REWB.MaskedOrdered.Owner.enumerateAuto_mem
+#print axioms REWB.MaskedOrdered.Owner.enumerateAuto_nodup
+#print axioms REWB.MaskedOrdered.Owner.enumerateAuto_work
+#print axioms REWB.MaskedRunOwnerCoverage.cubic_event
+#print axioms REWB.MaskedRunOwnerCoverage.cubic_owner_record
+#print axioms REWB.MaskedRunOwnerCoverage.cubic_probe
+#print axioms REWB.MaskedRunOwnerCost.suffix_shape
+#print axioms REWB.MaskedRunOwnerCost.suffix_execution
+#print axioms REWB.MaskedRunEnumerationCost.enumerate_work
+
+-- Constructed heavy versions, direct addresses and genuine source routes.
+#print axioms REWB.BoundaryApplication.Heavy.imports_bound
+#print axioms REWB.BoundaryApplication.Heavy.work_bound
+#print axioms REWB.BoundaryApplication.Heavy.lightHeight_bound
+#print axioms REWB.BoundaryApplication.Heavy.go_all
+#print axioms REWB.BoundaryApplication.Heavy.Regression.aliased_eq_go
+#print axioms REWB.BoundaryApplication.HeavyIndex.build_source
+#print axioms REWB.BoundaryApplication.HeavyIndex.build_stored
+#print axioms REWB.BoundaryApplication.HeavyIndex.build_rank
+#print axioms REWB.BoundaryApplication.HeavyIndex.build_imports
+#print axioms REWB.BoundaryApplication.HeavyIndex.build_work
+#print axioms REWB.BoundaryApplication.HeavyIndex.probe_correct
+#print axioms REWB.BoundaryApplication.HeavyIndex.query_bound
+#print axioms REWB.BoundaryApplication.HeavyIndex.query_chain_iff
+#print axioms REWB.BoundaryApplication.Address.build_source_route
+#print axioms REWB.BoundaryApplication.HeavyIndex.query_route_iff
+
+-- Real dense/singleton one-jump matrix cells from immutable masks.
+#print axioms REWB.MaskedCluster.pairFormula_correct
+#print axioms REWB.MaskedCluster.pairQuery_correct
+#print axioms REWB.MaskedCluster.pairQuery_work
+#print axioms REWB.MaskedCluster.contexts_value
+#print axioms REWB.MaskedCluster.contexts_work
+#print axioms REWB.MaskedCluster.replay_value
+#print axioms REWB.MaskedCluster.cell_words
+#print axioms REWB.MaskedCluster.cell_direct_first
+#print axioms REWB.MaskedCluster.certificate_onPeriod
+#print axioms REWB.MaskedCluster.cell_direct_certificate
+#print axioms REWB.MaskedCluster.matrix_get
+#print axioms REWB.MaskedCluster.matrix_state
+#print axioms REWB.MaskedCluster.matrix_work
+#print axioms REWB.MaskedCluster.pointCell_direct
+#print axioms REWB.MaskedCluster.pointMatrix_get
+#print axioms REWB.MaskedCluster.pointMatrix_work
+
+-- The actual complete-run all-source periodic branch.
+#print axioms REWB.MaskedPeriodic.Batch.scan_read
+#print axioms REWB.MaskedPeriodic.Batch.scan_calls
+#print axioms REWB.MaskedPeriodic.Batch.scan_query_work
+#print axioms REWB.MaskedPeriodic.Batch.query_work
+#print axioms REWB.MaskedPeriodic.Batch.runs_read
+#print axioms REWB.MaskedPeriodic.Batch.solve_correct
+#print axioms REWB.MaskedPeriodic.Batch.solve_sound
+#print axioms REWB.MaskedPeriodic.Batch.enumerated_span
+#print axioms REWB.MaskedPeriodic.Batch.solve_work
+#print axioms REWB.MaskedPeriodic.Batch.Regression.full_batch_hit
+
+-- Complete fixed-end source/target coverage of the actual heavy query.
+#print axioms REWB.BoundaryApplication.Coverage.node_cut_iff
+#print axioms REWB.BoundaryApplication.Coverage.lca_cut_bound
+#print axioms REWB.BoundaryApplication.Coverage.normal_hit_iff
+#print axioms REWB.BoundaryApplication.Coverage.import_hit_iff
+#print axioms REWB.BoundaryApplication.Coverage.route_iff
+#print axioms REWB.BoundaryApplication.Coverage.query_correct
+#print axioms REWB.BoundaryApplication.Coverage.query_iff_cuts
