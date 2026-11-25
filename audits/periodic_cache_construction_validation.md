@@ -2,9 +2,24 @@
 
 The new files refine the actual periodic DFA tables, equality tables, exterior-context builder and per-run shared-cache builder. Every public wrapper preserves the entire original value and its legacy counter. Its second component adds a concrete structural-operation ledger, including source reads, DFA transitions, list cells, state domains, row traversal, list-to-array materialization and scalar assembly.
 
-## Status
+## Verified status
 
-These sources and validation files are submitted for fresh CI; no successful kernel or runtime result is asserted yet. The first core build exposed the reserved identifier `prefix` and an unnecessary post-simplification tactic; the submitted source uses `prefixScan` and guarded arithmetic cleanup.
+Verified commit: `8614bf808df5bbb5f73bd629951f01617923fa6c`.
+
+[Recovery CI run 45601488591, periodic-cache job 139161245512](https://github.com/dmbs335/rewb-formal/actions/runs/45601488591/job/139161245512) completed successfully. All five modules built, all 49 principal reports used only standard Lean axioms where required, and the actual runtime audit passed in 1,601 ms.
+
+The final source keeps the original executable/counter definitions. Follow-up corrections repaired the reserved helper identifier, arithmetic proof association, an explicit identity-function reflexivity step, and a regression-only finite-state numeral elaboration. These are recorded in the recovery branch history.
+
+The successful job printed:
+
+```text
+periodic cache small: transition tables=1200, literal transition cells=16800, equality tables=300, literal equality cells=7800, contexts=60, preparations=1500
+periodic cache deep: n=1024, period=17, transition cells=612, equality cells=5202, old preparation=8670, construction work=114567
+periodic cache wide: states=64, zero preparation=72, literal transition cells=128
+periodic cache construction audit passed in 1601 ms
+```
+
+Selected exact CI output is preserved in `audits/periodic_cache_construction_verified.log`.
 
 ## Reproduce
 
@@ -41,4 +56,4 @@ A separate deep profile uses length 1024 and period 17. A 64-state profile check
 
 ## Scope
 
-Symbol reads, DFA transitions and scalar arithmetic use the unit-operation model. Actual production callers provide a shifted `ArrayText.read` closure, so a source read is direct array access. Allocation/GC, reference-counting effects and bit complexity are outside this ledger. Integration into external P1/P2 branch callers is a separate follow-up; these primitive wrappers alone do not claim a complete public solver bound.
+Symbol reads, DFA transitions and scalar arithmetic use the unit-operation model. Actual production callers provide a shifted `ArrayText.read` closure, so a source read is direct array access. Allocation/GC, reference-counting effects and bit complexity are outside this ledger. Actual installation and the explicit primitive-LCM model are reviewed in `docs/PERIODIC_CONSTRUCTION_AUDIT.md`. These primitive wrappers alone do not claim a complete public solver bound.

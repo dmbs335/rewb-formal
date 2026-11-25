@@ -2,7 +2,50 @@
 
 These observations were made on 2026-11-25 using Lean 4.19's interpreter. They are separate from the kernel's verification of termination, semantic correctness and abstract operation counts. They are not a benchmark claim or a complete implementation-level complexity proof.
 
-## Reproduce the small probes
+## Current construction checkpoint
+
+The unified production checkpoint `8614bf808df5bbb5f73bd629951f01617923fa6c` passed 772 build targets and all 3,017 selected principal dependency reports. Those facts concern kernel-checked source and stated primitive ledgers. The following execution evidence is separate.
+
+| Completed construction probe | Confirmed result |
+| --- | --- |
+| Chronological actual join | 837 cases, 558 literal comparisons, 216 positive answers; zero mismatches. |
+| Finite cut construction | 60 builds, 564 ranges, 1,404 windows, 17,199 literal cells, 1,280 tuple queries, 241 guarded queries, 24 full phases, and a length-257 profile. |
+| Public all-start solver | 10 fixtures, 55 position comparisons, 17 positives, 42 bands, 16 reports; zero mismatches. |
+| Materialized rows | 288 stored-table checks, four actual rows and one prefix bank; 297 checks, zero mismatches. |
+| Actual run constructors | 252 small cases and two length-1,024 cases; zero mismatches. |
+| Exact key constructors | 24 intern fixtures, 64 run-table fixtures, 720 keys and 37 runs; zero mismatches. |
+| Actual periodic caches | 1,200 transition tables/16,800 literal cells, 300 equality tables/7,800 cells, 60 contexts, 1,500 preparations, and the length-1,024/period-17 and 64-state profiles; zero mismatches. |
+| Installed periodic branches | Three non-cubic P1 cases, one positive P2 case and one empty Cubic case; zero mismatches, 50 ms. Positive P2 retained old work 67,990 and returned refined work 136,722. |
+
+Exact commands, source contracts and successful job links are in [FULL_CONSTRUCTION_EXECUTION.md](FULL_CONSTRUCTION_EXECUTION.md), [PERIODIC_CONSTRUCTION_AUDIT.md](PERIODIC_CONSTRUCTION_AUDIT.md), and [FULL_MATCHER_CONSTRUCTION.md](FULL_MATCHER_CONSTRUCTION.md). Two additional generated-C inspections check the new execution and row factories; they are static checks of pinned compiler output, not independently linked native execution or general compiler cost theorems.
+
+### Unsuccessful positive P1 diagnostics
+
+The actual positive P1 pipeline on the unary length-three, period-one case did not finish within 300 seconds. This remains an unsuccessful diagnostic.
+
+[The isolated projection job](https://github.com/dmbs335/rewb-formal/actions/runs/45598459926/job/139150685781) did complete: one raw clause with 54 atoms became 5, 26, 182, 1,560 and 20,176 clauses across the five elimination steps, in 3,249 ms. Its independent positive P2 mode completed in approximately 30 ms.
+
+[The later stage diagnostic](https://github.com/dmbs335/rewb-formal/actions/runs/45600471549/job/139157729908) completed Long preparation in about 16 seconds, producing four source events, four target events and returned preparation work 70,423,799. The following join did not complete before the diagnostic's total 120-second limit. Short preparation did not complete before its separate 120-second limit. Projection alone is therefore not the observed Long bottleneck.
+
+The known expensive P1 cases remain in `audits/periodic_actual_smoke.lean` and `audits/periodic_actual_diagnostic.lean` and are available through optional manual workflow steps. They are not repeatedly executed on every proof-only revision or counted as passing probes.
+
+### Final composition probe
+
+The original combined probe attempted 32 direct regular/list/normalization cases and an empty independent case. Both initial attempts terminated on runner shutdown before their 120-second command limits and before fixture output. The logs show termination, not a semantic mismatch or a successful timed run. The cause of the shutdown is not established by those messages alone.
+
+Source review found an invalid audit assumption: compiling a regular source atom can retain rejecting nonregular control-shape families, so the normalized run need not have zero action builds. That assertion belongs only to directly supplied regular form lists. The split audit preserves the original `full` fixture scope while correcting that assumption and separating `regular`, `normalize`, `independent` and `independent-stages` modes. Stage markers are flushed before each expensive call. A runtime pattern flag prevents closed expensive diagnostic calls from being lifted into eager module-initialization constants.
+
+The wrapper `audits/run_full_matcher_composite.sh` enforces a 3 GiB virtual-address-space limit, a 120-second wall limit with five-second kill grace, and prints resource usage. It returns the actual failing exit status. Final results of those split modes are recorded in the final matcher audit; only a completed successful mode is counted as passed.
+
+### Accounting and preprocessing scope
+
+The production theorem concerns the actual primitive-operation ledger, including the named measured construction paths. Fixed-pattern compilation is reusable and is not separately metered by the convenience `solve` text ledger. The documented scalar/LCM primitives and compiler logical counters are not a complete machine-bit, reference-count, allocator, GC, or generated-instruction model. Numerical proof envelopes and finite coefficient families are not evaluated by the runtime probes.
+
+## Earlier runtime observations
+
+The following records preserve their original checkpoint scopes. Earlier statements that construction installation was still pending are historical; the current contracts are in the three integration audits above.
+
+### Reproduce the small probes
 
 Build the current code first:
 
@@ -26,7 +69,7 @@ The P1 timeout is intentional in this diagnostic command; it is not an assertion
 
 The isolated-source regression nevertheless has a kernel-checked concrete witness and derives acceptance through `P1ShortBranch.solve_complete`. That is evidence of semantic correctness, not a completed execution of the large generated formula.
 
-## Defects repaired during these probes
+### Defects repaired during these probes
 
 1. Multiplying duplicate coefficient factors and guard moduli made a period-1 P1 target produce a candidate period of 262,144. Using LCM reduced that stage to period 2 while preserving the elimination proof.
 2. Deep recursive list operations caused interpreter stack failures. Kernel-checked compiler simplification equalities supply tail-recursive implementations and preserve both results and counters. The executable entry points must be compiled after those replacement equalities; direct helper tests alone do not establish that callers use them.
@@ -35,13 +78,13 @@ The isolated-source regression nevertheless has a kernel-checked concrete witnes
 5. A later audit found deep recursion in the outer P2 phase/run traversals. Kernel-proved `foldr` compiler replacements now preserve the complete `Work` record and its eager counters. A 100,000-row test passes for each loop. Those deliberately inexpensive zero-period rows test traversal depth; they are not valid-run semantic examples.
 6. Shared text-context preparation also had text-depth recursion. `IntervalDFA.countedPrefix_eq_countedPrefixTR` and `BoundaryContexts.suffix_eq_suffixTR` now preserve the full lists/rows and counters with stack-safe folds. The actual 100,000-symbol build produced 100,001 prefix boundaries and suffix rows; every prefix state and all 300,003 suffix-state cells matched independent arithmetic references, with exactly 400,004 measured entries.
 
-## Remaining limits
+### Remaining limits
 
 P1 must produce unary formulas for the offline join, so its current generic projection still materializes a large DNF. Formal fixed-pattern constants can be very large, and negative P2 cases can also be expensive. Successful kernel checks should not be described as a practical speedup on ordinary inputs.
 
 The counters distinguish preparation, symbol comparisons, equality-array reads, formula operations, modulus traversal, sorting, interval tests and event/text visits. Allocation, runtime stack representation, garbage collection, bit-level arithmetic and a single complete word-RAM cost semantics are not verified by these probes. Large-input runtime readiness is not asserted.
 
-## Index and reporting continuation probes
+### Index and reporting continuation probes
 
 After `bash scripts/check.sh`, run `bash scripts/index-audit.sh` for the new compiled paths. The independent small-word comparisons check runtime behavior in addition to the universal kernel theorems; their finite ranges are not asymptotic evidence.
 
@@ -84,15 +127,15 @@ These probes cover the named index components. They execute constructed heavy-pa
 
 The index counters are also partial accounting. For example, `RankIndex.keyCells` counts produced key bits but does not separately charge every append traversal; divisor construction counters do not enumerate all scalar guards; and APIs accepting `f : Nat → Fin σ` do not charge arbitrary computation hidden in f. A complete interpretation must use materialized text and compose all schedule, list/array and arithmetic costs. The finite-word LCE adapter supplies that input representation for its own entrypoints. The targeted loop repairs are not a blanket stack-safety claim for all existing helpers.
 
-### Periodic compiler audit scope
+#### Periodic compiler audit scope
 
 The default `audits/masked_periodic_smoke.lean` deliberately bounds interpreted work while checking zero/positive remainders, interior/ending families, eta=0, both rotations and irregular/empty masks. Larger combined two-state B and E positive-cut sweeps are retained behind `--extended`. Broad and ten-case combined probes were manually interrupted after several minutes; they did not report a mismatch, and no completed result is claimed. The default's passing cases do not establish practical scalability. The universal kernel correctness theorem is independent of those finite runtime limits.
 
-### Heavy-path generated-code regression
+#### Heavy-path generated-code regression
 
 The initial dependent whole-pattern-alias implementation passed kernel proofs but crashed on the empty-input execution audit. The production definition uses ordinary constructor patterns and explicit node reconstruction; a kernel theorem proves equality to a non-executed reference. The fixed version passes the permanent empty case and all 901 full-answer comparisons. [The diagnostic record](../audits/boundary_heavy_codegen.md) preserves the generated-code observation and explicitly leaves the compiler-pass cause unproven. Cached height/length arguments also remove input-length scans from the recursive heavy path and actual query.
 
-### Mutable-source and empty-capture continuation
+#### Mutable-source and empty-capture continuation
 
 The following probes exercise actual source deletion, rebuilding and initialization. Their bounds retain the declared unit array/Nat operation model; they do not account for all reference counting, allocation, garbage collection or bit complexity.
 
@@ -116,11 +159,11 @@ The mutable-bank probes deliberately rebuild after deletion. Persistence means t
 
 The separated-index audit exposed avoidable copy-on-write pressure from retaining the left recursive result pair while building the right result. Explicit pair destruction removes that alias in the generated path; [the code-generation record](../audits/boundary_separated_codegen.md) records the observation. Full runtime allocation analysis remains separate.
 
-### Shared-cut finite-universe limit
+#### Shared-cut finite-universe limit
 
 `audits/masked_cluster_cut_smoke.lean` passes its default small-universe full-index queries and its 256-cell stored-relation correlation check. The actual full-index mixed-cut rejection is also kernel-proved. The optional `--full-correlation` probe uses the larger joint universe J=16 and exceeded a 30-second external timeout, exiting 124. That optional execution is not a passing gate and is not presented as one. The result illustrates the fixed-pattern table-materialization cost; it does not invalidate the universal kernel theorem or establish practical scalability.
 
-### Actual suffix/store/border/edge and cached-boundary continuation
+#### Actual suffix/store/border/edge and cached-boundary continuation
 
 | Probe | Observed result |
 | --- | --- |
@@ -140,7 +183,7 @@ These are checks of the stated abstract operation counters and returned answers.
 
 The exact `14ff501` push CI passed. Its PR workflow passed the build/dependency stage but was cancelled at the previous 20-minute job limit during the separated n=512 runtime probe, with no recorded semantic mismatch. The Lean job limit is increased to 40 minutes; the Python job retains its existing limit. This configuration change does not count the cancelled run as successful.
 
-### Complete traversal, catalog and residual-window continuation
+#### Complete traversal, catalog and residual-window continuation
 
 | Probe | Observed result |
 | --- | --- |
@@ -161,7 +204,7 @@ The residual language tests use bounded independent cut enumeration as reference
 Both exact `88959f2` GitHub CI runs passed. That result validates the preceding published checkpoint; later additions require their own exact-head remote runs.
 
 
-### Repairs, physical-window aggregates and short-outer construction
+#### Repairs, physical-window aggregates and short-outer construction
 
 | Probe | Observed result |
 | --- | --- |
@@ -190,7 +233,7 @@ are kernel checked. Its extra retained-word/overlap checks are bounded
 runtime evidence; their whole-execution theorem remains open.
 
 
-### Retained anchors, historical-bank repair and short-outer solvers
+#### Retained anchors, historical-bank repair and short-outer solvers
 
 | Probe | Observed result |
 | --- | --- |
@@ -208,7 +251,7 @@ The boundary-cache audit supplies finite all-start rows by independent bounded r
 
 The exact preceding `1749593` push and PR CI runs both succeeded. The new proof-only cell/model/metadata refinements are kernel checked; their algorithms reuse the actual runtime operations above. Whole-driver bank execution, complete masked all-start production and the full matcher machine-cost theorem remain open.
 
-### Complete queries, actual reporting and changing-partition execution
+#### Complete queries, actual reporting and changing-partition execution
 
 | Probe | Observed result |
 | --- | --- |
@@ -229,7 +272,7 @@ A broader cross-cluster probe separately completed 4,117 queries and 467 positiv
 The exact `40d7be9` push and PR CI runs both succeeded. The new local gate passes 629 targets and 1,912 principal axiom reports. The full matcher time theorem and complete construction-cost coverage remain open.
 
 
-### Actual all-start producer, cached residual and complete matcher
+#### Actual all-start producer, cached residual and complete matcher
 
 The universal whole-plan correctness, exhaustion and returned-ledger bounds are now kernel proved. The actual row producer and all-six-form matcher are connected without an answer-oracle input. `ResidualActual.Matcher.Cost.correctMatcher_with_accounting` combines exact source-language correctness with the 25/13 target for the returned accounted-work function. That function includes actual row construction and fixed action-build charges; it still has the construction/model scope described in PROOF_MAP.md.
 

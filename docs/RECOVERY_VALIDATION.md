@@ -52,3 +52,9 @@ checks, while the 83-probe runtime list was still executing. The recovery
 workflow now partitions that unchanged, 83-unique-name list into
 28/28/27 probes after the kernel gate. Default local script execution
 still runs every probe. Generated-code routing runs in shard 0.
+
+## 8614bf808df5bbb5f73bd629951f01617923fa6c
+
+The complete recovered and newly implemented construction path is now imported by the public umbrella and principal gate. [The unified kernel job](https://github.com/dmbs335/rewb-formal/actions/runs/45601488688/job/139161244767) passed 772 targets and exactly 3,017 distinct principal reports: 54 without axioms and 2,963 using only propext, Classical.choice, and Quot.sound. The actual final CorrectMatcher/Target25Over13 statements are included. No missing original workspace file is treated as byte-identical recovery; the documented three dependency reimplementations were checked against their explicit contracts.
+
+The actual full-cost solver, rows/input factories, finite cut, runs, keys, caches, installed periodic branches, and targeted generated-C checks passed their individual gates. See FULL_CONSTRUCTION_EXECUTION.md, PERIODIC_CONSTRUCTION_AUDIT.md and FULL_MATCHER_CONSTRUCTION.md for exact job links and runtime scope. Positive P1 remains an unsuccessful optional diagnostic. The composition runtime is recorded separately from the successful kernel theorems. Later publication commits do not change these historical observations.

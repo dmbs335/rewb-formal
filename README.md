@@ -2,13 +2,13 @@
 
 Lean 4 formalization of fixed-pattern, dynamically at-most-two-use, single-register regular expressions with backreferences.
 
-**The actual accelerated six-form matcher is correct, and its returned operation ledger satisfies the soft-O(n^(25/13)) target.** Complete construction-cost substitution and a full machine-cost refinement remain open. The project distinguishes kernel-checked semantics, bounds for the operations actually counted, and costs still outside those ledgers.
+**The construction-refined six-form matcher is correct, and its actual returned operation ledger satisfies the soft-O(n^(25/13)) target.** Measured initialization, repair/reporting, row generation, periodic caches, keys, run enumeration, formula/event construction, and joins are installed in the final execution path. The theorem uses the explicit primitive-operation model described below; a full machine-cost preservation theorem is outside its scope.
 
 ## Semantics and target
 
 The register stores the most recently closed capture. Opening a capture preserves its previous value; nested captures include recalled text; the initial register is empty. A successful trace executes at most two references. This is a precisely defined theoretical semantics, rather than a specification of a particular regex engine.
 
-For a fixed expression over a fixed finite alphabet, the research target is soft-O(n^(25/13)) decision time. The P1 target is soft-O(n^(19/10)); the P2 target is soft-O(n^(25/13)). `FullMatcher` remains the semantic reference. `ResidualActual.Matcher` now has the exact source-language contract and the target bound for its returned accounted-work ledger; this does not yet establish a complete machine running-time guarantee.
+For a fixed expression over a fixed finite alphabet, the research target is soft-O(n^(25/13)) decision time. The P1 target is soft-O(n^(19/10)); the P2 target is soft-O(n^(25/13)). `FullMatcher` remains the semantic reference. `ResidualActual.FullCost.Matcher` has the exact source-language contract and target bound for the construction-refined returned ledger. Its API takes a fallback letter in `Fin σ`, so the public entry point assumes a nonempty finite alphabet; empty input words are included.
 
 ## What is proved
 
@@ -18,17 +18,56 @@ For a fixed expression over a fixed finite alphabet, the research target is soft
 
 `FullMatcher.compile_correct` and `FullMatcher.correctMatcher` prove the original `Spec.CorrectMatcher` contract for an actual executable matcher. Compile the fixed pattern once with `FullMatcher.compile`, then reuse `FullMatcher.run` on input words. This correctness result does not establish a subquadratic bound. Pattern preprocessing can be very large.
 
-### Actual accelerated matcher and its accounted-work target
+### Constructed matcher and its accounted-work target
 
-`MaskedAllStart.solve` constructs and executes the complete suffix plan from the pattern, text and independent source/target masks. Its universal correctness theorem has no supplied row, answer oracle, frontier-invariant premise or exhaustion premise. The maintained execution proves whole-plan preservation and exhaustion, at most n+1 reported sources, and one-shot source-fanout delivery. Actual repair, query, output and preparation ledgers sum to a fixed-pattern multiple of `(n+2)*(log2(n+2)+1)^3`.
+The primary entry point is `REWB.ResidualActual.FullCost.Matcher`. Compile a fixed source expression once with `compile`, then reuse `run` on materialized texts. The convenience functions `solve` and `matchWord` also expose the original expression directly.
 
-`MaskedAllStart.Rows` constructs the finite all-start rows used by the boundary and source-lower-bounded one-use caches. `ResidualActual.P1/P2.auto` builds those rows, retains the finite variant banks, and executes the rounded residual schedule. `ResidualActual.Matcher` handles all six normal forms: regular, once, same-value, independent, nested1 and nested2. Its independent case joins actual forward/reversed all-start outputs through the regular gap.
+`Matcher.correctMatcher` proves, for every input word,
 
-`ResidualActual.Matcher.Cost.correctMatcher_with_accounting` pairs `Spec.CorrectMatcher` for the original expression with `Spec.Target25Over13` for the actual word entry point's accounted work, including actual row production, one word-to-array conversion, and an arbitrary fixed charge per counted action build. Before taking thirteenth powers, the bound is `C_P*t^75*(log2(n+2)+1)^3`, where `t = ThresholdBudget.base n` and `n+2 <= t^39 <= 2^39*(n+2)`. The target therefore has logarithm exponent 39. The coefficient depends only on the fixed pattern and fixed action charge.
+```lean
+matchWord p fallback w = true ↔ MatchesWithin p w 2
+```
 
-`PeriodicConstruction` separately executes and measures finite-orbit search, acceptance-vector materialization, formula/DNF assembly, projection, residue-window construction and mutable dense-bank compilation. Its value equalities preserve the old complete results and counters. `MaskedFiniteConstruction` measures the actual finite map enumeration, encode/decode and action tables; `PeriodicConstruction.Pattern` measures fixed-pattern modulus preparation. These local refinements are not yet all installed in the public matcher, so the ledger target is not presented as a full machine-cost theorem.
+No ready-row, answer, split, frontier-invariant, exhaustion, or cost oracle is an input to that public contract. The six actual execution paths are:
 
-### Generated periodic branches
+| Normal form | Actual path |
+| --- | --- |
+| `regular` | Direct DFA execution |
+| `once` | `FullCost.P2.auto` on the proved one-use reduction |
+| `sameValue` | `FullCost.P1.auto` on the proved same-value reduction |
+| `independent` | Two measured all-start rows, a regular-gap aggregate, and an endpoint scan |
+| `nested1` | `FullCost.P1.auto` |
+| `nested2` | `FullCost.P2.auto` |
+
+`MaskedAllStart.FullCost.solve` constructs and executes the suffix plan from the pattern, text, and independent source/target masks. Its first result component equals the complete previous result, including answers, history, state, and counters. Its second component records the new actual construction work. Measured finite-cut tables, initialization, bank compilation, repair, reporting, source erasure, and collection are used by the executed plan.
+
+`FullCost.Rows` materializes the prefix, forward, backward, far, and boundary rows once. Their literal value equalities transfer the existing Ready contracts to the actual retained tables. `ResidualActual.FullCost.P1/P2.inputs` and `Cached` connect those tables to actual residual schedules. The installed periodic branch additionally executes measured Cache, Runs, Keys, Events, projection, and chronological-join constructors. Old implementations occur as proof comparison targets; they are not rerun to recover an answer or budget.
+
+The principal combined theorem is:
+
+```text
+REWB.ResidualActual.FullCost.Matcher.Cost.correctMatcher_with_accounting
+```
+
+It pairs `Spec.CorrectMatcher` with `Spec.Target25Over13` for `Cost.wordWork`, including actual row/periodic construction, word-array materialization, and any fixed charge per counted action build. For each fixed expression and charge it produces a coefficient uniform in the input length, contents, and fallback letter. Writing `H(n) = Nat.log2(n+2)+1` and `t = ThresholdBudget.base n`, it proves
+
+```text
+work <= C_P * t^75 * H(n)^3
+n+2 <= t^39 <= 2^39 * (n+2)
+work^13 <= C'_P * (n+2)^25 * H(n)^39.
+```
+
+Thus the target has logarithmic exponent 39. The coefficient is a proof bound, not a family enumerated by the runtime matcher.
+
+The matching ledger distinguishes fixed-pattern preprocessing from text processing. `compile` is reusable; the convenience `solve` calls it, but the returned text ledger does not separately meter normalization. Scalar arithmetic, DFA transitions, indexing, and the documented primitive LCM calls retain their declared unit costs. This is not a bit-operation, allocator, reference-count, garbage-collector, or general generated-C cost theorem. Some safe upper bounds deliberately count overlapping work.
+
+Detailed contracts and evidence are in [the final matcher audit](docs/FULL_MATCHER_CONSTRUCTION.md), [the all-start/row execution audit](docs/FULL_CONSTRUCTION_EXECUTION.md), and [the periodic construction audit](docs/PERIODIC_CONSTRUCTION_AUDIT.md).
+
+### Earlier component milestones
+
+The following component notes retain the local scope of their original milestones. Statements that work was pending describe those checkpoints; the current construction-refined contract above and the three integration audits supersede their end-to-end status. They remain useful references for the individual geometric, indexing, and invariant results.
+
+#### Generated periodic branches
 
 - `SmallPeriodRuns` constructs all maximal runs with least period at most Q, without taking a run list or an LCE oracle as input. It proves exact membership, uniqueness, and an O(nQ^3) comparison count.
 - `RunBudget` proves total run mass at most `2*n*(Nat.log2 n+1)` by injectively charging primitive-square occurrences. `PeriodicBudgets` derives cubic-run phase budgets.
@@ -42,7 +81,7 @@ For a fixed expression over a fixed finite alphabet, the research target is soft
 - `PeriodicAccounting.measured_target` now applies the target exponent to the sum of the **actual returned counters** of both cubic P1 paths and the P2 phase matcher. Formula assembly and a complete machine-cost semantics remain separate.
 - `ArrayText` supplies a materialized-array input adapter with defined out-of-range reads, and transfers P2 correctness and measured bounds to finite input words.
 
-### Concrete global indexing and coverage
+#### Concrete global indexing and coverage
 
 `RankIndex` constructs exact rank-doubling arrays by binary-trie interning. `LCEIndex` and `LCEIndexArray` implement logarithmic LCE/LCS queries, including finite-word correctness and counters for the actual descent. `IndexedGrid` uses one shared forward/reverse preparation and covers every outer-copy pair of length at least the grid stride.
 
@@ -50,7 +89,7 @@ For a fixed expression over a fixed finite alphabet, the research target is soft
 
 `IndexedGlobalCoverage.p1_cover` and `p2_cover` start from the original matching semantics. Each match is accepted by the implemented small-period branch or enters a residual class with membership in the **actual generated** strip/run schedule. `ResidualSeparatedP1/P2` now reduce separated outer windows to exact boundary/one-use range predicates; complete residual query execution remains to be connected. `RankIndexScheduleAccounting.measured_target` proves the target exponent for the index preparation, divisor, query, probe and deduplication counters, at the integer-rounded stride.
 
-### Persistent boundary and masked-index components
+#### Persistent boundary and masked-index components
 
 `BoundaryIndex` materializes finite DFA-state/color tables. Its persistent balanced tree supports arbitrary noninjective color maps, earlier-prefix queries, insertion and replacement. The counted small-to-large merge schedule imports only the light child's listed endpoints and shares one prepared static text tree. Boundary-cut and fixed-end modules include exact endpoint and reversed-label semantics; no inverse DFA transition is assumed.
 
@@ -112,7 +151,7 @@ For a fixed expression over a fixed finite alphabet, the research target is soft
 
 `MaskedEmpty.solve` handles zero-length captures for every source boundary in one backwards scan with materialized C/E state vectors, including the terminal boundary and arbitrary short masks. Its exact returned work is `(12*C.states+6*E.states+64)*(n+1)`. `MaskedEmpty.SourceBatch.start` reports those sources once, erases them from the actual mutable run/global indexes and proves that every remaining masked witness has positive capture length. That initialization includes one run enumeration and has an `O_P(n log² n)` tracked bound. It removes the need to force the terminal empty occurrence into a positive-length cluster certificate.
 
-### Actual reporting, repair and positive-witness coverage
+#### Actual reporting, repair and positive-witness coverage
 
 `MaskedTraversalComplete` proves that the concrete window query is equivalent to an original-slice masked witness whose copies belong to different clusters, at one common length in the band. It handles normal/overshoot paths, skipped targets and immutable target marks. `MaskedTraversalPeriodicCoverage` proves that every same-cluster witness is handled by the actual enumerated periodic batch; no periodic-case oracle is supplied.
 
@@ -132,16 +171,21 @@ Pinned toolchain: `leanprover/lean4:v4.19.0`. No Mathlib dependency.
 bash scripts/check.sh
 bash scripts/audit.sh
 bash scripts/index-audit.sh
+bash scripts/construction-audit.sh
 ```
 
-`check.sh` builds the umbrella module, executes regressions, prints principal theorem dependencies, and rejects proof placeholders and custom assumptions. The nine Python audits are independent finite reference tests. `index-audit.sh` exercises the compiled persistent trees, reporting, LCE/LCS, grid and sampled-run/dedup paths. Finite audits do not prove asymptotic complexity.
+The main gate imports every production module and checks exactly 3,017 distinct selected principal reports against the allowlist `propext`, `Classical.choice`, `Quot.sound`. It also rejects incomplete proofs, custom assumptions, and native-evaluation proof shortcuts. The legacy 83-probe inventory is unchanged; CI partitions it into three shards. The nine Python reference audits remain separate.
 
-The complete-query/report/repair checkpoint `93a67c3` in [PR #14](https://github.com/dmbs335/rewb-formal/pull/14) passed both exact-head CI runs: [PR](https://github.com/dmbs335/rewb-formal/actions/runs/45581247435) and [push](https://github.com/dmbs335/rewb-formal/actions/runs/45581232898). It contains 629 build targets, 1,912 principal dependency reports and 78 completed compiled-path audits. This continuation adds 65 modules, 431 principal reports and five compiled probes, plus a generated-code regression for the public all-start route. The complete local gate passes 694 build targets and all 2,343 principal reports, using only permitted standard axioms. All five new probes and the public-route code-generation check passed. The exact publication tree is recorded in the PR. Each later tree requires its own CI result; the Lean job limit is 40 minutes.
+The unified code checkpoint `8614bf808df5bbb5f73bd629951f01617923fa6c` passed **772 build targets and all 3,017 principal reports**: 54 need no axioms and 2,963 use only the permitted standard axioms. See [its kernel job](https://github.com/dmbs335/rewb-formal/actions/runs/45601488688/job/139161244767). This continuation adds 78 Lean source modules and 674 distinct selected reports to the previous 694-target/2,343-report checkpoint. The [execution](docs/FULL_CONSTRUCTION_EXECUTION.md) and [periodic](docs/PERIODIC_CONSTRUCTION_AUDIT.md) audits identify exact successful jobs for the new component probes and generated-code checks. The final PR description records the published head and its CI status.
 
-## Remaining global work
+The earlier exact head `0f4ef4` passed its remote kernel and Python steps, but its serial runtime gate reached the 40-minute job limit. It is not recorded as a complete remote CI pass. The unchanged 83 probes subsequently passed all three shards at `8260ac2` ([run](https://github.com/dmbs335/rewb-formal/actions/runs/45596285777)); later source checkpoints require their own evidence.
 
-The complete actual matcher, all-start producer, six-form dispatch, whole-plan invariant/exhaustion and the combined returned-ledger target are now proved. The remaining work is to install the measured periodic construction replacements throughout initialization, bank repair, clipped reporting and the outer P1/P2 event/join paths, and compose their additional work with the existing ledger. Local value-preserving refinements are available, but an isolated helper bound is not counted as a bound for callers that still use the old implementation.
+## Cost model and remaining work
 
-The cost model charges scalar arithmetic, finite-state operations, array accesses and the explicitly instrumented list/tree operations. Runtime allocation, reference counting, garbage collection, arbitrary-precision bit operations and a complete word-RAM interpreter remain outside it. The public all-start generated-code check fixes an observed duplicate report/erase call; it is a targeted compiler regression, not a general runtime ownership proof.
+The measured construction substitution is installed through the final six-form matcher in the stated primitive-operation model. No external answer, row, split, or complexity witness is supplied to the executable matcher. The public cost theorem is a bound for its concrete returned ledger.
 
-Fixed-pattern automata and Presburger DNFs can be very large. The completed finite probes and the mathematical ledger bound do not establish practical speed on ordinary inputs. See [the recorded runtime probes and limits](docs/RUNTIME_LIMITS.md), including interrupted diagnostics. No headline speedup, novelty, priority or optimality is asserted.
+A full machine-cost refinement remains separate: arbitrary-precision bit arithmetic, the internal GCD loop of primitive LCM calls, allocator behavior, reference counts, garbage collection, and a general compiler/ownership cost-preservation theorem are not proved. Compiler substitutions preserve their logical counters; that equality alone does not meter every additional runtime pass.
+
+Fixed-pattern automata, action maps and Presburger DNFs can be enormous. Positive P1 execution on a length-three input exceeded the recorded 300-second limit. Isolated diagnostics completed Long preparation but exceeded the total 120-second limit in its join; Short preparation also exceeded its separate limit. Those unsuccessful probes remain optional diagnostics and are not counted as passes. See [runtime results and limits](docs/RUNTIME_LIMITS.md), including the final composition probe's separately recorded status.
+
+Finite tests do not establish asymptotic complexity or practical scalability. No claim of a practical regex-engine speedup, novelty, priority, or optimality is made.

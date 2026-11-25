@@ -1,14 +1,16 @@
-name: Construction recovery kernel checks
+name: Construction checks
 on:
   push:
     branches:
       - formalization/construction-recovery-20261125
+      - main
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   recovered-kernel:
-    name: Recovered kernel (${{ matrix.group }})
+    name: Construction (${{ matrix.group }})
     runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
@@ -120,9 +122,9 @@ jobs:
         run: |
           lake env lean audits/residual_actual_full_cost_dispatch_axioms.lean
           lake env lean audits/residual_actual_full_cost_independent_axioms.lean
-      - name: Compare full construction matcher composition
+      - name: Compare actual compiled-form composition
         if: matrix.group == 'full-matcher'
-        run: timeout 120s lake env lean --run audits/residual_actual_full_cost_matcher_smoke.lean
+        run: bash audits/run_full_matcher_composite.sh regular
       - name: Compare actual measured row factories
         if: matrix.group == 'full-rows'
         run: timeout 180s lake env lean --run audits/masked_full_cost_rows_smoke.lean
@@ -156,6 +158,17 @@ jobs:
       - name: Compare actual fully constructed periodic branches
         if: matrix.group == 'full-periodic-branch'
         run: timeout 120s lake env lean --run audits/periodic_actual_full_cost_smoke.lean
+      # These are resource observations, not passing regression claims.
+      # Preserve failing statuses in their logs and keep the mandatory
+      # compiled-form probe above strict.
+      - name: Optional normalization resource diagnostic
+        if: matrix.group == 'full-matcher' && (github.event_name == 'workflow_dispatch' || github.ref_name == 'formalization/construction-recovery-20261125')
+        continue-on-error: true
+        run: bash audits/run_full_matcher_composite.sh normalize
+      - name: Optional independent-row resource diagnostic
+        if: matrix.group == 'full-matcher' && (github.event_name == 'workflow_dispatch' || github.ref_name == 'formalization/construction-recovery-20261125')
+        continue-on-error: true
+        run: bash audits/run_full_matcher_composite.sh independent-stages
       - name: Save compiled recovery dependencies
         if: always() && !cancelled()
         uses: actions/cache/save@v4

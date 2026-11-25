@@ -2,7 +2,24 @@
 
 Updated 2026-11-25. This page describes the current code, superseding the milestone-by-milestone statements in [PROOF_HISTORY.md](PROOF_HISTORY.md).
 
-**Current result:** the actual accelerated six-form matcher is correct for the original source language, and its returned operation ledger satisfies `Spec.Target25Over13`, including actual all-start row production. Full installation of additional measured construction costs and a complete machine-cost refinement remain open. The target theorem is explicitly a theorem about the concrete accounted-work function.
+**Current result:** `ResidualActual.FullCost.Matcher` is correct for the original bounded-use source semantics, and its concrete returned operation ledger satisfies `Spec.Target25Over13`. Measured initialization, finite cuts, repair/reporting, row production, periodic caches, run/key construction, event generation, and joins are installed through the actual six-form execution. The remaining machine-cost boundaries are stated below; the numerical target is a theorem about the explicit primitive-operation ledger.
+
+## 0. Construction integration checkpoint
+
+The unified code checkpoint is `8614bf808df5bbb5f73bd629951f01617923fa6c`. Its [main kernel job](https://github.com/dmbs335/rewb-formal/actions/runs/45601488688/job/139161244767) passed 772 build targets and exactly 3,017 distinct selected principal dependency reports: 54 without axioms, 2,963 using only `propext`, `Classical.choice`, and `Quot.sound`. The 78 new Lean modules add 674 distinct selected reports to the earlier checkpoint. The allowlist checker also rejects missing, repeated, or unexpected reports.
+
+| Installed layer | Implementation and exact scope |
+| --- | --- |
+| Finite cuts and initialization | `PeriodicConstructionCut*` and `MaskedAllStartFullCostFiniteInitial*` preserve literal cut tables, starting state and old counters while measuring actual materialization and selection. |
+| Traversal execution | `MaskedAllStartFullCost*` installs measured bank, repair, clip, query, report, erase and collection calls, preserving the complete previous result. |
+| Rows and retained inputs | `MaskedAllStartFullCostRows*` and `ResidualActualFullCostInputs*` materialize actual tables, transfer Ready from value equality and charge every actual factory. |
+| Primitive periodic preparation | `PeriodicConstructionCache*`, `Runs*` and `Keys*` build actual contexts, transition/equality arrays, run lists, words, tries and rank tables. |
+| Periodic branches | `PeriodicActualFullCost*` composes those constructors with the measured formula/event/project/join paths and proves the rounded bound. |
+| Cached dispatch and six forms | `ResidualActualFullCostCached/Dispatch/Independent/Matcher*` uses the refined branch costs and actual row production through the original source expression. |
+
+The detailed installation and validation records are [Full construction execution](FULL_CONSTRUCTION_EXECUTION.md), [Periodic construction audit](PERIODIC_CONSTRUCTION_AUDIT.md), and [Full matcher construction](FULL_MATCHER_CONSTRUCTION.md). They distinguish kernel contracts, executed probes, generated-C inspection, and unsuccessful diagnostics.
+
+Sections below retain useful earlier local interfaces and milestone evidence. An earlier statement that an interface consumer remained pending describes that checkpoint; this section and Section 10 give the current end-to-end scope.
 
 ## 1. Complete semantic pipeline
 
@@ -17,8 +34,8 @@ The semantics in `Semantics.lean` uses one register, initially empty, overwritte
 | Factor at marker boundaries | `MarkedFactors`: finite lists of ordinary DFA factors, preserving the fixed marker skeleton |
 | Assemble concrete normal forms | `CompleteNormalization.normalization`, `pieces_normal`: actual finite union of six DFA form constructors |
 | Execute a semantic reference | `FullMatcher.compile_correct`, `correctMatcher`: original `Spec.CorrectMatcher` for arbitrary expressions |
-| Execute the actual accelerated matcher | `ResidualActual.Matcher.solve_correct`, `correctMatcher`: all six forms use the constructed accelerated paths |
-| Bound its returned ledger | `ResidualActual.Matcher.Cost.correctMatcher_with_accounting`: correctness plus the 25/13 target, including actual rows and fixed action charges |
+| Execute the actual constructed matcher | `ResidualActual.FullCost.Matcher.solve_correct`, `correctMatcher`: all six forms use the measured construction paths |
+| Bound its returned ledger | `ResidualActual.FullCost.Matcher.Cost.correctMatcher_with_accounting`: correctness plus the 25/13 target, including installed row/periodic construction and fixed action charges |
 
 The normalization does not require an externally supplied automaton or an operational-code coverage hypothesis. Its constants may be enormous; the fixed-pattern model allows pattern-dependent preprocessing but does not make it practical by itself.
 
@@ -390,35 +407,43 @@ Source repair now uses `eraseCurrent`: it normalizes the selected configuration 
 
 `MaskedTraversalExecute` is the concrete chronological consumer of the retained geometric plan. It carries one global source/store/anchor/output state, retains child frames, chooses the actual heavy frontier, and executes dirty repair, reporting, current-source deletion, common-prefix replay and live-event marking. Equal-depth edges do no band query or initial drain. Whole-plan invariant preservation and exhaustion are now proved by the `Invariant`, `Effect`, `Band`, `Edge`, `Plan` and `Suffix` continuation. `MaskedAllStart.solve_correct` constructs all premises internally; `MaskedTraversalExecute.Cost` sums actual repairs, queries, outputs and fanout work.
 
-## 10. Actual matcher accounting and remaining refinement
+## 10. Installed construction accounting and remaining machine model
 
-The previous three semantic/integration obligations are closed:
+The current public namespace is `REWB.ResidualActual.FullCost.Matcher`. Its `correctMatcher` proves `matchWord p fallback w = true ↔ MatchesWithin p w 2`. The matcher takes the source expression/text/fallback; no Ready, row, answer, split, frontier, exhaustion, or budget premise is supplied by its caller.
 
-1. `MaskedAllStart.solve_correct` proves exact masked-start bits for the actual complete executor, with no caller-supplied invariant or exhaustion assumption. `solve_reported` bounds all outputs by n+1; `solve_delivered` uses the actual source-history trace; `solve_charged_work_closed` bounds preparation and execution by `C*(n+2)*H^3`, with `H=log2(n+2)+1`.
-2. `MaskedAllStart.Rows` constructs every finite row used by both boundary and one-use caches. `RowsCorrect` discharges readiness unconditionally. `RowsCost` counts their actual nested table/grid construction, with coefficients independent of the text and width.
-3. `ResidualActual.Matcher` compiles the original expression to six actual implementations. P1/P2 consume the retained finite row banks, the independent form uses real forward/reversed rows and a regular gap aggregate, and once/same-value use proved epsilon reductions. The concrete `wordWork` counter includes input materialization and satisfies the target below.
+`Cost.solve_charged_bound` has the quantifier order
 
-`PeriodicConstruction` adds value-preserving measured orbit, formula, projection, interval and dense-bank compilers. Its physical-period-independent coefficients bound actual extra work. `PeriodicConstruction.Pattern` measures literal-shape/modulus preparation, and `MaskedFiniteConstruction` measures the actual finite map universe/actions. These local replacements must still be installed through all public initialization, repair/report and outer periodic event/join calls. The separate finite cut/table primitives also need complete measured expansion. No arbitrary supplied cost function is used to discharge this remaining obligation.
-
-The remaining model refinement concerns actual construction substitution and the relation between the explicit structural-operation counters and a full machine execution, including memory representation and integer arithmetic. The existing theorems do not assert allocator, reference-counting, garbage-collection or bit-complexity bounds.
-
-The phase ledger underlying the rounded bound is
-
-```
-n^2/s + n*L^2 + n^2*s^2/L + n^2*s^2/D0 + n^2*s^2/Q
-  + n*D0*s^2 + n*s^2 + n*Q^k.
+```text
+for each fixed p and charge:
+  exists coefficient,
+  for every text and fallback:
+    actualAccountedWork + charge * actualFixedPatternBuilds
+      <= coefficient * ThresholdBudget.base(n)^75 * height(n)^3.
 ```
 
-P1 uses k=3, s=n^(1/10), Q=n^(3/10); P2 uses k=4, s=n^(1/13), Q=n^(3/13); both use L=D0=n^(1/3). `Cost.lean` checks the scaled exponents. `ThresholdBudget` now handles integer rounding for every n: let k=floor(log2(n+2)/39)+1 and t=2^k; choose s=t³, Q=t⁹ and L=D0=t¹³. The explicit ledger, with each quotient rounded upward, is at most 12*t^75. Its thirteenth power is at most `12^13*(2^39)^25*(n+2)^25`.
+The coefficient is independent of text length, contents, and fallback. It is obtained from the finite compiled form list and fixed-pattern component coefficients; no such envelope is evaluated by the actual matching path. `Cost.wordWork` uses the concrete `solve` result and adds the linear word-array charge.
 
-`ThresholdBudget.ledger_target` proves `Spec.Target25Over13` for that explicit numeric ledger. Two subsequent results now connect actual returned counters to it:
+`target_of_bound` raises this inequality to the thirteenth power and uses `base(n)^39 <= 2^39*(n+2)`. The selected `Target25Over13` logarithm exponent is 39. A positive target constant is `(coefficient+1)^13*(2^39)^25`. `Cost.correctMatcher_with_accounting` pairs that target with original-source correctness.
 
-- `PeriodicAccounting.measured_target` sums the implemented long-source P1, short-source P1 and P2 periodic counters. Its thirteenth-power bound has logarithm exponent 13 and a fixed-pattern coefficient.
-- `RankIndexScheduleAccounting.measured_target` sums the concrete rank preparation, divisor insertion, equality queries, minimum-period tests, probes and deduplication counters. Before taking powers, its bound is `[2*(16*(σ+2)+5)+240]*ledger(n)*(log2(n+2)+1)^2`; the target's logarithm exponent is 26.
+The substitution is implemented, not merely supplied as a hypothetical family of fast rows or periodic answers. Public all-start preparation invokes measured finite initial scans, cut construction, modulus/action preparation and execution. Its actual plan invokes the measured repair/report/erase families. Row factories store their produced values and counters. FullCost Cached P1/P2 invokes the measured periodic solver and reads its returned work. Independent forms invoke two actual rows and the regular-gap join. The older functions occur in value/cost comparison proofs where required.
 
-`IndexedGridAccounting.measured_target` also covers the standalone strip generator's counters. The earlier results bound component ledgers. The new `ResidualActual.Cost.auto_charged_bound` includes both actual P1/P2 row producers and their cached execution, with bound `C*t^75*H^3`. `ResidualActual.Matcher.Cost.solve_target` and `word_target` compose all six forms and the actual finite normalized list. Their thirteenth-power bound is a fixed-pattern multiple of `(n+2)^25*H^39`. `correctMatcher_with_accounting` pairs the latter with the original `Spec.CorrectMatcher`; its accounted-work scope is preserved explicitly. Complete machine cost remains the refinement above.
+### Explicit accounting boundary
+
+- Pattern compilation is fixed-pattern preprocessing. `compile p = CompleteNormalization.forms p` can be run once and `run compiled` reused. Convenience `solve` calls compilation, but its returned text ledger does not separately meter normalization.
+- The alphabet is a fixed nonempty finite type at the public entry point, because `fallback : Fin σ` is required. Empty words are fully included.
+- Scalar arithmetic, direct array access, DFA operations, comparisons and the explicitly instrumented list/tree/array operations use their stated primitive costs. `ActualModulus` and `CountedProjection` retain unit-cost `Nat.lcm` calls. These are not replaced by the separately measured Euclidean-loop implementation in `PeriodicConstruction.Pattern`.
+- Source-cost equalities for compiler substitutions do not constitute a general cost-preserving compiler theorem. Arbitrary-precision bit work, additional runtime accumulator/reversal passes, reference-counting/copying, allocation, garbage collection and all generated C instructions are outside the final claimed ledger unless separately covered by a named bound.
+- Targeted generated-C checks show the inspected paths do not repeat the old public solver, report/erase, or row/input factory. They are scoped compiler regressions, not a universal runtime ownership theorem.
+- Conservative sums may count some operations more than once. This is safe for the proved upper bound; the counters are not presented as a bijection with machine instructions.
+
+The former construction-substitution obligation is closed for this model. A full machine-cost refinement and practical implementation/constant reductions are separate work. Actual positive P1 and full expression-composition runtime limits are reported in [RUNTIME_LIMITS.md](RUNTIME_LIMITS.md), and are not promoted to passing executable checks.
 
 ## 11. Verification and publication
+
+The current unified kernel checkpoint and exact principal counts are given in Section 0. The legacy 83-probe inventory is preserved and sharded into 28/28/27 cases; the nine Python reference audits are unchanged. New construction probes and the two generated-C inspectors are listed in the linked integration audits. The final PR metadata records the actual published head and exact CI result. A failed, cancelled or optional timed-out diagnostic is never counted as a completed passing probe.
+
+### Earlier verification checkpoints
+
 
 Use `bash scripts/check.sh`, `bash scripts/audit.sh` and `bash scripts/index-audit.sh`. The first checks the complete import closure and principal axiom reports; the second runs nine independent finite Python audits; the third runs eighty-three compiled-path audits and the public all-start generated-code regression. No proof placeholders, custom assumptions or native-evaluation proof shortcuts are permitted.
 
