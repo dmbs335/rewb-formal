@@ -102,7 +102,9 @@ theorem p2_forward_work (P : SevenDFA (Fin σ)) (w : Word (Fin σ)) (fallback : 
     (fun q=>(List.ofFn (calls q)).sum) charge
     (TableColor.count P.H*(p2ForwardMaximum P charge+6)) vol (10*TableColor.count P.H+12) hv inner
   have ho:=Nat.mul_le_mul_left (10*P.G.stateCount+6) hv
+  have collapse (x m : Nat) : x+1+10*m+5+6=x+(10*m+12) := by omega
   rw [ResidualActual.FullCost.P2.forwardRows_work]
+  simp only [collapse]
   unfold p2ForwardCoefficient
   dsimp only [work,calls,vol] at outer
   simp only [Nat.mul_one,Nat.add_mul] at ho ⊢
@@ -138,7 +140,9 @@ theorem p2_backward_work (P : SevenDFA (Fin σ)) (w : Word (Fin σ)) (fallback :
     (fun a=>(List.ofFn (calls a)).sum) charge
     (P.G.stateCount*(p2BackwardMaximum P charge+6)) vol (10*P.G.stateCount+12) hv inner
   have ho:=Nat.mul_le_mul_left (10*P.A.stateCount+6) hv
+  have collapse (x m : Nat) : x+1+10*m+5+6=x+(10*m+12) := by omega
   rw [ResidualActual.FullCost.P2.backwardRows_work]
+  simp only [collapse]
   unfold p2BackwardCoefficient
   dsimp only [work,calls,vol] at outer
   simp only [Nat.mul_one,Nat.add_mul] at ho ⊢

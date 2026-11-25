@@ -37,7 +37,7 @@ The program uses all Boolean words of lengths zero through three and four one/tw
 
 Shifted source readers include positions beyond the text, with an explicit false fallback. Shared exterior contexts are compared in full and checked against literal prefix/suffix DFA execution. Prepared seven-DFA cache values, both contextual automata, every table, every legacy counter, every exact new work formula and every closed bound are compared.
 
-A separate deep profile uses length 1024 and period 17. Only audit reference code scans literal factors.
+A separate deep profile uses length 1024 and period 17. A 64-state profile checks that zero-period table/preparation construction retains constant work (6/72), while period one materializes and checks its actual state rows. This exercises the absence of accidental finite-map/template enumeration in the real builder path. Only audit reference code scans literal factors.
 
 ## Scope
 

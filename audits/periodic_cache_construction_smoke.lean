@@ -144,10 +144,22 @@ def runDeep : IO Unit := do
   IO.println s!"periodic cache deep: n=1024, period=17, transition cells={tableCells}, equality cells={equalityCells}, old preparation={out.1.2}, construction work={out.2}"
   (←IO.getStdout).flush
 
+def runWide : IO Unit := do
+  let d : DFA Bool:=⟨64,0,fun v x=>if x then 0 else v,fun _=>true⟩
+  let P : SevenDFA Bool:=⟨d,d,d,d,d,d,d⟩
+  let I←testContexts P []
+  testPrepare P (fun _=>false) 0 I 0 0
+  let empty:=transitions d (fun _=>false) 0
+  check (empty.2=6 && empty.1.1.size=0) "wide zero-period table performed state work"
+  let cells←testTransitions d (read #[true]) 1
+  IO.println s!"periodic cache wide: states=64, zero preparation=72, literal transition cells={cells}"
+  (←IO.getStdout).flush
+
 def main : IO Unit := do
   let before←IO.monoMsNow
   runSmall
   runDeep
+  runWide
   let after←IO.monoMsNow
   IO.println s!"periodic cache construction audit passed in {after-before} ms"
 

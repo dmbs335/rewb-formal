@@ -62,7 +62,7 @@ theorem ends_length (f : Nat→α) (p a k : Nat) : (ends f p a k).1.1.length=k+1
 theorem ends_work (f : Nat→α) (p a k : Nat) : (ends f p a k).2=9*k+2 := by
   induction k generalizing a with
   | zero=>rfl
-  | succ k ih=>simp only [ends,ih,Nat.mul_add,Nat.mul_one]; omega
+  | succ k ih=>simp only [ends,ih,Nat.mul_add,Nat.mul_one] <;> omega
 
 def allCounted (test : Nat→(Bool×Nat)×Nat) : List Nat→(Bool×Nat)×Nat
   | []=>((true,0),1)
@@ -155,7 +155,7 @@ theorem collect_value (f : Nat→α) (n p : Nat) (T : Array Nat) (xs : List Nat)
     (collect f n p T xs).1=SmallPeriodRuns.collect f n p T xs := by
   induction xs with
   | nil=>rfl
-  | cons i is ih=>simp only [collect,SmallPeriodRuns.collect,candidate_value,ih]
+  | cons i is ih=>simp only [collect,SmallPeriodRuns.collect,candidate_value,ih] <;> rfl
 
 theorem collect_length (f : Nat→α) (n p : Nat) (T : Array Nat) (xs : List Nat) :
     (collect f n p T xs).1.1.length≤xs.length := by
@@ -200,7 +200,7 @@ theorem enumerate_value (f : Nat→α) (n Q : Nat) :
 theorem enumerate_length (f : Nat→α) (n Q : Nat) :
     (enumerate f n Q).1.1.length≤Q*(n+1) := by
   induction Q with
-  | zero=>exact Nat.le_refl _
+  | zero=>simp only [enumerate,List.length_nil,Nat.zero_mul,Nat.le_refl]
   | succ Q ih=>
     have hh:=forPeriod_length f n (Q+1)
     simp only [enumerate,CountedProjection.append_value,List.length_append,Nat.add_mul,Nat.one_mul]
@@ -222,8 +222,7 @@ theorem cubicFilter_work (runs : List Bounds) : (cubicFilter runs).2=9*runs.leng
   induction runs with
   | nil=>rfl
   | cons R Rs ih=>
-    simp only [cubicFilter,ih,List.length_cons,Nat.mul_add,Nat.mul_one]
-    omega
+    simp only [cubicFilter,ih,List.length_cons,Nat.mul_add,Nat.mul_one] <;> omega
 
 /-- The old comparison field is retained together with the filtered
 list, so a caller can construct the complete original solver result
