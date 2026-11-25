@@ -1,3 +1,6 @@
+Local verification, 2026-11-25 (Asia/Seoul). No remote CI claim.
+Command: bash scripts/audit.sh
+
 === rewb_affine_rare_audit.py ===
 literal-chain relation cut checks: 8566
 seeded positive triple checks: 1200

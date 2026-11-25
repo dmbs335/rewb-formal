@@ -1,0 +1,72 @@
+Local verification, 2026-11-25 (Asia/Seoul). No remote CI claim.
+All ten compiled-path audits in scripts/index-audit.sh completed successfully.
+
+Running masked_reporting_smoke
+'REWB.MaskedReporting.report_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedReporting.report_calls' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedReporting.report_totalWork' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedReporting.reportMasked_exhausts' depends on axioms: [propext, Quot.sound]
+'REWB.MeasuredMaskQuery.query_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MeasuredMaskQuery.all_totalWork' depends on axioms: [propext, Quot.sound]
+'REWB.MeasuredMaskQuery.SharedTargetRegression.query_spec' depends on axioms: [propext, Quot.sound]
+'REWB.MeasuredMaskQuery.SharedTargetRegression.execution' depends on axioms: [propext]
+shared target: starts=[0, 1, 2], count=3, calls=9, queryWork=20, copies=7, total=36
+empty mask: starts=[], calls=1, queryWork=1, copies=0, total=2
+Running masked_event_smoke
+'REWB.MaskedEventBudget.lightVolume_bound' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.insert_edge_repair' depends on axioms: [propext]
+'REWB.MaskedEventBudget.build_strict' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.build_transfers' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.build_balance' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.records_bound' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.oneShot_bound' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.unaryRebuild_quadratic' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.sample_execution' does not depend on any axioms
+small-to-large: positions=[0, 1, 2, 3], transfers=4, fresh=5, retired=2, thresholds=10
+unary chain N=100: resetRecords=4950, persistentAdjacencies=99
+Running boundary_index_smoke
+cells=30000 build=1351320 recolor=28 insert=1592 query=460; retained versions passed
+cut n=512 buildProducts=10240 products=6 visits=24; exact windows passed
+merge positions=512, transfers=2304, steps=3644333; static text preserved
+Running lean_lce_index_smoke
+exhaustive binary words=127, endpoint pairs=4861, LCE and LCS checks passed
+large word n=4096, forward rows=14, backward rows=14
+tracked preparation work=18133870
+LCE(0,62)=(4034, 7), LCS(n,n-62)=(4034, 7)
+measured LCE(0,62)={ length := 4034, pairs := 7, levels := 13 }
+Running indexed_grid_smoke
+grid cases=189; direct extensions and 278 positive copy cover checks passed
+n=1024, stride=32, probes=33825, strips=8449
+preparation=3287378, measured query work=4173783
+Running lean_run_index_smoke
+exhaustive binary words=127, sampled schedules=769, soundness/coverage/dedup/reference/counter checks passed
+displacement=4, selected run={ lo := 0, hi := 12, period := 2 }, selector work=139
+unary n=256, stride=8, probes=8481, raw runs=3120
+queryWork=629056, periodWork=1564428, preparation=533022, divisorWork=4398
+deduplicated runs=1, dedup work=589680
+Running lean_p2_tail_smoke
+P2 phase rows=100000; equalityReads=0; projectionSteps=100000; eager counters preserved
+P2 empty-choice run rows=100000; all Work fields preserved; stack-safe traversals passed
+Running lean_context_smoke
+context text symbols=100000; prefix boundaries=100001; suffix rows=100001
+all prefix/suffix states verified; measured entries=400004; stack-safe shared construction passed
+Running lean_boundary_mixed_smoke
+totalMass=512 targets=256 list=256 transfers=1024 steps=1688236 target=true source=false static0=0 static1=1
+
+Running masked_finite_action_smoke
+'REWB.MaskedFiniteAction.View.reindex_product' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Counted.mul_steps' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.reindex_leaves' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.reindex_steps' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.replace_leaves' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.replace_steps' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.queryPrefix_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Maps.vectors_complete' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Maps.count_eq' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Maps.decode_encode' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedFiniteAction.Maps.rightAction_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedFiniteAction.Maps.localAnchor_shortening' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Regression.execution' depends on axioms: [propext, Quot.sound]
+finite universe: states=3, maps=27
+action tree: build=18, firstReindex=7, secondReindex=7, replace=20, prefix=5
+fresh replacement under old noninjective tags: index0=false, index2=true

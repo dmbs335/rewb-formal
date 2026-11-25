@@ -18,6 +18,8 @@ jobs:
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
       - name: Build and check theorem dependencies
         run: bash scripts/check.sh
+      - name: Exercise compiled index and reporting paths
+        run: bash scripts/index-audit.sh
   reference-audits:
     runs-on: ubuntu-latest
     timeout-minutes: 20

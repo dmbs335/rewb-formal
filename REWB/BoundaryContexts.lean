@@ -18,6 +18,22 @@ def suffix (d : DFA α) : Word α→List (DFACut.Row d)×Nat
     (DFACut.vector d (fun v=>DFACut.read d row (d.step v c))::rest.1,
       d.stateCount+rest.2)
 
+/-- The compiled fold keeps the exact rows and entry count while avoiding
+    one execution-stack frame per text symbol. -/
+def suffixTR (d : DFA α) (w : Word α) : List (DFACut.Row d)×Nat :=
+  w.foldr (fun c rest=>
+    let row:=rest.1.headD #[]
+    (DFACut.vector d (fun v=>DFACut.read d row (d.step v c))::rest.1,
+      d.stateCount+rest.2)) ([DFACut.vector d id],d.stateCount)
+
+@[csimp] theorem suffix_eq_suffixTR : @suffix=@suffixTR := by
+  funext α d w
+  induction w with
+  | nil => rfl
+  | cons c cs ih =>
+    simp only [suffix,suffixTR,List.foldr_cons] at ih ⊢
+    rw [ih]
+
 theorem suffix_correct (d : DFA α) (w : Word α) :
     (suffix d w).1=DFACut.suffixRows d w := by
   induction w with

@@ -32,9 +32,38 @@ The isolated-source regression nevertheless has a kernel-checked concrete witnes
 2. Deep recursive list operations caused interpreter stack failures. Kernel-checked compiler simplification equalities supply tail-recursive implementations and preserve both results and counters. The executable entry points must be compiled after those replacement equalities; direct helper tests alone do not establish that callers use them.
 3. The original long-source join evaluated a huge finite-family modulus intended as a proof bound. `ActualModulus.build` now computes the shared LCM from the actual emitted formulas. Its compatibility, positive value, fixed-pattern upper bound and traversal count are proved.
 4. P2's decision path formerly materialized all projected branches. The measured depth-first search now stops on a successful branch and is proved equivalent to the full decision, with a pattern-dependent worst-case bound.
+5. A later audit found deep recursion in the outer P2 phase/run traversals. Kernel-proved `foldr` compiler replacements now preserve the complete `Work` record and its eager counters. A 100,000-row test passes for each loop. Those deliberately inexpensive zero-period rows test traversal depth; they are not valid-run semantic examples.
+6. Shared text-context preparation also had text-depth recursion. `IntervalDFA.countedPrefix_eq_countedPrefixTR` and `BoundaryContexts.suffix_eq_suffixTR` now preserve the full lists/rows and counters with stack-safe folds. The actual 100,000-symbol build produced 100,001 prefix boundaries and suffix rows; every prefix state and all 300,003 suffix-state cells matched independent arithmetic references, with exactly 400,004 measured entries.
 
 ## Remaining limits
 
 P1 must produce unary formulas for the offline join, so its current generic projection still materializes a large DNF. Formal fixed-pattern constants can be very large, and negative P2 cases can also be expensive. Successful kernel checks should not be described as a practical speedup on ordinary inputs.
 
 The counters distinguish preparation, symbol comparisons, equality-array reads, formula operations, modulus traversal, sorting, interval tests and event/text visits. Allocation, runtime stack representation, garbage collection, bit-level arithmetic and a single complete word-RAM cost semantics are not verified by these probes. Large-input runtime readiness is not asserted.
+
+## Index and reporting continuation probes
+
+After `bash scripts/check.sh`, run `bash scripts/index-audit.sh` for the new compiled paths. The independent small-word comparisons check runtime behavior in addition to the universal kernel theorems; their finite ranges are not asymptotic evidence.
+
+| Probe | Observed result |
+| --- | --- |
+| Masked reporter, one immutable target shared by three sources | Sources `[0,1,2]`, 9 existence-query calls, 20 scan-query work, 7 copied cells, 36 total tracked work |
+| Empty reporting mask | One failed existence query; total tracked work 2 |
+| Four-leaf ordered small-to-large event sample | 4 transfers, 5 created and 2 retired edges, 10 threshold records |
+| Unary event-reset regression at N=100 | 4,950 recreated records versus 99 retained adjacencies |
+| Persistent endpoint tree on 30,000 cells | Build 1,351,320; root recolor 28; fresh insertion 1,592; prefix query 460; earlier version retains its old colors |
+| Cut-window index on n=512 | Build 10,240 matrix products; sampled query 6 products and 24 node visits; exact endpoint and fixed-end checks passed |
+| Balanced 512-leaf persistent merge | 2,304 light transfers; 3,644,333 tracked steps; coalesced active states and original static transitions preserved |
+| Mixed 512-leaf source/target schedule | Total mass 512, 256 target records, 1,024 transfers, 1,688,236 tracked steps; silent sources remain inactive and static transitions are preserved |
+| Finite-action lazy tree | Explicit three-state map universe has 27 entries; build 18, two reindexes 7 each, replacement 20, prefix query 5; noncommuting/noninjective tag order and fresh-cell behavior pass |
+| LCE/LCS exhaustive binary test | 127 words of lengths 0–6, 4,861 endpoint pairs; results match direct list-prefix/suffix reference |
+| LCE/LCS on n=4,096 | 14 rows in each direction; 18,133,870 preparation work; sampled extension 4,034 with 7 pair comparisons and 13 visited levels |
+| Grid candidates versus direct extension | 189 word/stride cases, 278 positive-copy coverage checks; all passed |
+| Grid n=1,024, stride=32 | 33,825 probes, 8,449 raw strips; preparation 3,287,378; query work 4,173,783 |
+| Sampled all-period runs and exact dedup | 127 binary words, 769 schedules; soundness, required coverage, dedup membership/uniqueness and counter bounds passed; stride 1 agrees exactly with the independent full-run reference |
+| Minimum-period recovery | Alternating word of length 12 with displacement 4 returns minimum period 2; selector work 139 |
+| Sampled unary runs, n=256, stride=8 | 8,481 probes, 3,120 raw records, exactly one deduplicated run `(0,256,1)`; query 629,056; period tests 1,564,428; preparation 533,022; divisor insertion 4,398; dedup 589,680 |
+
+These probes cover the named index components. They do not execute the missing complete masked-cluster or boundary-trie application, and they do not remove the P1 projection limits above.
+
+The index counters are also partial accounting. For example, `RankIndex.keyCells` counts produced key bits but does not separately charge every append traversal; divisor construction counters do not enumerate all scalar guards; and APIs accepting `f : Nat → Fin σ` do not charge arbitrary computation hidden in f. A complete interpretation must use materialized text and compose all schedule, list/array and arithmetic costs. The finite-word LCE adapter supplies that input representation for its own entrypoints. The targeted loop repairs are not a blanket stack-safety claim for all existing helpers.

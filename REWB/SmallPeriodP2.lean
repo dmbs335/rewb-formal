@@ -30,6 +30,23 @@ def phases (P : SevenDFA α) (n q : Nat) (I : FullyCachedP2.Shared P) :
     ⟨t.accepted || r.accepted,0,t.equalityReads+r.equalityReads,r.phaseCalls+1,
       t.projectionSteps+r.projectionSteps⟩
 
+/-- The compiled fold traverses every phase and preserves all counters;
+    the logical recursive definition remains available for induction. -/
+def phasesTR (P : SevenDFA α) (n q : Nat) (I : FullyCachedP2.Shared P)
+    (vs : List P2Periodic.Five) : Work :=
+  vs.foldr (fun v r=>
+    let t:=CountedCachedP2.solveAt P n q I (P2Periodic.extend q v)
+    ⟨t.accepted || r.accepted,0,t.equalityReads+r.equalityReads,r.phaseCalls+1,
+      t.projectionSteps+r.projectionSteps⟩) {}
+
+@[csimp] theorem phases_eq_phasesTR : @phases=@phasesTR := by
+  funext α P n q I vs
+  induction vs with
+  | nil => rfl
+  | cons v vs ih =>
+    simp only [phases,phasesTR,List.foldr_cons] at ih ⊢
+    rw [ih]
+
 theorem phases_correct (P : SevenDFA α) (n q : Nat) (I : FullyCachedP2.Shared P)
     (vs : List P2Periodic.Five) :
     (phases P n q I vs).accepted=
@@ -89,6 +106,24 @@ def runs [DecidableEq α] (P : SevenDFA α) (f : Nat→α) (I : BoundaryContexts
     ⟨a.accepted || b.accepted,a.cacheWork+b.cacheWork,
       a.equalityReads+b.equalityReads,a.phaseCalls+b.phaseCalls,
       a.projectionSteps+b.projectionSteps⟩
+
+/-- This fold changes only the execution stack, including on rejected
+    rows; it keeps the eager sum of every run's measured work. -/
+def runsTR [DecidableEq α] (P : SevenDFA α) (f : Nat→α) (I : BoundaryContexts.Index P)
+    (Rs : List Bounds) : Work :=
+  Rs.foldr (fun R b=>
+    let a:=run P f I R
+    ⟨a.accepted || b.accepted,a.cacheWork+b.cacheWork,
+      a.equalityReads+b.equalityReads,a.phaseCalls+b.phaseCalls,
+      a.projectionSteps+b.projectionSteps⟩) {}
+
+@[csimp] theorem runs_eq_runsTR : @runs=@runsTR := by
+  funext α inst P f I Rs
+  induction Rs with
+  | nil => rfl
+  | cons R Rs ih =>
+    simp only [runs,runsTR,List.foldr_cons] at ih ⊢
+    rw [ih]
 
 theorem runs_correct [DecidableEq α] (P : SevenDFA α) (f : Nat→α)
     (I : BoundaryContexts.Index P) (Rs : List Bounds) :

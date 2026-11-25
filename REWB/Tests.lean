@@ -1,5 +1,10 @@
 import REWB
 import REWB.ShortSourceRegression
+import REWB.BoundaryIndexRegression
+import REWB.BoundaryIndexCutsRegression
+import REWB.BoundaryIndexMergeRegression
+import REWB.BoundaryIndexMixedRegression
+import REWB.MaskedFiniteActionRegression
 
 open REWB
 
@@ -697,3 +702,88 @@ end CompletedPipelineRegression
 #guard (ActualModulus.formula [[.dvd 6 (.lit 0),.dvd 6 (.lit 0),.dvd 4 (.lit 0)]]).1 == 12
 #guard (ActualModulus.formula (List.replicate 1000 [])).2 == 2001
 #guard AffineProjection.multiplier [.le (.scale 2 (.var 0)),.le (.scale 2 (.var 0))] == 2
+
+#print axioms REWB.PeriodicAccounting.measured_target
+#print axioms REWB.SmallPeriodP2.phases_eq_phasesTR
+#print axioms REWB.SmallPeriodP2.runs_eq_runsTR
+#print axioms REWB.GlobalSemanticCoverage.p1_cover
+#print axioms REWB.GlobalSemanticCoverage.p2_cover
+#print axioms REWB.MaskedReporting.report_correct
+#print axioms REWB.MaskedReporting.report_calls
+#print axioms REWB.MaskedReporting.report_totalWork
+#print axioms REWB.MaskedReporting.reportMasked_exhausts
+#print axioms REWB.MaskedReporting.SharedTargetRegression.three_sources
+#print axioms REWB.MaskedEventBudget.insert_edge_repair
+#print axioms REWB.MaskedEventBudget.build_balance
+#print axioms REWB.MaskedEventBudget.transfer_bound
+#print axioms REWB.MaskedEventBudget.records_bound
+#print axioms REWB.MaskedEventBudget.oneShot_bound
+#print axioms REWB.MaskedEventBudget.unaryRebuild_quadratic
+#print axioms REWB.BoundaryIndex.Tree.recolor_good
+#print axioms REWB.BoundaryIndex.Tree.recolor_steps
+#print axioms REWB.BoundaryIndex.Tree.replace_leaves
+#print axioms REWB.BoundaryIndex.Tree.queryPrefix_correct
+#print axioms REWB.BoundaryIndex.Tree.queryPrefix_steps
+#print axioms REWB.BoundaryIndex.TokenIndex.queryFor_correct
+#print axioms REWB.BoundaryIndex.TokenIndex.buildFor_steps
+#print axioms REWB.BoundaryIndex.Cuts.query_correct
+#print axioms REWB.BoundaryIndex.Cuts.query_bounds
+#print axioms REWB.BoundaryIndex.FixedEnd.reverse_query_correct
+#print axioms REWB.BoundaryIndex.MergeSchedule.execute_active
+#print axioms REWB.BoundaryIndex.MergeSchedule.execute_transfers
+#print axioms REWB.BoundaryIndex.MergeBuild.run_active
+#print axioms REWB.BoundaryIndex.MergeBuild.run_trans
+#print axioms REWB.BoundaryIndex.MergeBuild.run_auto_steps
+#print axioms REWB.BoundaryIndex.Regression.fresh_color_survives
+#print axioms REWB.BoundaryIndex.MergeRegression.overlapping_positions
+#print axioms REWB.BoundaryIndex.MergeRegression.prior_version
+#print axioms REWB.RankIndex.pairBits_exact
+#print axioms REWB.RankIndex.build_row
+#print axioms REWB.RankIndex.build_work
+#print axioms REWB.LCEIndex.lceMeasured_correct
+#print axioms REWB.LCEIndex.lcsMeasured_correct
+#print axioms REWB.LCEIndex.lceMeasured_work
+#print axioms REWB.LCEIndexArray.lceWord_correct
+#print axioms REWB.LCEIndexArray.lcsWord_correct
+#print axioms REWB.IndexedGrid.generate_sound
+#print axioms REWB.IndexedGrid.generate_complete
+#print axioms REWB.IndexedGrid.generate_counts
+#print axioms REWB.IndexedGridAccounting.measured_target
+#print axioms REWB.RankIndexDivisors.pairs_mem
+#print axioms REWB.RankIndexDivisors.pairs_length
+#print axioms REWB.RankIndexDivisors.buckets_mem
+#print axioms REWB.RankIndexDivisors.buckets_work
+#print axioms REWB.RankIndexPeriod.fromStrip_spec
+#print axioms REWB.RankIndexPeriod.fromStrip_work
+#print axioms REWB.RankIndexRuns.generate_complete
+#print axioms REWB.RankIndexRuns.generate_counts
+#print axioms REWB.RunDedup.run_mem
+#print axioms REWB.RunDedup.run_nodup
+#print axioms REWB.RunDedup.run_work
+#print axioms REWB.RunDedup.run_rank_bound
+#print axioms REWB.RankIndexSchedule.totalMass_bound
+#print axioms REWB.RankIndexSchedule.low_bound
+#print axioms REWB.RankIndexSchedule.large_bound
+#print axioms REWB.RankIndexScheduleAccounting.measured_target
+#print axioms REWB.IndexedGlobalCoverage.p1_cover
+#print axioms REWB.IndexedGlobalCoverage.p2_cover
+#print axioms REWB.IntervalDFA.countedPrefix_eq_countedPrefixTR
+#print axioms REWB.BoundaryContexts.suffix_eq_suffixTR
+#print axioms REWB.BoundaryIndex.Mixed.execute_mass
+#print axioms REWB.BoundaryIndex.Mixed.execute_transfers
+#print axioms REWB.BoundaryIndex.Mixed.lightHeight_bound
+#print axioms REWB.BoundaryIndex.Mixed.run_active
+#print axioms REWB.BoundaryIndex.Mixed.run_trans
+#print axioms REWB.BoundaryIndex.Mixed.run_auto_steps
+#print axioms REWB.BoundaryIndex.MixedRegression.mass_drives_choice
+#print axioms REWB.MaskedFiniteAction.View.reindex_comp
+#print axioms REWB.MaskedFiniteAction.View.reindex_product
+#print axioms REWB.MaskedFiniteAction.Tree.reindex_good
+#print axioms REWB.MaskedFiniteAction.Tree.reindex_steps
+#print axioms REWB.MaskedFiniteAction.Tree.replace_leaves
+#print axioms REWB.MaskedFiniteAction.Tree.replace_steps
+#print axioms REWB.MaskedFiniteAction.Tree.queryPrefix_correct
+#print axioms REWB.MaskedFiniteAction.Tree.queryPrefix_steps
+#print axioms REWB.MaskedFiniteAction.Maps.count_eq
+#print axioms REWB.MaskedFiniteAction.Maps.decode_encode
+#print axioms REWB.MaskedFiniteAction.Maps.localAnchor_shortening
