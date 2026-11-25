@@ -1,0 +1,52 @@
+name: Construction recovery kernel checks
+on:
+  push:
+    branches:
+      - formalization/construction-recovery-20261125
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  recovered-kernel:
+    name: Recovered kernel (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: initial-and-join
+            targets: REWB.MaskedAllStartFullCostInitial REWB.PeriodicActualJoinCost
+            audit: audits/recovery_root_axioms.lean
+          - group: periodic-actual
+            targets: REWB.PeriodicActualPrepareCost REWB.PeriodicActualP2Cost
+            audit: audits/recovery_periodic_axioms.lean
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Lean toolchain
+        run: |
+          curl --fail --silent --show-error --location https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/elan-init.sh
+          sh /tmp/elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache@v4
+        with:
+          path: .lake/build
+          key: ${{ runner.os }}-lean-4-19-recovery-${{ matrix.group }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-lean-4-19-recovery-${{ matrix.group }}-
+      - name: Reject incomplete proof constructs
+        run: |
+          if grep -nE '\b(sorry|admit|sorryAx|native_decide)\b|^[[:space:]]*(axiom|constant)[[:space:]]' REWB.lean REWB/*.lean; then
+            echo 'Untrusted or incomplete proof construct detected.' >&2
+            exit 1
+          fi
+      - name: Build recovered sources
+        run: lake build ${{ matrix.targets }}
+      - name: Audit recovered theorem dependencies
+        run: |
+          set -euo pipefail
+          lake env lean ${{ matrix.audit }} | tee /tmp/recovery-axioms.log
+          if grep -q sorryAx /tmp/recovery-axioms.log; then
+            echo 'Unexpected proof dependency.' >&2
+            exit 1
+          fi
