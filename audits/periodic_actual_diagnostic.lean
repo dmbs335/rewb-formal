@@ -65,7 +65,7 @@ def run (mode : String) : IO Unit := do
     let prep:=Short.prepare pattern f 3 1
     say s!"Short: preparation complete, sources={prep.sources.length}, targets={prep.targets.length}, work={prep.work}"
     say "Short: starting actual join"
-    let joined:=Join.run pattern.C prep.modulus 3 prep.text prep.sources prep.targets
+    let joined:=Join.run pattern.C prep.modulus 0 prep.text prep.sources prep.targets
     say s!"Short: join complete, answer={joined.1.value.answer}, construction={joined.2}"
   else
     throw (IO.userError "mode must be p2, projection, search, long or short")

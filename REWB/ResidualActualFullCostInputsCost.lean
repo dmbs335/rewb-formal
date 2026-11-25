@@ -103,8 +103,10 @@ theorem p2_forward_work (P : SevenDFA (Fin σ)) (w : Word (Fin σ)) (fallback : 
     (TableColor.count P.H*(p2ForwardMaximum P charge+6)) vol (10*TableColor.count P.H+12) hv inner
   have ho:=Nat.mul_le_mul_left (10*P.G.stateCount+6) hv
   have collapse (x m : Nat) : x+1+10*m+5+6=x+(10*m+12) := by omega
+  have collapseOuter (x m : Nat) : x+1+10*m+5=x+(10*m+6) := by omega
   rw [ResidualActual.FullCost.P2.forwardRows_work]
   simp only [collapse]
+  rw [collapseOuter]
   have combined:=Nat.add_le_add outer ho
   simpa only [work,calls,vol,p2ForwardCoefficient,Nat.mul_one,Nat.add_mul,
     Nat.add_assoc,Nat.add_comm,Nat.add_left_comm,Nat.reduceAdd] using combined

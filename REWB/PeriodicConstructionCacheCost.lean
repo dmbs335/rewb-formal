@@ -11,33 +11,33 @@ variable {α : Type}
 theorem contextsCost_bound (m n : Nat) :
     contextsCost m n≤64*(m+1)*(n+1) := by
   simp only [contextsCost,prefixCost,suffixCost,vectorCost,
-    Nat.mul_add,Nat.add_mul,Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm] <;> omega
+    Nat.mul_add,Nat.add_mul,Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm] <;> (simp only [←Nat.mul_assoc] <;> omega)
 
 theorem transitionsCost_bound (m q : Nat) :
     transitionsCost m q≤64*(m+1)*(q+1)^2 := by
   simp only [transitionsCost,phaseCost,rowCost,prefixCost,Nat.pow_succ,Nat.pow_zero,
     Nat.mul_one,Nat.one_mul,Nat.mul_add,Nat.add_mul,
-    Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm] <;> omega
+    Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm] <;> (simp only [←Nat.mul_assoc] <;> omega)
 
 theorem equalityCost_bound (q : Nat) :
     equalityCost q≤64*(q+1)^3 := by
   simp only [equalityCost,equalRowCost,equalPairCost,Nat.pow_succ,Nat.pow_zero,
     Nat.mul_one,Nat.one_mul,Nat.mul_add,Nat.add_mul,
-    Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm] <;> omega
+    Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm] <;> (simp only [←Nat.mul_assoc] <;> omega)
 
 theorem prepareAtCost_bound (P : SevenDFA α) (q : Nat) :
     prepareAtCost P q≤128*(FullyCachedP2.stateSum P+1)*(q+1)^3 := by
   simp only [prepareAtCost,FullyCachedP2.stateSum,transitionsCost,phaseCost,rowCost,
     prefixCost,equalityCost,equalRowCost,equalPairCost,Nat.pow_succ,Nat.pow_zero,
     Nat.mul_one,Nat.one_mul,Nat.mul_add,Nat.add_mul,
-    Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm] <;> omega
+    Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm] <;> (simp only [←Nat.mul_assoc] <;> omega)
 
 theorem cube_next (q : Nat) : (q+1)^3≤8*(q^3+1) := by
   cases q with
   | zero=>decide
   | succ q=>
     simp only [Nat.succ_eq_add_one,Nat.pow_succ,Nat.pow_zero,Nat.mul_one,Nat.one_mul,
-      Nat.mul_add,Nat.add_mul,Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm] <;> omega
+      Nat.mul_add,Nat.add_mul,Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm] <;> (simp only [←Nat.mul_assoc] <;> omega)
 
 theorem contexts_work_le_old (P : SevenDFA α) (w : Word α) :
     (contexts P w).2≤64*(BoundaryContexts.build P w).2 := by
