@@ -22,10 +22,10 @@ jobs:
             targets: REWB.PeriodicActualPrepareCost REWB.PeriodicActualP2Cost
             audit: audits/recovery_periodic_axioms.lean
           - group: finite-cut
-            targets: REWB.PeriodicConstructionCutBuild REWB.PeriodicConstructionCutPhase
-            audit: audits/recovery_cut_axioms.lean
+            targets: REWB.PeriodicConstructionCutRegression
+            audit: audits/periodic_cut_construction_axioms.lean
           - group: finite-initial
-            targets: REWB.MaskedAllStartFullCostFiniteInitial
+            targets: REWB.MaskedAllStartFullCostPrepare
             audit: audits/recovery_finite_initial_axioms.lean
           - group: full-executor
             targets: REWB.MaskedAllStartFullCostExecute
@@ -69,6 +69,9 @@ jobs:
       - name: Audit actual periodic branch value theorems
         if: matrix.group == 'periodic-branch'
         run: lake env lean audits/periodic_actual_branch_axioms.lean
+      - name: Compare measured finite cut execution
+        if: matrix.group == 'finite-cut'
+        run: lake env lean --run audits/periodic_cut_construction_smoke.lean
       - name: Save compiled recovery dependencies
         if: always() && !cancelled()
         uses: actions/cache/save@v4

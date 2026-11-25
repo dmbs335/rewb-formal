@@ -44,7 +44,6 @@ theorem solve_value (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n Q : Nat) :
     (solve P f n Q).answer=(CountedSmallPeriodP1.solve P f n Q).answer := by
   unfold BranchResult.answer
   rw [solve_join]
-  rfl
 
 theorem solve_original (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n Q : Nat) :
     (solve P f n Q).answer=(P1Events.solve P f n Q).answer := by
@@ -79,6 +78,7 @@ theorem solve_joinLedger (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n Q : Nat
       PeriodicAccounting.longWork (CountedSmallPeriodP1.solve P f n Q) := by
   rw [solve_join]
   unfold joinLedger PeriodicAccounting.longWork
+  dsimp only
   omega
 
 end Long
@@ -103,7 +103,6 @@ theorem solve_value (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n Q : Nat) :
     (solve P f n Q).answer=(CountedShortBranch.solve P f n Q).answer := by
   unfold BranchResult.answer
   rw [solve_join]
-  rfl
 
 theorem solve_original (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n Q : Nat) :
     (solve P f n Q).answer=(P1ShortBranch.solve P f n Q).answer := by
@@ -138,6 +137,7 @@ theorem solve_joinLedger (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n Q : Nat
       PeriodicAccounting.shortWork (CountedShortBranch.solve P f n Q) := by
   rw [solve_join]
   unfold joinLedger PeriodicAccounting.shortWork
+  dsimp only
   omega
 
 end Short

@@ -100,3 +100,15 @@ After actual compiler errors are resolved:
 6. Freeze only after those checks pass.
 
 No proof escape declarations or native proof shortcuts were introduced. A text scan for the project's forbidden proof-escape tokens passed before submitting this tree; that scan is not a substitute for Lean kernel validation.
+
+## First CI result and next proof patch
+
+GitHub Actions run 45592541855, full-executor job 139130180987, checked commit 3334873b9287c8836c880ab547ed5455d3d4a715. The build log confirmed Bank, Updates and Erase compiled, together with the dependent recovered local family and MaskedAllStartFullCostExecuteBand (411/412 targets). The axiom step was skipped because the last Execute target failed, so no final axiom/freeze claim is made.
+
+The three reported Execute proof errors were:
+
+- initial_credit attempted to unfold an original function already unfolded by apply unification.
+- bands_credit required normalization of the accumulator's leading zero.
+- the leaf case of plan_credit required identifying the local seeded result in hseed before arithmetic reasoning.
+
+The accompanying Execute patch changes only these proof scripts. It changes no executable definitions. A fresh CI result is required for the patched top-level plan.

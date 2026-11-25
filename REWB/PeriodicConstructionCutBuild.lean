@@ -294,6 +294,7 @@ theorem buildDFA_work (B C E : DFA α) (w : Word α) :
     simp only [CountedProjection.map_value,List.length_map,hlen]
   rw [hlen,enum_cardinality] at ha
   rw [hlen2,enum_cardinality] at hb
+  dsimp only [summaryProducts] at hb
   dsimp only [buildDFA,buildDFACost,summaryProducts]
   omega
 

@@ -43,7 +43,6 @@ theorem initial_credit (capacity : Nat) (step : MaskedTraversalDriver.Step h) (s
     (F : Nat) (hf : 1≤F) :
     (initial capacity step st).2+F*st.global.stats.work≤F*(initial capacity step st).1.global.stats.work := by
   apply delta_credit F _ _ hf
-  unfold MaskedTraversalExecute.initial
   split <;> simp only <;> omega
 
 def leaf (capacity p : Nat) (inserted : MaskedTraversalFrontier.Inserted h) (st : MaskedTraversalExecute.State C E h) :
@@ -121,8 +120,8 @@ theorem bands_value (env : Env B C E n h') (capacity : Nat) (bs : List (MaskedTr
 theorem bands_credit (env : Env B C E n h') (capacity : Nat) (bs : List (MaskedTraversalEdge.Band h))
     (st : MaskedTraversalExecute.State C E h) (ht : PeriodicConstruction.Cut.Tiny env.cut.tree) :
     (bands env capacity bs st).2+coefficient B C E env.repair.shared.prepared.K*st.global.stats.work≤
-      coefficient B C E env.repair.shared.prepared.K*(bands env capacity bs st).1.global.stats.work :=
-  bandsLoop_credit _ _ _ _ 0 ht
+      coefficient B C E env.repair.shared.prepared.K*(bands env capacity bs st).1.global.stats.work := by
+  simpa only [bands,Nat.zero_add] using bandsLoop_credit env capacity bs st 0 ht
 
 def edge (env : Env B C E n h') (capacity : Nat) (step : MaskedTraversalDriver.Step h)
     (st : MaskedTraversalExecute.State C E h) : Bank.Result (MaskedTraversalExecute.State C E h) :=
@@ -194,6 +193,7 @@ theorem plan_credit (env : Env B C E n h') (capacity : Nat) (template : Template
     change started.2+seeded.2+(edge env capacity step seeded.1).2+F*global.stats.work≤
       F*(edge env capacity step seeded.1).1.global.stats.work
     change started.2+F*global.stats.work≤F*started.1.global.stats.work at hstart
+    change seeded.2+F*started.1.global.stats.work≤F*seeded.1.global.stats.work at hseed
     change _+F*seeded.1.global.stats.work≤F*_ at hedge
     omega
   | node left right merged step ihl ihr=>
