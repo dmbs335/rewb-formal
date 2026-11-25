@@ -67,3 +67,17 @@ import REWB.ThreeSquares
 import REWB.RunBudget
 import REWB.PeriodicBudgets
 import REWB.LongSourceCoverage
+import REWB.ControlShapes
+import REWB.UniformProjection
+import REWB.UniformPhaseBounds
+import REWB.PhaseEqualityCache
+import REWB.FullyCachedP2
+import REWB.BoundaryContexts
+import REWB.SmallPeriodRuns
+import REWB.SmallPeriodP2
+import REWB.UniformJoin
+import REWB.P1PhaseFamily
+import REWB.MarkedFactors
+import REWB.RegularDFA
+import REWB.ProjectionMagnitude
+import REWB.PhaseMagnitude

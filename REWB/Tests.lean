@@ -563,3 +563,49 @@ end RunCoverageRegression
 #print axioms REWB.RunBudget.totalMass_bound
 #print axioms REWB.RunBudget.cubic_phase_bound
 #print axioms REWB.RunBudget.low_exponent_equality
+
+-- Bounded-period enumeration, cached boundaries, and uniform projection.
+namespace SmallPeriodRegression
+open REWB.RunGeometry RunCoverageRegression
+
+#guard (SmallPeriodRuns.enumerate alternating 8 0).1 == []
+#guard (SmallPeriodRuns.enumerate alternating 8 1).1 == []
+#guard (SmallPeriodRuns.enumerate alternating 8 2).1 == ([⟨0,8,2⟩] : List Bounds)
+#guard (SmallPeriodRuns.enumerate alternating 8 8).1 == ([⟨0,8,2⟩] : List Bounds)
+#guard (SmallPeriodRuns.enumerate twoRuns 8 1).1 == ([⟨0,4,1⟩,⟨4,8,1⟩] : List Bounds)
+#guard (SmallPeriodRuns.enumerate alternating 0 4).1 == []
+#guard (SmallPeriodRuns.cubic alternating 4 2).isEmpty
+#guard (SmallPeriodRuns.cubic alternating 6 2) == ([⟨0,6,2⟩] : List Bounds)
+#guard (SmallPeriodRuns.ends alternating 2 0 6).1 == [6,6,6,6,6,6,6]
+#guard (SmallPeriodRuns.ends twoRuns 1 0 7).1 == [3,3,3,3,7,7,7,7]
+#guard (PhaseEqualityCache.build alternating 2).2 == 8
+#guard (BoundaryContexts.build nestedPattern [1,2,1,2]).2 == 15
+#guard (SmallPeriodP2.solve nestedPattern alternating 0 0).accepted == false
+
+end SmallPeriodRegression
+
+#print axioms REWB.ControlShapes.prune_check
+#print axioms REWB.ControlShapes.matches_iff_shapes
+#print axioms REWB.ControlShapes.matches_iff_shaped_codes
+#print axioms REWB.UniformPhaseBounds.p2_all_stages_bound
+#print axioms REWB.UniformPhaseBounds.p2_projection_bound
+#print axioms REWB.UniformPhaseBounds.p1Modulus_pos
+#print axioms REWB.UniformPhaseBounds.p1_source_compatible
+#print axioms REWB.UniformPhaseBounds.p1_target_compatible
+#print axioms REWB.UniformPhaseBounds.p1_target_windows
+#print axioms REWB.UniformJoin.localSource_with_gap
+#print axioms REWB.UniformJoin.run_correct
+#print axioms REWB.UniformJoin.run_counts
+#print axioms REWB.PhaseEqualityCache.build_cost
+#print axioms REWB.PhaseEqualityCache.equalFormula_eq
+#print axioms REWB.FullyCachedP2.solveFamily_eq
+#print axioms REWB.FullyCachedP2.countedPhases_cost
+#print axioms REWB.BoundaryContexts.prepareAt_correct
+#print axioms REWB.BoundaryContexts.countedPrepareAt_cost
+#print axioms REWB.SmallPeriodRuns.enumerate_mem
+#print axioms REWB.SmallPeriodRuns.enumerate_nodup
+#print axioms REWB.SmallPeriodRuns.enumerate_cost
+#print axioms REWB.SmallPeriodRuns.cubic_phase_bound
+#print axioms REWB.SmallPeriodP2.solve_sound
+#print axioms REWB.SmallPeriodP2.solve_complete
+#print axioms REWB.SmallPeriodP2.solve_counts
