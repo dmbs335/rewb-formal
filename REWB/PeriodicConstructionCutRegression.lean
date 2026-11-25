@@ -1,6 +1,8 @@
 import REWB.PeriodicConstructionCutBuild
 import REWB.PeriodicConstructionCutPhase
 import REWB.MaskedPeriodicTextRegression
+import REWB.PeriodicConstructionPattern
+import REWB.MaskedClusterRegression
 
 /-! Kernel regressions for the counted local query. These use semantic
 value-preservation theorems, so the real-tail example does not ask the

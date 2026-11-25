@@ -2,6 +2,16 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 # Run scripts/check.sh first to build the implementation and regression imports.
+REWB_AUDIT_SHARDS=${REWB_AUDIT_SHARDS:-1}
+REWB_AUDIT_SHARD=${REWB_AUDIT_SHARD:-0}
+if [[ ! "$REWB_AUDIT_SHARDS" =~ ^[1-9][0-9]*$ ||
+      ! "$REWB_AUDIT_SHARD" =~ ^(0|[1-9][0-9]*)$ ]] ||
+    (( REWB_AUDIT_SHARD >= REWB_AUDIT_SHARDS )); then
+  echo 'Invalid audit shard selection.' >&2
+  exit 1
+fi
+audit_index=0
+audit_run=0
 for name in masked_reporting_smoke masked_event_smoke boundary_index_smoke \
   lean_lce_index_smoke indexed_grid_smoke lean_run_index_smoke lean_p2_tail_smoke \
   lean_context_smoke lean_boundary_mixed_smoke masked_finite_action_smoke \
@@ -65,8 +75,15 @@ for name in masked_reporting_smoke masked_event_smoke boundary_index_smoke \
   masked_finite_construction_smoke \
   residual_actual_smoke \
   periodic_construction_smoke; do
-  echo "Running $name"
-  lake env lean --run "audits/$name.lean"
+  if (( audit_index % REWB_AUDIT_SHARDS == REWB_AUDIT_SHARD )); then
+    echo "Running $name"
+    lake env lean --run "audits/$name.lean"
+    audit_run=$((audit_run+1))
+  fi
+  audit_index=$((audit_index+1))
 done
 
-python3 audits/masked_all_start_runtime_codegen.py
+if (( REWB_AUDIT_SHARD == 0 )); then
+  python3 audits/masked_all_start_runtime_codegen.py
+fi
+echo "Completed $audit_run/$audit_index probes for shard $REWB_AUDIT_SHARD/$REWB_AUDIT_SHARDS."

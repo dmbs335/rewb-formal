@@ -1,4 +1,4 @@
-import REWB.MaskedAllStartFullCostPrepare
+import REWB.MaskedAllStartFullCost
 
 #print axioms REWB.MaskedAllStart.FullCost.FiniteInitial.one_value
 #print axioms REWB.MaskedAllStart.FullCost.FiniteInitial.one_work
@@ -18,3 +18,9 @@ import REWB.MaskedAllStartFullCostPrepare
 #print axioms REWB.MaskedAllStart.FullCost.prepare_work_closed
 #print axioms REWB.MaskedAllStart.FullCost.prepare_tiny
 #print axioms REWB.MaskedAllStart.FullCost.prepare_modulus
+#print axioms REWB.MaskedAllStart.FullCost.solve_value
+#print axioms REWB.MaskedAllStart.FullCost.solve_correct
+#print axioms REWB.MaskedAllStart.FullCost.solve_work
+#print axioms REWB.MaskedAllStart.FullCost.solve_profile
+#print axioms REWB.MaskedAllStart.FullCost.solve_work_closed
+#print axioms REWB.MaskedAllStart.FullCost.solve_charged_work_closed

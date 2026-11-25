@@ -110,7 +110,7 @@ theorem solve_expr (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n Q : Nat) :
 theorem solve_rounded (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n : Nat) :
     (solve P f n (ThresholdBudget.period n)).work≤
       (branchCoefficient P*(longExpr P).coeff)*(ThresholdBudget.base n)^75 := by
-  have hb := Expr.bound75 (longExpr P) (by rw [long_degree]; decide) n
+  have hb := PeriodicAccounting.Expr.bound75 (longExpr P) (by rw [long_degree]; decide) n
   exact Nat.le_trans (solve_expr P f n (ThresholdBudget.period n))
     (by simpa only [Nat.mul_assoc] using Nat.mul_le_mul_left (branchCoefficient P) hb)
 
@@ -167,7 +167,7 @@ theorem solve_expr (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n Q : Nat) :
 theorem solve_rounded (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n : Nat) :
     (solve P f n (ThresholdBudget.period n)).work≤
       (branchCoefficient P*(shortExpr P).coeff)*(ThresholdBudget.base n)^75 := by
-  have hb := Expr.bound75 (shortExpr P) (by rw [short_degree]; decide) n
+  have hb := PeriodicAccounting.Expr.bound75 (shortExpr P) (by rw [short_degree]; decide) n
   exact Nat.le_trans (solve_expr P f n (ThresholdBudget.period n))
     (by simpa only [Nat.mul_assoc] using Nat.mul_le_mul_left (branchCoefficient P) hb)
 
@@ -177,13 +177,13 @@ namespace Cubic
 
 /-- The two existing periodic P1 expressions; the new construction does
 not require another input- or period-dependent factor. -/
-def expr (P : SevenDFA (Fin σ)) : Expr := .add (longExpr P) (shortExpr P)
+def expr (P : SevenDFA (Fin σ)) : PeriodicAccounting.Expr := .add (longExpr P) (shortExpr P)
 
 def coefficient (P : SevenDFA (Fin σ)) : Nat :=
   Long.branchCoefficient P+Short.branchCoefficient P+3
 
 theorem expr_degree (P : SevenDFA (Fin σ)) : (expr P).degree=69 := by
-  simp only [expr,Expr.degree,long_degree,short_degree,Nat.max_self]
+  simp only [expr,PeriodicAccounting.Expr.degree,long_degree,short_degree,Nat.max_self]
 
 theorem expr_input (P : SevenDFA (Fin σ)) (n Q : Nat) :
     n+1≤(expr P).eval n Q := by
@@ -208,7 +208,7 @@ theorem solve_expr (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n Q : Nat) :
 theorem solve_rounded (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n : Nat) :
     (solve P f n (ThresholdBudget.period n)).2≤
       (coefficient P*(expr P).coeff)*(ThresholdBudget.base n)^75 := by
-  have hb := Expr.bound75 (expr P) (by rw [expr_degree]; decide) n
+  have hb := PeriodicAccounting.Expr.bound75 (expr P) (by rw [expr_degree]; decide) n
   exact Nat.le_trans (solve_expr P f n (ThresholdBudget.period n))
     (by simpa only [Nat.mul_assoc] using Nat.mul_le_mul_left (coefficient P) hb)
 
@@ -230,8 +230,9 @@ theorem rounded_bound (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n : Nat) :
   have hc := Cubic.solve_rounded P f n
   have hp := P2.solve_rounded P f n
   have hh : 1≤logHeight n := by unfold logHeight; omega
-  have hc' := Nat.le_trans hc (by simpa only [Nat.mul_one] using
-    Nat.mul_le_mul_left ((Cubic.coefficient P*(Cubic.expr P).coeff)*(ThresholdBudget.base n)^75) hh)
+  have hc' := Nat.le_trans hc (by
+    simpa only [Nat.mul_one] using
+      (Nat.mul_le_mul_left ((Cubic.coefficient P*(Cubic.expr P).coeff)*(ThresholdBudget.base n)^75) hh))
   simp only [roundedWork,roundedCoefficient,Nat.add_mul,Nat.one_mul]
   omega
 

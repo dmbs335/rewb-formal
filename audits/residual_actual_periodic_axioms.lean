@@ -1,0 +1,32 @@
+import REWB.ResidualActualPeriodic
+
+#print axioms REWB.ResidualActual.Periodic.Cached.P1.execute_periodic
+#print axioms REWB.ResidualActual.Periodic.Cached.P1.execute_answer
+#print axioms REWB.ResidualActual.Periodic.Cached.P1.execute_residual_eq
+#print axioms REWB.ResidualActual.Periodic.Cached.P1.execute_correct
+#print axioms REWB.ResidualActual.Periodic.Cached.P1.execute_accountedWork
+#print axioms REWB.ResidualActual.Periodic.Cached.P1.execute_work_le_old
+#print axioms REWB.ResidualActual.Periodic.P1.execute_answer
+#print axioms REWB.ResidualActual.Periodic.P1.execute_correct
+#print axioms REWB.ResidualActual.Periodic.P1.execute_inputWork
+#print axioms REWB.ResidualActual.Periodic.P1.execute_builds
+#print axioms REWB.ResidualActual.Periodic.P1.execute_work_le_old
+#print axioms REWB.ResidualActual.Periodic.P1.auto_answer
+#print axioms REWB.ResidualActual.Periodic.P1.auto_correct
+#print axioms REWB.ResidualActual.Periodic.P1.auto_builds
+#print axioms REWB.ResidualActual.Periodic.P1.auto_work_le_old
+#print axioms REWB.ResidualActual.Periodic.Cached.P2.execute_periodic
+#print axioms REWB.ResidualActual.Periodic.Cached.P2.execute_answer
+#print axioms REWB.ResidualActual.Periodic.Cached.P2.execute_residual_eq
+#print axioms REWB.ResidualActual.Periodic.Cached.P2.execute_correct
+#print axioms REWB.ResidualActual.Periodic.Cached.P2.execute_accountedWork
+#print axioms REWB.ResidualActual.Periodic.Cached.P2.execute_work_le_old
+#print axioms REWB.ResidualActual.Periodic.P2.execute_answer
+#print axioms REWB.ResidualActual.Periodic.P2.execute_correct
+#print axioms REWB.ResidualActual.Periodic.P2.execute_inputWork
+#print axioms REWB.ResidualActual.Periodic.P2.execute_builds
+#print axioms REWB.ResidualActual.Periodic.P2.execute_work_le_old
+#print axioms REWB.ResidualActual.Periodic.P2.auto_answer
+#print axioms REWB.ResidualActual.Periodic.P2.auto_correct
+#print axioms REWB.ResidualActual.Periodic.P2.auto_builds
+#print axioms REWB.ResidualActual.Periodic.P2.auto_work_le_old
