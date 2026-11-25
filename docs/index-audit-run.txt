@@ -357,3 +357,187 @@ border n=4096, q=1, work=342, choice=REWB.BoundaryBorder.Choice.progression 0 1 
 border n=4096, q=2, work=328, choice=REWB.BoundaryBorder.Choice.progression 0 2 0 2048; no period/residue scan in selector
 border n=4096, q=1024, work=202, choice=REWB.BoundaryBorder.Choice.progression 0 1024 0 2048; no period/residue scan in selector
 border n=4096, q=2048, work=188, choice=REWB.BoundaryBorder.Choice.progression 0 2048 0 2048; no period/residue scan in selector
+
+Running masked_suffix_class_smoke
+suffixClasses texts=511 queries=41983 interiorCuts=5934 maxQueryWork=37 firstThresholdIDs=true epsilon=true emptySuffix=true invalidCutoffs=true
+suffixClassDeep n=1024 period=1 nodes=2049 levels=12 work=4689200 queries=77 maxQueryWork=79 savedOccurrences=true
+suffixClassDeep n=512 period=3 nodes=1025 levels=11 work=2270389 queries=77 maxQueryWork=69 savedOccurrences=true
+
+Running masked_cluster_mutable_store_smoke
+'REWB.MaskedCluster.Mutable.compileDenseBank_same' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compilePointBank_same' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileRun_erase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.compile_presence_erase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_other' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_coherent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.install_coherent' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_counts' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.compile_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_combined_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.describe_reset_geometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_geometry' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.Regression.inside_dense_hulls' depends on axioms: [propext]
+'REWB.MaskedCluster.Mutable.Store.Regression.nonoccurrence_no_bank_repair' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.Regression.other_cluster_shared' depends on axioms: [propext, Quot.sound]
+owned fixed-partition repair: occurrences=6, leaders=3, actual cubic runs=2, target preparations=2, erase requests=11, no-owner requests=4, bank repairs=7, slot writes=7, mismatches=0, elapsed=3243 ms
+stored/fresh replay cells=115200, chronological physical cells=7200, untouched-slot cells=83200, current member checks=300, tracked repair work=430687, actual source fanout deliveries=7
+Non-occurrences inside dense hulls were erased with zero bank repairs. Targets and complete occurrence/leader trees stayed fixed. Run-ID discovery and global traversal/frontier maintenance remain separate.
+
+Running boundary_border_window_smoke
+borderWindowLength=0 texts=1 queries=1 physical=4
+borderWindowLength=1 texts=3 queries=9 physical=76
+borderWindowLength=2 texts=7 queries=45 physical=508
+borderWindowLength=3 texts=15 queries=173 physical=3068
+borderWindowLength=4 texts=31 queries=573 physical=12668
+borderWindowLength=5 texts=63 queries=1725 physical=44924
+borderWindowLength=6 texts=127 queries=4861 physical=145276
+borderWindowLength=7 texts=255 queries=13053 physical=513916
+borderWindowTotal texts=255 queries=13053 rows=47305 physical=513916 points=3644 progressions=7446 empties=83520 windows=13274 windowChecks=88458 doubleComponents=4 maxWork=897
+borderWindowDeep n=1024 kind=0 buildWork=4689216 scales=11 queries=16 physical=196992 maxWork=7670 exactSlices=true
+borderWindowDeep n=1024 kind=1 buildWork=5218014 scales=11 queries=16 physical=196992 maxWork=7174 exactSlices=true
+borderWindowDeep n=1024 kind=2 buildWork=5534940 scales=11 queries=16 physical=196992 maxWork=7422 exactSlices=true
+
+real	0m17.053s
+user	0m17.083s
+sys	0m0.298s
+
+Running boundary_range_smoke
+boundary dispatch: mask builds=87023, physical mask checks=713711, DFA reversals=2555, joint gap checks=504, max mask work=336, mismatches=0 (7483 ms)
+far mask n=4096, g=0, bits=4097, work=167944; one shared K range index
+far mask n=4096, g=2048, bits=4097, work=126984; one shared K range index
+far mask n=4096, g=4096, bits=4097, work=53264; one shared K range index
+far mask n=4096, g=8192, bits=4097, work=53264; one shared K range index
+
+Running masked_traversal_edge_smoke
+'REWB.MaskedTraversalEdge.next_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.invariant_between' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.threshold_between' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalEdge.Chain.coverage' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.Chain.unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.Band.Valid.at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.run_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.run_occurrences' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalEdge.run_measured' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.run_work_queue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.Regression.parent_event_order' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalEdge.Regression.long_singleton' depends on axioms: [propext, Quot.sound]
+edge schedules=14592, literal length checks=66816, actual pops=35389, measured work=10380572, mismatches=0, elapsed=13745 ms
+Checked empty/singleton/dense occurrence sets, duplicate insertions, stale and born-due events, parent-depth events, equal-depth refinements, and a billion-long one-band edge. Bank/query callback work remains separate.
+
+Running boundary_border_regular_smoke
+borderRegularAlignment checks=45360 emptyWindows=true residueClipping=true
+borderRegularOrbits checks=1536 maxWork=4954 hugeExponent=100000000 independentWork=true
+borderRegular computing fixed two-state proof budget once
+borderRegular fixedTwoStateBudget=50094
+borderRegularLength n=0 texts=1 queries=4 accepted=0 maxWork=24
+borderRegularLength n=1 texts=3 queries=68 accepted=4 maxWork=254
+borderRegularLength n=2 texts=7 queries=500 accepted=35 maxWork=574
+borderRegularLength n=3 texts=15 queries=2548 accepted=195 maxWork=3612
+borderRegularLength n=4 texts=31 queries=10548 accepted=856 maxWork=5182
+borderRegularLength n=5 texts=47 queries=24372 accepted=2007 maxWork=5217
+borderRegularLength n=6 texts=63 queries=46324 accepted=3835 maxWork=5217
+borderRegularTotal texts=63 queries=46324 accepted=3835 rejected=42489 maxWork=5217 empty=true clipping=true noninjective=true
+borderRegularDeep n=512 period=1 queries=48 scales=10 maxWork=16734 fixedBudget=3125 exactSlices=true
+borderRegularDeep n=513 period=3 queries=48 scales=10 maxWork=12969 fixedBudget=3125 exactSlices=true
+
+Running boundary_range_near_smoke
+nearDependent slots=4096 work=36862 payloads=true
+nearExhaustive length=0 builds=2 queries=2
+nearExhaustive length=1 builds=14 queries=34
+nearExhaustive length=2 builds=62 queries=274
+nearTotal builds=71 queries=319 physicalComparisons=957 keyBits=175 separated=23 ends=10 starts=45 maxWork=1696
+nearDeep n=128 queries=645 keyBits=5 maxWork=9775 exactSlices=true
+
+real	1m8.484s
+user	1m8.486s
+sys	0m0.239s
+
+Running boundary_far_index_smoke
+farLeftProgress n=0 code=0 g=0 builds=1 queries=1
+farLeftProgress n=1 code=0 g=0 builds=2 queries=3
+farLeftProgress n=1 code=0 g=1 builds=3 queries=7
+farLeftProgress n=1 code=1 g=0 builds=4 queries=9
+farLeftProgress n=1 code=1 g=1 builds=5 queries=13
+farLeftProgress n=2 code=0 g=0 builds=6 queries=16
+farLeftProgress n=2 code=0 g=1 builds=7 queries=22
+farLeftProgress n=2 code=0 g=2 builds=8 queries=31
+farLeftProgress n=2 code=1 g=0 builds=9 queries=34
+farLeftProgress n=2 code=1 g=1 builds=10 queries=40
+farLeftProgress n=2 code=1 g=2 builds=11 queries=49
+farLeftProgress n=2 code=2 g=0 builds=12 queries=52
+farLeftProgress n=2 code=2 g=1 builds=13 queries=58
+farLeftProgress n=2 code=2 g=2 builds=14 queries=67
+farLeftProgress n=2 code=3 g=0 builds=15 queries=70
+farLeftProgress n=2 code=3 g=1 builds=16 queries=76
+farLeftProgress n=2 code=3 g=2 builds=17 queries=85
+farLeftProgress n=0 code=0 g=0 builds=18 queries=86
+farLeftProgress n=1 code=0 g=0 builds=19 queries=88
+farLeftProgress n=1 code=0 g=1 builds=20 queries=92
+farLeftProgress n=1 code=1 g=0 builds=21 queries=94
+farLeftProgress n=1 code=1 g=1 builds=22 queries=98
+farLeftProgress n=2 code=0 g=0 builds=23 queries=101
+farLeftProgress n=2 code=0 g=1 builds=24 queries=107
+farLeftProgress n=2 code=0 g=2 builds=25 queries=116
+farLeftProgress n=2 code=1 g=0 builds=26 queries=119
+farLeftProgress n=2 code=1 g=1 builds=27 queries=125
+farLeftProgress n=2 code=1 g=2 builds=28 queries=134
+farLeftProgress n=2 code=2 g=0 builds=29 queries=137
+farLeftProgress n=2 code=2 g=1 builds=30 queries=143
+farLeftProgress n=2 code=2 g=2 builds=31 queries=152
+farLeftProgress n=2 code=3 g=0 builds=32 queries=155
+farLeftProgress n=2 code=3 g=1 builds=33 queries=161
+farLeftProgress n=2 code=3 g=2 builds=34 queries=170
+farLeftProgress n=0 code=0 g=0 builds=35 queries=171
+farLeftProgress n=1 code=0 g=0 builds=36 queries=173
+farLeftProgress n=1 code=0 g=1 builds=37 queries=177
+farLeftProgress n=1 code=1 g=0 builds=38 queries=179
+farLeftProgress n=1 code=1 g=1 builds=39 queries=183
+farLeftProgress n=2 code=0 g=0 builds=40 queries=186
+farLeftProgress n=2 code=0 g=1 builds=41 queries=192
+farLeftProgress n=2 code=0 g=2 builds=42 queries=201
+farLeftProgress n=2 code=1 g=0 builds=43 queries=204
+farLeftProgress n=2 code=1 g=1 builds=44 queries=210
+farLeftProgress n=2 code=1 g=2 builds=45 queries=219
+farLeftProgress n=2 code=2 g=0 builds=46 queries=222
+farLeftProgress n=2 code=2 g=1 builds=47 queries=228
+farLeftProgress n=2 code=2 g=2 builds=48 queries=237
+farLeftProgress n=2 code=3 g=0 builds=49 queries=240
+farLeftProgress n=2 code=3 g=1 builds=50 queries=246
+farLeftProgress n=2 code=3 g=2 builds=51 queries=255
+farLeftProgress n=0 code=0 g=0 builds=52 queries=256
+farLeftProgress n=1 code=0 g=0 builds=53 queries=258
+farLeftProgress n=1 code=0 g=1 builds=54 queries=262
+farLeftProgress n=1 code=1 g=0 builds=55 queries=264
+farLeftProgress n=1 code=1 g=1 builds=56 queries=268
+farLeftProgress n=2 code=0 g=0 builds=57 queries=271
+farLeftProgress n=2 code=0 g=1 builds=58 queries=277
+farLeftProgress n=2 code=0 g=2 builds=59 queries=286
+farLeftProgress n=2 code=1 g=0 builds=60 queries=289
+farLeftProgress n=2 code=1 g=1 builds=61 queries=295
+farLeftProgress n=2 code=1 g=2 builds=62 queries=304
+farLeftProgress n=2 code=2 g=0 builds=63 queries=307
+farLeftProgress n=2 code=2 g=1 builds=64 queries=313
+farLeftProgress n=2 code=2 g=2 builds=65 queries=322
+farLeftProgress n=2 code=3 g=0 builds=66 queries=325
+farLeftProgress n=2 code=3 g=1 builds=67 queries=331
+farLeftProgress n=2 code=3 g=2 builds=68 queries=340
+farLeftProgress n=0 code=0 g=0 builds=69 queries=341
+farLeftProgress n=1 code=0 g=0 builds=70 queries=343
+farLeftProgress n=1 code=0 g=1 builds=71 queries=347
+farLeftProgress n=1 code=1 g=0 builds=72 queries=349
+farLeftProgress n=1 code=1 g=1 builds=73 queries=353
+farLeftProgress n=2 code=0 g=0 builds=74 queries=356
+farLeftProgress n=2 code=0 g=1 builds=75 queries=362
+farLeftProgress n=2 code=0 g=2 builds=76 queries=371
+farLeftProgress n=2 code=1 g=0 builds=77 queries=374
+farLeftProgress n=2 code=1 g=1 builds=78 queries=380
+farLeftProgress n=2 code=1 g=2 builds=79 queries=389
+farLeftProgress n=2 code=2 g=0 builds=80 queries=392
+farLeftProgress n=2 code=2 g=1 builds=81 queries=398
+farLeftProgress n=2 code=2 g=2 builds=82 queries=407
+farLeftProgress n=2 code=3 g=0 builds=83 queries=410
+farLeftProgress n=2 code=3 g=1 builds=84 queries=416
+farLeftProgress n=2 code=3 g=2 builds=85 queries=425
+far-left eager variant tables: builds=85, queries=425, accepted=85, maxQueryWork=76, mismatches=0 (22787 ms)
+far-left n=128, stored K rows=1, buildWork=294105, queries=8385, queryWork=120; factory used only in preparation

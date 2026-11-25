@@ -119,3 +119,23 @@ The separated-index audit exposed avoidable copy-on-write pressure from retainin
 ### Shared-cut finite-universe limit
 
 `audits/masked_cluster_cut_smoke.lean` passes its default small-universe full-index queries and its 256-cell stored-relation correlation check. The actual full-index mixed-cut rejection is also kernel-proved. The optional `--full-correlation` probe uses the larger joint universe J=16 and exceeded a 30-second external timeout, exiting 124. That optional execution is not a passing gate and is not presented as one. The result illustrates the fixed-pattern table-materialization cost; it does not invalidate the universal kernel theorem or establish practical scalability.
+
+### Actual suffix/store/border/edge and cached-boundary continuation
+
+| Probe | Observed result |
+| --- | --- |
+| Actual suffix class | 511 binary texts, 41,983 queries, including 5,934 interior-edge cutoffs; unary n=1,024 uses 2,049 owner nodes and maximum query work 79 |
+| Fixed-partition mutable bank store | 115,200 replay cells, 7,200 physical checks, 83,200 untouched-slot checks; seven owned repairs and four no-owner requests; no mismatch |
+| Complete short-window and dyadic equality | 255 texts, 13,053 queries, 47,305 rows and 513,916 physical checks; additional 13,274 arbitrary-window probes and deep n=1,024 cases |
+| Actual regular border query | 45,360 AP alignment checks, 1,536 finite-orbit cases, and 46,324 actual queries over 63 texts; 3,835 positive and 42,489 negative answers; no mismatch |
+| Large regular exponents | Exponent 100,000,000 uses unchanged finite-orbit traversal work; n=512/period1 and n=513/period3 each pass 48 full-slice queries |
+| Compressed-edge scheduler | 14,592 schedules, 66,816 literal-length checks and 35,389 actual pops; a billion-long singleton edge has one band, zero pops and work 42 |
+| Boundary automata and actual reversed mask | 87,023 mask builds, 713,711 physical comparisons, 2,555 DFA reversal checks and 504 shared-gap checks; no mismatch |
+| Cached three-near-case index | 71 eager builds, 319 complete region triples (957 raw-cut comparisons), 175 key-bit checks; deep n=128 passes 645 triples with maximum work 9,775 |
+| Cached far-left index | Default: 85 eager builds and 425 direct comparisons, maximum query work 76; n=128 passes 8,385 endpoint queries, build work 294,105 and query work 120 |
+
+All default probes above completed. The near-case default includes every binary text through length two, seeded mixed two-state examples, explicit branch fixtures and the deep path. Its larger diagnostic completed 222 eager builds and 1,554 queries before a later mixed phase was manually interrupted; the whole diagnostic is not a passing test. The separate broad far-left probe completed 645 builds and 8,025 comparisons plus its deep case in about five minutes; the default keeps the smaller complete mixed-state sweep because the underlying separated primitive is already tested independently at n=512.
+
+These are checks of the stated abstract operation counters and returned answers. Fixed-pattern automata, finite maps and projection formulas may have large constants. They do not imply a practical speed claim or an allocator/bit-cost theorem. The scheduler's bank/query callback work and the store's changing-partition repair policy remain outside their respective bounds.
+
+The exact `14ff501` push CI passed. Its PR workflow passed the build/dependency stage but was cancelled at the previous 20-minute job limit during the separated n=512 runtime probe, with no recorded semantic mismatch. The Lean job limit is increased to 40 minutes; the Python job retains its existing limit. This configuration change does not count the cancelled run as successful.
