@@ -159,3 +159,32 @@ The near-border generated-code inspection found that dependent query arguments w
 The residual language tests use bounded independent cut enumeration as references. They validate the exact reductions, not an unimplemented fast range query. Automatic bank preparation uses actual current source histories, discovered catalog IDs and predecessor metadata, while retaining an explicit neighbor-anchor invariant. The geometric driver and band-count proofs still exclude complete bank repair, aggregate query and reporting work.
 
 Both exact `88959f2` GitHub CI runs passed. That result validates the preceding published checkpoint; later additions require their own exact-head remote runs.
+
+
+### Repairs, physical-window aggregates and short-outer construction
+
+| Probe | Observed result |
+| --- | --- |
+| One-use near border | 47 eager builds, 23,408 point checks and 7,542 region comparisons; 696 positive answers; n=256 and mixed n=129 deep fixtures passed |
+| Actual residual dispatcher | 508 schedules, 3,802 selectors and 930 independent complete P1/P2 union comparisons; zero mismatches; deep n=512/period1 and n=384/period3 schedules passed |
+| Backward far bit aggregate | 68,580 builds and 661,104 comparisons over 127 texts; deep n=200,000 passes 200,003 queries; build work 3,600,013 and query work at most four |
+| Dirty requests and two-pass reset | 18,432 insertion patches, 11,520 crossings, 35,093 live records; 73,937 deduplicated keys, 165,679 unchanged descriptors and 33,361 captured changes; two actual bank-reset fixtures add 1,200 physical cells |
+| Retained-anchor successor refresh | 20,480 cases, 7,968 successor keys, 28,128 unchanged incoming contexts; 800 physical cells and 25,600 untouched replay cells, including simultaneous resets and an empty refresh |
+| Assembled one-use cache | 181 builds, 3,457 raw-cut comparisons and 346 positive answers, including 40 near-only; deep n=128/width8 passes 780 queries with build work 505,406 and max query work 152,403 |
+| Exact short-outer table | 127 texts, 6,900 real builds and 390,078 queries; deep n=4,096/L=32 uses 261,216 touches and work 52,704,855 |
+| Actual aggregate/window query | 483 independent comparisons, 152 positive answers and zero mismatches; 201 queries clip actual physical source windows, including dense interiors, erased sources and overshoot |
+| Actual driver repair chronology | 255 texts, 1,930 complete bands, 1,860 imports and 2,392 pops; 3,480 reset keys, 9,686 safe unmarked clusters and 10,386 retained-copy checks; zero mismatches; unary/period-three n=128 cases also pass |
+
+The one-use cache audit supplies its finite all-start input rows by bounded reference computation. This checks the actual assembled cache, not the missing fast row constructor. The residual audit likewise uses independent bounded endpoint scans for the still-pending query predicates. The short-outer table itself is the actual proved producer, using exact keys and chronological finite-state rows.
+
+The aggregate audit uses automatically discovered/prepared banks, actual mutable source erases and persistent replacements. It compares different-cluster ordered-copy witnesses; pairs within one dense cluster belong to the separate periodic branch. The full shared-cut index executes for the smaller finite map universes. The J=16 negative correlation fixture scans actual-word stored tuples. An optional attempt to build the full J=16 index was manually interrupted; it is excluded from successful runtime evidence. This is a fixed-pattern constant limitation, not evidence for a completed fast matcher.
+
+Generated query code was inspected. The one-use cache's hidden word reversal was removed from its selector wrappers. Aggregate wrappers now call two-boundary clipping and one common cut with no text/length-band enumeration. Pattern-size table construction, allocation/reference-counting and bit arithmetic remain outside this inspection. Full traversal coherence and the complete machine-cost theorem are still open.
+
+
+The repair chronology audit follows the actual geometric driver's order,
+keeps one global anchor array, carries only the retained heavy frontier's
+pending marks and defers final-floor/equal-depth repair until a complete
+band. Descriptor locality and pending anchor-bound transition theorems
+are kernel checked. Its extra retained-word/overlap checks are bounded
+runtime evidence; their whole-execution theorem remains open.

@@ -1,42 +1,42 @@
-⚠ [4/468] Replayed REWB.NormalForms
+⚠ [3/523] Replayed REWB.NormalForms
 warning: ././././REWB/NormalForms.lean:338:5: unused variable `h₄`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/NormalForms.lean:338:20: unused variable `h₅`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [13/468] Replayed REWB.MarkedTransfer
+⚠ [12/523] Replayed REWB.MarkedTransfer
 warning: ././././REWB/MarkedTransfer.lean:185:18: try 'simp at he' instead of 'simpa using he'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-⚠ [16/468] Replayed REWB.BoundaryIndexTree
+⚠ [15/523] Replayed REWB.BoundaryIndexTree
 warning: ././././REWB/BoundaryIndexTree.lean:179:4: try 'simp' instead of 'simpa'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-⚠ [18/468] Replayed REWB.MatrixTable
+⚠ [17/523] Replayed REWB.MatrixTable
 warning: ././././REWB/MatrixTable.lean:22:0: automatically included section variable(s) unused in theorem 'REWB.MatrixTable.rows_length':
   [DecidableEq S]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [DecidableEq S] in theorem ...
 note: this linter can be disabled with `set_option linter.unusedSectionVars false`
-⚠ [23/468] Replayed REWB.MaskScan
+⚠ [22/523] Replayed REWB.MaskScan
 warning: ././././REWB/MaskScan.lean:114:45: unused variable `ht`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [26/468] Replayed REWB.OuterTables
+⚠ [25/523] Replayed REWB.OuterTables
 warning: ././././REWB/OuterTables.lean:160:17: unused variable `he`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [31/468] Replayed REWB.BlockIndex
+⚠ [30/523] Replayed REWB.BlockIndex
 warning: ././././REWB/BlockIndex.lean:174:13: unused variable `o`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [53/468] Replayed REWB.FiniteOrbit
+⚠ [52/523] Replayed REWB.FiniteOrbit
 warning: ././././REWB/FiniteOrbit.lean:219:40: unused variable `hp`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [55/468] Replayed REWB.PeriodicCoordinates
+⚠ [54/523] Replayed REWB.PeriodicCoordinates
 warning: ././././REWB/PeriodicCoordinates.lean:65:5: unused variable `hp`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [56/468] Replayed REWB.PeriodicSystem
+⚠ [55/523] Replayed REWB.PeriodicSystem
 warning: ././././REWB/PeriodicSystem.lean:52:29: unused variable `hi`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [59/468] Replayed REWB.Cooper
+⚠ [58/523] Replayed REWB.Cooper
 warning: ././././REWB/Cooper.lean:97:16: unused variable `hc`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [70/468] Replayed REWB.P1Source
+⚠ [69/523] Replayed REWB.P1Source
 warning: ././././REWB/P1Source.lean:27:44: unused variable `h`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/P1Source.lean:28:5: unused variable `ha`
@@ -45,38 +45,38 @@ warning: ././././REWB/P1Source.lean:29:5: unused variable `hb`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/P1Source.lean:29:16: unused variable `ho`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [78/468] Replayed REWB.OfflineJoin
+⚠ [77/523] Replayed REWB.OfflineJoin
 warning: ././././REWB/OfflineJoin.lean:88:5: unused variable `hs`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [79/468] Replayed REWB.RunGeometry
+⚠ [78/523] Replayed REWB.RunGeometry
 warning: ././././REWB/RunGeometry.lean:43:28: unused variable `hp`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/RunGeometry.lean:43:39: unused variable `hl`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/RunGeometry.lean:92:5: unused variable `hl`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [80/468] Replayed REWB.RunExtension
+⚠ [79/523] Replayed REWB.RunExtension
 warning: ././././REWB/RunExtension.lean:75:51: unused variable `h`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [81/468] Replayed REWB.LongSourceCoverage
+⚠ [80/523] Replayed REWB.LongSourceCoverage
 warning: ././././REWB/LongSourceCoverage.lean:76:0: automatically included section variable(s) unused in theorem 'REWB.LongSourceCoverage.phase_key':
   [DecidableEq α]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [DecidableEq α] in theorem ...
 note: this linter can be disabled with `set_option linter.unusedSectionVars false`
-⚠ [84/468] Replayed REWB.PeriodicBudgets
+⚠ [83/523] Replayed REWB.PeriodicBudgets
 warning: ././././REWB/PeriodicBudgets.lean:52:5: unused variable `hp`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [146/468] Replayed REWB.BoundaryApplicationStartLocal
+⚠ [145/523] Replayed REWB.BoundaryApplicationStartLocal
 warning: ././././REWB/BoundaryApplicationStartLocal.lean:68:17: unused variable `hp`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [147/468] Replayed REWB.BoundaryApplicationStartLocate
+⚠ [146/523] Replayed REWB.BoundaryApplicationStartLocate
 warning: ././././REWB/BoundaryApplicationStartLocate.lean:195:21: try 'simp' instead of 'simpa'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-⚠ [152/468] Replayed REWB.BoundaryApplicationStartSound
+⚠ [151/523] Replayed REWB.BoundaryApplicationStartSound
 warning: ././././REWB/BoundaryApplicationStartSound.lean:82:15: unused variable `hp`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [191/468] Replayed REWB.MaskedCutIndex
+⚠ [190/523] Replayed REWB.MaskedCutIndex
 warning: ././././REWB/MaskedCutIndex.lean:95:8: automatically included section variable(s) unused in theorem '_private.REWB.MaskedCutIndex.0.REWB.MaskedCut.Index.take_slice':
   [DecidableEq M]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
@@ -87,27 +87,33 @@ warning: ././././REWB/MaskedCutIndex.lean:101:8: automatically included section 
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [DecidableEq M] in theorem ...
 note: this linter can be disabled with `set_option linter.unusedSectionVars false`
-⚠ [212/468] Replayed REWB.MaskedClusterFactors
+⚠ [211/523] Replayed REWB.MaskedClusterFactors
 warning: ././././REWB/MaskedClusterFactors.lean:46:23: unused variable `hOn`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [279/468] Replayed REWB.CountedShortTargets
+⚠ [278/523] Replayed REWB.CountedShortTargets
 warning: ././././REWB/CountedShortTargets.lean:86:11: try 'simp' instead of 'simpa'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-⚠ [357/468] Replayed REWB.MaskedClusterCursorGeometry
+⚠ [356/523] Replayed REWB.MaskedClusterCursorGeometry
 warning: ././././REWB/MaskedClusterCursorGeometry.lean:68:47: unused variable `hq`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [373/468] Replayed REWB.MaskedClusterMutableCursor
+⚠ [372/523] Replayed REWB.MaskedClusterMutableCursor
 warning: ././././REWB/MaskedClusterMutableCursor.lean:69:8: try 'simp' instead of 'simpa'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-⚠ [398/468] Replayed REWB.MaskedFiniteActionTree
+⚠ [397/523] Replayed REWB.MaskedFiniteActionTree
 warning: ././././REWB/MaskedFiniteActionTree.lean:99:21: unused variable `m`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/MaskedFiniteActionTree.lean:178:4: try 'simp' instead of 'simpa'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-⚠ [464/468] Replayed REWB.ResidualSeparatedRegression
+⚠ [440/523] Replayed REWB.MaskedTraversalContextCorrect
+warning: ././././REWB/MaskedTraversalContextCorrect.lean:159:28: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [457/523] Replayed REWB.ShortOuterBandProbe
+warning: ././././REWB/ShortOuterBandProbe.lean:66:26: unused variable `hx`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [519/523] Replayed REWB.ResidualSeparatedRegression
 warning: ././././REWB/ResidualSeparatedRegression.lean:47:27: try 'simp at hB' instead of 'simpa using hB'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-✔ [467/468] Built REWB
+✔ [531/532] Built REWB
 Build completed successfully.
 'REWB.State.execute_uses' depends on axioms: [propext, Quot.sound]
 'REWB.Witness.same_iff' depends on axioms: [propext, Quot.sound]
@@ -1386,3 +1392,257 @@ Build completed successfully.
 'REWB.MaskedTraversalDriver.density_square' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedTraversalDriver.suffix_charges_budget' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedTraversalDriver.suffix_exactly_once' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.maps_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.maps_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.prefix_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.point_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.dense_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.query_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.choice_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.choice_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.dyadic_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regular.dyadic_work_closed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.changeRanges_build' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Border.startRanges_build' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Border.stopRanges_build' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Border.any_correct' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Border.any_work' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Border.middle_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.middle_cut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.split_gap' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Border.state_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.positive_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.inner_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.queryAt_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.at_iff_cuts' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Border.oneUse_iff' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Border.query_iff_cuts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.state_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.inner_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.queryAt_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.query_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.build_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.atBudget_height' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Border.query_work_height' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.partition' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regression.lower_bound_preserved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regression.common_midpoint_state' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regression.odd_midpoint_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regression.reset_gap_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regression.empty_at_terminal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Border.Regression.empty_input' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Border.Regression.stop_shares_tree' depends on axioms: [propext, Quot.sound]
+'REWB.ResidualDispatch.lowRows_value' depends on axioms: [propext]
+'REWB.ResidualDispatch.lowRows_work' depends on axioms: [propext, Quot.sound]
+'REWB.ResidualDispatch.largeRows_value' depends on axioms: [propext, Quot.sound]
+'REWB.ResidualDispatch.largeRows_work' depends on axioms: [propext, Quot.sound]
+'REWB.ResidualDispatch.select_eq_selectTR' depends on axioms: [propext, Quot.sound]
+'REWB.ResidualDispatch.select_mem' depends on axioms: [propext, Quot.sound]
+'REWB.ResidualDispatch.select_counts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.prepare_mem' depends on axioms: [propext, Quot.sound]
+'REWB.ResidualDispatch.prepare_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.compile_selector_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.prepare_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.residual_window' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.scheduled_p1_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.scheduled_p2_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.global_p1_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.p1_dispatch_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.p2_dispatch_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.p1_dispatch_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.p2_dispatch_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.prepare_selectors' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.prepare_windows' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.prepare_selectorWork' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.runWork_bound' depends on axioms: [propext, Quot.sound]
+'REWB.ResidualDispatch.prepare_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.stateQueries_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.Regression.candidate_once' does not depend on any axioms
+'REWB.ResidualDispatch.Regression.concrete_rows' does not depend on any axioms
+'REWB.ResidualDispatch.Regression.earlier_source_dispatched' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.Regression.earlier_source_match' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ResidualDispatch.Regression.empty_dispatch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarAggregate.build_size' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.FarAggregate.build_work_exact' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.FarAggregate.build_work' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.FarAggregate.query_work' depends on axioms: [propext]
+'REWB.OneUseRange.FarAggregate.sweep_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarAggregate.build_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarAggregate.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarAggregate.query_end' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarAggregate.query_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarAggregate.query_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarAggregate.bit_outside' depends on axioms: [propext]
+'REWB.OneUseRange.FarAggregate.query_substitute' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarAggregate.query_prefix_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarAggregate.query_prefix_substitute' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarAggregate.query_maskedStart' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.markChange_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.importLoop_patches' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.merge_patches' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.patches_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.live_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.crossing_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalRepair.anchorsLoop_read' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalRepair.anchorsLoop_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalRepair.banksLoop_selected' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalRepair.banksLoop_budget' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalRepair.reset_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalRepair.reset_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.successors_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.pred_next' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.incoming_unchanged' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.prepare_some' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.compile_selected' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.runBacked_context' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.retained_geometry' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.store_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.compile_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.write_ready' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.compile_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.applyLoop_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Reverse.accepts_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Reverse.accepts_complement' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Reverse.at_congr' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Reverse.at_forward' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Reverse.twice' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Reverse.at_reverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Reverse.oneUseRange_reverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Reverse.farSource_reverse' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarSelection.key_variant' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.FarSelection.key_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarSelection.build_work' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.FarSelection.prefix_slice' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarSelection.masked_prefix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarSelection.farTarget_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarBank.build_get' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.FarBank.query_bits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarBank.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.FarBank.build_work' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.FarBank.query_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Grid.position_bound' depends on axioms: [propext]
+'REWB.OneUseRange.Grid.floor_slot' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Grid.ceil_slot' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Grid.floor_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Grid.ceil_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Grid.choose_positions' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Grid.choose_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Grid.choose_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Grid.reverse_grid_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Cache.build_forward' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Cache.build_backward_query' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Cache.queryValid_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Cache.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Cache.forward_work' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Cache.backward_work' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Cache.build_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Cache.queryValid_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Cache.query_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Cache.Regression.emptyRows_ready' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Cache.Regression.emptyInputs_ready' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Cache.Regression.empty_input' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Cache.Regression.epsilon_rejected_by_prefix' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'REWB.OneUseRange.Cache.Regression.invalid_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Cache.Regression.clipped_terminal_grid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Cache.Regression.width_exceeds_text' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OneUseRange.Cache.Regression.selected_core_equal' depends on axioms: [propext, Quot.sound]
+'REWB.OneUseRange.Cache.Regression.bank_core_equal' depends on axioms: [propext, Quot.sound]
+'REWB.ShortOuter.Keys.loop_good' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Keys.get_lookup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Keys.get_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Keys.get_eq_general' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Keys.build_work' depends on axioms: [propext, Quot.sound]
+'REWB.ShortOuter.Keys.build_next' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Sweep.move_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Sweep.update_good' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Sweep.update_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Sweep.update_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Suffix.get_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Suffix.build_work' depends on axioms: [propext, Quot.sound]
+'REWB.ShortOuter.Band.inserts_stage' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Band.probes_stage' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Band.run_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Band.get_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Band.get_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Band.run_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Band.build_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Band.build_touches' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ShortOuter.Band.build_bits_size' depends on axioms: [propext, Quot.sound]
+'REWB.ShortOuter.Band.query_work' does not depend on any axioms
+'REWB.MaskedTraversalAggregate.meaning_read' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.meaning_jump' depends on axioms: [propext]
+'REWB.MaskedTraversalAggregate.meaning_direct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.meaning_cursor' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.meaning_final' does not depend on any axioms
+'REWB.MaskedTraversalAggregate.prepare_good' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.prepare_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.prepare_cells' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.refresh_good' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.refresh_cells' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.refresh_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.refreshMany_good' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.refreshMany_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.shorten_cells' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.product_chain' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.cache_chain' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.component_product' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.region_view' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.region_chain' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.region_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.close_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.close_probes' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.queryBand_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.queryBand_counters' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.chain_denotes' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.denotes_append' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.physical_meaning' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.physical_final' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.masked_of_final' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.queryBand_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.selected_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.selected_length' depends on axioms: [propext]
+'REWB.MaskedTraversalAggregate.Clip.selected_nodup' depends on axioms: [propext]
+'REWB.MaskedTraversalAggregate.Clip.plan_length' depends on axioms: [propext]
+'REWB.MaskedTraversalAggregate.Clip.plan_nodup' depends on axioms: [propext]
+'REWB.MaskedTraversalAggregate.Clip.plan_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.predecessor_selection' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.plan_selection' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.config_anchor' does not depend on any axioms
+'REWB.MaskedTraversalAggregate.Clip.config_runBacked' does not depend on any axioms
+'REWB.MaskedTraversalAggregate.Clip.atLeader_good' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.atLeader_calls' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.atLeader_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.atLeader_cells' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.applyKeys_good' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.applyKeys_calls' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.window_good' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.window_calls' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.config_geometry' does not depend on any axioms
+'REWB.MaskedTraversalAggregate.Clip.selectedWork_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.applyKeys_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalAggregate.Clip.window_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.queryWindow_selected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.queryWindow_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.queryWindow_counts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.queryWindow_clipping_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.queryWindow_band_counters' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.dense_select_shorter' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.point_select_shorter' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.store_select_shorter' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalAggregate.store_shorter_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.around_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.around_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.describe_insert_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.add_describe_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.describe_additions_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.shorten_describe_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.crossing_describe_unmarked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.importLoop_describe_unmarked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.merge_describe_unmarked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.add_anchorBoundsAway' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.crossing_anchorBoundsAway' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.merge_anchorBoundsAway' depends on axioms: [propext, Classical.choice, Quot.sound]

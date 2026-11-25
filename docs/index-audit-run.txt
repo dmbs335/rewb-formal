@@ -656,3 +656,130 @@ unary dense endpoint: occurrences=[0, 1, 2, 3, 4, 5, 6], leaders=[0], catalog ru
   work := 409040 }
 auto bank preparation: fixtures=4, preparations=83, physical cells=16600, replay cells=297600, erase requests=29, retired clears=4, mismatches=0, elapsed=6647 ms
 Actual catalog IDs, current erased-source rows, predecessor-derived incoming cursors and immutable target counts were used throughout. Global dirty-neighborhood completeness and lazy aggregate/frontier coherence remain separate.
+
+Current new continuation: completed individual compiled-path audits; unchanged successful 55-audit prefix retained above.
+
+Running one_use_range_border_smoke
+oneUseBorderPreparing fixed pattern budgets
+oneUseBorderCoefficient all=6771
+oneUseBorderCoefficient mixed=100709
+oneUseBorderExhaustive length=0 builds=3 points=48 regions=6
+oneUseBorderExhaustive length=1 builds=9 points=534 regions=114
+oneUseBorderExhaustive length=2 builds=21 points=3606 regions=978
+oneUseBorderExhaustive length=3 builds=45 points=18606 regions=5778
+oneUseBorderTotal builds=47 inners=375 points=23408 regions=7542 accepted=696 maxWork=21321
+oneUseBorderDeep n=256 buildWork=937999 queryWork=170347 answer=true exactSlices=true
+oneUseBorderDeep n=129 buildWork=392811 queryWork=294299 answer=true exactSlices=true
+
+real	0m11.833s
+user	0m11.823s
+sys	0m0.225s
+
+Running residual_dispatch_smoke
+residualDispatch n=0 schedules=4 selectors=0 languageChecks=30
+residualDispatch n=1 schedules=12 selectors=0 languageChecks=90
+residualDispatch n=2 schedules=28 selectors=18 languageChecks=210
+residualDispatch n=3 schedules=60 selectors=102 languageChecks=450
+residualDispatch n=4 schedules=124 selectors=402 languageChecks=930
+residualDispatch n=5 schedules=252 selectors=1288 languageChecks=930
+residualDispatch n=6 schedules=508 selectors=3802 languageChecks=930
+residualDispatchDeep n=512 period=1 runs=1 windows=7473 selectorWork=47377 totalWork=12947324
+residualDispatchDeep n=384 period=3 runs=9 windows=26143 selectorWork=1004364 totalWork=6292040
+residualDispatchComplete schedules=508 selectors=3802 languageChecks=930 nonshortP1=4 nonshortP2=31 mismatches=0 elapsed=12528ms; bounded query scans are audit references
+
+Running one_use_far_aggregate_smoke
+far aggregate small texts=127 builds=68580 queries=661104
+far aggregate deep n=200000 queries=200003 buildWork=3600013 queryWork≤4
+
+Running masked_traversal_dirty_smoke
+'REWB.MaskedTraversalDirty.markChange_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.importLoop_patches' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.merge_patches' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.patches_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.live_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.crossing_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalRepair.anchorsLoop_read' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalRepair.anchorsLoop_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalRepair.banksLoop_selected' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalRepair.banksLoop_budget' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalRepair.reset_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalRepair.reset_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+actual dirty provenance: insertion patches=18432, actual threshold crossings=11520, queue pops=35093, validated live records=35093, requested keys=282250, dedup keys=73937, unchanged outside-key descriptors=165679, changed descriptors captured=33361, mismatches=0, elapsed=12358 ms
+two-pass reset: n=22, complete occurrences=6, leaders=3, dedup reset keys=6, writes=6, physical cells=600, tracked work=211506, mismatches=0
+two-pass reset: n=10, complete occurrences=3, leaders=3, dedup reset keys=3, writes=3, physical cells=600, tracked work=270173, mismatches=0
+Dirty-set locality was tested exhaustively on bounded sets; its general theorem and global lazy aggregate/frontier coherence remain open. Reset correctness/cost and actual patch/live-record provenance are kernel checked.
+
+Running masked_traversal_context_smoke
+'REWB.MaskedTraversalContext.successors_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.pred_next' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.incoming_unchanged' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.prepare_some' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.compile_selected' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.runBacked_context' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.retained_geometry' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.store_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.compile_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.write_ready' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.compile_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.applyLoop_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+successor-only propagation: cases=20480, actual dedup successor keys=7968, unchanged incoming contexts=28128, mismatches=0, elapsed=1305 ms
+dense retained H, no cascade to next leader: H=8, L=7, occurrences=[0, 7, 10, 22], leaders=[0, 7, 22], reset keys=[0], successor keys=[7], retained dense=1, retained singleton=0, physical cells=200, untouched replay cells=6400, work=54490, mismatches=0
+singleton retained H, positive incoming: H=5, L=4, occurrences=[0, 3, 6], leaders=[0, 3, 6], reset keys=[0], successor keys=[3], retained dense=0, retained singleton=1, physical cells=200, untouched replay cells=6400, work=91533, mismatches=0
+adjacent simultaneous resets: H=5, L=4, occurrences=[0, 3, 6], leaders=[0, 3, 6], reset keys=[3, 0], successor keys=[3, 6], retained dense=0, retained singleton=1, physical cells=400, untouched replay cells=3200, work=184526, mismatches=0
+empty reset and refresh: H=5, L=5, occurrences=[0, 3, 6], leaders=[0, 3, 6], reset keys=[], successor keys=[], retained dense=0, retained singleton=0, physical cells=0, untouched replay cells=9600, work=1, mismatches=0
+All current-source physical checks passed. Own anchors and stored run IDs/counts were retained, and unrelated banks were unchanged. Structural dirty-set locality and whole traversal/aggregate coherence remain separate.
+
+Running one_use_range_cache_smoke
+oneUseCache fixture all-start rows are independently enumerated, not production preprocessing
+oneUseCacheExhaustive pattern=0 n=0 builds=3 queries=12
+oneUseCacheExhaustive pattern=0 n=1 builds=9 queries=66
+oneUseCacheExhaustive pattern=0 n=2 builds=21 queries=258
+oneUseCacheExhaustive pattern=0 n=3 builds=45 queries=858
+oneUseCacheExhaustive pattern=1 n=0 builds=48 queries=870
+oneUseCacheExhaustive pattern=1 n=1 builds=54 queries=924
+oneUseCacheExhaustive pattern=1 n=2 builds=66 queries=1116
+oneUseCacheExhaustive pattern=1 n=3 builds=90 queries=1716
+oneUseCacheExhaustive pattern=2 n=0 builds=93 queries=1728
+oneUseCacheExhaustive pattern=2 n=1 builds=99 queries=1782
+oneUseCacheExhaustive pattern=2 n=2 builds=111 queries=1974
+oneUseCacheExhaustive pattern=2 n=3 builds=135 queries=2574
+oneUseCacheExhaustive pattern=3 n=0 builds=138 queries=2586
+oneUseCacheExhaustive pattern=3 n=1 builds=144 queries=2640
+oneUseCacheExhaustive pattern=3 n=2 builds=156 queries=2832
+oneUseCacheExhaustive pattern=3 n=3 builds=180 queries=3432
+oneUseCacheTotal builds=181 queries=3457 accepted=346 farTarget=253 farSource=306 near=68 nearOnly=40 maxWork=4915
+oneUseCacheDeep n=128 width=8 slots=18 builds=1 queries=780 buildWork=505406 maxQueryWork=152403 exactCuts=true
+elapsed_seconds=45.223
+exit_code=0
+
+Running short_outer_band_smoke
+short outer band texts=127 builds=6900 queries=390078
+short outer band deep n=4096 L=32 keys=32 touches=261216 work=52704855
+
+Running masked_traversal_aggregate_smoke
+aggregateFixture point-length-band n=8 classes=3 members=3 queries=156 clippedQueries=60 positive=38 maxAggregate=4236 fullCutIndex=true sourceOnlyErases=true
+aggregateFixture dense-and-point n=22 classes=3 members=6 queries=192 clippedQueries=96 positive=100 maxAggregate=42673 fullCutIndex=true sourceOnlyErases=true
+aggregateFixture overshoot n=10 classes=3 members=3 queries=117 clippedQueries=45 positive=14 maxAggregate=4236 fullCutIndex=true sourceOnlyErases=true
+aggregateFixture stored-common-length-rejection n=5 classes=2 members=2 queries=18 clippedQueries=0 positive=0 maxAggregate=24169 fullCutIndex=false sourceOnlyErases=true
+aggregateComplete queries=483 positive=152 mismatches=0 elapsed=20996ms
+Independent references enumerate ordered copies in different actual clusters, including source windows cutting inside dense clusters. The J=16 correlation test scans actual-word stored tuples; the complete shared-index path is tested with smaller universes. Global geometry-repair coherence remains separate.
+
+Running masked_traversal_neighbor_smoke
+'REWB.MaskedTraversalNeighbor.around_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.around_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.describe_insert_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.add_describe_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.describe_additions_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.shorten_describe_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.crossing_describe_unmarked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.importLoop_describe_unmarked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.merge_describe_unmarked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.add_anchorBoundsAway' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.crossing_anchorBoundsAway' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.merge_anchorBoundsAway' depends on axioms: [propext, Classical.choice, Quot.sound]
+actual pending-anchor Driver: texts=255, complete bands=1930, imports=1860, queue pops=2392, requested dirty keys=26799, complete-band reset keys=3480, safe unmarked clusters=9686, retained H-copy checks=10386, equal-depth skips=1437, mismatches=0, elapsed=1650 ms
+deep n=128/q=1: bands=128, imports=128, pops=254, reset keys=381, H-copy checks=24766, equal-depth skips=129, mismatches=0
+deep n=128/q=3: bands=132, imports=210, pops=418, reset keys=585, H-copy checks=8674, equal-depth skips=129, mismatches=0
+Insertion, validated threshold and heavy-merge descriptor locality plus pending anchor-bound transport are kernel proved. This execution also tests retained H-copy/overlap invariants; their full global bank/aggregate coherence proof remains separate.
+
+Evidence total: 64 completed compiled-path audits; no optional interrupted stress run is counted.
