@@ -105,11 +105,9 @@ theorem p2_forward_work (P : SevenDFA (Fin σ)) (w : Word (Fin σ)) (fallback : 
   have collapse (x m : Nat) : x+1+10*m+5+6=x+(10*m+12) := by omega
   rw [ResidualActual.FullCost.P2.forwardRows_work]
   simp only [collapse]
-  unfold p2ForwardCoefficient
-  dsimp only [work,calls,vol] at outer
-  simp only [Nat.mul_one,Nat.add_mul] at ho ⊢
-  simp only [Nat.add_assoc,Nat.add_comm,Nat.add_left_comm,Nat.reduceAdd] at outer ⊢
-  omega
+  have combined:=Nat.add_le_add outer ho
+  simpa only [work,calls,vol,p2ForwardCoefficient,Nat.mul_one,Nat.add_mul,
+    Nat.add_assoc,Nat.add_comm,Nat.add_left_comm,Nat.reduceAdd] using combined
 
 theorem p2_backward_work (P : SevenDFA (Fin σ)) (w : Word (Fin σ)) (fallback : Fin σ)
     (width charge : Nat) :

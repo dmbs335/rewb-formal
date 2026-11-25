@@ -56,8 +56,8 @@ theorem square_work (f : Nat→α) (n i p : Nat) :
   have hr : (CountedProjection.range p).2=2*p+1:=CountedProjection.rangeFrom_steps 0 p
   simp only [square,hr]
   simp only [CountedProjection.range_value,List.length_range] at hb ⊢
-  simp only [squareEnvelope,Nat.mul_add,Nat.add_mul,Nat.mul_assoc,Nat.mul_one,Nat.one_mul,
-    Nat.mul_comm,Nat.mul_left_comm] at ha hb ⊢
+  simp only [squareEnvelope,Nat.mul_add,Nat.add_mul,Nat.mul_assoc,Nat.mul_one,Nat.one_mul] at ha hb ⊢
+  rw [Nat.mul_left_comm p 32 p] at hb
   omega
 
 theorem candidate_work (f : Nat→α) (n p : Nat) (T : Array Nat) (i : Nat) :
@@ -74,6 +74,7 @@ theorem collect_work (f : Nat→α) (n p : Nat) (T : Array Nat) (xs : List Nat) 
   | cons i is ih=>
     have hh:=candidate_work f n p T i
     have hp:=squareEnvelope_pos p
+    simp only [Nat.mul_assoc] at ih
     simp only [collect,List.length_cons,Nat.mul_add,Nat.add_mul,Nat.mul_one,Nat.one_mul,Nat.mul_assoc]
     omega
 

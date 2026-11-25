@@ -173,9 +173,22 @@ theorem words_work (s : Nat→Fin σ) (q : Nat) :
       intro i _
       exact Nat.add_le_add_right (word_work s q _ _ _ (Nat.mod_lt _ (by decide))) 8)
   simp only [List.length_range] at hm
-  simp only [words,Cache.range_work,CountedProjection.range_value]
-  simp only [Nat.pow_succ,Nat.pow_zero,Nat.one_mul,Nat.mul_add,Nat.add_mul,
-    Nat.mul_one,Nat.mul_assoc,Nat.mul_comm,Nat.mul_left_comm] at hm ⊢
+  have h96 : (q*q*3)*(32*q)=96*q^3 := by
+    rw [show (96:Nat)=3*32 by decide]
+    simp only [Nat.pow_succ,Nat.pow_zero,Nat.one_mul]
+    ac_rfl
+  have h123 : (q*q*3)*41=123*q^2 := by
+    rw [show (123:Nat)=3*41 by decide]
+    simp only [Nat.pow_succ,Nat.pow_zero,Nat.one_mul]
+    ac_rfl
+  have hp : (q*q*3)*(32*(q+1)+8+1)+1=96*q^3+123*q^2+1 := by
+    rw [show 32*(q+1)+8+1=32*q+41 by omega,Nat.mul_add,h96,h123]
+  rw [hp] at hm
+  have h6 : 2*(q*q*3)=6*q^2 := by
+    rw [show (6:Nat)=2*3 by decide]
+    simp only [Nat.pow_succ,Nat.pow_zero,Nat.one_mul]
+    ac_rfl
+  simp only [words,Cache.range_work,CountedProjection.range_value,h6]
   omega
 
 def intern (R : ExactKeys.Registry σ) (s : Nat→Fin σ) (q : Nat) :

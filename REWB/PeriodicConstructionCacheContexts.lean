@@ -50,7 +50,7 @@ def suffix (d : DFA α) : Word α→Result (List (DFACut.Row d)×Nat)
 theorem suffix_value (d : DFA α) (w : Word α) :
     (suffix d w).1=BoundaryContexts.suffix d w := by
   induction w with
-  | nil=>simp only [suffix,vector_value,BoundaryContexts.suffix,id]
+  | nil=>simp only [suffix,vector_value,BoundaryContexts.suffix,id] <;> rfl
   | cons c cs ih=>simp only [suffix,vector_value,ih,BoundaryContexts.suffix]
 
 theorem suffix_length (d : DFA α) (w : Word α) :

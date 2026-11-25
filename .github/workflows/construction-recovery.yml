@@ -54,6 +54,9 @@ jobs:
           - group: full-periodic-p2
             targets: REWB.PeriodicActualFullCostP2Cost
             audit: audits/periodic_actual_full_cost_p2_axioms.lean
+          - group: full-periodic-prepare
+            targets: REWB.PeriodicActualFullCostPrepare
+            audit: audits/periodic_actual_full_cost_prepare_axioms.lean
     steps:
       - uses: actions/checkout@v4
       - name: Install pinned Lean toolchain
@@ -125,6 +128,12 @@ jobs:
       - name: Compare actual run enumeration construction
         if: matrix.group == 'periodic-runs'
         run: timeout 180s lake env lean --run audits/periodic_runs_construction_smoke.lean
+      - name: Audit measured periodic event folds
+        if: matrix.group == 'full-periodic-prepare'
+        run: lake env lean audits/periodic_actual_full_cost_events_axioms.lean
+      - name: Compare actual key construction
+        if: matrix.group == 'periodic-keys'
+        run: timeout 120s lake env lean --run audits/periodic_keys_construction_smoke.lean
       - name: Isolate actual positive P2 diagnostic
         if: always() && matrix.group == 'periodic-branch'
         run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean p2

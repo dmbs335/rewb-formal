@@ -49,7 +49,6 @@ theorem prepare_work_le_base (P : SevenDFA (Fin σ)) (text : Array (Fin σ)) (fa
         (MaskedAllStart.Rows.full text.size) (MaskedAllStart.Rows.full text.size)).2 := by
   unfold prepare ResidualActual.Independent.prepare
   simp only [MaskedAllStart.FullCost.Rows.row_value]
-  dsimp only
   omega
 
 def execute (P : SevenDFA (Fin σ)) (text : Array (Fin σ)) (fallback : Fin σ) :
@@ -80,9 +79,7 @@ theorem execute_work (P : SevenDFA (Fin σ)) (text : Array (Fin σ)) (fallback :
     (List.range (text.size+1)) 10
     (fun t _=>ResidualActual.Independent.query_work _ t)
   rw [List.length_range] at h
-  unfold execute
-  rw [prepare_value]
-  dsimp only
+  simp only [execute,prepare_value]
   change (prepare P text fallback).2+
     (ResidualCached.any
       (ResidualActual.Independent.query (ResidualActual.Independent.prepare P text fallback))
@@ -97,9 +94,7 @@ theorem execute_work_le_base (P : SevenDFA (Fin σ)) (text : Array (Fin σ)) (fa
       (MaskedAllStart.FullCost.Rows.row P.F P.G P.H text fallback
         (MaskedAllStart.Rows.full text.size) (MaskedAllStart.Rows.full text.size)).2 := by
   have hp:=prepare_work_le_base P text fallback
-  unfold execute ResidualActual.Independent.execute
-  rw [prepare_value]
-  dsimp only
+  simp only [execute,prepare_value,ResidualActual.Independent.execute]
   omega
 
 end REWB.ResidualActual.FullCost.Independent
