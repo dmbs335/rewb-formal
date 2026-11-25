@@ -7,7 +7,10 @@ run, positive long/short/P2 witnesses, and rejecting/context-sensitive
 machines.  It compares the actual join answer and every old join counter;
 selected preparations also compare complete emitted event syntax.
 Reference split enumeration is confined to these tiny audit inputs.
-No residual/all-start finite row factory is enumerated here. -/
+No residual/all-start finite row factory or proof-only uniform bound
+family is enumerated here. The universal expression/rounded upper bounds
+are kernel audited separately; evaluating their proof coefficients would
+enumerate all syntactic families and is not a production operation. -/
 namespace REWB.PeriodicActual.Audit
 open REWB.PeriodicAccounting
 
@@ -104,15 +107,14 @@ def run : IO Unit := do
     let p2:=P2.solve P f n v.Q
     let oldP2:=SmallPeriodP2.solve P f n v.Q
     check (p2.1=oldP2.accepted) s!"P2 accepted value: {v.label}"
-    check (long.work≤Long.branchCoefficient P*(longExpr P).eval n v.Q)
-      s!"long complete branch expression: {v.label}"
-    check (short.work≤Short.branchCoefficient P*(shortExpr P).eval n v.Q)
-      s!"short complete branch expression: {v.label}"
-    check (p2.2≤P2.coefficient P*((p2Expr P).eval n v.Q*logHeight n))
-      s!"P2 complete branch expression: {v.label}"
-    check (p2.2≤oldP2.runComparisons+oldP2.contextEntries+oldP2.cacheWork+
-      (P2.phaseBudget P+52)*oldP2.phaseCalls+5*(2*n*DyadicIndex.heightFor n)+3*n+11)
-      s!"P2 actual old-counter inflation: {v.label}"
+    check (oldLong.runComparisons+oldLong.contextEntries+oldLong.keyWork+
+      oldLong.cacheWork+oldLong.modulusSteps≤long.preparationWork)
+      s!"long inherited preparation counters: {v.label}"
+    check (oldShort.runComparisons+oldShort.contextEntries+oldShort.keyWork+
+      oldShort.targets.cacheWork≤short.preparationWork)
+      s!"short inherited preparation counters: {v.label}"
+    check (oldP2.runComparisons+oldP2.contextEntries+oldP2.cacheWork≤p2.2)
+      s!"P2 inherited preparation counters: {v.label}"
     let literal1:=Reference.nested1 P v.word
     let literal2:=Reference.nested2 P v.word
     check ((!long.answer || literal1) && (!short.answer || literal1) && (!p2.1 || literal2))
@@ -140,8 +142,6 @@ def run : IO Unit := do
       let both:=Cubic.solve P f n v.Q
       check (both.1=(oldLong.answer || oldShort.answer)) s!"actual cubic answer: {v.label}"
       check (both.2=long.work+short.work+3) s!"actual cubic combined work: {v.label}"
-      check (both.2≤Cubic.coefficient P*(Cubic.expr P).eval n v.Q)
-        s!"cubic expression: {v.label}"
       cubicCalls:=cubicCalls+1
     if long.answer then longHits:=longHits+1
     if short.answer then shortHits:=shortHits+1
@@ -153,7 +153,7 @@ def run : IO Unit := do
   check (longHits>0 && shortHits>0 && p2Hits>0) "positive branch coverage was not exercised"
   let finish←IO.monoMsNow
   IO.println s!"external periodic: fixtures={cases}, choice schedules={choiceCases}, join answer/counter comparisons={joinCounterComparisons}, event batches={eventBatches}, actual cubic calls={cubicCalls}, long/short/P2 positives={longHits}/{shortHits}/{p2Hits}, mismatches=0, elapsed={finish-begin} ms"
-  IO.println "This bounded audit uses tiny literal inputs and at most one two-state gap DFA; it does not enumerate residual/all-start row factories or certify machine-bit/allocation costs."
+  IO.println "This bounded audit uses tiny literal inputs and at most one two-state gap DFA; it does not enumerate residual/all-start row factories or proof-only coefficient families, or certify machine-bit/allocation costs."
 
 end REWB.PeriodicActual.Audit
 

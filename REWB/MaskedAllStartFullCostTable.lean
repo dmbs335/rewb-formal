@@ -39,7 +39,7 @@ theorem restore_build (make : (i : Fin n)→(F i×Nat)×Nat) :
     intro i hi
     change ((BoundaryRange.Table.build make).cells.map restoreCell).get ⟨i,hi⟩=
       (BoundaryRange.Table.build (fun i=>(make i).1)).cells.get ⟨i,hi⟩
-    simp only [vector_get_map,BoundaryRange.Table.build,BoundaryRange.Table.vector_get_ofFn,restoreCell]
+    simp only [vector_get_map,BoundaryRange.Table.build,BoundaryRange.Table.vector_get_ofFn] <;> rfl
   apply index_ext
   · exact hc
   · change (List.ofFn fun i=>(((BoundaryRange.Table.build make).cells.map restoreCell).get i).work+3).sum+1=_
