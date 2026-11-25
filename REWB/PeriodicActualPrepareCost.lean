@@ -173,7 +173,6 @@ theorem prepare_expr (P : SevenDFA (Fin σ)) (f : Nat → Fin σ) (n Q : Nat) :
   have hlin : 10*n+38≤38*B := by change n+1≤B at hin; omega
   have hcoeff : coefficient P=T+75 := by
     dsimp only [coefficient,T]
-    omega
   rw [hcoeff]
   change (prepare P f n Q).work≤(T+75)*B
   simp only [Nat.add_mul]

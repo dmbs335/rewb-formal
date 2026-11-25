@@ -34,6 +34,7 @@ jobs:
           key: ${{ runner.os }}-lean-4-19-recovery-${{ matrix.group }}-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-lean-4-19-recovery-${{ matrix.group }}-
+            ${{ runner.os }}-lean-4-19-recovery-initial-and-join-
       - name: Reject incomplete proof constructs
         run: |
           if grep -nE '\b(sorry|admit|sorryAx|native_decide)\b|^[[:space:]]*(axiom|constant)[[:space:]]' REWB.lean REWB/*.lean; then
@@ -50,3 +51,6 @@ jobs:
             echo 'Unexpected proof dependency.' >&2
             exit 1
           fi
+      - name: Compare actual chronological join execution
+        if: matrix.group == 'initial-and-join'
+        run: lake env lean --run audits/periodic_actual_join_smoke.lean
