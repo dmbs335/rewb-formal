@@ -117,30 +117,30 @@ Running masked_periodic_smoke
 'REWB.MaskedPeriodic.Regression.projected_boundary_cases' depends on axioms: [propext, Quot.sound]
 preparing fixed-pattern modulus: states=2,1,2
 prepared pattern modulus: 2
-pattern preparation: 6865 ms
-case 1/1: answer=true, elapsed=16874 ms
+pattern preparation: 7043 ms
+case 1/1: answer=true, elapsed=17683 ms
 joint-cut/direct-factor regression: queries=1, hits=1, mismatches=0
 observed maxima: cut/range products=1, index visits=6, mask slots=2, mask-query scalar charge=225
 Compiler construction work is separate from the reported mask-query counters.
 preparing fixed-pattern modulus: states=2,1,1
 prepared pattern modulus: 2
 pattern preparation: 999 ms
-case 1/5: answer=true, elapsed=161 ms
-case 2/5: answer=true, elapsed=208 ms
-case 3/5: answer=false, elapsed=233 ms
-case 4/5: answer=false, elapsed=283 ms
-case 5/5: answer=false, elapsed=336 ms
+case 1/5: answer=true, elapsed=160 ms
+case 2/5: answer=true, elapsed=214 ms
+case 3/5: answer=false, elapsed=238 ms
+case 4/5: answer=false, elapsed=290 ms
+case 5/5: answer=false, elapsed=344 ms
 joint-cut/direct-factor regression: queries=5, hits=2, mismatches=0
 observed maxima: cut/range products=8, index visits=35, mask slots=12, mask-query scalar charge=829
 Compiler construction work is separate from the reported mask-query counters.
 preparing fixed-pattern modulus: states=1,1,2
 prepared pattern modulus: 2
-pattern preparation: 1095 ms
-case 1/5: answer=true, elapsed=251 ms
-case 2/5: answer=true, elapsed=330 ms
-case 3/5: answer=false, elapsed=368 ms
-case 4/5: answer=false, elapsed=440 ms
-case 5/5: answer=false, elapsed=538 ms
+pattern preparation: 1057 ms
+case 1/5: answer=true, elapsed=276 ms
+case 2/5: answer=true, elapsed=348 ms
+case 3/5: answer=false, elapsed=389 ms
+case 4/5: answer=false, elapsed=486 ms
+case 5/5: answer=false, elapsed=599 ms
 joint-cut/direct-factor regression: queries=5, hits=2, mismatches=0
 observed maxima: cut/range products=8, index visits=35, mask slots=8, mask-query scalar charge=789
 Compiler construction work is separate from the reported mask-query counters.
@@ -168,13 +168,13 @@ Running masked_periodic_text_smoke
 'REWB.MaskedPeriodic.Text.Regression.indexed_real_text' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedPeriodic.Text.Regression.actual_ending_witness' depends on axioms: [propext]
 actual-text suite states=2,1,1; modulus=2
-pattern preparation: 1602 ms
-actual-text queries=24, hits=10, suffix-mode differences=0, mismatches=0; execution=6021 ms
+pattern preparation: 945 ms
+actual-text queries=24, hits=10, suffix-mode differences=0, mismatches=0; execution=4092 ms
 observed query maxima: products=6, visits=52, mask slots=8, scalar charge=756
 The scalar charge includes fixed endpoint arithmetic; compiler construction and shared index preparation have separate ledgers.
 actual-text suite states=1,1,2; modulus=2
-pattern preparation: 964 ms
-actual-text queries=24, hits=12, suffix-mode differences=2, mismatches=0; execution=5622 ms
+pattern preparation: 1090 ms
+actual-text queries=24, hits=12, suffix-mode differences=2, mismatches=0; execution=5999 ms
 observed query maxima: products=6, visits=52, mask slots=8, scalar charge=796
 The scalar charge includes fixed endpoint arithmetic; compiler construction and shared index preparation have separate ledgers.
 Running masked_owner_enumeration_smoke
@@ -210,11 +210,11 @@ Running masked_cluster_smoke
 cluster matrices=15, cells=375, true cells=31, mismatches=0, elapsed=33 ms
 states C/E=2/2, K=2; maxima: context+tail products=8, visits=42, AP+matrix work=434
 Compiler construction and global update/report scheduling are not included in the AP+matrix counter.
-cluster matrices=15, cells=375, true cells=31, mismatches=0, elapsed=40 ms
+cluster matrices=15, cells=375, true cells=31, mismatches=0, elapsed=67 ms
 states C/E=2/2, K=2; maxima: context+tail products=8, visits=42, AP+matrix work=400
 Compiler construction and global update/report scheduling are not included in the AP+matrix counter.
 Running masked_periodic_batch_smoke
-periodic all-source batches=149 acceptedSources=46 mismatches=0 durationMs=28827
+periodic all-source batches=149 acceptedSources=46 mismatches=0 durationMs=25423
 Cases cover empty/truncated masks, source filtering, multiple runs, phase shifts and full-input suffixes.
 The measured query ledger retains finite-compiler construction exclusions.
 Running boundary_start_locate_smoke
@@ -239,12 +239,12 @@ Running masked_cluster_cursor_smoke
 'REWB.MaskedCluster.CursorRegression.incoming_passed_singleton' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
-cursor C/E=2/2: blocks=72, cells=7200, true=792, mismatches=0, elapsed=239 ms
+cursor C/E=2/2: blocks=72, cells=7200, true=792, mismatches=0, elapsed=242 ms
 counter maxima: dense preparation+AP+four matrices=2911, singleton preparation+four matrices=1055
-cursor C/E=2/2: blocks=72, cells=7200, true=840, mismatches=0, elapsed=236 ms
+cursor C/E=2/2: blocks=72, cells=7200, true=840, mismatches=0, elapsed=234 ms
 counter maxima: dense preparation+AP+four matrices=2797, singleton preparation+four matrices=1055
-composed cursor C/E=2/2: products=16, cells=1600, true=104, mismatches=0, max flatten+multiply work=3302, elapsed=244 ms
-composed cursor C/E=2/2: products=16, cells=1600, true=124, mismatches=0, max flatten+multiply work=3302, elapsed=266 ms
+composed cursor C/E=2/2: products=16, cells=1600, true=104, mismatches=0, max flatten+multiply work=3302, elapsed=260 ms
+composed cursor C/E=2/2: products=16, cells=1600, true=124, mismatches=0, max flatten+multiply work=3302, elapsed=252 ms
 Counters include actual range preparation, AP queries, matrix writes, flattening and composition; finite-orbit/formula construction, immutable mask preparation, shared index construction and global scheduling are separate.
 Running masked_threshold_smoke
 threshold partitions=3410 duplicate-key and later-drain checks passed
@@ -264,6 +264,96 @@ Running masked_cluster_bank_smoke
 'REWB.MaskedCluster.compilePointBank_work' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedCluster.BankRegression.maps_noncommute' depends on axioms: [propext, Quot.sound]
 replay bank C/E=2/2, replay maps=16, source components=2
-physical selected cells=2400, action/product cells=9600, wrong-order witnesses=2, mismatches=0, elapsed=692 ms
+physical selected cells=2400, action/product cells=9600, wrong-order witnesses=2, mismatches=0, elapsed=821 ms
 maximum tracked bank preparation=67507; root reindex work=65
 Masks are immutable; source deletion/repair and finite-compiler/pattern-catalog/action construction retain separate accounting.
+Running boundary_separated_smoke
+separatedEmpty=true
+separatedExhaustiveLength=0 builds=3
+separatedExhaustiveLength=1 builds=15
+separatedExhaustiveLength=2 builds=63
+separatedExhaustiveLength=3 builds=223
+separatedSmallBuilds=257 bits=1007 queries=1007 accepted=234 maxQueryWork=41 padding=837 distinctBoundaries=true noninjective=true
+separatedDeepLength=512 deepBits=513 deepQueries=8 buildWork=1043820 height=10 queryWork=37 exactSlices=true fullPipeline=true
+Running masked_cluster_cut_smoke
+'REWB.MaskedCluster.Cut.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Cut.query_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Cut.query_denseBank_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Cut.query_pointBank_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.CutRegression.separate_witnesses' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.CutRegression.rejects_mixed_cuts' depends on axioms: [propext, Classical.choice, Quot.sound]
+cut dense B/C/E=2/1/1: queries=20, hits=12, mismatches=0, elapsed=358 ms; max products=2, visits=12, tuples=16, component writes=1
+cut singleton B/C/E=1/1/2: queries=8, hits=3, mismatches=0, elapsed=227 ms; max products=3, visits=10, tuples=16, component writes=4
+joint B2/C1/E2 correlation: 256 stored tuple probes, separate witnesses=true, same-cut answer=false, elapsed=12 ms
+Production queries scan no copy lengths; finite-map encoding/monoid operations and global cluster/source-deletion scheduling retain separate accounting.
+Running masked_mutable_progression_smoke
+mutableBuilds=1261 erases=6305 memberQueries=71470 gridQueries=528570 apQueries=847392 maxGridWork=91 maxAPWork=121 exactWitnesses=true persistence=true shortMasks=true largeSteps=true
+mutableDeep step=1 length=4096 levels=26 capacity=67108864 populated=8205 buildWork=1122366 eraseWork=665600 maxGridWork=216 oldCount=4096 newCount=2048
+mutableDeep step=3 length=4096 levels=26 capacity=67108864 populated=8224 buildWork=1122366 eraseWork=665600 maxGridWork=214 oldCount=4096 newCount=2048
+mutableDeep step=1000000007 length=4096 levels=26 capacity=67108864 populated=57345 buildWork=1122366 eraseWork=665600 maxGridWork=214 oldCount=4096 newCount=2048
+Running masked_source_fanout_smoke
+source fanout texts=256, checked rows=2402, exact reverse addresses and one-shot deliveries passed
+unary n=2048 runs=1, memberships=2049, preparationWork=16398, delivered=2049, repeated requests=4098
+Fanout only constructs affected run IDs; mutable source indexes and cached-bank repairs are separately linked.
+Running masked_cluster_leaders_smoke
+leader streams=4682, checked steps=18069; direct dense-component and future-record references passed
+large n=4096, operations=4104, generated=16338, popped=16338, work=13482194, final leaders=4096
+This maintains leaders and thresholds; suffix-trie query order, local-anchor repair and compiled-bank repair remain separate.
+Running masked_cluster_mutable_smoke
+'REWB.MaskedCluster.Mutable.snapshot_erase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.sourcePairQuery_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.sourcePairQuery_log_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.cell_direct_first' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.pointCell_target_erase' depends on axioms: [propext]
+'REWB.MaskedCluster.Mutable.compileDenseBank_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compilePointBank_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compileDenseBank_reindex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compilePointBank_reindex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.query_denseBank_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.query_pointBank_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compileDenseBank_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compilePointBank_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Regression.rebuilt_source_deleted_target_retained' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'REWB.MaskedCluster.Mutable.Regression.old_snapshot_remains' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Regression.terminal_source_member' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+mutable dense C/E=2/2: versions=7, erases=6, rebuilt banks=16, selected cells=8400, action cells=6400, member checks=112, mismatches=0, elapsed=1543 ms
+mutable dense maximum tracked bank preparation=72283; source tree height=8
+mutable singleton C/E=2/2: versions=5, erases=4, rebuilt banks=7, selected cells=2000, action cells=6400, member checks=48, mismatches=0, elapsed=352 ms
+mutable singleton maximum tracked bank preparation=83007; terminal n is tested for membership only
+mutable shared-cut B/C/E=2/1/1: versions=4, queries=28, hits=10, max tuple probes=16, mismatches=0, elapsed=563 ms
+Every current bank was explicitly rebuilt; source erase does not repair old cached banks. Fixed-pattern compiler/catalog/action construction and global repair selection remain separate.
+Running masked_mutable_batch_smoke
+mutableBatchPrepared=765 requests=14583 rowChecks=10992 runQueries=395712 delivered=2388 maxRuns=2 exactCurrentSources=true sharedEnumerator=true
+mutableBatchDeep n=512 runs=1 requests=1028 delivered=513 enumerationWork=2186085 sourcePreparationWork=223788 updateWork=277565 persistence=true repeatedRequests=true
+Running masked_cluster_mutable_batch_smoke
+'REWB.MaskedCluster.Mutable.Batch.compileRun_lookup' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileRun_missing' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.member_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.cursor_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.run_singleton_member' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileRun_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileSingleton_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileRun_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileSingleton_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+actual mutable batch -> banks: enumerated runs=1, chosen actual ID=0, versions=7, erase requests=6, rebuilt banks=14, physical cells=5600, member checks=91, rejected requests=14, mismatches=0, elapsed=1006 ms
+maximum tracked adapter work: dense=69452, singleton=92679; source memberships delivered once=5
+Target counts were prepared once. Every bank was explicitly rebuilt; global bank ownership/dirty-bank selection remains separate.
+Running masked_empty_smoke
+empty-capture scans=65984, brute boundary checks=446272, epsilon/positive-B, arbitrary/short masks and noninjective transitions passed (3230 ms)
+stack-safe backwards scan n=100000, answers=100001, work=10000100; terminal boundary retained, no mismatches
+Running masked_empty_batch_smoke
+empty-to-source batch builds=837, checked physical positions=5157, exact one-shot reports and all run/global source deletions passed
+unary n=512, reported=513, delivered=513, totalWork=2730498; targets were read independently
+Running masked_cluster_descriptor_smoke
+descriptorTraces=770 states=10779 queries=456081 maxLocateWork=75 maxLeaderWork=259 maxDescribeWork=331 allFields=true absentEndpoints=true thresholdSplits=true
+descriptorDeep occurrences=1024 height=20 densePeriod=2 denseRepetitions=1023 splitLeaders=1024 popped=2045 maxDescribeWork=995 persistence=true
+Running boundary_border_smoke
+border component calls=53112, physical membership checks=405880, AP bands=44092, exceptional points=4880, empty exceptions=4140, mismatches=0 (2297 ms)
+border n=4096, q=1, work=342, choice=REWB.BoundaryBorder.Choice.progression 0 1 0 2048; no period/residue scan in selector
+border n=4096, q=2, work=328, choice=REWB.BoundaryBorder.Choice.progression 0 2 0 2048; no period/residue scan in selector
+border n=4096, q=1024, work=202, choice=REWB.BoundaryBorder.Choice.progression 0 1024 0 2048; no period/residue scan in selector
+border n=4096, q=2048, work=188, choice=REWB.BoundaryBorder.Choice.progression 0 2048 0 2048; no period/residue scan in selector

@@ -91,3 +91,31 @@ The default `audits/masked_periodic_smoke.lean` deliberately bounds interpreted 
 ### Heavy-path generated-code regression
 
 The initial dependent whole-pattern-alias implementation passed kernel proofs but crashed on the empty-input execution audit. The production definition uses ordinary constructor patterns and explicit node reconstruction; a kernel theorem proves equality to a non-executed reference. The fixed version passes the permanent empty case and all 901 full-answer comparisons. [The diagnostic record](../audits/boundary_heavy_codegen.md) preserves the generated-code observation and explicitly leaves the compiler-pass cause unproven. Cached height/length arguments also remove input-length scans from the recursive heavy path and actual query.
+
+### Mutable-source and empty-capture continuation
+
+The following probes exercise actual source deletion, rebuilding and initialization. Their bounds retain the declared unit array/Nat operation model; they do not account for all reference counting, allocation, garbage collection or bit complexity.
+
+| Probe | Observed result |
+| --- | --- |
+| Mutable progression index | 1,261 builds, 6,305 erases, 71,470 membership checks, 528,570 grid checks and 847,392 AP checks; exact physical witnesses and old versions preserved |
+| Sparse progression with n=4,096 and step 1, 3 or 1,000,000,007 | Height 26 and capacity 67,108,864 in every case; no residue enumeration or allocation proportional to the step |
+| Reverse source/run addresses | 256 texts and 2,402 rows; exact IDs and one-shot delivery. Unary n=2,048 delivers 2,049 memberships despite 4,098 requests |
+| Actual mutable run batch | 765 preparations, 14,583 requests and 395,712 exact run-query witnesses; 2,388 delivered memberships |
+| Actual cluster-leader execution | 4,682 streams and 18,069 state checks; n=4,096 consumes all 16,338 generated records exactly once |
+| Actual cluster descriptor queries | 770 streams, 10,779 states and 456,081 queries; height-20 deep split preserves the previous dense version and returns all 1,024 singleton descriptors |
+| Rebuilt mutable dense/singleton banks | 23 rebuilt banks; 10,400 physical and 12,800 shortening/action cells; 28 shared-cut queries; no mismatch |
+| Actual run-ID-to-bank adapter | Six actual erase requests, 14 rebuilt banks, 5,600 physical cells and 14 invalid-ID/modulus rejections; no mismatch |
+| Empty-capture backwards scan | 65,984 scans and 446,272 brute boundary comparisons; n=100,000 produces all 100,001 bits with work 10,000,100 |
+| Empty reports into actual source batch | 837 builds and 5,157 checked positions; unary n=512 reports and deletes all 513 source boundaries with total work 2,730,498 |
+| Separated-boundary primitive | 257 small builds, 1,007 endpoint-bit and 1,007 E-query comparisons; n=512 build work 1,043,820 and query work 37 |
+| Periodic border component selector | 53,112 calls and 405,880 physical membership comparisons; 44,092 AP bands, 4,880 exceptional points and 4,140 empty exceptions; no mismatch |
+| Border selector at n=4,096 | q=1,2,1,024,2,048 gives work 342,328,202,188; the selector never enumerates q residues or candidate lengths |
+
+The mutable-bank probes deliberately rebuild after deletion. Persistence means the old bank still holds its old summary; these passing probes do not demonstrate automatic dirty-bank ownership or global cluster repair. The actual run batch updates only source indexes, and its immutable targets remain separate.
+
+The separated-index audit exposed avoidable copy-on-write pressure from retaining the left recursive result pair while building the right result. Explicit pair destruction removes that alias in the generated path; [the code-generation record](../audits/boundary_separated_codegen.md) records the observation. Full runtime allocation analysis remains separate.
+
+### Shared-cut finite-universe limit
+
+`audits/masked_cluster_cut_smoke.lean` passes its default small-universe full-index queries and its 256-cell stored-relation correlation check. The actual full-index mixed-cut rejection is also kernel-proved. The optional `--full-correlation` probe uses the larger joint universe J=16 and exceeded a 30-second external timeout, exiting 124. That optional execution is not a passing gate and is not presented as one. The result illustrates the fixed-pattern table-materialization cost; it does not invalidate the universal kernel theorem or establish practical scalability.

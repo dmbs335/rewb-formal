@@ -10,7 +10,19 @@ for name in masked_reporting_smoke masked_event_smoke boundary_index_smoke \
   boundary_subset_smoke masked_periodic_text_smoke masked_owner_enumeration_smoke \
   boundary_heavy_empty boundary_heavy_smoke masked_cluster_smoke masked_periodic_batch_smoke \
   boundary_start_locate_smoke boundary_start_smoke masked_cluster_cursor_smoke masked_threshold_smoke \
-  masked_cluster_bank_smoke; do
+  masked_cluster_bank_smoke \
+  boundary_separated_smoke \
+  masked_cluster_cut_smoke \
+  masked_mutable_progression_smoke \
+  masked_source_fanout_smoke \
+  masked_cluster_leaders_smoke \
+  masked_cluster_mutable_smoke \
+  masked_mutable_batch_smoke \
+  masked_cluster_mutable_batch_smoke \
+  masked_empty_smoke \
+  masked_empty_batch_smoke \
+  masked_cluster_descriptor_smoke \
+  boundary_border_smoke; do
   echo "Running $name"
   lake env lean --run "audits/$name.lean"
 done
