@@ -1,70 +1,55 @@
 # REWB Formal
 
-Lean 4 formalization and reproducibility repository for a proposed strongly subquadratic algorithm for fixed-pattern, dynamically 2-use, single-register regular expressions with backreferences.
+Lean 4 formalization of fixed-pattern, dynamically at-most-two-use, single-register regular expressions with backreferences.
 
-**Research in progress. The headline complexity bound is not a kernel-verified theorem.** This public repository records proof attempts, reference audits, and precise unresolved obligations. No novelty, priority or optimality is asserted.
+**The complete semantic compiler and matcher are now verified. The proposed strongly subquadratic running-time theorem is still open.** The project distinguishes a correct executable decision procedure, accelerated branches with measured operation counts, and the remaining global complexity obligations.
 
-## Research question
+## Semantics and target
 
-For a fixed expression over a fixed finite alphabet, with at most two executed references on each successful trace, decide whether a word of length n is accepted. The register stores the most recently closed capture; starting another capture does not clear it. Nested captures include recalled text, and the initial register is empty. This is a theoretical semantics, not a claim about all regex engines.
+The register stores the most recently closed capture. Opening a capture preserves its previous value; nested captures include recalled text; the initial register is empty. A successful trace executes at most two references. This is a precisely defined theoretical semantics, rather than a specification of a particular regex engine.
 
-| Shape | Candidate upper bound |
-| --- | --- |
-| Independent captures | soft-O(n) |
-| P1: A(B)x C(D\\x F)x G\\x H | soft-O(n^(19/10)) |
-| P2: A(B(C)x D\\x F)x G\\x H | soft-O(n^(25/13)) |
-| Fixed 2-use 1-REWB | soft-O(n^(25/13)) |
+For a fixed expression over a fixed finite alphabet, the research target is soft-O(n^(25/13)) decision time. The P1 target is soft-O(n^(19/10)); the P2 target is soft-O(n^(25/13)). These remain **targets**, not the running-time guarantees of `FullMatcher`.
 
-Soft-O hides polylogarithmic factors. Constants depend on the fixed pattern.
+## What is proved
 
-## Layout
+### Arbitrary expressions: complete compilation and decision
 
-- REWB/Core.lean: DFA composition and transition preimages.
-- REWB/Semantics.lean: event traces, nested capture stack, dynamic use count.
-- REWB/NormalForms.lean: exact four fixed forms and conditional supplier interval classification.
-- REWB/Reductions.lean: disjoint identical-region reduction.
-- REWB/Cost.lean: exponent arithmetic only.
-- REWB/Specifications.lean: open matcher, normalization and index contracts.
-- REWB/Reference.lean: executable split-enumeration reference matchers and correctness statements.
-- REWB/MarkedDP.lean: marked-end absorption and single-switch dynamic programming.
-- REWB/TraceFacts.lean: balance and dynamic-use invariants for arbitrary traces.
-- REWB/OuterColumn.lean, REWB/NestedColumns.lean: common-suffix transport and exact nested endpoint reductions.
-- REWB/RangeProducts.lean, REWB/MarkedTransfer.lean, REWB/MatrixTable.lean: executable ordered range products and materialized Boolean transition relations.
-- REWB/DyadicIndex.lean: arbitrary interval index with logarithmic routing, at most one monoid multiplication, and checked construction counts.
-- REWB/LCSTable.lean: quadratic-space common-suffix table with checked comparison count and clipped maximum.
-- REWB/IndexedMarked.lean: P2 indexed query, conditional on its First2 mask.
-- REWB/OrderedExit.lean, REWB/P1Index.lean: P1 two-range indexed query, conditional on its Ready mask.
-- REWB/MaskScan.lean: materialized forward and backward DFA scans, with correctness of Ready and First2 given correct input masks.
-- REWB/IntervalDFA.lean, REWB/SeedBuckets.lean, REWB/OuterTables.lean: executable LCS-derived outer seeds and complete Outer/Ready tables.
-- REWB/Integrated.lean: complete executable P1 and P2 decisions with unconditional correctness against MatchesWithin.
-- REWB/EndpointCounts.lean: instrumented endpoint loops with verified quadratic candidate-test bounds.
-- REWB/FlatIndex.lean, REWB/Microblock.lean, REWB/BlockIndex.lean, REWB/BlockMatcher.lean: direct-addressed range products and complete nested matchers with checked correctness.
-- REWB/LiveCapture.lean, REWB/PrunedSkeletons.lean, REWB/LiveLanguage.lean, REWB/LiveCompiler.lean, REWB/CodeInterpretation.lean: exact dead-capture elimination and regular marked-code compilation with at most 3k retained markers.
-- REWB/Periodic.lean, REWB/PeriodicFactor.lean: Fine–Wilf, maximal equality regions, phase block and DFA transfer compression.
-- REWB/FiniteOrbit.lean: executable finite-state cycle search and ultimately periodic exponent sets.
-- REWB/ClusterGeometry.lean, REWB/PeriodicCoordinates.lean: dense occurrence gaps, long-factor phase alignment, quotient/phase coordinates, and regular factor descriptors.
-- REWB/PeriodicSystem.lean: joint regular/equality constraints over shared periodic endpoints (check current CI).
-- REWB/Tests.lean: regression examples and theorem dependency reports.
-- audits/: nine Python reference audits.
-- docs/PROOF_MAP.md: proof obligations and dependency map.
+`CompleteNormalization.normalization` constructs a finite list of concrete DFA normal forms and proves exact language preservation for every source expression. DFA closure, marker-boundary factorization, control-shape classification, unused captures, and initial empty references are included. There is no supplied normal-form or DFA-existence premise.
+
+`FullMatcher.compile_correct` and `FullMatcher.correctMatcher` prove the original `Spec.CorrectMatcher` contract for an actual executable matcher. Compile the fixed pattern once with `FullMatcher.compile`, then reuse `FullMatcher.run` on input words. This correctness result does not establish a subquadratic bound. Pattern preprocessing can be very large.
+
+### Generated periodic branches
+
+- `SmallPeriodRuns` constructs all maximal runs with least period at most Q, without taking a run list or an LCE oracle as input. It proves exact membership, uniqueness, and an O(nQ^3) comparison count.
+- `RunBudget` proves total run mass at most `2*n*(Nat.log2 n+1)` by injectively charging primitive-square occurrences. `PeriodicBudgets` derives cubic-run phase budgets.
+- `BoundaryContexts`, `PeriodicCache`, and `PhaseEqualityCache` materialize exterior DFA states, periodic transfers, and short equality tests. They avoid rescanning the text prefix, suffix, or period word at every phase.
+- `ExactKeys` implements a deterministic finite-alphabet trie with stable collision-free ranks, shared per-run phase arrays, and polynomially bounded integer join keys.
+- `SmallPeriodP2` constructs and evaluates the five-phase branch. It is sound for all generated candidates and complete for its stated cubic-run, long-outer witness class. Its actual projection/decision counter is at most `C_P * Q^4 * (2*n*heightFor n)`.
+- `P1Events` constructs actual cached source and target events and runs the chronological DFA-gap join. `SmallPeriodP1.solve_sound` proves unconditional soundness. `solve_complete_long` proves completeness for long inner sources. `P1ShortBranch` handles arbitrary earlier short sources with full-word trie keys. `P1Cubic` and `CountedP1Cubic` combine both branches, proving completeness for the entire stated cubic-run, long-outer target class without an inner-length restriction. The long-branch source and target counts are at most `3*Q*mass` and `3*Q^3*mass`, where `mass = 2*n*heightFor n`.
+- `CountedProjection` instruments the structural work inside integer projection. `PhaseMagnitude` and `P1Magnitude` bound every projection stage's affine constants by `C_P*(n+2)`, hence O(log(n+2)) bits for a fixed pattern.
+- `CountedSort` and `CountedJoin` measure stable sorting inside the actual chronological join. `ActualModulus` computes an LCM from emitted formulas, keeping finite-family proof envelopes out of the executable path.
+- `ThresholdBudget.ledger_target` verifies integer-rounded thresholds and the exponent of the explicit numeric phase ledger. It does not establish a matcher running time.
+- `ArrayText` supplies a materialized-array input adapter with defined out-of-range reads, and transfers P2 correctness and measured bounds to finite input words.
+
+The [proof ledger](docs/PROOF_MAP.md) records exact scopes, new modules, and remaining obligations. Earlier milestone notes are preserved in [the historical ledger](docs/PROOF_HISTORY.md).
 
 ## Reproduce
 
-Pinned toolchain: leanprover/lean4:v4.19.0. No Mathlib dependency.
+Pinned toolchain: `leanprover/lean4:v4.19.0`. No Mathlib dependency.
 
 ```sh
 bash scripts/check.sh
 bash scripts/audit.sh
 ```
 
-The complete nested-form matchers and endpoint-test bounds passed Lean 4.19 kernel checks and all nine Python reference audits at PR #6 (Actions run 45401399876). Their correctness theorems do not require externally supplied masks. PR #7 additionally verifies direct-addressed block range queries and both blocked matchers. PR #8 verifies the regular marked-code compiler, but the final finite union of DFA normal forms is still an obligation. The periodic core through PeriodicCoordinates passed CI at 624c2c4c407258d25499b8ca6c3ccc878fcf7418 (run 45410262387). A full machine-level cost proof, general normalization into the concrete normal forms, the global run and boundary indexes, Presburger projection, and the headline exponent remain open. No unresolved proof placeholders or custom axioms should be used to bypass the proof obligations. Python audits are independent finite tests; they do not validate the claimed asymptotic bounds.
+`check.sh` builds the umbrella module, executes regressions, prints principal theorem dependencies, and rejects proof placeholders and custom assumptions. The nine Python audits are independent finite reference tests; they do not prove asymptotic complexity.
 
-## Next milestones
+The current continuation is checked locally. Remote CI for the new continuation is a separate publication step; do not infer that it ran from an older PR's status.
 
-1. Complete the machine-level cost proof for the verified blocked matchers.
-2. Convert the verified regular marked-code syntax to finite DFA factor languages and finish the normal-form coverage theorem.
-3. Use the verified periodic geometry and exponent descriptors to build the actual small-period P1/P2 solvers; prove joint integer projection, source/target joins, and run-count bounds.
-4. Verify the masked all-start and boundary-aware indexes, including dynamic cluster maintenance and amortization.
-5. Combine correctness, coverage, and actual cost inequalities into the final theorem.
+## Remaining global work
 
-See [the proof ledger](docs/PROOF_MAP.md).
+The final `Spec.Target25Over13` theorem needs the actual masked all-start and boundary-aware indexes, complete non-small-period dispatch and coverage, and a unified worst-case machine-cost proof. In particular, arbitrary masks and output extraction must be included in the index amortization. A semantic reference implementation that enumerates lengths or occurrences does not provide that bound.
+
+The general Presburger implementation can still create large fixed-pattern DNFs; small text size alone does not imply fast execution. Correctness and finite worst-case bounds do not constitute a practical performance guarantee. See [the recorded runtime probes and limits](docs/RUNTIME_LIMITS.md), including both completed probes and interrupted runs.
+
+Operation counters currently describe specified abstract work. Integer arithmetic is charged as a primitive operation; cached descriptor assembly, runtime allocation, reference counting, garbage collection, and full word-RAM execution are separate obligations. No headline speedup, novelty, priority, or optimality is asserted.

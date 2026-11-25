@@ -100,6 +100,45 @@ theorem scan_cost (fuel : Nat) (xs ys : List Window) :
             omega
           · simp [scan,h,h']
 
+/-- Keep the two-pointer scan tail-recursive at runtime as well as
+    linear in its measured number of examined interval pairs. -/
+def scanTR.go : Nat→List Window→List Window→Nat→Bool×Nat
+  | 0,_,_,c => (false,c)
+  | _+1,[],_,c => (false,c)
+  | _+1,_,[],c => (false,c)
+  | k+1,a::as,b::bs,c =>
+    if a.hi<b.lo then go k as (b::bs) (c+1)
+    else if b.hi<a.lo then go k (a::as) bs (c+1)
+    else (true,c+1)
+
+theorem scanTR.go_eq (fuel : Nat) (xs ys : List Window) (c : Nat) :
+    go fuel xs ys c=((scan fuel xs ys).1,c+(scan fuel xs ys).2) := by
+  induction fuel generalizing xs ys c with
+  | zero => simp [go,scan]
+  | succ k ih =>
+    cases xs with
+    | nil => cases ys <;> simp [go,scan]
+    | cons a as =>
+      cases ys with
+      | nil => simp [go,scan]
+      | cons b bs =>
+        simp only [go,scan]
+        split
+        · rw [ih]
+          congr 1
+          omega
+        · split
+          · rw [ih]
+            congr 1
+            omega
+          · rfl
+
+def scanTR (fuel : Nat) (xs ys : List Window) : Bool×Nat := scanTR.go fuel xs ys 0
+
+@[csimp] theorem scan_eq_scanTR : scan=scanTR := by
+  funext fuel xs ys
+  simp only [scanTR,scanTR.go_eq,Nat.zero_add]
+
 theorem scan_correct (fuel : Nat) (xs ys : List Window)
     (hf : xs.length+ys.length≤fuel)
     (hx : Sorted xs) (hy : Sorted ys) (hv : Valid xs) (hw : Valid ys) :

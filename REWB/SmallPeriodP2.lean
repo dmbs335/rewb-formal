@@ -1,13 +1,14 @@
 import REWB.SmallPeriodRuns
 import REWB.BoundaryContexts
 import REWB.LongSourceCoverage
-import REWB.UniformPhaseBounds
+import REWB.CountedCachedP2
 
 /-! A concrete small-period P2 branch. Runs are generated, contexts are
     prepared once for the text, and every phase uses cached equality.
     Soundness is unconditional; completeness is for the stated cubic-run
     long-outer witness class. Counters distinguish enumeration, context
-    entries, cache construction, equality reads, and solver invocations. -/
+    entries, cache construction, equality reads, solver invocations, and
+    actual measured projection/decision operations. -/
 namespace REWB.SmallPeriodP2
 open REWB.Periodic REWB.RunGeometry
 variable {α : Type}
@@ -17,15 +18,17 @@ structure Work where
   cacheWork : Nat := 0
   equalityReads : Nat := 0
   phaseCalls : Nat := 0
+  projectionSteps : Nat := 0
   deriving Repr
 
 def phases (P : SevenDFA α) (n q : Nat) (I : FullyCachedP2.Shared P) :
     List P2Periodic.Five→Work
   | [] => {}
   | v::vs =>
-    let t := FullyCachedP2.countedSolveAt P n q I (P2Periodic.extend q v)
+    let t := CountedCachedP2.solveAt P n q I (P2Periodic.extend q v)
     let r := phases P n q I vs
-    ⟨t.1 || r.accepted,0,t.2+r.equalityReads,r.phaseCalls+1⟩
+    ⟨t.accepted || r.accepted,0,t.equalityReads+r.equalityReads,r.phaseCalls+1,
+      t.projectionSteps+r.projectionSteps⟩
 
 theorem phases_correct (P : SevenDFA α) (n q : Nat) (I : FullyCachedP2.Shared P)
     (vs : List P2Periodic.Five) :
@@ -34,7 +37,7 @@ theorem phases_correct (P : SevenDFA α) (n q : Nat) (I : FullyCachedP2.Shared P
   induction vs with
   | nil => rfl
   | cons v vs ih =>
-    simp only [phases,List.any_cons,FullyCachedP2.countedSolveAt_correct,ih]
+    simp only [phases,List.any_cons,CountedCachedP2.solveAt_correct,ih]
 
 theorem phases_counts (P : SevenDFA α) (n q : Nat) (I : FullyCachedP2.Shared P)
     (vs : List P2Periodic.Five) :
@@ -44,9 +47,9 @@ theorem phases_counts (P : SevenDFA α) (n q : Nat) (I : FullyCachedP2.Shared P)
   | nil => exact ⟨rfl,Nat.le_refl _⟩
   | cons v vs ih =>
     change (phases P n q I vs).phaseCalls+1=vs.length+1 ∧
-      (FullyCachedP2.countedSolveAt P n q I (P2Periodic.extend q v)).2+
+      (CountedCachedP2.solveAt P n q I (P2Periodic.extend q v)).equalityReads+
         (phases P n q I vs).equalityReads≤6*(vs.length+1)
-    have h := FullyCachedP2.countedSolveAt_cost P n q I (P2Periodic.extend q v)
+    have h := CountedCachedP2.solveAt_equalityReads P n q I (P2Periodic.extend q v)
     rw [Nat.mul_succ]
     exact ⟨by omega,by omega⟩
 
@@ -84,7 +87,8 @@ def runs [DecidableEq α] (P : SevenDFA α) (f : Nat→α) (I : BoundaryContexts
     let a := run P f I R
     let b := runs P f I Rs
     ⟨a.accepted || b.accepted,a.cacheWork+b.cacheWork,
-      a.equalityReads+b.equalityReads,a.phaseCalls+b.phaseCalls⟩
+      a.equalityReads+b.equalityReads,a.phaseCalls+b.phaseCalls,
+      a.projectionSteps+b.projectionSteps⟩
 
 theorem runs_correct [DecidableEq α] (P : SevenDFA α) (f : Nat→α)
     (I : BoundaryContexts.Index P) (Rs : List Bounds) :
@@ -237,5 +241,74 @@ theorem solve_counts [DecidableEq α] (P : SevenDFA α) (f : Nat→α) (n Q : Na
     rw [hr.2.1]
     exact h4
   · exact Nat.le_trans hr.2.2 (Nat.mul_le_mul_left 6 h4)
+
+/-- Each phase executes the instrumented projection and eager decision,
+    whose measured work has a pattern-only bound. -/
+theorem phases_projection_steps [DecidableEq α] (P : SevenDFA α) (f : Nat→α)
+    (n q : Nat) (pre post : Word α) (vs : List P2Periodic.Five) :
+    (phases P n q (FullyCachedP2.prepare P f q pre post) vs).projectionSteps≤
+      CountedProjection.p2Steps P*vs.length := by
+  induction vs with
+  | nil => simp [phases]
+  | cons v vs ih =>
+    have hv := CountedCachedP2.solveAt_projectionSteps P f n q pre post (P2Periodic.extend q v)
+    change (CountedCachedP2.solveAt P n q (FullyCachedP2.prepare P f q pre post)
+      (P2Periodic.extend q v)).projectionSteps+
+      (phases P n q (FullyCachedP2.prepare P f q pre post) vs).projectionSteps≤
+        CountedProjection.p2Steps P*(vs.length+1)
+    rw [Nat.mul_add,Nat.mul_one]
+    omega
+
+theorem run_projection_steps [DecidableEq α] (P : SevenDFA α) (f : Nat→α)
+    (w : Word α) (R : Bounds) (hlo : R.lo≤w.length) (hhi : R.hi≤w.length) :
+    (run P f (BoundaryContexts.build P w).1 R).projectionSteps≤
+      CountedProjection.p2Steps P*R.period^5 := by
+  change (phases P (R.hi-R.lo) R.period
+    (BoundaryContexts.countedPrepareAt P (shift f R.lo) R.period
+      (BoundaryContexts.build P w).1 R.lo R.hi).1
+    (P2Periodic.choices R.period)).projectionSteps≤_
+  rw [BoundaryContexts.countedPrepareAt_correct,
+    BoundaryContexts.prepareAt_correct P (shift f R.lo) R.period w R.lo R.hi hlo hhi]
+  have h := phases_projection_steps P (shift f R.lo) (R.hi-R.lo) R.period
+    (w.take R.lo) (w.drop R.hi) (P2Periodic.choices R.period)
+  rwa [P2Periodic.choices_length] at h
+
+theorem runs_projection_steps [DecidableEq α] (P : SevenDFA α) (f : Nat→α)
+    (w : Word α) (Rs : List Bounds)
+    (hR : ∀ R,R∈Rs→R.lo≤w.length ∧ R.hi≤w.length) :
+    (runs P f (BoundaryContexts.build P w).1 Rs).projectionSteps≤
+      CountedProjection.p2Steps P*RunBudget.phaseWork 4 Rs := by
+  induction Rs with
+  | nil => simp [runs,RunBudget.phaseWork]
+  | cons R Rs ih =>
+    have h := hR R (by simp)
+    have hx := run_projection_steps P f w R h.1 h.2
+    have hy := ih (fun r hr=>hR r (by simp [hr]))
+    change (run P f (BoundaryContexts.build P w).1 R).projectionSteps+
+      (runs P f (BoundaryContexts.build P w).1 Rs).projectionSteps≤
+        CountedProjection.p2Steps P*(R.period^5+RunBudget.phaseWork 4 Rs)
+    rw [Nat.mul_add]
+    exact Nat.add_le_add hx hy
+
+/-- Global projection/decision count for the actual small-period branch.
+    C_P is determined solely by the pattern. Run enumeration, cache
+    construction and equality reads are accounted for by solve_counts;
+    sorting/GC and a concrete bit-level machine remain separate. -/
+theorem solve_projection_steps [DecidableEq α] (P : SevenDFA α) (f : Nat→α)
+    (n Q : Nat) :
+    (solve P f n Q).projectionSteps≤
+      CountedProjection.p2Steps P*Q^4*(2*n*DyadicIndex.heightFor n) := by
+  have hr := runs_projection_steps P f (segment f 0 n) (SmallPeriodRuns.cubic f n Q)
+    (fun R hR=>by
+      have hv := ((SmallPeriodRuns.cubic_mem f n Q R).mp hR).1
+      rw [segment_length]
+      have hlo := hv.1
+      have hhi := hv.2.1
+      exact ⟨by omega,hhi⟩)
+  have hb := Nat.mul_le_mul_left (CountedProjection.p2Steps P)
+    (SmallPeriodRuns.cubic_phase_bound f n Q 4)
+  change (runs P f (BoundaryContexts.build P (segment f 0 n)).1
+    (SmallPeriodRuns.cubic f n Q)).projectionSteps≤_
+  simpa only [Nat.mul_assoc] using Nat.le_trans hr hb
 
 end REWB.SmallPeriodP2

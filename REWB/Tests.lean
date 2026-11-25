@@ -1,4 +1,5 @@
 import REWB
+import REWB.ShortSourceRegression
 
 open REWB
 
@@ -609,3 +610,90 @@ end SmallPeriodRegression
 #print axioms REWB.SmallPeriodP2.solve_sound
 #print axioms REWB.SmallPeriodP2.solve_complete
 #print axioms REWB.SmallPeriodP2.solve_counts
+
+-- Complete source-language decisions and actual exact-word identifiers.
+namespace CompletedPipelineRegression
+
+#guard FullMatcher.run [CompleteNormalization.Form.regular allWords] [1,2,3]
+#guard FullMatcher.run [CompleteNormalization.Form.once onlyEmpty nonEmpty onlyEmpty onlyEmpty] [1,1]
+#guard !(FullMatcher.run [CompleteNormalization.Form.once onlyEmpty nonEmpty onlyEmpty onlyEmpty] [1,2])
+#guard ArrayText.read ([1,2,3] : Word Nat).toArray 99 10 == 99
+#guard Periodic.segment (ArrayText.read ([1,2,3] : Word Nat).toArray 99) 0 3 == [1,2,3]
+
+def bit0 : Fin 2 := ⟨0,by decide⟩
+def bit1 : Fin 2 := ⟨1,by decide⟩
+def assigned0 := ExactKeys.assign (ExactKeys.initial : ExactKeys.Registry 2) [bit0,bit1]
+def assigned1 := ExactKeys.assign assigned0.registry [bit0,bit1]
+def assigned2 := ExactKeys.assign assigned1.registry [bit1,bit0]
+
+#guard assigned0.rank == assigned1.rank
+#guard assigned0.registry.next == assigned1.registry.next
+#guard assigned1.rank != assigned2.rank
+#guard ExactKeys.lookup assigned2.registry.tree [bit0,bit1] == some assigned0.rank
+#guard (P1PhaseFamily.targets 2 5).length == 48
+#guard (P1SourceFamily.choices 2 5).length == 12
+#guard P1SourceFamily.residue 3 8 1 == 1
+
+end CompletedPipelineRegression
+
+#print axioms REWB.RegularDFA.compile_correct
+#print axioms REWB.CompleteNormalization.normalization
+#print axioms REWB.CompleteNormalization.pieces_normal
+#print axioms REWB.FullMatcher.correctMatcher
+#print axioms REWB.FullMatcher.compile_correct
+#print axioms REWB.ExactKeys.internMany_exact
+#print axioms REWB.ExactKeys.internMany_cost
+#print axioms REWB.ExactKeys.buildRunTables_key
+#print axioms REWB.ExactKeys.keyCode_exact
+#print axioms REWB.ExactKeys.buildRunTables_cubic_cost
+#print axioms REWB.CountedProjection.solve_uniform_steps
+#print axioms REWB.CountedProjection.search_value
+#print axioms REWB.CountedProjection.search_uniform_steps
+#print axioms REWB.SmallPeriodP2.solve_projection_steps
+#print axioms REWB.ProjectionMagnitude.p2_all_stage_bits
+#print axioms REWB.P1SourceFamily.long_source_complete
+#print axioms REWB.P1GlobalJoin.long_complete
+#print axioms REWB.P1Events.code_exact
+#print axioms REWB.P1Events.generated_sizes
+#print axioms REWB.P1Events.generated_counts
+#print axioms REWB.P1Events.generated_key_work
+#print axioms REWB.SmallPeriodP1.solve_sound
+#print axioms REWB.SmallPeriodP1.solve_complete_long
+#print axioms REWB.SmallPeriodP1.solve_counts
+#print axioms REWB.ArrayText.solveWord_sound
+#print axioms REWB.ArrayText.solveWord_projection_steps
+#print axioms REWB.ProjectionMagnitude.p1_target_all_stage_bits
+#print axioms REWB.ProjectionMagnitude.p1_cached_source_bits_at
+#print axioms REWB.CountedSort.sort_value
+#print axioms REWB.CountedSort.sort_steps
+#print axioms REWB.CountedJoin.run_value
+#print axioms REWB.CountedJoin.run_steps
+#print axioms REWB.CountedSmallPeriodP1.solve_sound
+#print axioms REWB.CountedSmallPeriodP1.solve_complete_long
+#print axioms REWB.CountedSmallPeriodP1.solve_prepare_counts
+#print axioms REWB.CountedSmallPeriodP1.solve_sort_steps
+#print axioms REWB.CountedSmallPeriodP1.solve_modulus
+#print axioms REWB.CountedSmallPeriodP1.solve_modulus_steps_bound
+
+#guard (CountedSort.sort (fun a b : Nat=>a≤b) [7,1,5,1,9,0,2]).1 == [0,1,1,2,5,7,9]
+#guard (CountedSort.sort (fun a b : Nat=>a≤b) [7,1,5,1,9,0,2]).2 == 85
+
+#print axioms REWB.P1ShortBranch.solve_sound
+#print axioms REWB.P1ShortBranch.solve_complete
+#print axioms REWB.P1Cubic.solve_sound
+#print axioms REWB.P1Cubic.solve_complete
+#print axioms REWB.ActualModulus.build_pos
+#print axioms REWB.ActualModulus.build_good
+#print axioms REWB.ActualModulus.build_le
+#print axioms REWB.ActualModulus.build_steps_bound
+#print axioms REWB.CountedShortBranch.solve_sound
+#print axioms REWB.CountedShortBranch.solve_complete
+#print axioms REWB.CountedP1Cubic.solve_sound
+#print axioms REWB.CountedP1Cubic.solve_complete
+#print axioms REWB.ThresholdBudget.rounded_lower
+#print axioms REWB.ThresholdBudget.rounded_upper
+#print axioms REWB.ThresholdBudget.ledger_target
+
+#guard (ActualModulus.formula [[.dvd 6 (.lit 0),.dvd 6 (.lit 0),.dvd 4 (.lit 0)]]).1 == 12
+#guard (ActualModulus.formula (List.replicate 1000 [])).2 == 2001
+#guard AffineProjection.multiplier [.le (.scale 2 (.var 0)),.le (.scale 2 (.var 0))] == 2

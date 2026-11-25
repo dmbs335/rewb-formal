@@ -1,1 +1,303 @@
-Authoring runtime: Lean/Lake unavailable. Local kernel check was not completed (lake not found). GitHub Actions is the first attempted remote build; inspect the run status.
+⚠ [4/114] Replayed REWB.NormalForms
+warning: ././././REWB/NormalForms.lean:338:5: unused variable `h₄`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: ././././REWB/NormalForms.lean:338:20: unused variable `h₅`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [14/114] Replayed REWB.MarkedTransfer
+warning: ././././REWB/MarkedTransfer.lean:185:18: try 'simp at he' instead of 'simpa using he'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+⚠ [15/114] Replayed REWB.MatrixTable
+warning: ././././REWB/MatrixTable.lean:22:0: automatically included section variable(s) unused in theorem 'REWB.MatrixTable.rows_length':
+  [DecidableEq S]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq S] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [21/114] Replayed REWB.MaskScan
+warning: ././././REWB/MaskScan.lean:114:45: unused variable `ht`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [24/114] Replayed REWB.OuterTables
+warning: ././././REWB/OuterTables.lean:160:17: unused variable `he`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [29/114] Replayed REWB.BlockIndex
+warning: ././././REWB/BlockIndex.lean:174:13: unused variable `o`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [38/114] Replayed REWB.FiniteOrbit
+warning: ././././REWB/FiniteOrbit.lean:219:40: unused variable `hp`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [40/114] Replayed REWB.PeriodicCoordinates
+warning: ././././REWB/PeriodicCoordinates.lean:65:5: unused variable `hp`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [41/114] Replayed REWB.PeriodicSystem
+warning: ././././REWB/PeriodicSystem.lean:52:29: unused variable `hi`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [44/114] Replayed REWB.Cooper
+warning: ././././REWB/Cooper.lean:97:16: unused variable `hc`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [55/114] Replayed REWB.P1Source
+warning: ././././REWB/P1Source.lean:27:44: unused variable `h`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: ././././REWB/P1Source.lean:28:5: unused variable `ha`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: ././././REWB/P1Source.lean:29:5: unused variable `hb`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: ././././REWB/P1Source.lean:29:16: unused variable `ho`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [63/114] Replayed REWB.OfflineJoin
+warning: ././././REWB/OfflineJoin.lean:88:5: unused variable `hs`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [64/114] Replayed REWB.RunGeometry
+warning: ././././REWB/RunGeometry.lean:43:28: unused variable `hp`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: ././././REWB/RunGeometry.lean:43:39: unused variable `hl`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+warning: ././././REWB/RunGeometry.lean:92:5: unused variable `hl`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [65/114] Replayed REWB.RunExtension
+warning: ././././REWB/RunExtension.lean:75:51: unused variable `h`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [69/114] Replayed REWB.PeriodicBudgets
+warning: ././././REWB/PeriodicBudgets.lean:52:5: unused variable `hp`
+note: this linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [70/114] Replayed REWB.LongSourceCoverage
+warning: ././././REWB/LongSourceCoverage.lean:76:0: automatically included section variable(s) unused in theorem 'REWB.LongSourceCoverage.phase_key':
+  [DecidableEq α]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq α] in theorem ...
+note: this linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [103/114] Built REWB.P1ShortSources
+✔ [104/114] Built REWB.P1ShortKeys
+✔ [105/114] Built REWB.P1Magnitude
+✔ [106/114] Built REWB.P1ShortTargets
+⚠ [107/114] Built REWB.CountedShortTargets
+warning: ././././REWB/CountedShortTargets.lean:86:11: try 'simp' instead of 'simpa'
+note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
+✔ [108/114] Built REWB.P1ShortBranch
+✔ [109/114] Built REWB.P1Cubic
+✔ [110/114] Built REWB.CountedShortBranch
+✔ [111/114] Built REWB.ShortSourceRegression
+✔ [112/114] Built REWB.CountedP1Cubic
+✔ [113/114] Built REWB
+Build completed successfully.
+'REWB.State.execute_uses' depends on axioms: [propext, Quot.sound]
+'REWB.Witness.same_iff' depends on axioms: [propext, Quot.sound]
+'REWB.Witness.independent_iff' depends on axioms: [propext, Quot.sound]
+'REWB.Witness.nested1_iff' depends on axioms: [propext, Quot.sound]
+'REWB.Witness.nested2_iff' depends on axioms: [propext, Quot.sound]
+'REWB.classify_distinct_suppliers' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.regionP1_iff_boundary' depends on axioms: [propext]
+'REWB.regionP2_iff_boundary' depends on axioms: [propext]
+'REWB.regionP1_sound' depends on axioms: [propext, Quot.sound]
+'REWB.regionP2_sound' depends on axioms: [propext, Quot.sound]
+'REWB.Cost.p1Phase_le' depends on axioms: [propext, Quot.sound]
+'REWB.Cost.p2Phase_le' depends on axioms: [propext, Quot.sound]
+'REWB.TraceOf.executes_balanced' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.isKUse_iff_traceCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.State.output_without_recall' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Reference.same_correct' depends on axioms: [propext, Quot.sound]
+'REWB.Reference.independent_correct' depends on axioms: [propext, Quot.sound]
+'REWB.Reference.nested1_correct' depends on axioms: [propext, Quot.sound]
+'REWB.Reference.nested2_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MarkedDP.reachEnd_correct' depends on axioms: [propext]
+'REWB.MarkedDP.canSwitch_correct' depends on axioms: [propext, Quot.sound]
+'REWB.OuterColumn.common_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OuterColumn.maxCommon_isMax' depends on axioms: [propext, Quot.sound]
+'REWB.OuterColumn.anchored_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OuterColumn.active_succ' depends on axioms: [propext, Quot.sound]
+'REWB.OuterColumn.column_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.NestedColumns.nested1_reduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.NestedColumns.nested2_reduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.RangeProducts.queryCut_correct' depends on axioms: [propext, Quot.sound]
+'REWB.RangeProducts.cut_cost' depends on axioms: [propext]
+'REWB.FiniteRelation.comp_assoc' depends on axioms: [propext, Quot.sound]
+'REWB.MarkedTransfer.run_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MatrixTable.denote_product' depends on axioms: [propext, Quot.sound]
+'REWB.MarkedTransfer.queryMarkedCut_switch' depends on axioms: [propext, Quot.sound]
+'REWB.DyadicIndex.queryFor_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.DyadicIndex.build_cells' depends on axioms: [propext, Quot.sound]
+'REWB.DyadicIndex.buildFor_cost' depends on axioms: [propext, Quot.sound]
+'REWB.LCSTable.commonAt_correct' depends on axioms: [propext, Quot.sound]
+'REWB.LCSTable.lcs_comparisons' depends on axioms: [propext, Quot.sound]
+'REWB.LCSTable.build_cells' depends on axioms: [propext, Quot.sound]
+'REWB.IndexedMarked.p2_query' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OrderedExit.Machine.run_left' depends on axioms: [propext, Quot.sound]
+'REWB.TensorRelation.tensor_comp' depends on axioms: [propext, Quot.sound]
+'REWB.P1Index.whole_indices' depends on axioms: [propext, Quot.sound]
+'REWB.P1Index.p1_query' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskScan.readyRow_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskScan.forward_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskScan.first2Row_correct' depends on axioms: [propext, Quot.sound]
+'REWB.IntervalDFA.lookup_correct' depends on axioms: [propext, Quot.sound]
+'REWB.IntervalDFA.countedBuild_cost' depends on axioms: [propext, Quot.sound]
+'REWB.SeedBuckets.build_correct' depends on axioms: [propext, Quot.sound]
+'REWB.OuterTables.column_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.OuterTables.readyAt_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Integrated.match1_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Integrated.match2_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.EndpointCounts.match1_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.EndpointCounts.match2_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.FlatIndex.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Microblock.countedDictionary_cost' depends on axioms: [propext, Quot.sound]
+'REWB.BlockIndex.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BlockMatcher.match1_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BlockMatcher.match2_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Plan.execute_events' depends on axioms: [propext, Quot.sound]
+'REWB.Plan.prune_eval' does not depend on any axioms
+'REWB.Plan.prune_budget' depends on axioms: [propext, Quot.sound]
+'REWB.matches_iff_pruned' depends on axioms: [propext, Quot.sound]
+'REWB.matches_iff_skeletons' depends on axioms: [propext, Quot.sound]
+'REWB.LiveLanguage.shape_iff_walk' depends on axioms: [propext]
+'REWB.LiveCompiler.compile_correct' depends on axioms: [propext, Quot.sound]
+'REWB.LiveCompiler.match_compiled' depends on axioms: [propext, Quot.sound]
+'REWB.Periodic.fineWilf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.overlap_shift_multiple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.maximal_equality_run' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.compress_factor' depends on axioms: [propext, Quot.sound]
+'REWB.Periodic.compressed_dfa' depends on axioms: [propext, Quot.sound]
+'REWB.FiniteOrbit.compress_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.FiniteOrbit.descriptor_ap' depends on axioms: [propext, Quot.sound]
+'REWB.Periodic.factorDescriptor_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.dense_consecutive_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.separated_cluster_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.equal_long_factor_same_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.coordinate_length' depends on axioms: [propext, Quot.sound]
+'REWB.Periodic.coordinate_descriptor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.factor_equality' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.regularCode_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.equalityCode_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.system_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.Periodic.contextual_accepts' depends on axioms: [propext]
+'REWB.IntegerProjection.finite_elimination' depends on axioms: [propext, Quot.sound]
+'REWB.IntegerProjection.candidates_length' depends on axioms: [propext, Quot.sound]
+'REWB.AffineProjection.Norm.eliminate_correct' depends on axioms: [propext, Quot.sound]
+'REWB.AffineProjection.Norm.eliminate_length' depends on axioms: [propext, Quot.sound]
+'REWB.AffineProjection.normalize_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.AffineProjection.eliminateConj_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.AffineProjection.project_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.AffineProjection.solve_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.AffineProjection.descriptorFormula_correct' depends on axioms: [propext, Quot.sound]
+'REWB.PhaseSolver.Endpoint.bound_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.PhaseSolver.order_iff' depends on axioms: [propext, Quot.sound]
+'REWB.PhaseSolver.regularFormula_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.PhaseSolver.equalityCore_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.PhaseSolver.solveSystem_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P2Periodic.plain_iff' depends on axioms: [propext]
+'REWB.P2Periodic.solveAt_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P2Periodic.solveAt_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P2Periodic.solveAt_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P2Periodic.choices_length' depends on axioms: [propext, Quot.sound]
+'REWB.P2Periodic.phase_family' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P2Periodic.solveFamily_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P2Periodic.solveFamily_complete_long' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.AffineProjection.LiteralShape.project_branches' depends on axioms: [propext, Quot.sound]
+'REWB.PeriodicCache.build_cost' depends on axioms: [propext, Quot.sound]
+'REWB.PeriodicCache.lookup_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.PeriodicCache.descriptor_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CachedP2.solveFamily_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Target.projection_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Target.projected_join_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Source.source_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Source.join_sources' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Join.join_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Join.decidePair_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P2Periodic.fixed_formula_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ExponentIntervals.clip_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ExponentIntervals.windows_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ExponentIntervals.allWindows_length' depends on axioms: [propext, Quot.sound]
+'REWB.IntervalSweep.batch_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.IntervalSweep.batch_cost' depends on axioms: [propext, Quot.sound]
+'REWB.KeyedJoin.batch_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.KeyedJoin.batch_cost' depends on axioms: [propext, Quot.sound]
+'REWB.DFACut.crossing_accepts' depends on axioms: [propext, Quot.sound]
+'REWB.TimedJoin.cross_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.TimedJoin.cross_cost' depends on axioms: [propext, Quot.sound]
+'REWB.TimedJoin.split_cover' depends on axioms: [propext, Quot.sound]
+'REWB.RunGeometry.least_factor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.RunGeometry.unique_overlap' depends on axioms: [propext, Quot.sound]
+'REWB.RunGeometry.square_start_unique' depends on axioms: [propext, Quot.sound]
+'REWB.RunExtension.extend_valid' depends on axioms: [propext, Quot.sound]
+'REWB.RunExtension.enumerate_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.RunExtension.dedup_nodup' depends on axioms: [propext]
+'REWB.GridCoverage.probes_length' depends on axioms: [propext, Quot.sound]
+'REWB.GridCoverage.run_grid' depends on axioms: [propext, Quot.sound]
+'REWB.RunGeometry.three_squares' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.RunBudget.totalMass_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.RunBudget.cubic_phase_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.RunBudget.low_exponent_equality' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ControlShapes.prune_check' depends on axioms: [propext]
+'REWB.ControlShapes.matches_iff_shapes' depends on axioms: [propext, Quot.sound]
+'REWB.ControlShapes.matches_iff_shaped_codes' depends on axioms: [propext, Quot.sound]
+'REWB.UniformPhaseBounds.p2_all_stages_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.UniformPhaseBounds.p2_projection_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.UniformPhaseBounds.p1Modulus_pos' depends on axioms: [propext, Quot.sound]
+'REWB.UniformPhaseBounds.p1_source_compatible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.UniformPhaseBounds.p1_target_compatible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.UniformPhaseBounds.p1_target_windows' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.UniformJoin.localSource_with_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.UniformJoin.run_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.UniformJoin.run_counts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.PhaseEqualityCache.build_cost' depends on axioms: [propext, Quot.sound]
+'REWB.PhaseEqualityCache.equalFormula_eq' depends on axioms: [propext, Quot.sound]
+'REWB.FullyCachedP2.solveFamily_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.FullyCachedP2.countedPhases_cost' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryContexts.prepareAt_correct' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryContexts.countedPrepareAt_cost' depends on axioms: [propext, Quot.sound]
+'REWB.SmallPeriodRuns.enumerate_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.SmallPeriodRuns.enumerate_nodup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.SmallPeriodRuns.enumerate_cost' depends on axioms: [propext, Quot.sound]
+'REWB.SmallPeriodRuns.cubic_phase_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.SmallPeriodP2.solve_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.SmallPeriodP2.solve_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.SmallPeriodP2.solve_counts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.RegularDFA.compile_correct' depends on axioms: [propext, Quot.sound]
+'REWB.CompleteNormalization.normalization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CompleteNormalization.pieces_normal' depends on axioms: [propext, Quot.sound]
+'REWB.FullMatcher.correctMatcher' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.FullMatcher.compile_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ExactKeys.internMany_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ExactKeys.internMany_cost' depends on axioms: [propext, Quot.sound]
+'REWB.ExactKeys.buildRunTables_key' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ExactKeys.keyCode_exact' depends on axioms: [propext, Quot.sound]
+'REWB.ExactKeys.buildRunTables_cubic_cost' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedProjection.solve_uniform_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedProjection.search_value' depends on axioms: [propext, Quot.sound]
+'REWB.CountedProjection.search_uniform_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.SmallPeriodP2.solve_projection_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ProjectionMagnitude.p2_all_stage_bits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1SourceFamily.long_source_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1GlobalJoin.long_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Events.code_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Events.generated_sizes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Events.generated_counts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Events.generated_key_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.SmallPeriodP1.solve_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.SmallPeriodP1.solve_complete_long' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.SmallPeriodP1.solve_counts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ArrayText.solveWord_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ArrayText.solveWord_projection_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ProjectionMagnitude.p1_target_all_stage_bits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ProjectionMagnitude.p1_cached_source_bits_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedSort.sort_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedSort.sort_steps' depends on axioms: [propext, Quot.sound]
+'REWB.CountedJoin.run_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedJoin.run_steps' depends on axioms: [propext, Quot.sound]
+'REWB.CountedSmallPeriodP1.solve_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedSmallPeriodP1.solve_complete_long' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedSmallPeriodP1.solve_prepare_counts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedSmallPeriodP1.solve_sort_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedSmallPeriodP1.solve_modulus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedSmallPeriodP1.solve_modulus_steps_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1ShortBranch.solve_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1ShortBranch.solve_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Cubic.solve_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.P1Cubic.solve_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ActualModulus.build_pos' depends on axioms: [propext]
+'REWB.ActualModulus.build_good' depends on axioms: [propext, Quot.sound]
+'REWB.ActualModulus.build_le' depends on axioms: [propext, Quot.sound]
+'REWB.ActualModulus.build_steps_bound' depends on axioms: [propext, Quot.sound]
+'REWB.CountedShortBranch.solve_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedShortBranch.solve_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedP1Cubic.solve_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.CountedP1Cubic.solve_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.ThresholdBudget.rounded_lower' depends on axioms: [propext, Quot.sound]
+'REWB.ThresholdBudget.rounded_upper' depends on axioms: [propext, Quot.sound]
+'REWB.ThresholdBudget.ledger_target' depends on axioms: [propext, Quot.sound]

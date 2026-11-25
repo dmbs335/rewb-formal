@@ -5,7 +5,7 @@ if grep -nE '\b(sorry|admit|sorryAx|native_decide)\b|^[[:space:]]*(axiom|constan
   echo 'Untrusted or incomplete proof construct detected.' >&2
   exit 1
 fi
-lake build
+lake build REWB REWB.ShortSourceRegression
 log=$(mktemp)
 trap 'rm -f "$log"' EXIT
 lake env lean REWB/Tests.lean | tee "$log"

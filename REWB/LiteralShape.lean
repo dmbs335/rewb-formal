@@ -47,7 +47,7 @@ theorem multiplier_conj (C : Conj) : multiplier (conj C)=multiplier C := by
   induction C with
   | nil => rfl
   | cons a as ih =>
-    change (atom a).factor*multiplier (conj as)=a.factor*multiplier as
+    change Nat.lcm (atom a).factor (multiplier (conj as))=Nat.lcm a.factor (multiplier as)
     rw [factor_atom,ih]
 
 def guard (g : Guard) : Guard := ⟨g.modulus,g.coeff,aff g.rest⟩
@@ -89,7 +89,7 @@ theorem commonPeriod_map (gs : List Guard) :
   induction gs with
   | nil => rfl
   | cons g gs ih =>
-    change g.modulus*commonPeriod (gs.map guard)=g.modulus*commonPeriod gs
+    change Nat.lcm g.modulus (commonPeriod (gs.map guard))=Nat.lcm g.modulus (commonPeriod gs)
     rw [ih]
 
 private theorem map_flat {X Y Z : Type} (xs : List X) (f : X→List Y) (g : Y→Z) :

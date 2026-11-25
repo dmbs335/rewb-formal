@@ -1,8 +1,8 @@
 import REWB.MarkedFactors
 
 /-! Constructive finite-automaton closure machinery for the regular
-marked-code compiler. State sets are explicitly enumerated; no choice
-axiom is used to obtain a finite automaton from a regular-language claim. -/
+marked-code compiler. State sets are explicitly enumerated, and every
+finite automaton is constructed directly from the regular syntax. -/
 namespace REWB.RegularDFA
 open REWB.FiniteRelation
 open REWB.LiveLanguage (join Star)
@@ -300,11 +300,12 @@ theorem star_last {L : Language α} {w : Word α} (h : Star L w) (hn : w≠[]) :
   | nil => intro hn; exact False.elim (hn rfl)
   | @cons u v hu hv ih =>
     intro hn
-    by_cases he : v=[]
-    · subst v
+    cases v with
+    | nil =>
       refine ⟨[],u,by simp,Star.nil,hu,?_⟩
       simpa using hn
-    · obtain ⟨x,y,hv,hx,hy,hne⟩ := ih he
+    | cons a v =>
+      obtain ⟨x,y,hv,hx,hy,hne⟩ := ih (by simp)
       refine ⟨u++x,y,?_,Star.cons hu hx,hy,hne⟩
       rw [hv,List.append_assoc]
 
