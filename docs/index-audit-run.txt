@@ -541,3 +541,118 @@ farLeftProgress n=2 code=3 g=1 builds=84 queries=416
 farLeftProgress n=2 code=3 g=2 builds=85 queries=425
 far-left eager variant tables: builds=85, queries=425, accepted=85, maxQueryWork=76, mismatches=0 (22787 ms)
 far-left n=128, stored K rows=1, buildWork=294105, queries=8385, queryWork=120; factory used only in preparation
+Running masked_traversal_driver_smoke
+'REWB.MaskedTraversalFrontier.insert_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalFrontier.merge_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalFrontier.merge_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalFrontier.merge_measured' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.node_children_at_parent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_measured' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_imports' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.suffix_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_band_locus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_cover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.suffix_band_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.suffix_cover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.Regression.actual_suffix_coverage' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+deep traversal n=512, period=1, imports=512, bands=512, generated=1024, popped=1022, discarded=0, work=1264594
+deep traversal n=512, period=3, imports=851, bands=517, generated=2382, popped=1698, discarded=0, work=2012733
+actual suffix traversals=511, complete band/length classes=10080, unique source/length covers=14846, equal-depth skips=3133, light imports=4542, mismatches=0, elapsed=5685 ms
+Actual queue/leader/occurrence execution and full positive-length coverage checked. Bank preparation, local cached-bank repairs, and masked reporting costs are separate.
+Running masked_run_catalog_smoke
+runCatalogLength n=0 texts=1 runs=0 lookups=8 dense=0
+runCatalogLength n=1 texts=3 runs=0 lookups=62 dense=0
+runCatalogLength n=2 texts=7 runs=0 lookups=318 dense=0
+runCatalogLength n=3 texts=15 runs=2 lookups=1324 dense=4
+runCatalogLength n=4 texts=31 runs=8 lookups=4798 dense=22
+runCatalogLength n=5 texts=63 runs=24 lookups=15822 dense=80
+runCatalogLength n=6 texts=127 runs=66 lookups=15948 dense=246
+runCatalogLength n=7 texts=255 runs=168 lookups=16254 dense=246
+runCatalogTotal texts=255 runs=168 lookups=16254 counts=1132 aps=13608 dense=246 points=3164 maxLookup=113 maxDiscovery=171 exactIDs=true exactCounts=true
+runCatalogDeep n=1024 period=1 K=1 runs=1 cells=1025 catalogWork=13699 lookupWork=270 discoveryWork=491 shortTarget=true sourcePersistence=true
+runCatalogDeep n=513 period=3 K=1000000007 runs=1 cells=514 catalogWork=6002 lookupWork=249 discoveryWork=444 shortTarget=true sourcePersistence=true
+Running boundary_range_border_smoke
+borderIndexExhaustive length=0 builds=3 queries=3
+borderIndexExhaustive length=1 builds=9 queries=51
+borderIndexExhaustive length=2 builds=21 queries=411
+borderIndexTotal builds=23 copies=335 gaps=261 queries=571 accepted=30 maxWork=1037
+borderIndexAllFour queries=97 exactAt=true
+borderIndexDeep n=128 buildWork=390491 queries=16 maxWork=49173 exactSlices=true
+
+real	0m40.461s
+user	0m40.744s
+sys	0m0.239s
+Running residual_separated_smoke
+residualSeparated n=0 windows=5 p1=1 p2=1 runWindows=0
+residualSeparated n=1 windows=35 p1=9 p2=7 runWindows=0
+residualSeparated n=2 windows=165 p1=39 p2=35 runWindows=12
+residualSeparated n=3 windows=625 p1=143 p2=129 runWindows=56
+residualSeparated n=4 windows=2085 p1=472 p2=442 runWindows=204
+residualSeparatedComplete windows=2085 languageChecks=4170 runWindows=204 mismatches=0 elapsed=693ms; tests use independent bounded cut scans, not a fast query implementation
+Running residual_strip_schedule_smoke
+stripScheduleLength n=0 texts=1 schedules=27 jobs=0
+stripScheduleLength n=1 texts=3 schedules=81 jobs=0
+stripScheduleLength n=2 texts=7 schedules=189 jobs=6
+stripScheduleLength n=3 texts=15 schedules=405 jobs=36
+stripScheduleLength n=4 texts=31 schedules=837 jobs=170
+stripScheduleLength n=5 texts=63 schedules=1701 jobs=650
+stripScheduleLength n=6 texts=127 schedules=3429 jobs=2178
+stripScheduleTotal texts=127 schedules=3429 strips=2724 jobs=2178 copies=2428 storedCuts=3226 maxJobs=13 maxWork=4557 exactTriples=true
+stripScheduleDeep n=1024 period=1 s=16 L=32 D=128 strips=992 jobs=3841 cutProbes=4599 work=17979677 cachedCounts=true
+stripScheduleDeep n=513 period=3 s=17 L=33 D=1000 strips=160 jobs=75 cutProbes=85 work=4120807 cachedCounts=true
+Running masked_traversal_bank_ready_smoke
+'REWB.MaskedTraversalBankReady.prepare_dense_reset' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.compile_reset_present' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.anchorBounds_reset' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.previous_next' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.incoming_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.prepare_reset_geometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.prepare_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalBankReady.compile_reset_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.compile_reset_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.write_selected' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalBankReady.write_other' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalBankReady.write_sources' depends on axioms: [propext, Quot.sound]
+mixed dense/singleton, full source window: occurrences=[0, 2, 4, 10, 12, 18], leaders=[0, 10, 18], catalog runs=2, { preparations := 36,
+  physicalCells := 7200,
+  replayCells := 124800,
+  incomingEnabled := 0,
+  dense := 24,
+  singleton := 12,
+  cleared := 1,
+  erases := 11,
+  work := 2525864 }
+mixed dense/singleton, one-source clipping: occurrences=[0, 2, 4, 10, 12, 18], leaders=[0, 10, 18], catalog runs=2, { preparations := 21,
+  physicalCells := 4200,
+  replayCells := 76800,
+  incomingEnabled := 0,
+  dense := 14,
+  singleton := 7,
+  cleared := 1,
+  erases := 6,
+  work := 1442462 }
+positive incoming overshoot: occurrences=[0, 3, 6], leaders=[0, 3, 6], catalog runs=1, { preparations := 18,
+  physicalCells := 3600,
+  replayCells := 67200,
+  incomingEnabled := 12,
+  dense := 0,
+  singleton := 18,
+  cleared := 1,
+  erases := 5,
+  work := 1633586 }
+unary dense endpoint: occurrences=[0, 1, 2, 3, 4, 5, 6], leaders=[0], catalog runs=1, { preparations := 8,
+  physicalCells := 1600,
+  replayCells := 28800,
+  incomingEnabled := 0,
+  dense := 8,
+  singleton := 0,
+  cleared := 1,
+  erases := 7,
+  work := 409040 }
+auto bank preparation: fixtures=4, preparations=83, physical cells=16600, replay cells=297600, erase requests=29, retired clears=4, mismatches=0, elapsed=6647 ms
+Actual catalog IDs, current erased-source rows, predecessor-derived incoming cursors and immutable target counts were used throughout. Global dirty-neighborhood completeness and lazy aggregate/frontier coherence remain separate.

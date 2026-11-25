@@ -35,7 +35,13 @@ lake build REWB REWB.ShortSourceRegression REWB.BoundaryIndexRegression \
   REWB.MaskedTraversalEdgeRegression \
   REWB.BoundaryBorderRegularRegression \
   REWB.BoundaryRangeNearIndexRegression \
-  REWB.BoundaryRangeFarIndexRegression
+  REWB.BoundaryRangeFarIndexRegression \
+  REWB.MaskedTraversalDriverRegression \
+  REWB.MaskedRunCatalogRegression \
+  REWB.BoundaryRangeNearIndexBorderRegression \
+  REWB.ResidualSeparatedRegression \
+  REWB.ResidualStripScheduleRegression \
+  REWB.MaskedTraversalBankReadyRegression
 log=$(mktemp)
 trap 'rm -f "$log"' EXIT
 lake env lean REWB/Tests.lean | tee "$log"

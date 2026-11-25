@@ -139,3 +139,23 @@ All default probes above completed. The near-case default includes every binary 
 These are checks of the stated abstract operation counters and returned answers. Fixed-pattern automata, finite maps and projection formulas may have large constants. They do not imply a practical speed claim or an allocator/bit-cost theorem. The scheduler's bank/query callback work and the store's changing-partition repair policy remain outside their respective bounds.
 
 The exact `14ff501` push CI passed. Its PR workflow passed the build/dependency stage but was cancelled at the previous 20-minute job limit during the separated n=512 runtime probe, with no recorded semantic mismatch. The Lean job limit is increased to 40 minutes; the Python job retains its existing limit. This configuration change does not count the cancelled run as successful.
+
+### Complete traversal, catalog and residual-window continuation
+
+| Probe | Observed result |
+| --- | --- |
+| Actual full suffix traversal | 511 texts, 10,080 complete band/length classes and 14,846 unique source/length covers; 3,133 equal-depth skips and 4,542 light imports; zero mismatches |
+| Deep geometric traversal | n=512: unary work 1,264,594; period-three work 2,012,733; actual pop/discard/pending conservation checked |
+| Shared run catalog | 255 texts, 168 actual runs, 16,254 ID lookups, 1,132 target-count checks and 13,608 AP queries; exact IDs and immutable counts |
+| Dense catalog discovery | n=1,024 period-one lookup/discovery work 270/491; n=513 period-three with K=1,000,000,007 uses 249/444; no K-sized allocation |
+| Fourth near case and all-near assembly | 23 eager builds, 335 copy checks, 261 common-gap checks, 571 region queries and 97 all-four queries; n=128 build work 390,491 and 16 full queries, maximum 49,173 |
+| Separated residual P1/P2 reductions | 2,085 valid windows, 4,170 independent language checks and 204 actual run-window checks; zero mismatches; source-before-window P1 and source-inside-window P2 included |
+| Actual strip schedule | 127 binary texts and 3,429 configurations; 2,724 distinct long strips, 2,178 emitted jobs and 2,428 covered copies; independent character and global-grid comparisons agree |
+| Deep strip schedule | n=1,024 emits 3,841 jobs from 992 strips with 4,599 local cut probes; n=513 emits 75 jobs from 160 strips with 85 probes |
+| Automatic bank preparation | Four real fixtures, 83 preparations, 16,600 literal physical cells, 297,600 replay cells, 29 source erases and four retired-slot clears; zero mismatches |
+
+The near-border generated-code inspection found that dependent query arguments were recomputing a text array and height. The index now caches both, and the corrected query path has no such hidden preparation. The catalog lookup likewise caches key width and avoids text/run scans. The strip schedule's proof-only cell-packing list is absent from executable construction; local cut ranges and cached counts are used.
+
+The residual language tests use bounded independent cut enumeration as references. They validate the exact reductions, not an unimplemented fast range query. Automatic bank preparation uses actual current source histories, discovered catalog IDs and predecessor metadata, while retaining an explicit neighbor-anchor invariant. The geometric driver and band-count proofs still exclude complete bank repair, aggregate query and reporting work.
+
+Both exact `88959f2` GitHub CI runs passed. That result validates the preceding published checkpoint; later additions require their own exact-head remote runs.
