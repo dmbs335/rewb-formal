@@ -29,7 +29,7 @@ theorem equalScan_work (s : Nat→α) (a c : Nat) (same : Bool) (q : Nat) :
     (equalScan s a c same q).2=10*q+2 := by
   induction q generalizing a c same with
   | zero=>rfl
-  | succ q ih=>simp only [equalScan,ih,Nat.mul_add,Nat.mul_one]; omega
+  | succ q ih=>simp only [equalScan,ih,Nat.mul_add,Nat.mul_one]<;> omega
 
 def equalPair (s : Nat→α) (q a c : Nat) : Result (Array Bool×Nat) :=
   let row:=equalScan s a c true q

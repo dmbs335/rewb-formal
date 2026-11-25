@@ -1,4 +1,4 @@
-import REWB.ResidualActualFullCostInputsCost
+import REWB.MaskedAllStartFullCostRowsRegression
 
 #print axioms REWB.MaskedAllStart.FullCost.Rows.row_value
 #print axioms REWB.MaskedAllStart.FullCost.Rows.row_correct
@@ -53,3 +53,9 @@ import REWB.ResidualActualFullCostInputsCost
 #print axioms REWB.ResidualActual.FullCost.Cost.p2_inputs_work
 #print axioms REWB.ResidualActual.FullCost.Cost.p1_inputs_profile
 #print axioms REWB.ResidualActual.FullCost.Cost.p2_inputs_profile
+
+#print axioms REWB.MaskedAllStart.FullCost.Rows.Regression.tiny_value
+#print axioms REWB.MaskedAllStart.FullCost.Rows.Regression.tiny_old_work
+#print axioms REWB.MaskedAllStart.FullCost.Rows.Regression.tiny_full_work
+#print axioms REWB.MaskedAllStart.FullCost.Rows.Regression.dependent_value
+#print axioms REWB.MaskedAllStart.FullCost.Rows.Regression.empty_work

@@ -75,7 +75,7 @@ theorem suffix_work (d : DFA α) (w : Word α) :
 
 def contexts (P : SevenDFA α) (w : Word α) :
     Result (BoundaryContexts.Index P×Nat) :=
-  let front:=prefix P.A P.A.initial w
+  let front:=prefixScan P.A P.A.initial w
   let back:=suffix P.H w
   let a:=array front.1.1
   let h:=array back.1.1

@@ -37,11 +37,17 @@ jobs:
             targets: REWB.ResidualActualPeriodicCost
             audit: audits/residual_actual_periodic_cost_axioms.lean
           - group: full-rows
-            targets: REWB.ResidualActualFullCostInputsCost
+            targets: REWB.MaskedAllStartFullCostRowsRegression
             audit: audits/recovery_full_rows_axioms.lean
           - group: periodic-cache
-            targets: REWB.PeriodicConstructionCacheContexts
-            audit: audits/recovery_periodic_cache_axioms.lean
+            targets: REWB.PeriodicConstructionCacheRegression
+            audit: audits/periodic_cache_construction_axioms.lean
+          - group: full-matcher
+            targets: REWB.ResidualActualFullCostMatcherCost
+            audit: audits/residual_actual_full_cost_matcher_axioms.lean
+          - group: periodic-runs
+            targets: REWB.PeriodicConstructionRunsCost
+            audit: audits/periodic_runs_construction_axioms.lean
     steps:
       - uses: actions/checkout@v4
       - name: Install pinned Lean toolchain
@@ -93,6 +99,29 @@ jobs:
       - name: Compare actual measured public solver
         if: matrix.group == 'finite-initial'
         run: timeout 300s lake env lean --run audits/masked_full_cost_solve_smoke.lean
+      - name: Audit full construction dispatcher and independent path
+        if: matrix.group == 'full-matcher'
+        run: |
+          lake env lean audits/residual_actual_full_cost_dispatch_axioms.lean
+          lake env lean audits/residual_actual_full_cost_independent_axioms.lean
+      - name: Compare full construction matcher composition
+        if: matrix.group == 'full-matcher'
+        run: timeout 120s lake env lean --run audits/residual_actual_full_cost_matcher_smoke.lean
+      - name: Compare actual measured row factories
+        if: matrix.group == 'full-rows'
+        run: timeout 180s lake env lean --run audits/masked_full_cost_rows_smoke.lean
+      - name: Inspect measured row generated code
+        if: matrix.group == 'full-rows'
+        run: python3 audits/masked_full_cost_rows_codegen.py
+      - name: Compare actual periodic cache construction
+        if: matrix.group == 'periodic-cache'
+        run: timeout 180s lake env lean --run audits/periodic_cache_construction_smoke.lean
+      - name: Isolate actual positive P2 diagnostic
+        if: always() && matrix.group == 'periodic-branch'
+        run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean p2
+      - name: Isolate actual positive P1 projection diagnostic
+        if: always() && matrix.group == 'periodic-branch'
+        run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean projection
       - name: Save compiled recovery dependencies
         if: always() && !cancelled()
         uses: actions/cache/save@v4

@@ -10,6 +10,9 @@ namespace REWB.ResidualActual.FullCost.Cost
 open REWB.BoundaryRange REWB.ResidualCached REWB.ResidualCached.Growth
 variable {σ : Nat}
 
+set_option maxRecDepth 4096
+set_option maxHeartbeats 4000000
+
 export REWB.ResidualActual.Cost (rowVolume rowVolume_positive sum_uniform)
 
 noncomputable def p1Maximum (P : SevenDFA (Fin σ)) (charge : Nat) : Nat :=

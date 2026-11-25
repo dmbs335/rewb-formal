@@ -38,35 +38,35 @@ theorem word_work (s : Nat→α) (a q : Nat) :
     (word s a q).2=4*q+1 := by
   induction q generalizing a with
   | zero=>rfl
-  | succ q ih=>simp only [word,ih,Nat.mul_add,Nat.mul_one]; omega
+  | succ q ih=>simp only [word,ih,Nat.mul_add,Nat.mul_one]<;> omega
 
 /-- The inner counter is exactly the original number of DFA transitions. -/
-def prefix (d : DFA α) : Fin d.stateCount→Word α→Result (List (Fin d.stateCount)×Nat)
+def prefixScan (d : DFA α) : Fin d.stateCount→Word α→Result (List (Fin d.stateCount)×Nat)
   | v,[]=>(([v],0),2)
   | v,c::cs=>
-    let tail:=prefix d (d.step v c) cs
+    let tail:=prefixScan d (d.step v c) cs
     ((v::tail.1.1,tail.1.2+1),tail.2+8)
 
 theorem prefix_value (d : DFA α) (v : Fin d.stateCount) (w : Word α) :
-    (prefix d v w).1=IntervalDFA.countedPrefix d v w := by
+    (prefixScan d v w).1=IntervalDFA.countedPrefix d v w := by
   induction w generalizing v with
   | nil=>rfl
-  | cons c cs ih=>simp only [prefix,IntervalDFA.countedPrefix,ih]
+  | cons c cs ih=>simp only [prefixScan,IntervalDFA.countedPrefix,ih]
 
 theorem prefix_length (d : DFA α) (v : Fin d.stateCount) (w : Word α) :
-    (prefix d v w).1.1.length=w.length+1 := by
+    (prefixScan d v w).1.1.length=w.length+1 := by
   induction w generalizing v with
   | nil=>rfl
-  | cons c cs ih=>simp only [prefix,List.length_cons,ih]
+  | cons c cs ih=>simp only [prefixScan,List.length_cons,ih]
 
 def prefixCost (n : Nat) : Nat := 8*n+2
 
 theorem prefix_work (d : DFA α) (v : Fin d.stateCount) (w : Word α) :
-    (prefix d v w).2=prefixCost w.length := by
+    (prefixScan d v w).2=prefixCost w.length := by
   induction w generalizing v with
   | nil=>rfl
   | cons c cs ih=>
-    simp only [prefix,ih,prefixCost,List.length_cons,Nat.mul_add,Nat.mul_one] <;> omega
+    simp only [prefixScan,ih,prefixCost,List.length_cons,Nat.mul_add,Nat.mul_one] <;> omega
 
 /-- A single pass preserves the legacy sum while accumulating real
 construction work from each executed callback. -/
@@ -99,7 +99,7 @@ theorem range_work (n : Nat) : (CountedProjection.range n).2=2*n+1 :=
 
 def stateRow (d : DFA α) (w : Word α) (i : Nat) :
     Result (PeriodicCache.StateRow d×Nat) :=
-  let states:=prefix d (PeriodicCache.state d i) w
+  let states:=prefixScan d (PeriodicCache.state d i) w
   let out:=array states.1.1
   ((out.1,states.1.2),states.2+out.2+4)
 
