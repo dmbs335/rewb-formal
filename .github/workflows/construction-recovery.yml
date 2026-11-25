@@ -21,6 +21,18 @@ jobs:
           - group: periodic-actual
             targets: REWB.PeriodicActualPrepareCost REWB.PeriodicActualP2Cost
             audit: audits/recovery_periodic_axioms.lean
+          - group: finite-cut
+            targets: REWB.PeriodicConstructionCutBuild REWB.PeriodicConstructionCutPhase
+            audit: audits/recovery_cut_axioms.lean
+          - group: finite-initial
+            targets: REWB.MaskedAllStartFullCostFiniteInitial
+            audit: audits/recovery_finite_initial_axioms.lean
+          - group: full-executor
+            targets: REWB.MaskedAllStartFullCostExecute
+            audit: audits/recovery_execution_axioms.lean
+          - group: periodic-branch
+            targets: REWB.PeriodicActualBranchCost
+            audit: audits/periodic_actual_branch_cost_axioms.lean
     steps:
       - uses: actions/checkout@v4
       - name: Install pinned Lean toolchain
@@ -28,7 +40,7 @@ jobs:
           curl --fail --silent --show-error --location https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/elan-init.sh
           sh /tmp/elan-init.sh -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
         with:
           path: .lake/build
           key: ${{ runner.os }}-lean-4-19-recovery-${{ matrix.group }}-${{ github.sha }}
@@ -54,3 +66,12 @@ jobs:
       - name: Compare actual chronological join execution
         if: matrix.group == 'initial-and-join'
         run: lake env lean --run audits/periodic_actual_join_smoke.lean
+      - name: Audit actual periodic branch value theorems
+        if: matrix.group == 'periodic-branch'
+        run: lake env lean audits/periodic_actual_branch_axioms.lean
+      - name: Save compiled recovery dependencies
+        if: always() && !cancelled()
+        uses: actions/cache/save@v4
+        with:
+          path: .lake/build
+          key: ${{ runner.os }}-lean-4-19-recovery-${{ matrix.group }}-${{ github.sha }}

@@ -1,47 +1,60 @@
-# Construction-cost proof recovery
+# Construction-cost proof continuation
 
-This branch continues from the validated checkpoint
-`0f4ef40210db753fe143046bf7312ce7b619aaaf`. It preserves in-progress
-construction-accounting sources after the execution environment became
-unavailable on 2026-11-25.
+The validated parent checkpoint is
+`0f4ef40210db753fe143046bf7312ce7b619aaaf`, published in draft PR #14.
+Its actual six-form matcher correctness and concrete returned-ledger
+25/13 target are kernel-checked. This is not a machine-running-time theorem.
 
-## Validation boundaries
+## Recovery and validation
 
-The parent checkpoint has a successful local 694-target kernel gate,
-2,343 principal axiom reports and 83 completed compiled probes. Its actual
-six-form matcher correctness and concrete returned-ledger target are
-published in draft PR #14. This is not a machine-running-time theorem.
+The execution environment became unavailable on 2026-11-25. Complete
+retained tool payloads and reads were used to preserve 33 in-progress
+Lean modules. Their inaccessible working-tree hashes could not be
+compared. Historical PASS observations and later fresh remote checks are
+distinguished in the records linked below.
 
-The newly preserved source texts were reconstructed from complete retained
-tool payloads and reads. The inaccessible original working-tree hashes
-could not be compared. Historical local PASS records are listed in the
-family documents; they do not certify the reconstructed snapshot.
-This branch's dedicated **Construction recovery kernel checks** workflow
-rebuilds its explicitly named modules and prints principal axiom
-dependencies. The unchanged parent workflow also runs on branch pushes.
+The first recovery commit `be6c2e1` preserved 24 modules. Its
+initial/join CI job passed 438 targets and 58 principal axiom checks.
+The next commit `41bcc9b` removed a redundant tactic in the periodic
+preparation proof and added an actual-join executable comparison; its
+dedicated recovery workflow passed.
 
-The first recovery commit contains 24 Lean modules:
+The following integration preserves the remaining nine Cut modules,
+adds three explicitly **new implementations** of unavailable original
+Bank/Updates/Erase sources, installs finite Cut operations in a new
+three-module initialization path, and adds two actual P1 branch modules.
+These additions require their own kernel/runtime results; writing them
+does not count as validation.
 
-- Initial scan, runs, and start accounting: 3 modules.
-- Actual chronological join, split, DFA cut, and extra-work bound: 5 modules.
-- Periodic choices, P2, events, measures, short branch, preparation:
-  8 modules.
-- Full-cost window/report/repair/clip/collect/execution source: 8 modules.
+## Dedicated build groups
 
-The first two groups are built in the `initial-and-join` CI job. The
-periodic group is built in `periodic-actual`. The executor group is not
-yet a complete build target: the original Bank/Updates/Erase texts were
-not available in retained context, and the Cut family is being preserved
-separately. Missing originals must not be guessed and called recovered.
-Fresh replacements will be separately identified and kernel-checked.
+The **Construction recovery kernel checks** workflow builds explicit
+targets and prints their principal theorem dependencies:
 
-## Family records
+- initial-and-join: the recovered initial path and actual chronological
+  join; also runs its bounded full-counter/work/literal-witness comparison.
+- periodic-actual: choices, P2, events, measures, short events, and preparation.
+- finite-cut: all nine measured Cut modules.
+- finite-initial: the new initial path using measured Cut build, tail and
+  whole periodic queries.
+- full-executor: actual bank compilation, repair, clipping, erase, window
+  queries, reporting, and the complete band/edge/plan traversal.
+- periodic-branch: actual long/short P1 preparation plus chronological join,
+  the cubic branch, and their concrete ledger target.
 
-- [Initial and join provenance](RECOVERY_ROOT.md)
-- [Periodic actual provenance](RECOVERY_PERIODIC_ACTUAL.md)
-- [Full-cost executor provenance and missing APIs](RECOVERY_FULL_COST_EXECUTION.md)
+The unchanged parent workflow also runs on pushes. The dedicated groups
+do not yet establish installation throughout the full matcher.
+Axiom audits and bounded executable comparisons have different scopes;
+neither is described as a machine-cost refinement.
 
-The source ledger still needs installation into the full matcher, followed
-by kernel, axiom, generated-code, and bounded executable comparisons.
-No merge is performed by this recovery work. The validated draft PR head
-remains at the parent checkpoint while the recovered work is checked.
+## Records
+
+- [Remote validation](RECOVERY_VALIDATION.md)
+- [Initial and join source provenance](RECOVERY_ROOT.md)
+- [Periodic actual source provenance](RECOVERY_PERIODIC_ACTUAL.md)
+- [Cut construction source provenance](RECOVERY_CUT_CONSTRUCTION.md)
+- [Full-cost executor source provenance](RECOVERY_FULL_COST_EXECUTION.md)
+- [Fresh dependency implementations](REIMPLEMENTATION_FULL_COST_DEPENDENCIES.md)
+
+The draft PR head remains at the validated parent while this continuation
+is checked. No merge is performed.
