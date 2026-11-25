@@ -207,3 +207,23 @@ The historical-bank regression deliberately reloads an older raw configuration a
 The boundary-cache audit supplies finite all-start rows by independent bounded reference enumeration. It validates the assembled cache and reversed-coordinate mask conversion; it does not validate an unimplemented fast row producer. The short-outer consumer tests use the real proved producer and CountedJoin execution with all returned work bounds checked. Generated-code records are in `audits/boundary_range_cache_codegen.md` and `audits/short_outer_solver_codegen.md`.
 
 The exact preceding `1749593` push and PR CI runs both succeeded. The new proof-only cell/model/metadata refinements are kernel checked; their algorithms reuse the actual runtime operations above. Whole-driver bank execution, complete masked all-start production and the full matcher machine-cost theorem remain open.
+
+### Complete queries, actual reporting and changing-partition execution
+
+| Probe | Observed result |
+| --- | --- |
+| Concrete report/erase cycle | 20 fixtures, 188 actual interval queries and 27 outputs; zero mismatches; 37.344s |
+| Empty/periodic initialization | 15 fixtures, 42 initial hits and 19 fresh residual hits; exact output history, repeat erases and source fanout checked; zero mismatches; 49.769s |
+| Suspended disjoint frontier | Two reports, six outputs, 144 saved bank cells and 35 queries; actual erases and active resets leave the saved frontier correct; zero mismatches; 0.957s |
+| Complete cross-cluster window query | Seven fixtures, 2,397 queries, 294 positives, 116 same-cluster-only rejects and twelve erases; zero mismatches; 45.018s |
+| Actual repair coherence | Five fixtures, 358,400 replay cells and 3,000 physical cells; zero mismatches; 15.2s |
+| Current-source repair snapshots | Four cycles, seven erase requests and 864 physical cells; repair work 64,246 and source-update work 1,318; zero mismatches; 0.152s |
+| Same-cluster periodic coverage | 132 cases, 3,618 classes, 4,020 positive cuts and 3,208 same-owner hits; all 347 remaining witnesses have distinct owners; zero mismatches; 32.962s |
+| Actual complete plan execution | 24 fixtures, 104 mask/source comparisons, 63 actual bands, 121 interval calls and eleven new reports; independent original-cut enumeration agrees; 32.231s |
+| Surviving positive-witness assignment | 34 fixtures, 136 bands, 235 class checks, 366 unique source/length assignments, 156 source predicates and ten later-live witnesses; zero mismatches; 66.203s |
+
+The reporting probe includes both parities of a dense period-two H=5 to L=4 shortening, already removed sources, failed queries, repeat reporting, persistence and immutable targets. The snapshot/execute probes use the real shared run catalog, mutable source histories, actual resets, aggregate query, output writes and replay tags. All default probes completed with exit 0.
+
+A broader cross-cluster probe separately completed 4,117 queries and 467 positives in 120.879s with no mismatch. A broader 96-fixture executor diagnostic was manually interrupted after several minutes (exit 130); it is not counted as a passing probe. The smaller complete executor suite covers all binary inputs through length two with three masks, plus unary/periodic/deep fixtures of length eight and ten. These finite checks supplement the kernel component proofs; whole-plan universal preservation and total cost remain separate obligations at this checkpoint.
+
+The exact `40d7be9` push and PR CI runs both succeeded. The new local gate passes 629 targets and 1,912 principal axiom reports. The full matcher time theorem and complete construction-cost coverage remain open.

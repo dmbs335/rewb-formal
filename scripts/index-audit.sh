@@ -50,7 +50,16 @@ for name in masked_reporting_smoke masked_event_smoke boundary_index_smoke \
   masked_traversal_retained_smoke \
   boundary_range_cache_smoke \
   masked_traversal_incoming_smoke \
-  short_outer_solver_smoke; do
+  short_outer_solver_smoke \
+  masked_traversal_reporting_smoke \
+  masked_traversal_initial_smoke \
+  masked_traversal_disjoint_smoke \
+  masked_traversal_complete_smoke \
+  masked_traversal_repair_coherence_smoke \
+  masked_traversal_repair_snapshot_smoke \
+  masked_traversal_periodic_coverage_smoke \
+  masked_traversal_execute_smoke \
+  masked_traversal_positive_coverage_smoke; do
   echo "Running $name"
   lake env lean --run "audits/$name.lean"
 done
