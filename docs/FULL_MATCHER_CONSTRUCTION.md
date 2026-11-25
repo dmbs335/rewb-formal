@@ -6,7 +6,7 @@ This note describes the concrete construction path in `REWB.ResidualActual.FullC
 
 Semantic correctness is unconditional for the public matcher. The complexity result concerns its documented, concrete returned operation ledger. It is not an identification of that ledger with Lean VM time, machine-integer bit cost, reference counting, allocation, or garbage collection.
 
-**Composition runtime status:** the original attempt and its identical retry both ended on runner shutdown before their 120-second limits and before fixture output. This does not identify the shutdown cause. The source build and all 70 dependency checks passed. A split, resource-limited audit now separates direct compiled-form dispatch, normalization and independent execution; only completed modes are recorded as successful below.
+**Composition runtime status:** direct compiled-form/list dispatch passed all 32 fixtures at `660c578d59771e74ddd30101cd7552a9ead9dd5a`. The separate normalization/execution diagnostic failed with out-of-memory at its first empty input under the 3 GiB address-space limit. The independent-stage diagnostic failed with interpreter deep recursion in its first reversed row. Neither failing diagnostic is a runtime pass. All 70 final source dependency checks passed independently.
 
 ## Actual execution path
 
@@ -120,3 +120,29 @@ The broad positive P1 probe has **not** passed. The observed diagnostics are pre
 The isolated long/short evidence comes from [job 139157729908 at commit 917c2d5](https://github.com/dmbs335/rewb-formal/actions/runs/45600471549/job/139157729908). Thus projection alone is not the observed long-branch bottleneck. These timings expose large fixed-pattern constants; they do not substitute for, or invalidate, the separately checked semantic and operation-ledger theorems. The unchanged expensive probes remain available through [`audits/periodic_actual_diagnostic.lean`](../audits/periodic_actual_diagnostic.lean) and the optional workflow path.
 
 [`audits/residual_actual_full_cost_matcher_smoke.lean`](../audits/residual_actual_full_cost_matcher_smoke.lean) is intended to cover regular normalization/list composition on 32 words and one empty independent case using actual reversed/forward full-cost rows. Its initial attempt and identical retry were interrupted by runner shutdown, so those unsplit attempts provide no completed composition fixtures. The split audit retains the original `full` fixture scope, corrects the invalid assumption that normalization has zero action builds, and reports each selected mode separately. The resource wrapper's default `regular` mode checks direct already-constructed form lists; it does not claim normalization or independent execution. The source-level universal six-form theorem, the actual row-factory component tests, and the bounded periodic tests remain distinct pieces of evidence; they are not described as an exhaustive runtime test of every normalized branch.
+
+
+## Split composition results at 660c578
+
+[Job 139174203518](https://github.com/dmbs335/rewb-formal/actions/runs/45605211457/job/139174203518) provides the actual stage evidence. Production Lean sources are unchanged from the verified `8614bf8` checkpoint.
+
+| Mode | Observed result | Resource output |
+| --- | --- | --- |
+| `regular`, strict regression | 32 actual compiled-form/list fixtures, zero mismatches, exit 0 | Body 1 ms; command 1.22 s; maximum RSS 1,202,016 KiB. |
+| `normalize`, optional diagnostic | Compilation completed; first empty-input execution failed with out-of-memory, exit 1 | Command 4.13 s; maximum RSS 2,328,688 KiB; 3 GiB virtual-address-space limit. |
+| `independent-stages`, optional diagnostic | Three reversed DFAs completed; the first actual reversed row failed with interpreter deep recursion, exit 1 | Command 33.93 s; maximum RSS 1,988,672 KiB. |
+
+The source-DFA precursor had two states. Compilation produced 255 forms: regular 7, once 40, same-value 16, independent 64, nested1 64, and nested2 64. The compile stage completed in approximately 5 ms. Its first `Matcher.run` on the empty input then exhausted the limited process address space. Thus this observation does not blame normalization itself for that resource failure.
+
+The independent stage built reversed DFA state counts 2/2/2, then stopped in `FullCost.Rows.row`. The recorded stack includes `PeriodicConstruction.Pattern.gcd`, `lcm`, `conjModulus` and repeated `formulaModulus` calls. The forward row, suffix aggregate and endpoint scan were not reached. This is an interpreter execution limitation; the kernel-checked source equations and ledger bounds are separate.
+
+The staging workflow used `continue-on-error` for the two explicitly optional observations. Its success status therefore does **not** mean that those two modes passed. The final regular gate is strict; the unsuccessful modes and original `full` fixture remain reproducible manual diagnostics. Selected exact output is preserved in [the composition log](../audits/full_matcher_composition_verified.log).
+
+```sh
+bash audits/run_full_matcher_composite.sh regular
+bash audits/run_full_matcher_composite.sh normalize
+bash audits/run_full_matcher_composite.sh independent-stages
+bash audits/run_full_matcher_composite.sh full
+```
+
+No further production changes are made on the strength of these finite probes. In particular, the project does not claim completed normalized/independent execution on the unsuccessful cases, practical scalability, or native cost preservation.

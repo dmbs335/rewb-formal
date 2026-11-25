@@ -440,7 +440,7 @@ The former construction-substitution obligation is closed for this model. A full
 
 ## 11. Verification and publication
 
-The current unified kernel checkpoint and exact principal counts are given in Section 0. The legacy 83-probe inventory is preserved and sharded into 28/28/27 cases; the nine Python reference audits are unchanged. New construction probes and the two generated-C inspectors are listed in the linked integration audits. The final PR metadata records the actual published head and exact CI result. A failed, cancelled or optional timed-out diagnostic is never counted as a completed passing probe.
+The current unified kernel checkpoint and exact principal counts are given in Section 0. The legacy 83-probe inventory is preserved and sharded into 28/28/27 cases; all three shards and the nine unchanged Python reference audits passed at unified checkpoint `8614bf8` ([run](https://github.com/dmbs335/rewb-formal/actions/runs/45601488688)). New construction probes and the two generated-C inspectors are listed in the linked integration audits. The final PR metadata records the actual published head and exact CI result. A failed, cancelled or optional timed-out diagnostic is never counted as a completed passing probe.
 
 ### Earlier verification checkpoints
 

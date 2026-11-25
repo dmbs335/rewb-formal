@@ -162,12 +162,10 @@ jobs:
       # Preserve failing statuses in their logs and keep the mandatory
       # compiled-form probe above strict.
       - name: Optional normalization resource diagnostic
-        if: matrix.group == 'full-matcher' && (github.event_name == 'workflow_dispatch' || github.ref_name == 'formalization/construction-recovery-20261125')
-        continue-on-error: true
+        if: always() && matrix.group == 'full-matcher' && github.event_name == 'workflow_dispatch'
         run: bash audits/run_full_matcher_composite.sh normalize
       - name: Optional independent-row resource diagnostic
-        if: matrix.group == 'full-matcher' && (github.event_name == 'workflow_dispatch' || github.ref_name == 'formalization/construction-recovery-20261125')
-        continue-on-error: true
+        if: always() && matrix.group == 'full-matcher' && github.event_name == 'workflow_dispatch'
         run: bash audits/run_full_matcher_composite.sh independent-stages
       - name: Save compiled recovery dependencies
         if: always() && !cancelled()
