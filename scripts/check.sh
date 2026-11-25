@@ -13,7 +13,10 @@ lake build REWB REWB.ShortSourceRegression REWB.BoundaryIndexRegression \
   REWB.MaskedPeriodicRegression REWB.MaskedOrderedRegression \
   REWB.MaskedPeriodicTextRegression REWB.MaskedOrderedOwnerRegression \
   REWB.BoundaryApplicationHeavyRegression REWB.MaskedClusterRegression \
-  REWB.MaskedPeriodicBatchRegression
+  REWB.MaskedPeriodicBatchRegression \
+  REWB.BoundaryApplicationStartRegression REWB.MaskedClusterCursorRegression \
+  REWB.MaskedThresholdRegression REWB.MaskedDensityChargeRegression \
+  REWB.MaskedClusterBankRegression
 log=$(mktemp)
 trap 'rm -f "$log"' EXIT
 lake env lean REWB/Tests.lean | tee "$log"

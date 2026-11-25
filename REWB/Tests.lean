@@ -18,6 +18,16 @@ import REWB.BoundaryApplicationHeavyRegression
 import REWB.MaskedClusterRegression
 import REWB.MaskedPeriodicBatchRegression
 
+import REWB.BoundaryApplicationStartRegression
+
+import REWB.MaskedClusterCursorRegression
+
+import REWB.MaskedThresholdRegression
+
+import REWB.MaskedDensityChargeRegression
+
+import REWB.MaskedClusterBankRegression
+
 open REWB
 
 -- Executable semantics, including empty captures and nested overwriting.
@@ -1037,3 +1047,122 @@ end CompletedPipelineRegression
 #print axioms REWB.BoundaryApplication.Coverage.route_iff
 #print axioms REWB.BoundaryApplication.Coverage.query_correct
 #print axioms REWB.BoundaryApplication.Coverage.query_iff_cuts
+
+-- Complete fixed-target-start queries and materialized compressed-edge ancestors.
+#print axioms REWB.BoundaryApplication.StartCuts.query_correct
+#print axioms REWB.BoundaryApplication.StartCuts.query_work
+#print axioms REWB.BoundaryApplication.StartPartial.query_correct
+#print axioms REWB.BoundaryApplication.StartSummary.build_root
+#print axioms REWB.BoundaryApplication.StartSummary.build_work
+#print axioms REWB.BoundaryApplication.StartStep.query_correct
+#print axioms REWB.BoundaryApplication.StartStep.image_get
+#print axioms REWB.BoundaryApplication.StartLocal.query_correct
+#print axioms REWB.BoundaryApplication.StartPass.go_work
+#print axioms REWB.BoundaryApplication.StartCoverage.query_hits
+#print axioms REWB.BoundaryApplication.StartSound.go_sound
+#print axioms REWB.BoundaryApplication.StartLocate.build_good
+#print axioms REWB.BoundaryApplication.StartLocate.build_path
+#print axioms REWB.BoundaryApplication.StartLocate.build_work
+#print axioms REWB.BoundaryApplication.StartLocate.ascend_complete
+#print axioms REWB.BoundaryApplication.StartLocate.cut_unique
+#print axioms REWB.BoundaryApplication.StartLocate.query_located
+#print axioms REWB.BoundaryApplication.StartLocate.query_correct
+#print axioms REWB.BoundaryApplication.StartLocate.query_work
+#print axioms REWB.BoundaryApplication.StartLocate.query_zero
+#print axioms REWB.BoundaryApplication.StartLocate.bounded_build_work
+#print axioms REWB.BoundaryApplication.StartIndex.query_correct
+#print axioms REWB.BoundaryApplication.StartIndex.query_iff_cuts
+#print axioms REWB.BoundaryApplication.StartIndex.query_work
+#print axioms REWB.BoundaryApplication.StartIndex.build_work
+#print axioms REWB.BoundaryApplication.StartIndex.build_addresses_exact
+#print axioms REWB.BoundaryApplication.StartRegression.empty_query
+#print axioms REWB.BoundaryApplication.StartRegression.strict_partial_query
+#print axioms REWB.BoundaryApplication.StartRegression.epsilon_not_both
+#print axioms REWB.BoundaryApplication.StartRegression.noninjective_E_image
+
+-- Source-only windows and complete two-mode cursor blocks.
+#print axioms REWB.MaskedCluster.sourcePairQuery_correct
+#print axioms REWB.MaskedCluster.sourcePairQuery_work
+#print axioms REWB.MaskedCluster.filteredCell_target
+#print axioms REWB.MaskedCluster.filteredCell_direct_first
+#print axioms REWB.MaskedCluster.passCell_correct
+#print axioms REWB.MaskedCluster.filteredPointCell_direct
+#print axioms REWB.MaskedCluster.normal_current
+#print axioms REWB.MaskedCluster.overshoot_current
+#print axioms REWB.MaskedCluster.rowCell_correct
+#print axioms REWB.MaskedCluster.rowMatrix_correct
+#print axioms REWB.MaskedCluster.pointRowCell_correct
+#print axioms REWB.MaskedCluster.flatten_get
+#print axioms REWB.MaskedCluster.composeBlocks_correct
+#print axioms REWB.MaskedCluster.compileDense_correct
+#print axioms REWB.MaskedCluster.compilePoint_correct
+#print axioms REWB.MaskedCluster.composeBlocks_denotes
+#print axioms REWB.MaskedCluster.prepareRows_work
+#print axioms REWB.MaskedCluster.compileDense_work
+#print axioms REWB.MaskedCluster.compilePoint_work
+#print axioms REWB.MaskedCluster.composeBlocks_work
+#print axioms REWB.MaskedCluster.CursorRegression.target_outside_source_window
+#print axioms REWB.MaskedCluster.CursorRegression.disabled_source_has_no_source_jump
+#print axioms REWB.MaskedCluster.CursorRegression.incoming_no_jump_survives
+#print axioms REWB.MaskedCluster.CursorRegression.incoming_passed_singleton
+
+-- Actual threshold queues, ordered one-shot draining and stale adjacency validation.
+#print axioms REWB.MaskedThresholdQueue.insert_spec
+#print axioms REWB.MaskedThresholdQueue.takeMax_spec
+#print axioms REWB.MaskedThresholdQueue.takeMax_none
+#print axioms REWB.MaskedThresholdQueue.drain_spec
+#print axioms REWB.MaskedThresholdQueue.drain_due_iff
+#print axioms REWB.MaskedThresholdQueue.drain_pending_iff
+#print axioms REWB.MaskedThresholdQueue.drain_work
+#print axioms REWB.MaskedThresholdQueue.drain_order
+#print axioms REWB.MaskedThresholdQueue.drain_twice_bound
+#print axioms REWB.MaskedThresholdQueue.drain_no_replay
+#print axioms REWB.MaskedThresholdEvents.pushEdges_spec
+#print axioms REWB.MaskedThresholdEvents.add_spec
+#print axioms REWB.MaskedThresholdEvents.check_correct
+#print axioms REWB.MaskedThresholdEvents.check_work
+#print axioms REWB.MaskedThresholdEvents.shorten_correct
+#print axioms REWB.MaskedThresholdEvents.shorten_work
+#print axioms REWB.MaskedThresholdEvents.Regression.actual_generations
+#print axioms REWB.MaskedThresholdEvents.Regression.obsolete_pair_filtered
+#print axioms REWB.MaskedThresholdEvents.Regression.descending_thresholds
+#print axioms REWB.MaskedThresholdEvents.Regression.future_thresholds_once
+#print axioms REWB.MaskedThresholdEvents.Regression.original_queue_preserved
+
+-- Canonical density charges at actual first-threshold suffix-trie owners.
+#print axioms REWB.MaskedDensityCharge.locus_id_unique
+#print axioms REWB.MaskedDensityCharge.locus_parent
+#print axioms REWB.MaskedDensityCharge.at_injective
+#print axioms REWB.MaskedDensityCharge.keys_nodup
+#print axioms REWB.MaskedDensityCharge.certify_completed_reset
+#print axioms REWB.MaskedDensityCharge.certify_threshold
+#print axioms REWB.MaskedDensityCharge.canonical_exists
+#print axioms REWB.MaskedDensityCharge.actual_record
+#print axioms REWB.MaskedDensityCharge.certified_budget
+#print axioms REWB.MaskedDensityCharge.Regression.parent_has_charge
+#print axioms REWB.MaskedDensityCharge.Regression.refinement_cannot_charge
+#print axioms REWB.MaskedDensityCharge.Regression.actual_unique_charge
+#print axioms REWB.MaskedDensityCharge.Regression.empty_records
+
+-- Actual replay banks and common-prefix shortening of compiled cursor blocks.
+#print axioms REWB.MaskedCluster.ReplayMaps.count_eq
+#print axioms REWB.MaskedCluster.ReplayMaps.decode_encode
+#print axioms REWB.MaskedCluster.ReplayMaps.rightAction_comp
+#print axioms REWB.MaskedCluster.ReplayMaps.common_shortening
+#print axioms REWB.MaskedCluster.ReplayMaps.replay_common_shortening
+#print axioms REWB.MaskedCluster.bankAction_gate
+#print axioms REWB.MaskedCluster.bankAction_comp
+#print axioms REWB.MaskedCluster.bankComponent_reindex
+#print axioms REWB.MaskedCluster.tabulate_reindex
+#print axioms REWB.MaskedCluster.compileDenseBank_current
+#print axioms REWB.MaskedCluster.compilePointBank_current
+#print axioms REWB.MaskedCluster.compileDenseBank_reindex
+#print axioms REWB.MaskedCluster.compilePointBank_reindex
+#print axioms REWB.MaskedCluster.compileDenseBank_select_shorter
+#print axioms REWB.MaskedCluster.compilePointBank_select_shorter
+#print axioms REWB.MaskedCluster.compileDenseBank_work
+#print axioms REWB.MaskedCluster.compilePointBank_work
+#print axioms REWB.MaskedCluster.BankRegression.universe_size
+#print axioms REWB.MaskedCluster.BankRegression.maps_noncommute
+#print axioms REWB.MaskedCluster.BankRegression.source_gate_retained
+#print axioms REWB.MaskedCluster.BankRegression.constant_word_roundtrip

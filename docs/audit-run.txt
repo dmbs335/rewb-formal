@@ -1,5 +1,3 @@
-Local Python finite audits, 2026-11-25. All nine scripts passed, exit status 0.
-
 === rewb_affine_rare_audit.py ===
 literal-chain relation cut checks: 8566
 seeded positive triple checks: 1200
