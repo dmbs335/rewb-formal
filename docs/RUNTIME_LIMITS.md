@@ -188,3 +188,22 @@ pending marks and defers final-floor/equal-depth repair until a complete
 band. Descriptor locality and pending anchor-bound transition theorems
 are kernel checked. Its extra retained-word/overlap checks are bounded
 runtime evidence; their whole-execution theorem remains open.
+
+
+### Retained anchors, historical-bank repair and short-outer solvers
+
+| Probe | Observed result |
+| --- | --- |
+| Actual retained certificates | 255 texts, 1,930 bands, 3,838 represented lengths, 11,688 actual populated certificates, 8,476 strict H>L certificates and 12,390 AP-copy checks; zero mismatches; n=128 unary/period-three also pass |
+| Actual predecessor transport | 255 texts, 12,990 transitions, 10,650 context keys, 17,764 unmarked predecessor/cursor comparisons, 426 active incoming comparisons and 340 successor-only candidates; zero mismatches; n=128 unary/period-three also pass |
+| Source erase after lazy shortening | Two opposite-parity fixtures with H=5/L=4 and dense period 2; 12 checks, two reproduced historical-bank reload failures and no mismatch after current-length repair; max tracked repair work 37,516; 2.587s |
+| Assembled boundary cache | 44 caches, 958 actual mask checks, 577 independent original-cut queries (93 positive) and 211 far-right queries (7 positive); zero mismatches |
+| Boundary cache deep path | n=32, width 8, six slots: 1,156 full queries plus 561 independent far-right checks; preparation 1,756,703, build 1,762,960, max query 140,116; whole audit 77.537s, exit 0 |
+| Complete short-outer P1/P2 | 63 binary texts, 16,320 independent literal-cut comparisons, 1,660 P1 and 1,229 P2 positives; zero mismatches; whole audit 65.548s, exit 0 |
+| Short-outer deep path | n=512/L=16: P1 work 106,879,097 and P2 work 122,891,175; n=1,024/L=8: 73,014,891 and 66,352,474; far earlier source n=1,027/L=2 accepts P1 and rejects P2 as expected |
+
+The historical-bank regression deliberately reloads an older raw configuration after lazy shortening to demonstrate the integration failure. The current-length repair then retains H, the target mask and all non-length configuration fields while rebuilding from the actual erased-source batch. No mismatch from the deliberate stale path is counted as a failure of the corrected operation.
+
+The boundary-cache audit supplies finite all-start rows by independent bounded reference enumeration. It validates the assembled cache and reversed-coordinate mask conversion; it does not validate an unimplemented fast row producer. The short-outer consumer tests use the real proved producer and CountedJoin execution with all returned work bounds checked. Generated-code records are in `audits/boundary_range_cache_codegen.md` and `audits/short_outer_solver_codegen.md`.
+
+The exact preceding `1749593` push and PR CI runs both succeeded. The new proof-only cell/model/metadata refinements are kernel checked; their algorithms reuse the actual runtime operations above. Whole-driver bank execution, complete masked all-start production and the full matcher machine-cost theorem remain open.

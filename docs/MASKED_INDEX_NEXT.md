@@ -14,6 +14,12 @@ Actual repair and query update: `MaskedTraversalDirty` derives requests from rea
 
 The residual side now has an exact actual schedule dispatcher, an assembled one-use cache conditional only on its finite all-start rows, and a concrete short-outer table with exact equality/G/H semantics and an `O_P(nL²+nL log n+n log n)` bound. Those finite inputs and the nested joins still require actual production constructors; the following proposed global index is not yet replaced by a complete matcher time theorem.
 
+Current retained-state update: `MaskedTraversalRetained` proves the actual populated H-word/overlap certificates across insertion, merge, crossing and every represented band length. `MaskedTraversalIncoming` proves actual predecessor/context preservation outside computed dirty/successor sets, including the full anchor reset. The sparse frontier model now distinguishes current compiled entries from historical raw-slot lengths. Actual current-length source erasure preserves coherence, complete leader presence and metadata; lazy shortening preserves full compiled-bank equality.
+
+Current query update: temporary clipping readiness and every physical cell are derived from actual coherent slots, full classes and metadata. `queryWindow_physical` gives an exact common-length physical-path interpretation without a cell-answer or ready assumption. Actual source gates select precisely the requested physical interval and retain target eligibility. Ordered cross-cluster completeness and the complete driver/reporting executor remain under construction.
+
+The full boundary cache, including reversed far-right masks, is now assembled under explicit finite all-start-row readiness. Actual short-outer P1/P2 solvers, their dispatch substitution and full bounded-event/join costs are proved. The older proposal below remains useful design history; these named theorems supersede the corresponding local open items. Fast all-start row production and the final unified target theorem are still open.
+
 ## 1. What is now verified
 
 `MaskedReporting` implements balanced output extraction from a measured interval-existence query. For height `h` and `k` outputs, it makes at most `1+2*h*k` queries, counting negative queries too. Output concatenation copies at most `h*k` cells. Query work remains a separate counter; with an independently verified per-query cost `A`, the combined bound is `(A+1)+(2*A+3)*h*k`. A cached output count avoids repeated length traversals merely to compute that counter.
