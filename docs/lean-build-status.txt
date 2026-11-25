@@ -1,43 +1,43 @@
 Local Lean gate, 2026-11-25. Pinned Lean 4.19.0.
-179 build targets; 366 principal axiom reports; exit status 0.
+221 build targets; 467 principal axiom reports; exit status 0.
 Only standard Lean axioms appear. This log does not claim remote CI for later commits.
 
-⚠ [4/179] Replayed REWB.NormalForms
+⚠ [4/221] Replayed REWB.NormalForms
 warning: ././././REWB/NormalForms.lean:338:5: unused variable `h₄`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/NormalForms.lean:338:20: unused variable `h₅`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [14/179] Replayed REWB.MarkedTransfer
+⚠ [14/221] Replayed REWB.MarkedTransfer
 warning: ././././REWB/MarkedTransfer.lean:185:18: try 'simp at he' instead of 'simpa using he'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-⚠ [15/179] Replayed REWB.MatrixTable
+⚠ [15/221] Replayed REWB.MatrixTable
 warning: ././././REWB/MatrixTable.lean:22:0: automatically included section variable(s) unused in theorem 'REWB.MatrixTable.rows_length':
   [DecidableEq S]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [DecidableEq S] in theorem ...
 note: this linter can be disabled with `set_option linter.unusedSectionVars false`
-⚠ [21/179] Replayed REWB.MaskScan
+⚠ [21/221] Replayed REWB.MaskScan
 warning: ././././REWB/MaskScan.lean:114:45: unused variable `ht`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [24/179] Replayed REWB.OuterTables
+⚠ [24/221] Replayed REWB.OuterTables
 warning: ././././REWB/OuterTables.lean:160:17: unused variable `he`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [29/179] Replayed REWB.BlockIndex
+⚠ [29/221] Replayed REWB.BlockIndex
 warning: ././././REWB/BlockIndex.lean:174:13: unused variable `o`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [38/179] Replayed REWB.FiniteOrbit
+⚠ [38/221] Replayed REWB.FiniteOrbit
 warning: ././././REWB/FiniteOrbit.lean:219:40: unused variable `hp`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [40/179] Replayed REWB.PeriodicCoordinates
+⚠ [40/221] Replayed REWB.PeriodicCoordinates
 warning: ././././REWB/PeriodicCoordinates.lean:65:5: unused variable `hp`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [41/179] Replayed REWB.PeriodicSystem
+⚠ [41/221] Replayed REWB.PeriodicSystem
 warning: ././././REWB/PeriodicSystem.lean:52:29: unused variable `hi`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [44/179] Replayed REWB.Cooper
+⚠ [44/221] Replayed REWB.Cooper
 warning: ././././REWB/Cooper.lean:97:16: unused variable `hc`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [55/179] Replayed REWB.P1Source
+⚠ [55/221] Replayed REWB.P1Source
 warning: ././././REWB/P1Source.lean:27:44: unused variable `h`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/P1Source.lean:28:5: unused variable `ha`
@@ -46,40 +46,40 @@ warning: ././././REWB/P1Source.lean:29:5: unused variable `hb`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/P1Source.lean:29:16: unused variable `ho`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [63/179] Replayed REWB.OfflineJoin
+⚠ [63/221] Replayed REWB.OfflineJoin
 warning: ././././REWB/OfflineJoin.lean:88:5: unused variable `hs`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [64/179] Replayed REWB.RunGeometry
+⚠ [64/221] Replayed REWB.RunGeometry
 warning: ././././REWB/RunGeometry.lean:43:28: unused variable `hp`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/RunGeometry.lean:43:39: unused variable `hl`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/RunGeometry.lean:92:5: unused variable `hl`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [65/179] Replayed REWB.RunExtension
+⚠ [65/221] Replayed REWB.RunExtension
 warning: ././././REWB/RunExtension.lean:75:51: unused variable `h`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [69/179] Replayed REWB.PeriodicBudgets
+⚠ [69/221] Replayed REWB.PeriodicBudgets
 warning: ././././REWB/PeriodicBudgets.lean:52:5: unused variable `hp`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
-⚠ [70/179] Replayed REWB.LongSourceCoverage
+⚠ [70/221] Replayed REWB.LongSourceCoverage
 warning: ././././REWB/LongSourceCoverage.lean:76:0: automatically included section variable(s) unused in theorem 'REWB.LongSourceCoverage.phase_key':
   [DecidableEq α]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [DecidableEq α] in theorem ...
 note: this linter can be disabled with `set_option linter.unusedSectionVars false`
-⚠ [108/179] Replayed REWB.CountedShortTargets
+⚠ [108/221] Replayed REWB.CountedShortTargets
 warning: ././././REWB/CountedShortTargets.lean:86:11: try 'simp' instead of 'simpa'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-⚠ [122/179] Replayed REWB.BoundaryIndexTree
+⚠ [122/221] Replayed REWB.BoundaryIndexTree
 warning: ././././REWB/BoundaryIndexTree.lean:179:4: try 'simp' instead of 'simpa'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-⚠ [144/179] Replayed REWB.MaskedFiniteActionTree
+⚠ [144/221] Replayed REWB.MaskedFiniteActionTree
 warning: ././././REWB/MaskedFiniteActionTree.lean:99:21: unused variable `m`
 note: this linter can be disabled with `set_option linter.unusedVariables false`
 warning: ././././REWB/MaskedFiniteActionTree.lean:178:4: try 'simp' instead of 'simpa'
 note: this linter can be disabled with `set_option linter.unnecessarySimpa false`
-⚠ [151/179] Replayed REWB.MaskedCutIndex
+⚠ [151/221] Replayed REWB.MaskedCutIndex
 warning: ././././REWB/MaskedCutIndex.lean:95:8: automatically included section variable(s) unused in theorem '_private.REWB.MaskedCutIndex.0.REWB.MaskedCut.Index.take_slice':
   [DecidableEq M]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
@@ -90,7 +90,7 @@ warning: ././././REWB/MaskedCutIndex.lean:101:8: automatically included section 
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [DecidableEq M] in theorem ...
 note: this linter can be disabled with `set_option linter.unusedSectionVars false`
-✔ [178/179] Built REWB
+✔ [220/221] Built REWB
 Build completed successfully.
 'REWB.State.execute_uses' depends on axioms: [propext, Quot.sound]
 'REWB.Witness.same_iff' depends on axioms: [propext, Quot.sound]
@@ -458,3 +458,104 @@ Build completed successfully.
 'REWB.MaskedRunDiscovery.prepareSuffixes_work' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedRunDiscovery.Regression.partial_pair_not_consecutive' depends on axioms: [propext]
 'REWB.MaskedRunDiscovery.Regression.partial_gap_not_least' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryApplication.Range.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.Range.query_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.edge_color' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.compile_active' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.compile_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.Versions.execute_root' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryApplication.Versions.execute_get' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryApplication.FixedEnd.trie_depth_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.FixedEnd.build_mass' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.FixedEnd.build_active' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.FixedEnd.build_version_active' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.FixedEnd.build_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.Aggregate.queryPrefix_active' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.FixedEnd.queryPath_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.FixedEnd.queryPath_work' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryApplication.Regression.root_query' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.Regression.empty_query' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.Regression.terminal_query' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.Regression.before_terminal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.OrbitData.descriptor_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.formula_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.projection_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Modulus.projection_compatible' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedPeriodic.Modulus.family_eq_familyTR' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedPeriodic.modulus_pos' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedPeriodic.projection_compatible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.projection_size' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.projection_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.windows_size' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.queryBranch_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.queryBranch_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.zero_family' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedPeriodic.interior_family' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedPeriodic.ending_family' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedPeriodic.interiorTuples_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.endingTuples_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.queryInterior_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.queryEnding_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.contexts_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.contexts_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.physical_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.physical_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.phaseQuery_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Regression.projected_boundary_cases' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedPeriodic.Regression.positive_cut_empty' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedLocalAnchor.complete_least' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedLocalAnchor.reset_penultimate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedLocalAnchor.reset_following' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedLocalAnchor.reset' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedLocalAnchor.reset_terminal' does not depend on any axioms
+'REWB.MaskedLocalAnchor.shorten' does not depend on any axioms
+'REWB.MaskedLocalAnchor.reset_square' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunCoverage.cubic_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunCoverage.primitive_adjacent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunCoverage.recover_run' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunCoverage.exact_locus_depth' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedRunCoverage.actual_suffix_coverage' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunTrieBridge.compile_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedRunTrieBridge.compile_suffixes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunTrieBridge.suffix_positions_nodup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunTrieBridge.lca_split' does not depend on any axioms
+'REWB.MaskedOrdered.Tree.pred_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Tree.succ_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.insert_reference' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.insert_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedOrdered.merge_imports' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedOrdered.discarded_positions' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.merge_new_edge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.execute_reference' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.execute_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.execute_imports' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.run_work_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.run_events' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.run_balance' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.Lift.rename_view' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryApplication.Lift.rename_steps' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryApplication.Lift.importMany_valid_of_live' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryApplication.RTable.compute_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.RTable.compute_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.RTable.node_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.RTable.node_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.BoundaryApplication.Subset.imported_selected' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryApplication.Subset.recolored_selected' depends on axioms: [propext, Quot.sound]
+'REWB.BoundaryApplication.Subset.node_import_selected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.families_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.actual_equal_copies' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.query_run_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.inRun_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.witness_window' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedPeriodic.Text.prepareTail_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.prepareTail_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.query_full_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.query_full_run_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedClusterStage.dfa_size' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedClusterStage.dfa_run' depends on axioms: [propext]
+'REWB.MaskedClusterStage.dfa_decode_run' depends on axioms: [propext]
+'REWB.MaskedClusterStage.jump_rank' does not depend on any axioms
+'REWB.MaskedClusterStage.jumpVector_decode' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedClusterStage.anchored_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedClusterStage.twoJumps_correct' depends on axioms: [propext, Quot.sound]

@@ -9,6 +9,10 @@ import REWB.MaskedProgressionRegression
 import REWB.MaskedCutRegression
 import REWB.BoundaryTrieRegression
 import REWB.MaskedRunDiscoveryRegression
+import REWB.BoundaryApplicationRegression
+import REWB.MaskedPeriodicRegression
+import REWB.MaskedOrderedRegression
+import REWB.MaskedPeriodicTextRegression
 
 open REWB
 
@@ -850,3 +854,110 @@ end CompletedPipelineRegression
 #print axioms REWB.MaskedRunDiscovery.prepareSuffixes_work
 #print axioms REWB.MaskedRunDiscovery.Regression.partial_pair_not_consecutive
 #print axioms REWB.MaskedRunDiscovery.Regression.partial_gap_not_least
+
+-- Constructed boundary applications, actual masked periodic phases and reset geometry.
+#print axioms REWB.BoundaryApplication.Range.query_correct
+#print axioms REWB.BoundaryApplication.Range.query_work
+#print axioms REWB.BoundaryApplication.edge_color
+#print axioms REWB.BoundaryApplication.compile_active
+#print axioms REWB.BoundaryApplication.compile_work
+#print axioms REWB.BoundaryApplication.Versions.execute_root
+#print axioms REWB.BoundaryApplication.Versions.execute_get
+#print axioms REWB.BoundaryApplication.FixedEnd.trie_depth_zero
+#print axioms REWB.BoundaryApplication.FixedEnd.build_mass
+#print axioms REWB.BoundaryApplication.FixedEnd.build_active
+#print axioms REWB.BoundaryApplication.FixedEnd.build_version_active
+#print axioms REWB.BoundaryApplication.FixedEnd.build_work
+#print axioms REWB.BoundaryApplication.Aggregate.queryPrefix_active
+#print axioms REWB.BoundaryApplication.FixedEnd.queryPath_correct
+#print axioms REWB.BoundaryApplication.FixedEnd.queryPath_work
+#print axioms REWB.BoundaryApplication.Regression.root_query
+#print axioms REWB.BoundaryApplication.Regression.empty_query
+#print axioms REWB.BoundaryApplication.Regression.terminal_query
+#print axioms REWB.BoundaryApplication.Regression.before_terminal
+#print axioms REWB.MaskedPeriodic.OrbitData.descriptor_spec
+#print axioms REWB.MaskedPeriodic.formula_correct
+#print axioms REWB.MaskedPeriodic.projection_correct
+#print axioms REWB.MaskedPeriodic.Modulus.projection_compatible
+#print axioms REWB.MaskedPeriodic.Modulus.family_eq_familyTR
+#print axioms REWB.MaskedPeriodic.modulus_pos
+#print axioms REWB.MaskedPeriodic.projection_compatible
+#print axioms REWB.MaskedPeriodic.projection_size
+#print axioms REWB.MaskedPeriodic.projection_steps
+#print axioms REWB.MaskedPeriodic.windows_size
+#print axioms REWB.MaskedPeriodic.queryBranch_correct
+#print axioms REWB.MaskedPeriodic.queryBranch_work
+#print axioms REWB.MaskedPeriodic.zero_family
+#print axioms REWB.MaskedPeriodic.interior_family
+#print axioms REWB.MaskedPeriodic.ending_family
+#print axioms REWB.MaskedPeriodic.interiorTuples_correct
+#print axioms REWB.MaskedPeriodic.endingTuples_correct
+#print axioms REWB.MaskedPeriodic.queryInterior_correct
+#print axioms REWB.MaskedPeriodic.queryEnding_correct
+#print axioms REWB.MaskedPeriodic.contexts_value
+#print axioms REWB.MaskedPeriodic.contexts_bounds
+#print axioms REWB.MaskedPeriodic.physical_zero
+#print axioms REWB.MaskedPeriodic.physical_positive
+#print axioms REWB.MaskedPeriodic.phaseQuery_correct
+#print axioms REWB.MaskedPeriodic.Regression.projected_boundary_cases
+#print axioms REWB.MaskedPeriodic.Regression.positive_cut_empty
+#print axioms REWB.MaskedLocalAnchor.complete_least
+#print axioms REWB.MaskedLocalAnchor.reset_penultimate
+#print axioms REWB.MaskedLocalAnchor.reset_following
+#print axioms REWB.MaskedLocalAnchor.reset
+#print axioms REWB.MaskedLocalAnchor.reset_terminal
+#print axioms REWB.MaskedLocalAnchor.shorten
+#print axioms REWB.MaskedLocalAnchor.reset_square
+
+-- Fast ordered occurrence sets and actual cubic-run coverage.
+#print axioms REWB.MaskedRunCoverage.cubic_pair
+#print axioms REWB.MaskedRunCoverage.primitive_adjacent
+#print axioms REWB.MaskedRunCoverage.recover_run
+#print axioms REWB.MaskedRunCoverage.exact_locus_depth
+#print axioms REWB.MaskedRunCoverage.actual_suffix_coverage
+#print axioms REWB.MaskedRunTrieBridge.compile_correct
+#print axioms REWB.MaskedRunTrieBridge.compile_suffixes
+#print axioms REWB.MaskedRunTrieBridge.suffix_positions_nodup
+#print axioms REWB.MaskedRunTrieBridge.lca_split
+#print axioms REWB.MaskedOrdered.Tree.pred_correct
+#print axioms REWB.MaskedOrdered.Tree.succ_correct
+#print axioms REWB.MaskedOrdered.insert_reference
+#print axioms REWB.MaskedOrdered.insert_work
+#print axioms REWB.MaskedOrdered.merge_imports
+#print axioms REWB.MaskedOrdered.discarded_positions
+#print axioms REWB.MaskedOrdered.merge_new_edge
+#print axioms REWB.MaskedOrdered.execute_reference
+#print axioms REWB.MaskedOrdered.execute_count
+#print axioms REWB.MaskedOrdered.execute_imports
+#print axioms REWB.MaskedOrdered.run_work_bound
+#print axioms REWB.MaskedOrdered.run_events
+#print axioms REWB.MaskedOrdered.run_balance
+
+-- Materialized subset rows, full real-text queries and local jump semantics.
+#print axioms REWB.BoundaryApplication.Lift.rename_view
+#print axioms REWB.BoundaryApplication.Lift.rename_steps
+#print axioms REWB.BoundaryApplication.Lift.importMany_valid_of_live
+#print axioms REWB.BoundaryApplication.RTable.compute_correct
+#print axioms REWB.BoundaryApplication.RTable.compute_bounds
+#print axioms REWB.BoundaryApplication.RTable.node_correct
+#print axioms REWB.BoundaryApplication.RTable.node_work
+#print axioms REWB.BoundaryApplication.Subset.imported_selected
+#print axioms REWB.BoundaryApplication.Subset.recolored_selected
+#print axioms REWB.BoundaryApplication.Subset.node_import_selected
+#print axioms REWB.MaskedPeriodic.Text.families_iff
+#print axioms REWB.MaskedPeriodic.Text.actual_equal_copies
+#print axioms REWB.MaskedPeriodic.Text.query_correct
+#print axioms REWB.MaskedPeriodic.Text.query_run_correct
+#print axioms REWB.MaskedPeriodic.Text.inRun_correct
+#print axioms REWB.MaskedPeriodic.Text.witness_window
+#print axioms REWB.MaskedPeriodic.Text.prepareTail_value
+#print axioms REWB.MaskedPeriodic.Text.prepareTail_bounds
+#print axioms REWB.MaskedPeriodic.Text.query_full_correct
+#print axioms REWB.MaskedPeriodic.Text.query_full_run_correct
+#print axioms REWB.MaskedClusterStage.dfa_size
+#print axioms REWB.MaskedClusterStage.dfa_run
+#print axioms REWB.MaskedClusterStage.dfa_decode_run
+#print axioms REWB.MaskedClusterStage.jump_rank
+#print axioms REWB.MaskedClusterStage.jumpVector_decode
+#print axioms REWB.MaskedClusterStage.anchored_exact
+#print axioms REWB.MaskedClusterStage.twoJumps_correct

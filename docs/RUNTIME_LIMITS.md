@@ -63,6 +63,11 @@ After `bash scripts/check.sh`, run `bash scripts/index-audit.sh` for the new com
 | Doubled-period shared preparation, q=4,096 | 4,096 result tables; 114,688 preparation products, 8,192 query products and 131,074 visits; no quadratic phase/cut list was materialized |
 | Descriptor-only compressed trie | 8,193 nested prefix records representing 33,558,528 characters produced 16,385 nodes with work 27,943,104; the CI probe uses 2,049 records and retains empty/duplicate/prefix regressions |
 | Actual suffix-class dense-pair discovery | n=512, 513 suffixes, preparation work 1,798,605; a 253-occurrence complete locus produced `(0,512,2)` with work 190; equal-depth refinement gate cost 2 and skipped discovery |
+| Constructed fixed-end application | All 204 saved local versions checked at g=0, middle, g=n and empty text; every position/color/state and exact E right boundary agreed. n=512 build: 514 records, 257 targets, 1,027 nodes, 427 light transfers, work 1,817,325 |
+| Real periodic phase compiler | 11 exact actual-index cases, 5 hits, zero mismatches. Combined B/C/E state counts (2,1,2) required about 6.7 seconds preparation plus 17.2 seconds for one q=1 query; positive-cut cases used separate two-state B or E |
+| Real periodic-text/full-suffix bridge | 48 actual-index queries versus direct capture/gap/suffix slices, 22 hits, zero mismatches, two full-vs-in-run suffix differences. Arbitrary source phases/masks, clipping, empty windows and too-short/after-end sources included |
+| Boundary accepted-cut/subset import | All 35 actual node R tables versus explicit closed-cut enumeration; heterogeneous subset queries passed, 4 subset colors, import work 60,060 |
+| Fast sparse occurrence sets | 4,096 positions in capacity 1,048,576: 24,576 imports, 41,570 fresh and 37,475 retired edges, work 15,786,735. A height-40 singleton completed with work 413 |
 | LCE/LCS exhaustive binary test | 127 words of lengths 0–6, 4,861 endpoint pairs; results match direct list-prefix/suffix reference |
 | LCE/LCS on n=4,096 | 14 rows in each direction; 18,133,870 preparation work; sampled extension 4,034 with 7 pair comparisons and 13 visited levels |
 | Grid candidates versus direct extension | 189 word/stride cases, 278 positive-copy coverage checks; all passed |
@@ -71,6 +76,10 @@ After `bash scripts/check.sh`, run `bash scripts/index-audit.sh` for the new com
 | Minimum-period recovery | Alternating word of length 12 with displacement 4 returns minimum period 2; selector work 139 |
 | Sampled unary runs, n=256, stride=8 | 8,481 probes, 3,120 raw records, exactly one deduplicated run `(0,256,1)`; query 629,056; period tests 1,564,428; preparation 533,022; divisor insertion 4,398; dedup 589,680 |
 
-These probes cover the named index components. They do not execute the missing complete masked-cluster or boundary-trie application, and they do not remove the P1 projection limits above.
+These probes cover the named index components. They execute the local constructed boundary application and periodic phase compiler, but not the missing complete heavy-path boundary query or masked-cluster event application, and they do not remove the P1 projection limits above.
 
 The index counters are also partial accounting. For example, `RankIndex.keyCells` counts produced key bits but does not separately charge every append traversal; divisor construction counters do not enumerate all scalar guards; and APIs accepting `f : Nat → Fin σ` do not charge arbitrary computation hidden in f. A complete interpretation must use materialized text and compose all schedule, list/array and arithmetic costs. The finite-word LCE adapter supplies that input representation for its own entrypoints. The targeted loop repairs are not a blanket stack-safety claim for all existing helpers.
+
+### Periodic compiler audit scope
+
+The default `audits/masked_periodic_smoke.lean` deliberately bounds interpreted work while checking zero/positive remainders, interior/ending families, eta=0, both rotations and irregular/empty masks. Larger combined two-state B and E positive-cut sweeps are retained behind `--extended`. Broad and ten-case combined probes were manually interrupted after several minutes; they did not report a mismatch, and no completed result is claimed. The default's passing cases do not establish practical scalability. The universal kernel correctness theorem is independent of those finite runtime limits.

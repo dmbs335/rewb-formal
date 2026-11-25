@@ -1,5 +1,5 @@
 Local compiled-path audit gate, 2026-11-25.
-All fourteen scripts exited successfully.
+All nineteen scripts exited successfully. The original sixteen-script run and three additional frozen-path runs are concatenated below.
 
 Running masked_reporting_smoke
 'REWB.MaskedReporting.report_correct' depends on axioms: [propext, Quot.sound]
@@ -104,3 +104,82 @@ Running masked_run_discovery_smoke
 'REWB.MaskedRunDiscovery.discover_locus' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedRunDiscovery.prepareSuffixes_work' depends on axioms: [propext, Classical.choice, Quot.sound]
 n=512 suffixes=513 prepWork=1798605 classSize=253 run={ lo := 0, hi := 512, period := 2 } discoveryWork=190 equalDepthWork=2
+Running boundary_application_smoke
+auditedVersions=204 exactLocalQueries=true emptyAndTerminal=true totalMass=514 targets=257 nodes=1027 transfers=427 work=1817325
+Running masked_periodic_smoke
+'REWB.MaskedPeriodic.OrbitData.descriptor_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.projection_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Modulus.projection_compatible' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedPeriodic.projection_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.queryBranch_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.interiorTuples_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.endingTuples_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.contexts_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.physical_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.phaseQuery_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Regression.projected_boundary_cases' depends on axioms: [propext, Quot.sound]
+preparing fixed-pattern modulus: states=2,1,2
+prepared pattern modulus: 2
+pattern preparation: 7519 ms
+case 1/1: answer=true, elapsed=17880 ms
+joint-cut/direct-factor regression: queries=1, hits=1, mismatches=0
+observed maxima: cut/range products=1, index visits=6, mask slots=2, mask-query scalar charge=225
+Compiler construction work is separate from the reported mask-query counters.
+preparing fixed-pattern modulus: states=2,1,1
+prepared pattern modulus: 2
+pattern preparation: 1060 ms
+case 1/5: answer=true, elapsed=168 ms
+case 2/5: answer=true, elapsed=215 ms
+case 3/5: answer=false, elapsed=240 ms
+case 4/5: answer=false, elapsed=288 ms
+case 5/5: answer=false, elapsed=346 ms
+joint-cut/direct-factor regression: queries=5, hits=2, mismatches=0
+observed maxima: cut/range products=8, index visits=35, mask slots=12, mask-query scalar charge=829
+Compiler construction work is separate from the reported mask-query counters.
+preparing fixed-pattern modulus: states=1,1,2
+prepared pattern modulus: 2
+pattern preparation: 1031 ms
+case 1/5: answer=true, elapsed=262 ms
+case 2/5: answer=true, elapsed=333 ms
+case 3/5: answer=false, elapsed=369 ms
+case 4/5: answer=false, elapsed=465 ms
+case 5/5: answer=false, elapsed=548 ms
+joint-cut/direct-factor regression: queries=5, hits=2, mismatches=0
+observed maxima: cut/range products=8, index visits=35, mask slots=8, mask-query scalar charge=789
+Compiler construction work is separate from the reported mask-query counters.
+
+Running masked_ordered_smoke
+'REWB.MaskedOrdered.Tree.insert_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Tree.pred_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Tree.succ_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.insert_reference' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.insert_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedOrdered.merge_imports' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedOrdered.discarded_positions' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.merge_new_edge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.execute_reference' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.run_work_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.run_balance' depends on axioms: [propext, Classical.choice, Quot.sound]
+positions=4096 capacity=1048576 height=20 imports=24576 fresh=41570 retired=37475 work=15786735 sparse40Work=413
+
+Running boundary_subset_smoke
+nodeRows=35 heterogeneousSubsetQueries=true allClosedCuts=true importWork=60060 subsetColors=4
+
+Running masked_periodic_text_smoke
+'REWB.MaskedPeriodic.Text.families_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.actual_equal_copies' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.query_run_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.query_full_run_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.Regression.indexed_real_text' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.Regression.actual_ending_witness' depends on axioms: [propext]
+actual-text suite states=2,1,1; modulus=2
+pattern preparation: 922 ms
+actual-text queries=24, hits=10, suffix-mode differences=0, mismatches=0; execution=3928 ms
+observed query maxima: products=6, visits=52, mask slots=8, scalar charge=756
+The scalar charge includes fixed endpoint arithmetic; compiler construction and shared index preparation have separate ledgers.
+actual-text suite states=1,1,2; modulus=2
+pattern preparation: 994 ms
+actual-text queries=24, hits=12, suffix-mode differences=2, mismatches=0; execution=5941 ms
+observed query maxima: products=6, visits=52, mask slots=8, scalar charge=796
+The scalar charge includes fixed endpoint arithmetic; compiler construction and shared index preparation have separate ledgers.

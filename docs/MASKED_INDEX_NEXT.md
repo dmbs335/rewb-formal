@@ -54,14 +54,14 @@ For cluster `i`, let its first and last starts be `s_i,t_i`. A nonsingleton clus
 
 Conditions 3 and 4 justify the audit's two cursor modes: either the cursor is at the next first occurrence, or it lies just after a preceding anchored jump and skips at most that first occurrence. In particular, the no-jump transition must never attempt to read a reversed interval.
 
-At creation or a reset, choose `H_i=L`. The existing dense-gap and separated-cluster geometry is relevant to proving the certificates at such a reset. The following update policy is a **candidate**, not yet a checked algorithm:
+At creation or a reset, choose `H_i=L`. `MaskedLocalAnchor.reset` and `reset_terminal` now derive the word/bounds, overlap and both cursor certificates from complete unmasked occurrence classes. The following-position proof handles either a dense next cluster or a singleton followed by another sparse boundary. `shorten` retains the certificate for fixed neighbors and unchanged overlap mode. The following update policy is a **candidate**, not yet a checked algorithm:
 
 - When a current overlap mode changes during shortening, reset its predecessor anchor and rebuild the affected incoming/outgoing matrix summaries.
 - When an occurrence is inserted, or clusters merge or split, reset edited clusters and a constant-radius neighborhood.
 - Radius two is necessary in the proposed layout: inserting a boundary after a singleton can invalidate that singleton's predecessor cursor, even if the predecessor/singleton adjacency itself did not move.
 - Density splits can affect an entire progression; charge their occurrence-level rebuilding separately as described below.
 
-Unchanged boundary endpoints preserve their old certificates. An anchor reset changes the tail map and local matrices, but does not itself change occurrence positions. A proof that this update policy always suffices, including simultaneous events and all singleton/end-of-text cases, remains open. The current Lean files prove the algebra used after such certificates are available, not these certificates themselves.
+Unchanged boundary endpoints preserve their old certificates. An anchor reset changes the tail map and local matrices, but does not itself change occurrence positions. A proof that this update policy always suffices, including simultaneous events and all singleton/end-of-text cases, remains open. The Lean files now prove the certificates at reset and their unchanged-mode preservation; they do not yet implement the full repair policy.
 
 ## 4. Finite-vector shortening with different local tails
 
@@ -100,7 +100,7 @@ When a dense progression of gap `q` ceases to be dense as length falls below `2*
 
 Charge rebuilding an occurrence to `(start,q)`, a primitive-square occurrence. If each occurrence's represented length decreases along its suffix-tree ancestry and already-crossed thresholds are never rescheduled, a given `(start,q)` should be charged only once. `RunBudget.primitive_budget` already bounds duplicate-free lists of such occurrences by `2*n*(log2 n+1)`.
 
-Two bridges remain to be proved: the square/minimum-period certificate for every reset, and injectivity of these reset charges in the actual suffix-tree/event execution. The existing primitive-square theorem supplies a budget only after these bridges; it does not justify arbitrary resets or repeated reconstruction.
+`MaskedLocalAnchor.reset_square` now proves the square/minimum-period certificate at every occurrence of the complete class. Injectivity of these reset charges in the actual suffix-tree/event execution remains to be proved. The existing primitive-square theorem supplies a budget only after these bridges; it does not justify arbitrary resets or repeated reconstruction.
 
 ## 6. Proposed within-run arbitrary-mask queries without q-squared preprocessing
 
@@ -161,3 +161,13 @@ These local construction/coverage bridges are now checked. The full traversal th
 7. Complete all-start output/query correctness and the total operation ledger.
 
 The finite-action machinery removes one concrete obstruction—global shortening no longer needs to update every matrix individually. It leaves the geometry, leaf/query compiler and complete data-structure execution to be proved.
+
+## 8. Newly connected execution layers
+
+`BoundaryApplication` builds real fixed-end source/target descriptors, range maps, mixed programs and all persistent node snapshots. Its local right-boundary query is exact; raw-path lookup is charged explicitly. Heavy-path subset versions and complete boundaryRange assembly remain separate.
+
+`MaskedPeriodic.phaseQuery_correct` uses the actual shared cut/range index, cached LCM modulus and immutable-mask AP array for its three word-family cases. `MaskedPeriodic.Text.query_full_run_correct` now supplies the real periodic-text and full-input suffix transport, including equal copies and arbitrary source phases. Complete compiler-construction accounting remains open.
+
+`MaskedOrdered` replaces list scans with sparse persistent position trees and cached-count light imports. Fresh and retired records are emitted and counted by the executable schedule, with exact edge balance and O(N log N * h) tracked work. Complete-owner validation is still being added. `MaskedRunCoverage.actual_suffix_coverage` provides the corresponding global cubic-run coverage certificate at actual LCA depths, and `MaskedRunTrieBridge` constructs the exact distinct-position merge schedule from the real suffix trie.
+
+`MaskedClusterStage` now constructs the finite waiting/C/E DFA and marked jump vectors. Local representative-tail replay is proved equal to the real current-copy skip, and two jumps mean exactly a marked source, accepting C gap, marked target and accepting E suffix. The AP/matrix compiler is the next connection.

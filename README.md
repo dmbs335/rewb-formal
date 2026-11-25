@@ -44,9 +44,11 @@ For a fixed expression over a fixed finite alphabet, the research target is soft
 
 `BoundaryIndex` materializes finite DFA-state/color tables. Its persistent balanced tree supports arbitrary noninjective color maps, earlier-prefix queries, insertion and replacement. The counted small-to-large merge schedule imports only the light child's listed endpoints and shares one prepared static text tree. Boundary-cut and fixed-end modules include exact endpoint and reversed-label semantics; no inverse DFA transition is assumed.
 
-`BoundaryIndexMixed` includes silent source leaves when selecting the heavy child, while importing only target endpoints. It proves the total-mass light-path bound and the corresponding transfer/operation bounds. This removes the mismatch between target-only merging and a trie containing both sources and targets; building the trie application is still separate.
+`BoundaryIndexMixed` includes silent source leaves when selecting the heavy child, while importing only target endpoints. It proves the total-mass light-path bound and the corresponding transfer/operation bounds. This removes the mismatch between target-only merging and a trie containing both sources and targets.
 
 `BoundaryTrie` now constructs the compressed descriptor trie itself. It prepares one exact rank index, sorts bounded substring descriptors using measured LCE comparisons, and partitions sorted intervals with measured binary search. Input records, paths and LCA/LCP depths are exact; the tree has at most `2*N` nodes and costs `O(n polylog n + N log N log n)` in the stated counter model. Empty, duplicate and proper-prefix keys use zero-length refinement edges. `BoundaryTrieLocus` selects the first depth threshold and proves it represents the entire matching prefix class; arbitrary binary refinement nodes are not treated as complete occurrence sets.
+
+`BoundaryApplication.FixedEnd.build` now constructs the actual reversed source/target descriptors, shared DFA range maps, mixed trie program and every saved node version. The n+2 records include both empty terminals. Exact local right-boundary queries handle empty and terminal E intervals; their cost includes the explicit terminal-path lookup. Materialized node R tables and heterogeneous D-state to A-subset imports are also exact, using shared cut queries and preimage edge propagation. The complete heavy-path query assembly remains in progress.
 
 `MaskedReporting` proves exact output-sensitive reporting, including failed existence queries and output copying. Its source deletions preserve the supplied target mask. `MaskedEventBudget` verifies small-to-large endpoint transfers and bounds the creation and retirement of local density/overlap threshold records; the bound requires one-shot event processing. These components are not yet the complete arbitrary-mask index.
 
@@ -56,7 +58,13 @@ For a fixed expression over a fixed finite alphabet, the research target is soft
 
 `MaskedCut` stores attainable prefix/suffix transformations from one common cut. One shared doubled-period index serves all rotations in `O_P(q log q)` indexed work, without enumerating rotation/cut pairs. Constrained tuples retain a B prefix, a C suffix to the period end and an E suffix to the run-end residue from the same cut; a lower cut bound handles positive remainders and empty positive windows.
 
-`MaskedRunDiscovery` constructs an actual suffix descriptor trie and shares forward/reverse ranks. A surviving dense adjacency of a complete prefix class yields a valid cubic run with its actual minimum period after two indexed extension queries. First-coexistence and fresh-generation theorems connect the pair to the concrete merge trace. Selecting, cancelling and processing these records exactly once still needs the complete fast event execution.
+`MaskedPeriodic.phaseQuery_correct` connects the three arithmetic cases to actual shared range maps, joint positive-cut tuples, finite-orbit projection and the immutable-mask AP array. The pattern modulus is prepared once using LCM. `MaskedPeriodic.Text.query_full_run_correct` now connects that actual query to real capture/gap/full-input suffix factors and equal copies inside an actual run, at arbitrary source phase. The run tail comes from one shared range query. The full construction ledger remains separate.
+
+`MaskedOrdered` supplies a sparse persistent position tree with cached counts and extrema. Membership, strict neighbors and insertion have logarithmic height bounds. Its actual bottom-up schedule retains the heavier cached-count state and imports only maintained light positions; work is at most `h+1+40*N*(log2 N+1)*(h+1)`, and fresh/retired event counts and balance are proved. This is the fast order structure; the complete owner/event/cluster execution is still being assembled.
+
+`MaskedRunDiscovery` constructs an actual suffix descriptor trie and shares forward/reverse ranks. A surviving dense adjacency of a complete prefix class yields a valid cubic run with its actual minimum period after two indexed extension queries. First-coexistence and fresh-generation theorems connect the pair to the concrete merge trace. `MaskedRunCoverage.actual_suffix_coverage` now recovers every valid cubic run at the actual LCA-depth complete class. `MaskedRunTrieBridge` compiles the actual suffix trie to a distinct-position binary merge schedule in linear tracked work. Selecting, validating and processing these records exactly once still needs the complete fast owner/event execution.
+
+`MaskedLocalAnchor` proves reset cursor safety from complete unmasked occurrence classes, including singleton/end-of-text cases, preserves certificates while overlap mode is unchanged, and derives the primitive-square certificate for density splits. The dynamic reset policy and injective charging along its actual execution remain open. `MaskedClusterStage` constructs the waiting/C/E finite machine and proves local anchor-tail replay equals the actual copy skip; two jumps have exactly the C-gap/E-suffix meaning.
 
 The [proof ledger](docs/PROOF_MAP.md) records exact scopes, new modules, and remaining obligations. Earlier milestone notes are preserved in [the historical ledger](docs/PROOF_HISTORY.md).
 
@@ -72,7 +80,7 @@ bash scripts/index-audit.sh
 
 `check.sh` builds the umbrella module, executes regressions, prints principal theorem dependencies, and rejects proof placeholders and custom assumptions. The nine Python audits are independent finite reference tests. `index-audit.sh` exercises the compiled persistent trees, reporting, LCE/LCS, grid and sampled-run/dedup paths. Finite audits do not prove asymptotic complexity.
 
-The published checkpoint `d3ef34a` in [PR #14](https://github.com/dmbs335/rewb-formal/pull/14) passed both remote CI jobs, including all ten runtime audits present at that checkpoint. Subsequent checks are tied to their own commit and recorded logs; an older run does not validate later additions.
+The published checkpoint `55b5925` in [PR #14](https://github.com/dmbs335/rewb-formal/pull/14) passed both remote CI jobs, including all fourteen runtime audits present at that checkpoint. Subsequent checks are tied to their own commit and recorded logs; an older run does not validate later additions.
 
 ## Remaining global work
 
