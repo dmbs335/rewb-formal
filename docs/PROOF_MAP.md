@@ -2,7 +2,7 @@
 
 Updated 2026-11-25. This page describes the current code, superseding the milestone-by-milestone statements in [PROOF_HISTORY.md](PROOF_HISTORY.md).
 
-**Two different goals must remain separate.** Complete source-language correctness is proved. The proposed soft-O(n^(25/13)) running-time bound for every fixed two-use pattern is not proved.
+**Current result:** the actual accelerated six-form matcher is correct for the original source language, and its returned operation ledger satisfies `Spec.Target25Over13`, including actual all-start row production. Full installation of additional measured construction costs and a complete machine-cost refinement remain open. The target theorem is explicitly a theorem about the concrete accounted-work function.
 
 ## 1. Complete semantic pipeline
 
@@ -16,7 +16,9 @@ The semantics in `Semantics.lean` uses one register, initially empty, overwritte
 | Construct ordinary finite automata | `RegularDFA`: explicit state enumeration and DFA closure for union, concatenation and Kleene star |
 | Factor at marker boundaries | `MarkedFactors`: finite lists of ordinary DFA factors, preserving the fixed marker skeleton |
 | Assemble concrete normal forms | `CompleteNormalization.normalization`, `pieces_normal`: actual finite union of six DFA form constructors |
-| Execute a decision procedure | `FullMatcher.compile_correct`, `correctMatcher`: original `Spec.CorrectMatcher` for arbitrary expressions |
+| Execute a semantic reference | `FullMatcher.compile_correct`, `correctMatcher`: original `Spec.CorrectMatcher` for arbitrary expressions |
+| Execute the actual accelerated matcher | `ResidualActual.Matcher.solve_correct`, `correctMatcher`: all six forms use the constructed accelerated paths |
+| Bound its returned ledger | `ResidualActual.Matcher.Cost.correctMatcher_with_accounting`: correctness plus the 25/13 target, including actual rows and fixed action charges |
 
 The normalization does not require an externally supplied automaton or an operational-code coverage hypothesis. Its constants may be enormous; the fixed-pattern model allows pattern-dependent preprocessing but does not make it practical by itself.
 
@@ -386,16 +388,21 @@ Source repair now uses `eraseCurrent`: it normalizes the selected configuration 
 
 `MaskedTraversalInitial` executes empty and periodic solvers, constructs their actual union bitmap/history, and deletes those sources from the run/global source batch. Its accounting includes both enumerations, bitmap construction and source fanout; it inherits the stated periodic finite-compiler exclusions. `MaskedTraversalPositiveCoverage` derives complete metadata for a represented band and assigns every surviving original witness to the actual unique source/length band. `PositiveCoverageExhaustion` proves monotonicity under later erases and obtains the full answer contract once every actual band has been exhausted.
 
-`MaskedTraversalExecute` is the concrete chronological consumer of the retained geometric plan. It carries one global source/store/anchor/output state, retains child frames, chooses the actual heavy frontier, and executes dirty repair, reporting, current-source deletion, common-prefix replay and live-event marking. Equal-depth edges do no band query or initial drain. Whole-plan invariant preservation and exhaustion remain open at this checkpoint, as does summing all of its actual repair and query work.
+`MaskedTraversalExecute` is the concrete chronological consumer of the retained geometric plan. It carries one global source/store/anchor/output state, retains child frames, chooses the actual heavy frontier, and executes dirty repair, reporting, current-source deletion, common-prefix replay and live-event marking. Equal-depth edges do no band query or initial drain. Whole-plan invariant preservation and exhaustion are now proved by the `Invariant`, `Effect`, `Band`, `Edge`, `Plan` and `Suffix` continuation. `MaskedAllStart.solve_correct` constructs all premises internally; `MaskedTraversalExecute.Cost` sums actual repairs, queries, outputs and fanout work.
 
-## 10. Remaining obligations and the target exponent
+## 10. Actual matcher accounting and remaining refinement
 
-1. **Complete masked all-start index.** Prove universal invariant preservation and exhaustion for the actual whole-plan executor, then count all repairs and failed searches over its actual marks/events. Local reset, report/delete/output preservation, cross-cluster completeness, periodic reduction and surviving-witness coverage are now proved.
-2. **Actual all-start row production.** Supply the proved fast finite rows consumed by both assembled boundary and source-lower-bounded one-use caches. Their reversed far-right path, cache assembly and exact range semantics are now proved.
-3. **Residual matcher dispatch.** Execute the remaining cached separated, long-gap, low-exponent and large-period queries on the generated schedules. The short P1/P2 producers and exact dispatch substitutions are now proved. Complete cache invocation, query accounting and the accelerated connection for all six normal-form constructors.
-4. **Unified deterministic cost model.** Sum preparation and execution work, account for omitted fixed-shape assembly, specify word widths and memory operations, and connect those actual costs to the matcher target. A supplied unconstrained cost function cannot witness this goal.
+The previous three semantic/integration obligations are closed:
 
-The conditional phase ledger is
+1. `MaskedAllStart.solve_correct` proves exact masked-start bits for the actual complete executor, with no caller-supplied invariant or exhaustion assumption. `solve_reported` bounds all outputs by n+1; `solve_delivered` uses the actual source-history trace; `solve_charged_work_closed` bounds preparation and execution by `C*(n+2)*H^3`, with `H=log2(n+2)+1`.
+2. `MaskedAllStart.Rows` constructs every finite row used by both boundary and one-use caches. `RowsCorrect` discharges readiness unconditionally. `RowsCost` counts their actual nested table/grid construction, with coefficients independent of the text and width.
+3. `ResidualActual.Matcher` compiles the original expression to six actual implementations. P1/P2 consume the retained finite row banks, the independent form uses real forward/reversed rows and a regular gap aggregate, and once/same-value use proved epsilon reductions. The concrete `wordWork` counter includes input materialization and satisfies the target below.
+
+`PeriodicConstruction` adds value-preserving measured orbit, formula, projection, interval and dense-bank compilers. Its physical-period-independent coefficients bound actual extra work. `PeriodicConstruction.Pattern` measures literal-shape/modulus preparation, and `MaskedFiniteConstruction` measures the actual finite map universe/actions. These local replacements must still be installed through all public initialization, repair/report and outer periodic event/join calls. The separate finite cut/table primitives also need complete measured expansion. No arbitrary supplied cost function is used to discharge this remaining obligation.
+
+The remaining model refinement concerns actual construction substitution and the relation between the explicit structural-operation counters and a full machine execution, including memory representation and integer arithmetic. The existing theorems do not assert allocator, reference-counting, garbage-collection or bit-complexity bounds.
+
+The phase ledger underlying the rounded bound is
 
 ```
 n^2/s + n*L^2 + n^2*s^2/L + n^2*s^2/D0 + n^2*s^2/Q
@@ -409,11 +416,11 @@ P1 uses k=3, s=n^(1/10), Q=n^(3/10); P2 uses k=4, s=n^(1/13), Q=n^(3/13); both u
 - `PeriodicAccounting.measured_target` sums the implemented long-source P1, short-source P1 and P2 periodic counters. Its thirteenth-power bound has logarithm exponent 13 and a fixed-pattern coefficient.
 - `RankIndexScheduleAccounting.measured_target` sums the concrete rank preparation, divisor insertion, equality queries, minimum-period tests, probes and deduplication counters. Before taking powers, its bound is `[2*(16*(σ+2)+5)+240]*ledger(n)*(log2(n+2)+1)^2`; the target's logarithm exponent is 26.
 
-`IndexedGridAccounting.measured_target` also covers the standalone strip generator's counters. These results are stronger than an arithmetic ledger alone, but they do not account for the missing matching queries or establish a complete matcher machine cost. The matcher instance of the target remains open.
+`IndexedGridAccounting.measured_target` also covers the standalone strip generator's counters. The earlier results bound component ledgers. The new `ResidualActual.Cost.auto_charged_bound` includes both actual P1/P2 row producers and their cached execution, with bound `C*t^75*H^3`. `ResidualActual.Matcher.Cost.solve_target` and `word_target` compose all six forms and the actual finite normalized list. Their thirteenth-power bound is a fixed-pattern multiple of `(n+2)^25*H^39`. `correctMatcher_with_accounting` pairs the latter with the original `Spec.CorrectMatcher`; its accounted-work scope is preserved explicitly. Complete machine cost remains the refinement above.
 
 ## 11. Verification and publication
 
-Use `bash scripts/check.sh`, `bash scripts/audit.sh` and `bash scripts/index-audit.sh`. The first checks the complete import closure and principal axiom reports; the second runs nine independent finite Python audits; the third runs sixty-nine compiled-path audits. No proof placeholders, custom assumptions or native-evaluation proof shortcuts are permitted.
+Use `bash scripts/check.sh`, `bash scripts/audit.sh` and `bash scripts/index-audit.sh`. The first checks the complete import closure and principal axiom reports; the second runs nine independent finite Python audits; the third runs eighty-three compiled-path audits and the public all-start generated-code regression. No proof placeholders, custom assumptions or native-evaluation proof shortcuts are permitted.
 
 The initial published 2026-11-25 checkpoint passed the 153-target local build and all 307 principal axiom reports, using only standard `propext`, `Quot.sound` and `Classical.choice` where required. All nine Python audits and ten then-present compiled-path audits passed. The descriptor-trie, mask/cut and dense-discovery follow-up passed 179 build targets, 366 principal axiom reports and all fourteen compiled-path audits. Its exact local evidence is in [lean-build-status.txt](lean-build-status.txt), [audit-run.txt](audit-run.txt) and [index-audit-run.txt](index-audit-run.txt).
 
@@ -430,6 +437,8 @@ Both exact `9048279` remote runs passed: [push 45563760515](https://github.com/d
 The repair/aggregate checkpoint `1749593` passed both exact-head remote runs: [push 45569570359](https://github.com/dmbs335/rewb-formal/actions/runs/45569570359) and [PR 45569579422](https://github.com/dmbs335/rewb-formal/actions/runs/45569579422). The retained-anchor/current-bank/boundary-cache/short-outer continuation adds 52 modules and 207 principal reports. Its complete local gate passed 584 build targets and all 1,678 principal reports, using only the permitted standard axioms. Runtime evidence combines that successful 64-audit checkpoint with five completed new audits, for 69 total. The independent nine Python audits are unchanged. The complete matcher target remains open.
 
 That retained-bank checkpoint `40d7be9` passed both exact-head remote runs: [push 45575095492](https://github.com/dmbs335/rewb-formal/actions/runs/45575095492) and [PR 45575104815](https://github.com/dmbs335/rewb-formal/actions/runs/45575104815), including the Lean and nine-test Python jobs. The current complete-query/report/repair/coverage continuation adds 45 modules and 234 principal reports. Its full local gate passed 629 targets and all 1,912 principal reports, using only `propext`, `Quot.sound` and `Classical.choice` where required. Nine new compiled-path audits completed; combined with the successful unchanged 69-audit checkpoint, this gives 78 completed probes. The broader interrupted executor diagnostic is excluded. These results do not establish the still-open whole-matcher time theorem.
+
+The complete-query checkpoint `93a67c3` passed both exact-head workflows: [PR](https://github.com/dmbs335/rewb-formal/actions/runs/45581247435) and [push](https://github.com/dmbs335/rewb-formal/actions/runs/45581232898). The actual-matcher continuation adds 65 modules and 431 principal reports, including whole-plan correctness/cost, unconditional row producers, cached residual execution, all-six-form source correctness, the returned-ledger target, finite construction refinements and the public generated-code fix. Its complete local gate passed 694 targets and all 2,343 principal dependency reports: 2,295 use only the permitted standard axioms and 48 use none. The generated-code route regression also passed; the exact publication tree is recorded in the PR. Five new compiled probes completed with zero mismatches, giving 83 when combined with the unchanged successful prefix. The masked all-start probe was rerun after the compiler fix, preserving both answers and the four tested cost bounds. Broader timed-out diagnostics are excluded.
 
 The previous run-coverage work in PR #13 passed remote CI and was merged. The original three-commit continuation was published in [PR #14](https://github.com/dmbs335/rewb-formal/pull/14) through the connected GitHub API. Its three file trees exactly match the original local commits; the publication metadata changed their commit IDs to `59c6403`, `971c238`, and `d3ef34a`. The last passed both remote jobs in [run 45531815252](https://github.com/dmbs335/rewb-formal/actions/runs/45531815252). Later additions require their own checks; the evidence logs and Git history identify the current local checkpoint.
 

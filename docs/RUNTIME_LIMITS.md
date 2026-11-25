@@ -227,3 +227,22 @@ The reporting probe includes both parities of a dense period-two H=5 to L=4 shor
 A broader cross-cluster probe separately completed 4,117 queries and 467 positives in 120.879s with no mismatch. A broader 96-fixture executor diagnostic was manually interrupted after several minutes (exit 130); it is not counted as a passing probe. The smaller complete executor suite covers all binary inputs through length two with three masks, plus unary/periodic/deep fixtures of length eight and ten. These finite checks supplement the kernel component proofs; whole-plan universal preservation and total cost remain separate obligations at this checkpoint.
 
 The exact `40d7be9` push and PR CI runs both succeeded. The new local gate passes 629 targets and 1,912 principal axiom reports. The full matcher time theorem and complete construction-cost coverage remain open.
+
+
+### Actual all-start producer, cached residual and complete matcher
+
+The universal whole-plan correctness, exhaustion and returned-ledger bounds are now kernel proved. The actual row producer and all-six-form matcher are connected without an answer-oracle input. `ResidualActual.Matcher.Cost.correctMatcher_with_accounting` combines exact source-language correctness with the 25/13 target for the returned accounted-work function. That function includes actual row construction and fixed action-build charges; it still has the construction/model scope described in PROOF_MAP.md.
+
+| Probe | Completed result |
+| --- | --- |
+| Public constructed all-start solver | 10 fixtures, 55 positions, 17 positive answers, 42 actual bands and 16 reports; zero mismatches; work/build/output/fanout bounds checked; 44.929s after the compiler fix |
+| Cached P1/P2 residual queries | 112 finite banks, 718 window comparisons, 22 noninjective selector checks and 58 complete dispatches, plus a repeated n=8 case; zero mismatches; 206.446s |
+| Actual finite action construction | 9 universes, 36 actions and 648 cells; all values and construction bounds agree; 60ms |
+| Actual six-form integration | 12 projections, 248 epsilon-reduction comparisons, 124 regular dispatches and 10,240 actual independent-join queries, including 1,126 positives; zero mismatches; 117ms |
+| Measured periodic construction | 682 orbits, 16,368 exponent checks, 96 formula/window checks, 36 P1/P2 assembly cases, four empty searches, 120 actual phases with 33 hits, and 9 rebuilt banks with 28,800 cell and 1,800 literal checks; zero mismatches; 3.982s |
+
+The broad all-start diagnostics at larger C/E state counts exceeded their 90-second limits after completing the default cases. They are retained behind `--broad` and are not passing results. The six-form integration probe tests the named reductions and actual joins; it does not repeatedly execute the expensive full row factory for every source expression. Universal composition is established by the kernel theorems.
+
+Generated C exposed a second `Reporting.run` evaluation inside the old `Execute.band` projection path. `MaskedTraversalExecuteRuntime` supplies kernel-equal explicit destructuring implementations for band/bands/edge/plan, and a compiler simplification theorem routes public `MaskedAllStart.solve` through the replacement plan. The corrected band calls the reporting/collection transaction once on each mutually exclusive ownership branch. `audits/masked_all_start_runtime_codegen.py` checks the pinned compiler's actual public route and absence of the duplicate direct reporting call. The prior generated-code evidence is preserved separately. This is a targeted regression check, not a compiler-correctness or general ownership theorem.
+
+The measured periodic refinements preserve entire old values/counters while separately counting orbit, acceptance-vector, DNF, projection and interval construction. Their frozen audit covers local substitution interfaces; global installation, finite cut/table expansion and outer event/join construction remain separate work. No native CPU, garbage-collection or arbitrary-precision bit-operation bound is inferred from these probes.

@@ -59,7 +59,14 @@ for name in masked_reporting_smoke masked_event_smoke boundary_index_smoke \
   masked_traversal_repair_snapshot_smoke \
   masked_traversal_periodic_coverage_smoke \
   masked_traversal_execute_smoke \
-  masked_traversal_positive_coverage_smoke; do
+  masked_traversal_positive_coverage_smoke \
+  masked_all_start_correct_smoke \
+  residual_cached_smoke \
+  masked_finite_construction_smoke \
+  residual_actual_smoke \
+  periodic_construction_smoke; do
   echo "Running $name"
   lake env lean --run "audits/$name.lean"
 done
+
+python3 audits/masked_all_start_runtime_codegen.py
