@@ -2,6 +2,8 @@
 
 Updated 2026-11-25. This note preserves the next algorithmic direction. The full masked all-start index and the headline matcher running-time theorem are **not proved**. The proposed cluster implementation below has not yet been connected to an executable suffix-tree traversal.
 
+Continuation update: descriptor-only compressed trie construction and complete first-threshold loci are now implemented in `BoundaryTrie*`; `MaskedRunDiscovery*` connects actual suffix loci, surviving dense pairs, indexed extension and true minimum-period cubic runs. `MaskedProgression*` implements the arbitrary-mask AP array, and `MaskedCut*` implements shared-cut transformation tuples and one doubled-period index for all rotations. `MaskedFiniteActionRange` adds general ordered interval products. The remaining cluster geometry, update policy and complete event execution below are still proposals unless a specific checked theorem is named.
+
 ## 1. What is now verified
 
 `MaskedReporting` implements balanced output extraction from a measured interval-existence query. For height `h` and `k` outputs, it makes at most `1+2*h*k` queries, counting negative queries too. Output concatenation copies at most `h*k` cells. Query work remains a separate counter; with an independently verified per-query cost `A`, the combined bound is `(A+1)+(2*A+3)*h*k`. A cached output count avoids repeated length traversals merely to compute that counter.
@@ -90,7 +92,7 @@ Pointwise matrix multiplication commutes with reindexing. A cached aggregate vec
 
 A static position tree can place each cluster's matrix at its first text position and use identity vectors at nonleaders. This would avoid needing a separately balanced dynamic sequence of clusters. Connecting actual cluster edits to those point updates is still an obligation.
 
-For interval reporting, a further proposed finite component records whether the source jump is enabled. Whole clusters outside a requested source interval use the disabled component; whole clusters inside use the enabled component. At most two boundary clusters need partial source-mask queries. Their matrices and the prefix/interior/suffix products must then be composed in chronological order. General interval products and this query compiler are not yet implemented by the new prefix-query tree alone.
+For interval reporting, a further proposed finite component records whether the source jump is enabled. Whole clusters outside a requested source interval use the disabled component; whole clusters inside use the enabled component. At most two boundary clusters need partial source-mask queries. Their matrices and the prefix/interior/suffix products must then be composed in chronological order. General interval products are now implemented by `MaskedFiniteActionRange`, with at most two boundary paths and exact lazy-map semantics. The cluster/query compiler is still needed.
 
 ## 5. Charging density resets by primitive-square occurrences
 
@@ -112,11 +114,11 @@ The numerical bounds on `a,k` then use these flags, rather than the exact positi
 
 ### One-cut map tuples
 
-The proposed preprocessing uses a fixed-state automaton that nondeterministically chooses one cut in a period word and records the required prefix and suffix transformations. Build finite relation range products over a doubled period word. Each of the `q` rotations is one length-`q` interval, so its attainable tuple set can be obtained in pattern-constant times logarithmic query work, without scanning all `q` cuts separately for every rotation.
+The implemented preprocessing uses `MaskedCut`'s finite-monoid cut summary. Its associative product retains prefix and suffix transformations from one common cut and materializes the finite relation after every multiplication. Each of the `q` rotations is one length-`q` interval in a shared doubled-period index, so its attainable tuple set is obtained with pattern-constant table work and logarithmic hierarchy visits, without scanning all `q` cuts separately for every rotation.
 
 For the `rho<=eta` cases, allow the cut only before the `eta` boundary, stop the appropriate E transformation at that boundary, and continue the C transformation to the period end. This can use a constant number of finite relation products for the before/after portions. Since `eta` is determined by source phase, there are only `q` such constrained windows per run, rather than `q^2` independent phase/cut pairs.
 
-The intended preprocessing is `O_P(q polylog n)`. The automaton, tuple coverage and the exact relation to every audited periodic case are not yet formalized.
+`MaskedCutRotations.batch` now constructs that shared index and all q outputs. It counts `(log2(2q)+1)*2q` preparation products, at most `3q` query products and `3q*(log2(2q)+2)` visits. `MaskedCutTuples.queryConstrained_correct` proves exact B-prefix/C-full-suffix/E-short-suffix coverage with a common cut; the common C tail is read from a fourth range query. A lower cut bound of one excludes rho=0, even when a positive cut produces identity transformations. Empty positive windows return no tuples. Connecting these outputs to every periodic acceptance formula and its complete cost ledger is the remaining application step.
 
 ### Masked target progression queries
 
@@ -134,7 +136,7 @@ For one run, scan its positions once and build stepped prefix counts
 count[j] = mask[j] + count[j-K*q],
 ```
 
-using zero before the run's beginning. Aligned endpoint counts answer existence in the required progression by subtraction. The source phase and residue choose the physical class; the data structure does not enumerate all phase pairs. Exact rounding, boundary conventions, empty intervals, the projected formula and the finite-array implementation remain to be checked.
+using zero before the run's beginning. `MaskedProgression*` implements this finite array and proves exact clipped AP/residue existence, including empty intervals and inclusive upper bounds. Construction costs at most `13*len` tracked operations, with no residue loop; each query uses at most two array reads and 37 scalar operations. Counts are at most len. The projected formula and integration of per-run preparation into the full index still need their application ledger.
 
 ### Safe total-span budget and the discovery obligation
 
@@ -144,15 +146,17 @@ This budget is valid **once the relevant runs have been found**. It does not con
 
 One possible charged discovery route is to extend surviving fresh dense adjacencies. For a relevant neighboring pair at starts `p,p+q`, the current pattern length is at least `2*q`. Their suffix-tree LCA has depth at least that length. At the first completed merge where both leaves coexist, its occurrence set is a subset of the later complete set, so no occurrence lies between this pair there either. The pair is newly adjacent and dense. Dense-consecutive geometry would identify `q` as the least period, and LCE/LCS extension would find its maximal run. The existing adjacency-generation bound could then pay for extension queries and exact `(lo,hi,q)` deduplication before applying the cubic-span budget.
 
-There is a necessary restriction: **temporary adjacencies during a partial merge are not enough**. An omitted light-child occurrence may lie between a temporary pair, whose gap can be a multiple of the true minimum period. Finish the suffix-node merge, cancel obsolete generations and test only surviving adjacencies in the complete occurrence set. Similarly, matrix invariants can be temporarily dirty during a batch insertion; no query is justified until affected clusters have been repaired. The suffix-tree/LCA coverage theorem, surviving-generation bookkeeping, exact extension/deduplication and dirty-set repair bound are all still unproved. This route is a proposal for replacing a separate all-run construction, not an implemented discovery theorem.
+There is a necessary restriction: **temporary adjacencies during a partial merge are not enough**. An omitted light-child occurrence may lie between a temporary pair, whose gap can be a multiple of the true minimum period. Finish the complete prefix-class merge, cancel obsolete generations and test only surviving adjacencies. Binary trie refinements at equal depth are not separate complete classes. `BoundaryTrieLocus` selects the first threshold ancestor; `MaskedRunDiscoveryLocus` derives exact occurrence completeness from the actual n+1-suffix trie. `MaskedRunDiscoveryEvents` proves first-coexistence and actual fresh-generation provenance, and `MaskedRunDiscovery` performs/proves the two-query minimum-period cubic extension. Equal-depth gates and temporary nonminimal gaps have explicit regressions.
+
+These local construction/coverage bridges are now checked. The full traversal that chooses all required loci, cancels records, invokes discovery once per surviving generation, deduplicates runs and repairs dirty cluster summaries is still needed. In particular, no matrix query is justified while a batch insertion leaves the local anchor certificates dirty.
 
 ## 7. Required next proof interfaces
 
 1. Exact variable-anchor cluster transfer matrices, including terminal marks, singleton clusters, chronological ordering and both cursor modes.
 2. A concrete suffix-tree/occurrence-set traversal maintaining the proposed local certificates, with no rescheduling of already-crossed thresholds.
 3. The primitive-square injection for density-reset rebuilding and an efficient discovery route for relevant periodic runs.
-4. Rank/residue queries for arbitrary source and target masks inside progression clusters, including split/merge origin changes.
-5. The one-cut finite automaton compiler and complete projected target-index formulas.
+4. Connect the verified arbitrary-mask AP arrays to progression clusters and their split/merge origin changes.
+5. Connect the verified shared-cut tuple index to complete projected target-index formulas and their aggregate ledger.
 6. A costed connection from actual local edits, range queries and matrix construction to the verified finite-action tree operations.
 7. Complete all-start output/query correctness and the total operation ledger.
 

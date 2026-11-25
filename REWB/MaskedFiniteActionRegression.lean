@@ -1,4 +1,4 @@
-import REWB.MaskedFiniteActionTree
+import REWB.MaskedFiniteActionRange
 import REWB.MaskedFiniteActionMaps
 
 /-! Noninjective, noncommuting lazy actions followed by a fresh point
@@ -36,5 +36,31 @@ theorem universe_size : Maps.count 3=27 := Maps.count_eq 3
 
 theorem source_map_decode :
     Maps.decode 3 (Maps.encode collapse)=collapse := Maps.decode_encode collapse
+
+def matrixBase : Table 3 2 := Table.ofView (fun i p q=>
+  if i.val=0 then decide (q.val=0) else decide (p=q))
+
+def matrixFresh : Table 3 2 := Table.ofView (fun i p q=>
+  if i.val=2 then decide (q.val=1) else decide (p=q))
+
+def matrixSwap : Table 3 2 := Table.ofView (fun _ p q=>decide (p.val+q.val=1))
+
+def matrixInitial := Tree.build (k:=3) (m:=2) #[Table.one,matrixBase,matrixSwap,Table.one] 2 0
+def matrixTagged := Tree.reindex collapse matrixInitial.1
+def matrixReplaced := Tree.replace matrixTagged.1 1 matrixFresh
+
+/-- Reset then swap is constant-one; swapping the product order would
+instead produce constant-zero. The fresh replacement retains its own map. -/
+theorem interval_order :
+    (Tree.queryRange matrixTagged.1 1 3).1.view 0 0 1=true ∧
+    (Tree.queryRange matrixTagged.1 1 3).1.view 0 0 0=false ∧
+    (Tree.queryRange matrixReplaced.1 1 3).1.view 0 1 0=true ∧
+    (Tree.queryRange matrixReplaced.1 1 3).1.view 2 0 0=true ∧
+    (Tree.queryRange matrixReplaced.1 4 2).1.view 0 0 0=true ∧
+    (Tree.queryRange matrixReplaced.1 2 9).1.view 0 0 1=true ∧
+    (Tree.queryRange matrixReplaced.1 9 12).1.view 0 0 0=true := by decide
+
+theorem matrixReplaced_good : Tree.Good matrixReplaced.1 :=
+  Tree.replace_good _ (Tree.reindex_good _ _ (Tree.build_good _ _ _)) _ _
 
 end REWB.MaskedFiniteAction.Regression

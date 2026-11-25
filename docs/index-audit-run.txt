@@ -1,5 +1,5 @@
-Local verification, 2026-11-25 (Asia/Seoul). No remote CI claim.
-All ten compiled-path audits in scripts/index-audit.sh completed successfully.
+Local compiled-path audit gate, 2026-11-25.
+All fourteen scripts exited successfully.
 
 Running masked_reporting_smoke
 'REWB.MaskedReporting.report_correct' depends on axioms: [propext, Quot.sound]
@@ -52,7 +52,6 @@ context text symbols=100000; prefix boundaries=100001; suffix rows=100001
 all prefix/suffix states verified; measured entries=400004; stack-safe shared construction passed
 Running lean_boundary_mixed_smoke
 totalMass=512 targets=256 list=256 transfers=1024 steps=1688236 target=true source=false static0=0 static1=1
-
 Running masked_finite_action_smoke
 'REWB.MaskedFiniteAction.View.reindex_product' depends on axioms: [propext, Quot.sound]
 'REWB.MaskedFiniteAction.Counted.mul_steps' depends on axioms: [propext, Quot.sound]
@@ -61,12 +60,47 @@ Running masked_finite_action_smoke
 'REWB.MaskedFiniteAction.Tree.replace_leaves' depends on axioms: [propext, Quot.sound]
 'REWB.MaskedFiniteAction.Tree.replace_steps' depends on axioms: [propext, Quot.sound]
 'REWB.MaskedFiniteAction.Tree.queryPrefix_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.querySuffix_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.queryRange_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.queryRange_steps' depends on axioms: [propext, Quot.sound]
 'REWB.MaskedFiniteAction.Maps.vectors_complete' depends on axioms: [propext, Quot.sound]
 'REWB.MaskedFiniteAction.Maps.count_eq' depends on axioms: [propext, Quot.sound]
 'REWB.MaskedFiniteAction.Maps.decode_encode' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedFiniteAction.Maps.rightAction_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'REWB.MaskedFiniteAction.Maps.localAnchor_shortening' depends on axioms: [propext, Quot.sound]
 'REWB.MaskedFiniteAction.Regression.execution' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Regression.interval_order' depends on axioms: [propext, Quot.sound]
 finite universe: states=3, maps=27
 action tree: build=18, firstReindex=7, secondReindex=7, replace=20, prefix=5
 fresh replacement under old noninjective tags: index0=false, index2=true
+ordered interval products: entryChecks=768, mismatches=0
+Running masked_progression_smoke
+'REWB.MaskedProgression.build_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.build_slots_exact' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.build_arithmetic_exact' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.grid_build_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedProgression.ap_build_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedProgression.ap_slots' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.ap_arithmetic' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.Regression.ap_eq_direct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedProgression.Regression.example_counts' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.Regression.endpoint_and_empty_queries' does not depend on any axioms
+stepped array: #[0, 1, 0, 1, 0, 0, 0, 2, 0, 2, 0], slots=38, arithmetic=93
+AP first={ answer := true, slots := 1, arithmetic := 36 }, subtract={ answer := true, slots := 2, arithmetic := 37 }, absent={ answer := false, slots := 1, arithmetic := 36 }
+direct-mask regression: masks=17, builds=6426, queries=3373650, hits=53560, mismatches=0
+query maxima: arraySlots=2, scalarArithmetic=37
+Running masked_cut_smoke
+joint cut audit: words=127, intervalQueries=18943, pairChecks=75772, rotations=642, mismatches=0
+noncommuting DFA-map audit: universe=4, constrainedTupleChecks=672, mismatches=0
+shared doubled-period batch: q=4096, outputs=4096, preparationProducts=114688, queryProducts=8192, visits=131074
+Running boundary_trie_smoke
+smallNodes=13 emptyAndDuplicateRecords=true prefixKeys=2049 nodes=4097 representedCharacters=2098176 work=5253292
+Running masked_run_discovery_smoke
+'REWB.MaskedRunDiscovery.dense_least' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunDiscovery.discover_dense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunDiscovery.discover_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedRunDiscovery.completed_class_generated' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunDiscovery.prepareSuffixes_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunDiscovery.discover_locus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunDiscovery.prepareSuffixes_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+n=512 suffixes=513 prepWork=1798605 classSize=253 run={ lo := 0, hi := 512, period := 2 } discoveryWork=190 equalDepthWork=2

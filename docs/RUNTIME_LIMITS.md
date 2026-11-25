@@ -56,6 +56,13 @@ After `bash scripts/check.sh`, run `bash scripts/index-audit.sh` for the new com
 | Balanced 512-leaf persistent merge | 2,304 light transfers; 3,644,333 tracked steps; coalesced active states and original static transitions preserved |
 | Mixed 512-leaf source/target schedule | Total mass 512, 256 target records, 1,024 transfers, 1,688,236 tracked steps; silent sources remain inactive and static transitions are preserved |
 | Finite-action lazy tree | Explicit three-state map universe has 27 entries; build 18, two reindexes 7 each, replacement 20, prefix query 5; noncommuting/noninjective tag order and fresh-cell behavior pass |
+| Ordered finite-action interval products | 768 matrix-entry checks after noninjective root action and fresh replacement; exact order, empty ranges and clipping passed |
+| Immutable-mask stepped arrays and AP queries | 17 masks, 6,426 actual reused builds, 3,373,650 queries, 53,560 hits, zero mismatches; query maxima two array reads and 37 scalar operations |
+| Shared-cut interval/rotation index | 127 binary words, 18,943 interval queries, 75,772 map-pair checks and 642 rotations; all matched direct common-cut enumeration |
+| Constrained DFA tuples | Four joint transformations from a noncommuting two-state map example; 672 B-prefix/C-full-suffix/E-short-suffix checks passed |
+| Doubled-period shared preparation, q=4,096 | 4,096 result tables; 114,688 preparation products, 8,192 query products and 131,074 visits; no quadratic phase/cut list was materialized |
+| Descriptor-only compressed trie | 8,193 nested prefix records representing 33,558,528 characters produced 16,385 nodes with work 27,943,104; the CI probe uses 2,049 records and retains empty/duplicate/prefix regressions |
+| Actual suffix-class dense-pair discovery | n=512, 513 suffixes, preparation work 1,798,605; a 253-occurrence complete locus produced `(0,512,2)` with work 190; equal-depth refinement gate cost 2 and skipped discovery |
 | LCE/LCS exhaustive binary test | 127 words of lengths 0–6, 4,861 endpoint pairs; results match direct list-prefix/suffix reference |
 | LCE/LCS on n=4,096 | 14 rows in each direction; 18,133,870 preparation work; sampled extension 4,034 with 7 pair comparisons and 13 visited levels |
 | Grid candidates versus direct extension | 189 word/stride cases, 278 positive-copy coverage checks; all passed |

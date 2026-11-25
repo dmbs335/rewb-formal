@@ -5,6 +5,10 @@ import REWB.BoundaryIndexCutsRegression
 import REWB.BoundaryIndexMergeRegression
 import REWB.BoundaryIndexMixedRegression
 import REWB.MaskedFiniteActionRegression
+import REWB.MaskedProgressionRegression
+import REWB.MaskedCutRegression
+import REWB.BoundaryTrieRegression
+import REWB.MaskedRunDiscoveryRegression
 
 open REWB
 
@@ -784,6 +788,65 @@ end CompletedPipelineRegression
 #print axioms REWB.MaskedFiniteAction.Tree.replace_steps
 #print axioms REWB.MaskedFiniteAction.Tree.queryPrefix_correct
 #print axioms REWB.MaskedFiniteAction.Tree.queryPrefix_steps
+#print axioms REWB.MaskedFiniteAction.Tree.querySuffix_correct
+#print axioms REWB.MaskedFiniteAction.Tree.querySuffix_steps
+#print axioms REWB.MaskedFiniteAction.Tree.queryRange_correct
+#print axioms REWB.MaskedFiniteAction.Tree.queryRange_steps
+#print axioms REWB.MaskedFiniteAction.Regression.interval_order
 #print axioms REWB.MaskedFiniteAction.Maps.count_eq
 #print axioms REWB.MaskedFiniteAction.Maps.decode_encode
 #print axioms REWB.MaskedFiniteAction.Maps.localAnchor_shortening
+#print axioms REWB.MaskedProgression.build_correct
+#print axioms REWB.MaskedProgression.build_slots_exact
+#print axioms REWB.MaskedProgression.build_arithmetic_exact
+#print axioms REWB.MaskedProgression.build_counts_le
+#print axioms REWB.MaskedProgression.grid_build_correct
+#print axioms REWB.MaskedProgression.ap_build_correct
+#print axioms REWB.MaskedProgression.ap_work
+#print axioms REWB.MaskedProgression.Regression.ap_eq_direct
+#print axioms REWB.MaskedCut.mul_assoc
+#print axioms REWB.MaskedCut.trace_strict
+#print axioms REWB.MaskedCut.trace_closed
+#print axioms REWB.MaskedCut.Index.query_correct
+#print axioms REWB.MaskedCut.Index.query_bounds
+#print axioms REWB.MaskedCut.Rotations.batch_correct
+#print axioms REWB.MaskedCut.Rotations.batch_bounds
+#print axioms REWB.MaskedCut.DFAIndex.jointEnum_length
+#print axioms REWB.MaskedCut.DFAIndex.query_correct
+#print axioms REWB.MaskedCut.DFAIndex.queryConstrained_correct
+#print axioms REWB.MaskedCut.DFAIndex.queryConstrained_bounds
+#print axioms REWB.MaskedCut.Regression.query_eq_direct
+#print axioms REWB.MaskedCut.Regression.correlated_cut
+#print axioms REWB.BoundaryTrie.Sort.sort_sorted
+#print axioms REWB.BoundaryTrie.Sort.sort_steps
+#print axioms REWB.BoundaryTrie.Search.array_partition
+#print axioms REWB.BoundaryTrie.prepare_sorted
+#print axioms REWB.BoundaryTrie.prepare_work
+#print axioms REWB.BoundaryTrie.Build.run_correct
+#print axioms REWB.BoundaryTrie.Build.run_nodes
+#print axioms REWB.BoundaryTrie.Build.run_paths
+#print axioms REWB.BoundaryTrie.Build.run_path_lcp
+#print axioms REWB.BoundaryTrie.Build.run_work
+#print axioms REWB.BoundaryTrie.Tree.edge_depths
+#print axioms REWB.BoundaryTrie.Tree.locus_first
+#print axioms REWB.BoundaryTrie.Tree.locus_complete
+#print axioms REWB.BoundaryTrie.Tree.locate_correct
+#print axioms REWB.BoundaryTrie.Build.run_locus_complete
+#print axioms REWB.MaskedRunDiscovery.dense_least
+#print axioms REWB.MaskedRunDiscovery.candidate_dense
+#print axioms REWB.MaskedRunDiscovery.discover_dense
+#print axioms REWB.MaskedRunDiscovery.discover_work
+#print axioms REWB.MaskedRunDiscovery.dense_primitive_square
+#print axioms REWB.MaskedRunDiscovery.complete_consecutive
+#print axioms REWB.MaskedRunDiscovery.completed_class_discovery
+#print axioms REWB.MaskedRunDiscovery.equal_depth_skipped
+#print axioms REWB.MaskedRunDiscovery.first_join_live_fresh
+#print axioms REWB.MaskedRunDiscovery.first_coexistence
+#print axioms REWB.MaskedRunDiscovery.first_live_generation
+#print axioms REWB.MaskedRunDiscovery.completed_class_generated
+#print axioms REWB.MaskedRunDiscovery.prepareSuffixes_complete
+#print axioms REWB.MaskedRunDiscovery.locate_complete
+#print axioms REWB.MaskedRunDiscovery.discover_locus
+#print axioms REWB.MaskedRunDiscovery.prepareSuffixes_work
+#print axioms REWB.MaskedRunDiscovery.Regression.partial_pair_not_consecutive
+#print axioms REWB.MaskedRunDiscovery.Regression.partial_gap_not_least

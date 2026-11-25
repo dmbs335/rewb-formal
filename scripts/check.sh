@@ -7,7 +7,9 @@ if grep -nE '\b(sorry|admit|sorryAx|native_decide)\b|^[[:space:]]*(axiom|constan
 fi
 lake build REWB REWB.ShortSourceRegression REWB.BoundaryIndexRegression \
   REWB.BoundaryIndexCutsRegression REWB.BoundaryIndexMergeRegression \
-  REWB.BoundaryIndexMixedRegression REWB.MaskedFiniteActionRegression
+  REWB.BoundaryIndexMixedRegression REWB.MaskedFiniteActionRegression \
+  REWB.MaskedProgressionRegression REWB.MaskedCutRegression REWB.BoundaryTrieRegression \
+  REWB.MaskedRunDiscoveryRegression
 log=$(mktemp)
 trap 'rm -f "$log"' EXIT
 lake env lean REWB/Tests.lean | tee "$log"

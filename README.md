@@ -46,9 +46,17 @@ For a fixed expression over a fixed finite alphabet, the research target is soft
 
 `BoundaryIndexMixed` includes silent source leaves when selecting the heavy child, while importing only target endpoints. It proves the total-mass light-path bound and the corresponding transfer/operation bounds. This removes the mismatch between target-only merging and a trie containing both sources and targets; building the trie application is still separate.
 
+`BoundaryTrie` now constructs the compressed descriptor trie itself. It prepares one exact rank index, sorts bounded substring descriptors using measured LCE comparisons, and partitions sorted intervals with measured binary search. Input records, paths and LCA/LCP depths are exact; the tree has at most `2*N` nodes and costs `O(n polylog n + N log N log n)` in the stated counter model. Empty, duplicate and proper-prefix keys use zero-length refinement edges. `BoundaryTrieLocus` selects the first depth threshold and proves it represents the entire matching prefix class; arbitrary binary refinement nodes are not treated as complete occurrence sets.
+
 `MaskedReporting` proves exact output-sensitive reporting, including failed existence queries and output copying. Its source deletions preserve the supplied target mask. `MaskedEventBudget` verifies small-to-large endpoint transfers and bounds the creation and retirement of local density/overlap threshold records; the bound requires one-shot event processing. These components are not yet the complete arbitrary-mask index.
 
 `MaskedFiniteAction` and its persistent tree implement vectors of finite-state matrix summaries with lazy noninjective precomposition. `MaskedFiniteActionMaps` constructs the full finite DFA-map universe of size `m^m` and proves the common-prefix shortening action for different local anchors. The vector size depends only on the DFA, not the input length or a run period. Applying those summaries to the actual cluster geometry and arbitrary-mask predicates remains open.
+
+`MaskedFiniteActionRange` adds ordered suffix and general interval products using at most two boundary paths, preserving lazy maps and fresh replacements. `MaskedProgression` builds an immutable-mask stepped prefix array in at most `13*len` tracked operations. Its exact clipped AP/residue query reads at most two array cells and charges at most 39 combined operations, without requiring a periodic mask.
+
+`MaskedCut` stores attainable prefix/suffix transformations from one common cut. One shared doubled-period index serves all rotations in `O_P(q log q)` indexed work, without enumerating rotation/cut pairs. Constrained tuples retain a B prefix, a C suffix to the period end and an E suffix to the run-end residue from the same cut; a lower cut bound handles positive remainders and empty positive windows.
+
+`MaskedRunDiscovery` constructs an actual suffix descriptor trie and shares forward/reverse ranks. A surviving dense adjacency of a complete prefix class yields a valid cubic run with its actual minimum period after two indexed extension queries. First-coexistence and fresh-generation theorems connect the pair to the concrete merge trace. Selecting, cancelling and processing these records exactly once still needs the complete fast event execution.
 
 The [proof ledger](docs/PROOF_MAP.md) records exact scopes, new modules, and remaining obligations. Earlier milestone notes are preserved in [the historical ledger](docs/PROOF_HISTORY.md).
 
@@ -64,11 +72,11 @@ bash scripts/index-audit.sh
 
 `check.sh` builds the umbrella module, executes regressions, prints principal theorem dependencies, and rejects proof placeholders and custom assumptions. The nine Python audits are independent finite reference tests. `index-audit.sh` exercises the compiled persistent trees, reporting, LCE/LCS, grid and sampled-run/dedup paths. Finite audits do not prove asymptotic complexity.
 
-The current continuation is checked locally. Remote CI for the new continuation is a separate publication step; do not infer that it ran from an older PR's status.
+The published checkpoint `d3ef34a` in [PR #14](https://github.com/dmbs335/rewb-formal/pull/14) passed both remote CI jobs, including all ten runtime audits present at that checkpoint. Subsequent checks are tied to their own commit and recorded logs; an older run does not validate later additions.
 
 ## Remaining global work
 
-The final matcher instance of `Spec.Target25Over13` needs the remaining masked-cluster algorithm and its event scheduler, the boundary index's compressed-trie/heavy-path construction, the residual matching-query dispatch, and a unified worst-case machine-cost proof. Global geometric coverage and sampled all-period run generation are now implemented and verified. The primitive data structures still need their complete application invariants and aggregate query counts. A semantic reference implementation that enumerates lengths or occurrences does not provide those bounds.
+The final matcher instance of `Spec.Target25Over13` needs the remaining masked-cluster algorithm and its event scheduler, the boundary index's heavy-path application and query assembly, the residual matching-query dispatch, and a unified worst-case machine-cost proof. Global geometric coverage, compressed descriptor tries, sampled all-period runs, completed-class local run discovery and immutable-mask AP queries are implemented and verified. Their complete application invariants and aggregate query counts remain necessary. A semantic reference implementation that enumerates lengths or occurrences does not provide those bounds.
 
 The general Presburger implementation can still create large fixed-pattern DNFs; small text size alone does not imply fast execution. Correctness and finite worst-case bounds do not constitute a practical performance guarantee. See [the recorded runtime probes and limits](docs/RUNTIME_LIMITS.md), including both completed probes and interrupted runs.
 
