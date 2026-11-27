@@ -1,0 +1,294 @@
+Excerpt formatting: trailing whitespace normalized; recorded hashes identify the original generated C.
+Generated-code diagnostic BEFORE any refactor.
+Toolchain: leanprover/lean4:v4.19.0
+Observation: Execute.band contains both Collect_run and Reporting_run calls on the same retained store/tree; Collect_run itself invokes Reporting_run. This establishes duplicate execution in this generated path, not a general upstream compiler diagnosis.
+Anchor and banks loop snippets show owned array/state threading internally. Whole-path alias cost is not certified by these snippets alone.
+
+FILE REWB/MaskedTraversalExecute.lean
+SHA256 e1da8fe2d4cf1a29d3e2c49e96649b73bab622badeb338d8d710c31476675be5
+69:     ⟨{st.global with stats:={st.global.stats with work:=st.global.stats.work+(dirty.work-prior)+3}},
+70:       ⟨st.frame.tree,dirty⟩⟩
+71:
+72: def band (env : Env B C E n h') (capacity : Nat) (b : MaskedTraversalEdge.Band h)
+73:     (st : State C E h) : State C E h :=
+74:   let oldStats:=st.global.stats
+75:   let oldAnswerWork:=st.global.answers.work
+76:   let repaired:=MaskedTraversalRepairCoherence.apply env.repair b.snapshot capacity b.hi
+77:     st.global.anchors st.frame.dirty st.global.store st.frame.tree
+78:   let base:=representative b
+79:   let collected:=Collect.run B C E env.cut env.repair.shared repaired.store b.snapshot capacity
+80:     repaired.tree base b.lo b.hi b.hi st.global.answers
+81:   let replayed:=replay C E env.repair.shared.cRanges env.repair.shared.eRanges base (b.lo-1) b.hi
+82:   let shortened:=MaskedTraversalAggregate.shorten (bankAction replayed.maps) collected.band.repaired.tree
+83:   let dirty:=MaskedTraversalDirty.crossing b.snapshot b.crossing capacity (MaskedTraversalDirty.empty h)
+84:   let work:=oldStats.work+repaired.work+collected.band.reported.queryWork+
+85:     collected.band.reported.copies+20*collected.band.reported.calls+collected.band.repaired.work+
+86:     (collected.answers.work-oldAnswerWork)+replayed.work+shortened.2+dirty.work+24
+87:   ⟨⟨repaired.anchors,collected.band.repaired.store,collected.answers,
+88:       ⟨work,oldStats.bands+1,oldStats.queryCalls+collected.band.reported.calls,
+89:         oldStats.reported+collected.band.reported.count,oldStats.actionBuilds+1⟩⟩,
+90:     ⟨shortened.1,dirty⟩⟩
+91:
+
+FILE .lake/build/ir/REWB/MaskedTraversalExecute.c
+SHA256 c21a81ac1a49af981fae8c5699d9f31875d97193fa565b1884c1aed8228c2349
+1274: LEAN_EXPORT lean_object* l_REWB_MaskedTraversalExecute_band___rarg(lean_object* x_1, lean_object* x_2, lean_object* x_3, lean_object* x_4, lean_object* x_5, lean_object* x_6, lean_object* x_7, lean_object* x_8, lean_object* x_9, lean_object* x_10) {
+1275: _start:
+1276: {
+1277: lean_object* x_11; lean_object* x_12; lean_object* x_13; lean_object* x_14; lean_object* x_15; lean_object* x_16; lean_object* x_17; lean_object* x_18; lean_object* x_19; lean_object* x_20; lean_object* x_21; lean_object* x_22; lean_object* x_23; lean_object* x_24; lean_object* x_25; lean_object* x_26; uint8_t x_27;
+1278: x_11 = lean_ctor_get(x_10, 0);
+1279: lean_inc(x_11);
+1280: x_12 = lean_ctor_get(x_11, 3);
+1281: lean_inc(x_12);
+1282: x_13 = lean_ctor_get(x_11, 2);
+1283: lean_inc(x_13);
+1284: x_14 = lean_ctor_get(x_13, 3);
+1285: lean_inc(x_14);
+1286: x_15 = lean_ctor_get(x_7, 0);
+1287: lean_inc(x_15);
+1288: x_16 = lean_ctor_get(x_9, 2);
+1289: lean_inc(x_16);
+1290: x_17 = lean_ctor_get(x_9, 1);
+1291: lean_inc(x_17);
+1292: x_18 = lean_ctor_get(x_11, 0);
+1293: lean_inc(x_18);
+1294: x_19 = lean_ctor_get(x_10, 1);
+1295: lean_inc(x_19);
+1296: lean_dec(x_10);
+1297: x_20 = lean_ctor_get(x_19, 1);
+1298: lean_inc(x_20);
+1299: x_21 = lean_ctor_get(x_11, 1);
+1300: lean_inc(x_21);
+1301: lean_dec(x_11);
+1302: x_22 = lean_ctor_get(x_19, 0);
+1303: lean_inc(x_22);
+1304: lean_dec(x_19);
+1305: lean_inc(x_17);
+1306: lean_inc(x_16);
+1307: lean_inc(x_15);
+1308: lean_inc(x_4);
+1309: lean_inc(x_3);
+1310: lean_inc(x_2);
+1311: x_23 = l_REWB_MaskedTraversalRepairCoherence_apply___rarg(x_2, x_3, x_4, x_6, x_5, x_15, x_16, x_8, x_17, x_18, x_20, x_21, x_22);
+1312: lean_inc(x_9);
+1313: x_24 = l_REWB_MaskedTraversalExecute_representative___rarg(x_9);
+1314: x_25 = lean_ctor_get(x_7, 1);
+1315: lean_inc(x_25);
+1316: lean_dec(x_7);
+1317: x_26 = lean_ctor_get(x_15, 0);
+1318: lean_inc(x_26);
+1319: lean_dec(x_15);
+1320: x_27 = !lean_is_exclusive(x_23);
+1321: if (x_27 == 0)
+1322: {
+1323: lean_object* x_28; lean_object* x_29; lean_object* x_30; lean_object* x_31; lean_object* x_32; lean_object* x_33; lean_object* x_34; lean_object* x_35; lean_object* x_36; lean_object* x_37; lean_object* x_38; lean_object* x_39; lean_object* x_40; lean_object* x_41; lean_object* x_42; lean_object* x_43; lean_object* x_44; lean_object* x_45; lean_object* x_46; lean_object* x_47; lean_object* x_48; lean_object* x_49; lean_object* x_50; lean_object* x_51; lean_object* x_52; lean_object* x_53; lean_object* x_54; lean_object* x_55; lean_object* x_56; lean_object* x_57; lean_object* x_58; lean_object* x_59; lean_object* x_60; lean_object* x_61; lean_object* x_62; lean_object* x_63; lean_object* x_64; lean_object* x_65; lean_object* x_66; lean_object* x_67; lean_object* x_68; lean_object* x_69; uint8_t x_70;
+1324: x_28 = lean_ctor_get(x_23, 0);
+1325: x_29 = lean_ctor_get(x_23, 1);
+1326: x_30 = lean_ctor_get(x_23, 2);
+1327: x_31 = lean_ctor_get(x_23, 4);
+1328: x_32 = lean_ctor_get(x_23, 3);
+1329: lean_dec(x_32);
+1330: x_33 = lean_ctor_get(x_9, 0);
+1331: lean_inc(x_33);
+1332: lean_inc_n(x_17, 2);
+1333: lean_inc(x_33);
+1334: lean_inc(x_24);
+1335: lean_inc(x_30);
+1336: lean_inc(x_8);
+1337: lean_inc(x_16);
+1338: lean_inc(x_29);
+1339: lean_inc(x_26);
+1340: lean_inc(x_25);
+1341: lean_inc(x_3);
+1342: lean_inc(x_2);
+1343: lean_inc(x_1);
+1344: lean_inc(x_4);
+1345: x_34 = l_REWB_MaskedTraversalAggregate_Collect_run___rarg(x_4, x_1, x_2, x_3, x_25, x_26, x_29, x_16, x_8, x_30, x_24, x_33, x_17, x_17, x_13);
+1346: x_35 = lean_ctor_get(x_26, 2);
+1347: lean_inc(x_35);
+1348: x_36 = lean_ctor_get(x_26, 3);
+1349: lean_inc(x_36);
+1350: x_37 = lean_unsigned_to_nat(1u);
+1351: x_38 = lean_nat_sub(x_33, x_37);
+1352: lean_inc(x_3);
+1353: lean_inc(x_2);
+1354: x_39 = l_REWB_MaskedCluster_replay___rarg(x_2, x_3, x_35, x_36, x_24, x_38, x_17);
+1355: lean_dec(x_38);
+1356: x_40 = lean_ctor_get(x_2, 0);
+1357: lean_inc(x_40);
+1358: x_41 = lean_ctor_get(x_3, 0);
+1359: lean_inc(x_41);
+1360: x_42 = lean_ctor_get(x_39, 0);
+1361: lean_inc(x_42);
+1362: x_43 = l_REWB_MaskedCluster_bankAction(x_40, x_41, x_42);
+1363: lean_inc(x_17);
+1364: lean_inc(x_8);
+1365: lean_inc(x_16);
+1366: lean_inc(x_3);
+1367: lean_inc(x_2);
+1368: lean_inc(x_4);
+1369: x_44 = l_REWB_MaskedTraversalAggregate_Reporting_run___rarg(x_4, x_1, x_2, x_3, x_25, x_26, x_29, x_16, x_8, x_30, x_24, x_33, x_17, x_17);
+1370: x_45 = lean_ctor_get(x_44, 1);
+1371: lean_inc(x_45);
+1372: x_46 = lean_ctor_get(x_45, 1);
+1373: lean_inc(x_46);
+1374: x_47 = l_REWB_MaskedTraversalAggregate_shorten(x_4, lean_box(0), x_2, x_3, x_43, x_46);
+1375: x_48 = lean_ctor_get(x_9, 3);
+1376: lean_inc(x_48);
+1377: lean_dec(x_9);
+1378: lean_inc(x_4);
+1379: x_49 = l_REWB_MaskedTraversalDirty_empty(x_4);
+1380: x_50 = l_REWB_MaskedTraversalDirty_crossing(x_4, x_16, x_48, x_8, x_49);
+1381: lean_dec(x_8);
+1382: lean_dec(x_4);
+1383: x_51 = lean_ctor_get(x_12, 0);
+1384: lean_inc(x_51);
+1385: x_52 = lean_nat_add(x_51, x_31);
+1386: lean_dec(x_31);
+
+FILE .lake/build/ir/REWB/MaskedTraversalAggregateCollect.c
+SHA256 88c42045746df8251fc5ebadda0d350aba4fc33e7bddbfebc929fbf791a77ac2
+20: LEAN_EXPORT lean_object* l_REWB_MaskedTraversalAggregate_Collect_run___rarg(lean_object* x_1, lean_object* x_2, lean_object* x_3, lean_object* x_4, lean_object* x_5, lean_object* x_6, lean_object* x_7, lean_object* x_8, lean_object* x_9, lean_object* x_10, lean_object* x_11, lean_object* x_12, lean_object* x_13, lean_object* x_14, lean_object* x_15) {
+21: _start:
+22: {
+23: lean_object* x_16; lean_object* x_17; lean_object* x_18; lean_object* x_19; lean_object* x_20;
+24: x_16 = l_REWB_MaskedTraversalAggregate_Reporting_run___rarg(x_1, x_2, x_3, x_4, x_5, x_6, x_7, x_8, x_9, x_10, x_11, x_12, x_13, x_14);
+25: x_17 = lean_ctor_get(x_16, 0);
+26: lean_inc(x_17);
+27: x_18 = lean_ctor_get(x_17, 0);
+28: lean_inc(x_18);
+29: lean_dec(x_17);
+30: x_19 = l_List_foldl___at_REWB_MaskedTraversalAnswers_push___spec__1(x_15, x_18);
+31: x_20 = lean_alloc_ctor(0, 2, 0);
+32: lean_ctor_set(x_20, 0, x_16);
+33: lean_ctor_set(x_20, 1, x_19);
+34: return x_20;
+35: }
+36: }
+37: LEAN_EXPORT lean_object* l_REWB_MaskedTraversalAggregate_Collect_run(lean_object* x_1) {
+38: _start:
+39: {
+
+FILE .lake/build/ir/REWB/MaskedTraversalRepair.c
+SHA256 8ebcb1c3fd5b5403a220adcf1210b7ddefd68e49569d8fe6fe1408e923d10f7f
+33: LEAN_EXPORT lean_object* l_REWB_MaskedTraversalRepair_anchorsLoop(lean_object* x_1, lean_object* x_2, lean_object* x_3, lean_object* x_4) {
+34: _start:
+35: {
+36: if (lean_obj_tag(x_2) == 0)
+37: {
+38: lean_object* x_5; lean_object* x_6; lean_object* x_7;
+39: lean_dec(x_1);
+40: x_5 = lean_unsigned_to_nat(1u);
+41: x_6 = lean_nat_add(x_4, x_5);
+42: lean_dec(x_4);
+43: x_7 = lean_alloc_ctor(0, 2, 0);
+44: lean_ctor_set(x_7, 0, x_3);
+45: lean_ctor_set(x_7, 1, x_6);
+46: return x_7;
+47: }
+48: else
+49: {
+50: lean_object* x_8; lean_object* x_9; lean_object* x_10; lean_object* x_11; lean_object* x_12;
+51: x_8 = lean_ctor_get(x_2, 0);
+52: x_9 = lean_ctor_get(x_2, 1);
+53: lean_inc(x_1);
+54: x_10 = l_REWB_MaskedTraversalBankReady_resetAnchor(x_3, x_8, x_1);
+55: x_11 = lean_unsigned_to_nat(4u);
+56: x_12 = lean_nat_add(x_4, x_11);
+57: lean_dec(x_4);
+58: x_2 = x_9;
+59: x_3 = x_10;
+60: x_4 = x_12;
+61: goto _start;
+62: }
+63: }
+64: }
+171: lean_inc(x_9);
+172: lean_inc(x_8);
+173: lean_inc(x_7);
+174: lean_inc(x_6);
+175: lean_inc(x_5);
+176: lean_inc(x_4);
+177: x_34 = l_REWB_MaskedTraversalBankReady_write___rarg(x_1, x_2, x_3, x_4, x_5, x_6, x_7, x_8, x_9, x_10, x_11, x_32, x_12, x_13, x_14, x_15, x_16, x_17, x_19);
+178: x_35 = !lean_is_exclusive(x_34);
+179: if (x_35 == 0)
+180: {
+181: lean_object* x_36; lean_object* x_37; lean_object* x_38;
+182: x_36 = lean_ctor_get(x_34, 2);
+183: x_37 = lean_unsigned_to_nat(3u);
+184: x_38 = lean_nat_add(x_36, x_37);
+185: lean_dec(x_36);
+186: lean_ctor_set(x_34, 2, x_38);
+187: x_18 = x_33;
+188: x_19 = x_34;
+189: goto _start;
+190: }
+191: else
+192: {
+193: lean_object* x_40; lean_object* x_41; lean_object* x_42; lean_object* x_43; lean_object* x_44; lean_object* x_45; lean_object* x_46; lean_object* x_47;
+194: x_40 = lean_ctor_get(x_34, 0);
+195: x_41 = lean_ctor_get(x_34, 1);
+196: x_42 = lean_ctor_get(x_34, 2);
+197: x_43 = lean_ctor_get(x_34, 3);
+198: x_44 = lean_ctor_get(x_34, 4);
+199: lean_inc(x_44);
+
+FILE .lake/build/ir/REWB/MaskedTraversalBankReady.c
+SHA256 82e87805b2e86b6ab75e702d98896ba60794ed35a50fa36fde415d30ce9e37a0
+1244: LEAN_EXPORT lean_object* l_REWB_MaskedTraversalBankReady_write___rarg(lean_object* x_1, lean_object* x_2, lean_object* x_3, lean_object* x_4, lean_object* x_5, lean_object* x_6, lean_object* x_7, lean_object* x_8, lean_object* x_9, lean_object* x_10, lean_object* x_11, lean_object* x_12, lean_object* x_13, lean_object* x_14, lean_object* x_15, lean_object* x_16, lean_object* x_17, lean_object* x_18, lean_object* x_19) {
+1245: _start:
+1246: {
+1247: uint8_t x_20;
+1248: x_20 = !lean_is_exclusive(x_19);
+1249: if (x_20 == 0)
+1250: {
+1251: lean_object* x_21; lean_object* x_22; lean_object* x_23; lean_object* x_24; lean_object* x_25; lean_object* x_26; lean_object* x_27; lean_object* x_28; uint8_t x_29; lean_object* x_30; lean_object* x_31; lean_object* x_32; lean_object* x_33; lean_object* x_34; lean_object* x_35; lean_object* x_36;
+1252: x_21 = lean_ctor_get(x_19, 0);
+1253: x_22 = lean_ctor_get(x_19, 1);
+1254: x_23 = lean_ctor_get(x_19, 2);
+1255: x_24 = lean_ctor_get(x_19, 3);
+1256: x_25 = lean_ctor_get(x_19, 4);
+1257: lean_inc(x_21);
+1258: lean_inc(x_12);
+1259: x_26 = l_REWB_MaskedTraversalBankReady_compile___rarg(x_1, x_2, x_3, x_4, x_5, x_6, x_7, x_8, x_9, x_10, x_11, x_12, x_13, x_14, x_15, x_16, x_17, x_21, x_18);
+1260: x_27 = lean_ctor_get(x_26, 0);
+1261: lean_inc(x_27);
+1262: x_28 = lean_array_get_size(x_22);
+1263: x_29 = lean_nat_dec_lt(x_12, x_28);
+1264: lean_dec(x_28);
+1265: x_30 = lean_ctor_get(x_26, 1);
+1266: lean_inc(x_30);
+1267: lean_dec(x_26);
+1268: x_31 = lean_nat_add(x_23, x_30);
+1269: lean_dec(x_30);
+1270: lean_dec(x_23);
+1271: x_32 = lean_unsigned_to_nat(5u);
+1272: x_33 = lean_nat_add(x_31, x_32);
+1273: lean_dec(x_31);
+1274: x_34 = lean_unsigned_to_nat(1u);
+1275: x_35 = lean_nat_add(x_24, x_34);
+1276: lean_dec(x_24);
+1277: x_36 = lean_nat_add(x_25, x_34);
+1278: lean_dec(x_25);
+1279: if (x_29 == 0)
+1280: {
+1281: lean_dec(x_27);
+1282: lean_dec(x_12);
+1283: lean_ctor_set(x_19, 4, x_36);
+1284: lean_ctor_set(x_19, 3, x_35);
+1285: lean_ctor_set(x_19, 2, x_33);
+1286: return x_19;
+1287: }
+1288: else
+1289: {
+1290: lean_object* x_37;
+1291: x_37 = lean_array_fset(x_22, x_12, x_27);
+1292: lean_dec(x_12);
+1293: lean_ctor_set(x_19, 4, x_36);
+1294: lean_ctor_set(x_19, 3, x_35);
+1295: lean_ctor_set(x_19, 2, x_33);
+1296: lean_ctor_set(x_19, 1, x_37);
+1297: return x_19;
+1298: }
+1299: }
+1300: else

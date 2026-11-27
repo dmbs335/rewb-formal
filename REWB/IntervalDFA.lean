@@ -60,6 +60,34 @@ def countedPrefix (d : DFA α) : Fin d.stateCount → Word α → List (Fin d.st
     let rest := countedPrefix d (d.step q c) cs
     (q::rest.1,rest.2+1)
 
+/-- The accumulated states are reversed once after the final boundary.
+    The transition count is carried through the same tail traversal. -/
+def countedPrefixTR.go (d : DFA α) (q : Fin d.stateCount)
+    (acc : List (Fin d.stateCount)) (work : Nat) :
+    Word α → List (Fin d.stateCount) × Nat
+  | [] => ((q::acc).reverse,work)
+  | c::cs => go d (d.step q c) (q::acc) (work+1) cs
+
+theorem countedPrefixTR.go_spec (d : DFA α) (q : Fin d.stateCount)
+    (acc : List (Fin d.stateCount)) (work : Nat) (w : Word α) :
+    go d q acc work w=
+      (acc.reverse++(countedPrefix d q w).1,work+(countedPrefix d q w).2) := by
+  induction w generalizing q acc work with
+  | nil => simp [go,countedPrefix,List.reverse_cons]
+  | cons c cs ih =>
+    rw [go,ih]
+    simp only [countedPrefix,List.reverse_cons,List.append_assoc,List.singleton_append]
+    congr 1
+    omega
+
+def countedPrefixTR (d : DFA α) (q : Fin d.stateCount) (w : Word α) :
+    List (Fin d.stateCount) × Nat := countedPrefixTR.go d q [] 0 w
+
+@[csimp] theorem countedPrefix_eq_countedPrefixTR : @countedPrefix=@countedPrefixTR := by
+  funext α d q w
+  simp only [countedPrefixTR,countedPrefixTR.go_spec,List.reverse_nil,List.nil_append,
+    Nat.zero_add]
+
 theorem countedPrefix_spec (d : DFA α) (w : Word α) (q : Fin d.stateCount) :
     countedPrefix d q w = (MaskScan.prefixStates d q w,w.length) := by
   induction w generalizing q with

@@ -1,15 +1,33 @@
-=== rewb_nested_quadratic.py ===
-exit status: 124
+=== rewb_affine_rare_audit.py ===
+literal-chain relation cut checks: 8566
+seeded positive triple checks: 1200
+rare suffix family coverage checks: 22103
+transpose/shear bit comparisons: 95550
+packed affine interval comparisons: 2620
+triple reduction comparisons: 24000 ; YES cases: 89
 === rewb_boundary_index_audit.py ===
 fixed-source-end queries 6690 fixed-target-start queries 6513 separated endpoint bits 1081 boundary queries 4000 positive 209
-exit status: 0
+=== rewb_cluster_audit.py ===
+{'family_checks': 5796, 'shorter_length_checks': 969, 'mixed_clusters': 843, 'accepted': 488}
+{'compact_edges': 24630, 'stable_interval_checks': 38772, 'period_switch_checks': 0}
 === rewb_masked_cluster_audit.py ===
 masked cross-cluster families 7922 shortened 4422 positive 448 masked periodic cases 3500
-exit status: 0
-=== rewb_p1_periodic_audit.py ===
-{'short_cases': 420, 'short_positive': 80, 'periodic_cases': 423, 'periodic_positive': 61, 'nonempty_source_records': 678, 'short_target_records': 1081, 'long_target_records': 83}
-exit status: 0
-=== rewb_nested_quadratic.py (second run, 12-second limit) ===
+=== rewb_nested_quadratic.py ===
 nested comparisons: [2516, 2516] positive: [469, 419]
 outer columns: 8006 LCS entries: 82230 range products: 10000
-exit status: 0
+=== rewb_p1_periodic_audit.py ===
+{'short_cases': 420, 'short_positive': 80, 'periodic_cases': 423, 'periodic_positive': 61, 'nonempty_source_records': 678, 'short_target_records': 1081, 'long_target_records': 83}
+=== rewb_packed_audit.py ===
+{'family_coverage': 170944, 'outer_bits': 86123, 'marked_bits': 86123, 'long_pair_checks': 4109, 'positive_p1': 678, 'positive_p2': 211, 'transpose_checks': 500, 'shear_checks': 500}
+=== rewb_range_nested_audit.py ===
+border families / power checks: (3774, 264)
+range queries: 7431
+coverage: witnesses / nonoverlap / overlap / largegap / smallgap: (52482, 38304, 14178, 7804, 48908)
+factorization: nonoverlap tests / positive / fixed-start tests / positive: (2160, 49, 1075, 23)
+period phase and transition checks: 8556
+lazy boundary transformations: 3146
+=== rewb_recapture_audit.py ===
+run-local arithmetic cases: 5095
+cross-cluster transfer cases: 4418 (shortened: 2618 )
+all-start semantic simulations: 1100
+sequential recapture simulations: 420

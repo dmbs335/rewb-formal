@@ -1,0 +1,785 @@
+Running masked_reporting_smoke
+'REWB.MaskedReporting.report_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedReporting.report_calls' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedReporting.report_totalWork' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedReporting.reportMasked_exhausts' depends on axioms: [propext, Quot.sound]
+'REWB.MeasuredMaskQuery.query_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MeasuredMaskQuery.all_totalWork' depends on axioms: [propext, Quot.sound]
+'REWB.MeasuredMaskQuery.SharedTargetRegression.query_spec' depends on axioms: [propext, Quot.sound]
+'REWB.MeasuredMaskQuery.SharedTargetRegression.execution' depends on axioms: [propext]
+shared target: starts=[0, 1, 2], count=3, calls=9, queryWork=20, copies=7, total=36
+empty mask: starts=[], calls=1, queryWork=1, copies=0, total=2
+Running masked_event_smoke
+'REWB.MaskedEventBudget.lightVolume_bound' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.insert_edge_repair' depends on axioms: [propext]
+'REWB.MaskedEventBudget.build_strict' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.build_transfers' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.build_balance' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.records_bound' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.oneShot_bound' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.unaryRebuild_quadratic' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedEventBudget.sample_execution' does not depend on any axioms
+small-to-large: positions=[0, 1, 2, 3], transfers=4, fresh=5, retired=2, thresholds=10
+unary chain N=100: resetRecords=4950, persistentAdjacencies=99
+Running boundary_index_smoke
+cells=30000 build=1351320 recolor=28 insert=1592 query=460; retained versions passed
+cut n=512 buildProducts=10240 products=6 visits=24; exact windows passed
+merge positions=512, transfers=2304, steps=3644333; static text preserved
+Running lean_lce_index_smoke
+exhaustive binary words=127, endpoint pairs=4861, LCE and LCS checks passed
+large word n=4096, forward rows=14, backward rows=14
+tracked preparation work=18133870
+LCE(0,62)=(4034, 7), LCS(n,n-62)=(4034, 7)
+measured LCE(0,62)={ length := 4034, pairs := 7, levels := 13 }
+Running indexed_grid_smoke
+grid cases=189; direct extensions and 278 positive copy cover checks passed
+n=1024, stride=32, probes=33825, strips=8449
+preparation=3287378, measured query work=4173783
+Running lean_run_index_smoke
+exhaustive binary words=127, sampled schedules=769, soundness/coverage/dedup/reference/counter checks passed
+displacement=4, selected run={ lo := 0, hi := 12, period := 2 }, selector work=139
+unary n=256, stride=8, probes=8481, raw runs=3120
+queryWork=629056, periodWork=1564428, preparation=533022, divisorWork=4398
+deduplicated runs=1, dedup work=589680
+Running lean_p2_tail_smoke
+P2 phase rows=100000; equalityReads=0; projectionSteps=100000; eager counters preserved
+P2 empty-choice run rows=100000; all Work fields preserved; stack-safe traversals passed
+Running lean_context_smoke
+context text symbols=100000; prefix boundaries=100001; suffix rows=100001
+all prefix/suffix states verified; measured entries=400004; stack-safe shared construction passed
+Running lean_boundary_mixed_smoke
+totalMass=512 targets=256 list=256 transfers=1024 steps=1688236 target=true source=false static0=0 static1=1
+Running masked_finite_action_smoke
+'REWB.MaskedFiniteAction.View.reindex_product' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Counted.mul_steps' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.reindex_leaves' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.reindex_steps' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.replace_leaves' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.replace_steps' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.queryPrefix_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.querySuffix_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.queryRange_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Tree.queryRange_steps' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Maps.vectors_complete' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Maps.count_eq' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Maps.decode_encode' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedFiniteAction.Maps.rightAction_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedFiniteAction.Maps.localAnchor_shortening' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Regression.execution' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedFiniteAction.Regression.interval_order' depends on axioms: [propext, Quot.sound]
+finite universe: states=3, maps=27
+action tree: build=18, firstReindex=7, secondReindex=7, replace=20, prefix=5
+fresh replacement under old noninjective tags: index0=false, index2=true
+ordered interval products: entryChecks=768, mismatches=0
+Running masked_progression_smoke
+'REWB.MaskedProgression.build_correct' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.build_slots_exact' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.build_arithmetic_exact' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.grid_build_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedProgression.ap_build_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedProgression.ap_slots' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.ap_arithmetic' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.Regression.ap_eq_direct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedProgression.Regression.example_counts' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedProgression.Regression.endpoint_and_empty_queries' does not depend on any axioms
+stepped array: #[0, 1, 0, 1, 0, 0, 0, 2, 0, 2, 0], slots=38, arithmetic=93
+AP first={ answer := true, slots := 1, arithmetic := 36 }, subtract={ answer := true, slots := 2, arithmetic := 37 }, absent={ answer := false, slots := 1, arithmetic := 36 }
+direct-mask regression: masks=17, builds=6426, queries=3373650, hits=53560, mismatches=0
+query maxima: arraySlots=2, scalarArithmetic=37
+Running masked_cut_smoke
+joint cut audit: words=127, intervalQueries=18943, pairChecks=75772, rotations=642, mismatches=0
+noncommuting DFA-map audit: universe=4, constrainedTupleChecks=672, mismatches=0
+shared doubled-period batch: q=4096, outputs=4096, preparationProducts=114688, queryProducts=8192, visits=131074
+Running boundary_trie_smoke
+smallNodes=13 emptyAndDuplicateRecords=true prefixKeys=2049 nodes=4097 representedCharacters=2098176 work=5253292
+Running masked_run_discovery_smoke
+'REWB.MaskedRunDiscovery.dense_least' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunDiscovery.discover_dense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunDiscovery.discover_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedRunDiscovery.completed_class_generated' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunDiscovery.prepareSuffixes_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunDiscovery.discover_locus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedRunDiscovery.prepareSuffixes_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+n=512 suffixes=513 prepWork=1798605 classSize=253 run={ lo := 0, hi := 512, period := 2 } discoveryWork=190 equalDepthWork=2
+Running boundary_application_smoke
+auditedVersions=204 exactLocalQueries=true emptyAndTerminal=true totalMass=514 targets=257 nodes=1027 transfers=427 work=1817325
+Running masked_periodic_smoke
+'REWB.MaskedPeriodic.OrbitData.descriptor_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.projection_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Modulus.projection_compatible' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedPeriodic.projection_steps' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.queryBranch_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.interiorTuples_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.endingTuples_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.contexts_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.physical_positive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.phaseQuery_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Regression.projected_boundary_cases' depends on axioms: [propext, Quot.sound]
+preparing fixed-pattern modulus: states=2,1,2
+prepared pattern modulus: 2
+pattern preparation: 7043 ms
+case 1/1: answer=true, elapsed=17683 ms
+joint-cut/direct-factor regression: queries=1, hits=1, mismatches=0
+observed maxima: cut/range products=1, index visits=6, mask slots=2, mask-query scalar charge=225
+Compiler construction work is separate from the reported mask-query counters.
+preparing fixed-pattern modulus: states=2,1,1
+prepared pattern modulus: 2
+pattern preparation: 999 ms
+case 1/5: answer=true, elapsed=160 ms
+case 2/5: answer=true, elapsed=214 ms
+case 3/5: answer=false, elapsed=238 ms
+case 4/5: answer=false, elapsed=290 ms
+case 5/5: answer=false, elapsed=344 ms
+joint-cut/direct-factor regression: queries=5, hits=2, mismatches=0
+observed maxima: cut/range products=8, index visits=35, mask slots=12, mask-query scalar charge=829
+Compiler construction work is separate from the reported mask-query counters.
+preparing fixed-pattern modulus: states=1,1,2
+prepared pattern modulus: 2
+pattern preparation: 1057 ms
+case 1/5: answer=true, elapsed=276 ms
+case 2/5: answer=true, elapsed=348 ms
+case 3/5: answer=false, elapsed=389 ms
+case 4/5: answer=false, elapsed=486 ms
+case 5/5: answer=false, elapsed=599 ms
+joint-cut/direct-factor regression: queries=5, hits=2, mismatches=0
+observed maxima: cut/range products=8, index visits=35, mask slots=8, mask-query scalar charge=789
+Compiler construction work is separate from the reported mask-query counters.
+Running masked_ordered_smoke
+'REWB.MaskedOrdered.Tree.insert_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Tree.pred_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Tree.succ_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.insert_reference' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.insert_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedOrdered.merge_imports' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedOrdered.discarded_positions' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.merge_new_edge' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.execute_reference' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.run_work_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.run_balance' depends on axioms: [propext, Classical.choice, Quot.sound]
+positions=4096 capacity=1048576 height=20 imports=24576 fresh=41570 retired=37475 work=15786735 sparse40Work=413
+Running boundary_subset_smoke
+nodeRows=35 heterogeneousSubsetQueries=true allClosedCuts=true importWork=60060 subsetColors=4
+Running masked_periodic_text_smoke
+'REWB.MaskedPeriodic.Text.families_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.actual_equal_copies' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.query_run_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.query_full_run_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.Regression.indexed_real_text' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedPeriodic.Text.Regression.actual_ending_witness' depends on axioms: [propext]
+actual-text suite states=2,1,1; modulus=2
+pattern preparation: 945 ms
+actual-text queries=24, hits=10, suffix-mode differences=0, mismatches=0; execution=4092 ms
+observed query maxima: products=6, visits=52, mask slots=8, scalar charge=756
+The scalar charge includes fixed endpoint arithmetic; compiler construction and shared index preparation have separate ledgers.
+actual-text suite states=1,1,2; modulus=2
+pattern preparation: 1090 ms
+actual-text queries=24, hits=12, suffix-mode differences=2, mismatches=0; execution=5999 ms
+observed query maxima: products=6, visits=52, mask slots=8, scalar charge=796
+The scalar charge includes fixed endpoint arithmetic; compiler construction and shared index preparation have separate ledgers.
+Running masked_owner_enumeration_smoke
+'REWB.MaskedOrdered.Owner.location_owner_mem' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedOrdered.Owner.visit_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.visit_at_event' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.suffix_event_certified' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.probe_sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.collect_mem' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedOrdered.Owner.enumerateAuto_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.enumerateAuto_nodup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedOrdered.Owner.enumerateAuto_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+exhaustive binary texts=1023 maxLength=9 passed
+exhaustive ternary texts=1093 maxLength=6 passed
+equal-depth snapshots=19 staleWork=46 trueGapWork=110 passed
+periodic n=1024 period=1 nodes=2049 events=1024 work=5120344
+periodic n=2048 period=2 nodes=4097 events=4094 work=13417677
+periodic n=1536 period=3 nodes=3073 events=3580 work=9094365
+Running boundary_heavy_empty
+emptyHeavyNodes=3 emptyImports=1 emptyQuery=true emptyVisits=2
+Running boundary_heavy_smoke
+smallChecks=901 accepted=24 maxVisits=3
+fixedEndChecks=901 accepted=24 maxVisits=3 deepNodes=1027 deepImports=513 deepVisits=2 work=1741630 exactClosedCuts=true directHeadJumps=true
+Running masked_cluster_smoke
+'REWB.MaskedCluster.pairQuery_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.cell_words' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.cell_direct_first' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.certificate_onPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.cell_direct_certificate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.matrix_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.pointCell_direct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Regression.singleton_not_unary' does not depend on any axioms
+cluster matrices=15, cells=375, true cells=31, mismatches=0, elapsed=33 ms
+states C/E=2/2, K=2; maxima: context+tail products=8, visits=42, AP+matrix work=434
+Compiler construction and global update/report scheduling are not included in the AP+matrix counter.
+cluster matrices=15, cells=375, true cells=31, mismatches=0, elapsed=67 ms
+states C/E=2/2, K=2; maxima: context+tail products=8, visits=42, AP+matrix work=400
+Compiler construction and global update/report scheduling are not included in the AP+matrix counter.
+Running masked_periodic_batch_smoke
+periodic all-source batches=149 acceptedSources=46 mismatches=0 durationMs=25423
+Cases cover empty/truncated masks, source filtering, multiple runs, phase shifts and full-input suffixes.
+The measured query ledger retains finite-compiler construction exclusions.
+Running boundary_start_locate_smoke
+smallQueries=30720 checkedJumpCells=18144 maxQueryWork=36 duplicateTargets=lastWrite sources=unlabelled
+depthCutQueries=30733 deepNodes=16385 levels=15 buildWork=1474721 queryBound=96 rootPayload=(some 8192) exactPaths=true zeroRefinements=true
+Running boundary_start_smoke
+fixedStartSmallQueries=529 accepted=48 strictPartialCuts=114 maxQueryWork=195 closedEpsilon=true
+fixedStartQueries=535 deepNodes=1027 levels=11 buildWork=1392948 deepQueryWork=354 deepLocateWork=68 fullPipeline=true exactCuts=true
+Running masked_cluster_cursor_smoke
+'REWB.MaskedCluster.sourcePairQuery_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.rowCell_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.pointRowCell_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compileDense_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compilePoint_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.composeBlocks_denotes' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.compileDense_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compilePoint_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.composeBlocks_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.CursorRegression.target_outside_source_window' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'REWB.MaskedCluster.CursorRegression.incoming_passed_singleton' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+cursor C/E=2/2: blocks=72, cells=7200, true=792, mismatches=0, elapsed=242 ms
+counter maxima: dense preparation+AP+four matrices=2911, singleton preparation+four matrices=1055
+cursor C/E=2/2: blocks=72, cells=7200, true=840, mismatches=0, elapsed=234 ms
+counter maxima: dense preparation+AP+four matrices=2797, singleton preparation+four matrices=1055
+composed cursor C/E=2/2: products=16, cells=1600, true=104, mismatches=0, max flatten+multiply work=3302, elapsed=260 ms
+composed cursor C/E=2/2: products=16, cells=1600, true=124, mismatches=0, max flatten+multiply work=3302, elapsed=252 ms
+Counters include actual range preparation, AP queries, matrix writes, flattening and composition; finite-orbit/formula construction, immutable mask preparation, shared index construction and global scheduling are separate.
+Running masked_threshold_smoke
+threshold partitions=3410 duplicate-key and later-drain checks passed
+actual insertion generations=30 consumed=30 live=16 cancelled=14 work=8080
+large queue records=20000 height=20 insertWork=4900000 drainWork=4240002
+This verifies queue generation/draining/validation; compressed-edge query order and cluster repairs remain separate.
+Running masked_cluster_bank_smoke
+'REWB.MaskedCluster.ReplayMaps.common_shortening' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.tabulate_reindex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compileDenseBank_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compilePointBank_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compileDenseBank_reindex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compilePointBank_reindex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compileDenseBank_select_shorter' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compilePointBank_select_shorter' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compileDenseBank_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.compilePointBank_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.BankRegression.maps_noncommute' depends on axioms: [propext, Quot.sound]
+replay bank C/E=2/2, replay maps=16, source components=2
+physical selected cells=2400, action/product cells=9600, wrong-order witnesses=2, mismatches=0, elapsed=821 ms
+maximum tracked bank preparation=67507; root reindex work=65
+Masks are immutable; source deletion/repair and finite-compiler/pattern-catalog/action construction retain separate accounting.
+Running boundary_separated_smoke
+separatedEmpty=true
+separatedExhaustiveLength=0 builds=3
+separatedExhaustiveLength=1 builds=15
+separatedExhaustiveLength=2 builds=63
+separatedExhaustiveLength=3 builds=223
+separatedSmallBuilds=257 bits=1007 queries=1007 accepted=234 maxQueryWork=41 padding=837 distinctBoundaries=true noninjective=true
+separatedDeepLength=512 deepBits=513 deepQueries=8 buildWork=1043820 height=10 queryWork=37 exactSlices=true fullPipeline=true
+Running masked_cluster_cut_smoke
+'REWB.MaskedCluster.Cut.query_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Cut.query_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Cut.query_denseBank_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Cut.query_pointBank_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.CutRegression.separate_witnesses' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.CutRegression.rejects_mixed_cuts' depends on axioms: [propext, Classical.choice, Quot.sound]
+cut dense B/C/E=2/1/1: queries=20, hits=12, mismatches=0, elapsed=358 ms; max products=2, visits=12, tuples=16, component writes=1
+cut singleton B/C/E=1/1/2: queries=8, hits=3, mismatches=0, elapsed=227 ms; max products=3, visits=10, tuples=16, component writes=4
+joint B2/C1/E2 correlation: 256 stored tuple probes, separate witnesses=true, same-cut answer=false, elapsed=12 ms
+Production queries scan no copy lengths; finite-map encoding/monoid operations and global cluster/source-deletion scheduling retain separate accounting.
+Running masked_mutable_progression_smoke
+mutableBuilds=1261 erases=6305 memberQueries=71470 gridQueries=528570 apQueries=847392 maxGridWork=91 maxAPWork=121 exactWitnesses=true persistence=true shortMasks=true largeSteps=true
+mutableDeep step=1 length=4096 levels=26 capacity=67108864 populated=8205 buildWork=1122366 eraseWork=665600 maxGridWork=216 oldCount=4096 newCount=2048
+mutableDeep step=3 length=4096 levels=26 capacity=67108864 populated=8224 buildWork=1122366 eraseWork=665600 maxGridWork=214 oldCount=4096 newCount=2048
+mutableDeep step=1000000007 length=4096 levels=26 capacity=67108864 populated=57345 buildWork=1122366 eraseWork=665600 maxGridWork=214 oldCount=4096 newCount=2048
+Running masked_source_fanout_smoke
+source fanout texts=256, checked rows=2402, exact reverse addresses and one-shot deliveries passed
+unary n=2048 runs=1, memberships=2049, preparationWork=16398, delivered=2049, repeated requests=4098
+Fanout only constructs affected run IDs; mutable source indexes and cached-bank repairs are separately linked.
+Running masked_cluster_leaders_smoke
+leader streams=4682, checked steps=18069; direct dense-component and future-record references passed
+large n=4096, operations=4104, generated=16338, popped=16338, work=13482194, final leaders=4096
+This maintains leaders and thresholds; suffix-trie query order, local-anchor repair and compiled-bank repair remain separate.
+Running masked_cluster_mutable_smoke
+'REWB.MaskedCluster.Mutable.snapshot_erase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.sourcePairQuery_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.sourcePairQuery_log_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.cell_direct_first' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.pointCell_target_erase' depends on axioms: [propext]
+'REWB.MaskedCluster.Mutable.compileDenseBank_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compilePointBank_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compileDenseBank_reindex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compilePointBank_reindex' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.query_denseBank_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.query_pointBank_correct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compileDenseBank_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compilePointBank_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Regression.rebuilt_source_deleted_target_retained' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'REWB.MaskedCluster.Mutable.Regression.old_snapshot_remains' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Regression.terminal_source_member' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+mutable dense C/E=2/2: versions=7, erases=6, rebuilt banks=16, selected cells=8400, action cells=6400, member checks=112, mismatches=0, elapsed=1543 ms
+mutable dense maximum tracked bank preparation=72283; source tree height=8
+mutable singleton C/E=2/2: versions=5, erases=4, rebuilt banks=7, selected cells=2000, action cells=6400, member checks=48, mismatches=0, elapsed=352 ms
+mutable singleton maximum tracked bank preparation=83007; terminal n is tested for membership only
+mutable shared-cut B/C/E=2/1/1: versions=4, queries=28, hits=10, max tuple probes=16, mismatches=0, elapsed=563 ms
+Every current bank was explicitly rebuilt; source erase does not repair old cached banks. Fixed-pattern compiler/catalog/action construction and global repair selection remain separate.
+Running masked_mutable_batch_smoke
+mutableBatchPrepared=765 requests=14583 rowChecks=10992 runQueries=395712 delivered=2388 maxRuns=2 exactCurrentSources=true sharedEnumerator=true
+mutableBatchDeep n=512 runs=1 requests=1028 delivered=513 enumerationWork=2186085 sourcePreparationWork=223788 updateWork=277565 persistence=true repeatedRequests=true
+Running masked_cluster_mutable_batch_smoke
+'REWB.MaskedCluster.Mutable.Batch.compileRun_lookup' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileRun_missing' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.member_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.cursor_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.run_singleton_member' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileRun_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileSingleton_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileRun_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileSingleton_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+actual mutable batch -> banks: enumerated runs=1, chosen actual ID=0, versions=7, erase requests=6, rebuilt banks=14, physical cells=5600, member checks=91, rejected requests=14, mismatches=0, elapsed=1006 ms
+maximum tracked adapter work: dense=69452, singleton=92679; source memberships delivered once=5
+Target counts were prepared once. Every bank was explicitly rebuilt; global bank ownership/dirty-bank selection remains separate.
+Running masked_empty_smoke
+empty-capture scans=65984, brute boundary checks=446272, epsilon/positive-B, arbitrary/short masks and noninjective transitions passed (3230 ms)
+stack-safe backwards scan n=100000, answers=100001, work=10000100; terminal boundary retained, no mismatches
+Running masked_empty_batch_smoke
+empty-to-source batch builds=837, checked physical positions=5157, exact one-shot reports and all run/global source deletions passed
+unary n=512, reported=513, delivered=513, totalWork=2730498; targets were read independently
+Running masked_cluster_descriptor_smoke
+descriptorTraces=770 states=10779 queries=456081 maxLocateWork=75 maxLeaderWork=259 maxDescribeWork=331 allFields=true absentEndpoints=true thresholdSplits=true
+descriptorDeep occurrences=1024 height=20 densePeriod=2 denseRepetitions=1023 splitLeaders=1024 popped=2045 maxDescribeWork=995 persistence=true
+Running boundary_border_smoke
+border component calls=53112, physical membership checks=405880, AP bands=44092, exceptional points=4880, empty exceptions=4140, mismatches=0 (2297 ms)
+border n=4096, q=1, work=342, choice=REWB.BoundaryBorder.Choice.progression 0 1 0 2048; no period/residue scan in selector
+border n=4096, q=2, work=328, choice=REWB.BoundaryBorder.Choice.progression 0 2 0 2048; no period/residue scan in selector
+border n=4096, q=1024, work=202, choice=REWB.BoundaryBorder.Choice.progression 0 1024 0 2048; no period/residue scan in selector
+border n=4096, q=2048, work=188, choice=REWB.BoundaryBorder.Choice.progression 0 2048 0 2048; no period/residue scan in selector
+
+Running masked_suffix_class_smoke
+suffixClasses texts=511 queries=41983 interiorCuts=5934 maxQueryWork=37 firstThresholdIDs=true epsilon=true emptySuffix=true invalidCutoffs=true
+suffixClassDeep n=1024 period=1 nodes=2049 levels=12 work=4689200 queries=77 maxQueryWork=79 savedOccurrences=true
+suffixClassDeep n=512 period=3 nodes=1025 levels=11 work=2270389 queries=77 maxQueryWork=69 savedOccurrences=true
+
+Running masked_cluster_mutable_store_smoke
+'REWB.MaskedCluster.Mutable.compileDenseBank_same' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.compilePointBank_same' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Batch.compileRun_erase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.compile_presence_erase' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_other' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_coherent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.install_coherent' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_counts' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.compile_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_combined_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.describe_reset_geometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.eraseSource_geometry' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.Regression.inside_dense_hulls' depends on axioms: [propext]
+'REWB.MaskedCluster.Mutable.Store.Regression.nonoccurrence_no_bank_repair' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedCluster.Mutable.Store.Regression.other_cluster_shared' depends on axioms: [propext, Quot.sound]
+owned fixed-partition repair: occurrences=6, leaders=3, actual cubic runs=2, target preparations=2, erase requests=11, no-owner requests=4, bank repairs=7, slot writes=7, mismatches=0, elapsed=3243 ms
+stored/fresh replay cells=115200, chronological physical cells=7200, untouched-slot cells=83200, current member checks=300, tracked repair work=430687, actual source fanout deliveries=7
+Non-occurrences inside dense hulls were erased with zero bank repairs. Targets and complete occurrence/leader trees stayed fixed. Run-ID discovery and global traversal/frontier maintenance remain separate.
+
+Running boundary_border_window_smoke
+borderWindowLength=0 texts=1 queries=1 physical=4
+borderWindowLength=1 texts=3 queries=9 physical=76
+borderWindowLength=2 texts=7 queries=45 physical=508
+borderWindowLength=3 texts=15 queries=173 physical=3068
+borderWindowLength=4 texts=31 queries=573 physical=12668
+borderWindowLength=5 texts=63 queries=1725 physical=44924
+borderWindowLength=6 texts=127 queries=4861 physical=145276
+borderWindowLength=7 texts=255 queries=13053 physical=513916
+borderWindowTotal texts=255 queries=13053 rows=47305 physical=513916 points=3644 progressions=7446 empties=83520 windows=13274 windowChecks=88458 doubleComponents=4 maxWork=897
+borderWindowDeep n=1024 kind=0 buildWork=4689216 scales=11 queries=16 physical=196992 maxWork=7670 exactSlices=true
+borderWindowDeep n=1024 kind=1 buildWork=5218014 scales=11 queries=16 physical=196992 maxWork=7174 exactSlices=true
+borderWindowDeep n=1024 kind=2 buildWork=5534940 scales=11 queries=16 physical=196992 maxWork=7422 exactSlices=true
+
+real	0m17.053s
+user	0m17.083s
+sys	0m0.298s
+
+Running boundary_range_smoke
+boundary dispatch: mask builds=87023, physical mask checks=713711, DFA reversals=2555, joint gap checks=504, max mask work=336, mismatches=0 (7483 ms)
+far mask n=4096, g=0, bits=4097, work=167944; one shared K range index
+far mask n=4096, g=2048, bits=4097, work=126984; one shared K range index
+far mask n=4096, g=4096, bits=4097, work=53264; one shared K range index
+far mask n=4096, g=8192, bits=4097, work=53264; one shared K range index
+
+Running masked_traversal_edge_smoke
+'REWB.MaskedTraversalEdge.next_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.invariant_between' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.threshold_between' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalEdge.Chain.coverage' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.Chain.unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.Band.Valid.at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.run_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.run_occurrences' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalEdge.run_measured' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.run_work_queue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalEdge.Regression.parent_event_order' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalEdge.Regression.long_singleton' depends on axioms: [propext, Quot.sound]
+edge schedules=14592, literal length checks=66816, actual pops=35389, measured work=10380572, mismatches=0, elapsed=13745 ms
+Checked empty/singleton/dense occurrence sets, duplicate insertions, stale and born-due events, parent-depth events, equal-depth refinements, and a billion-long one-band edge. Bank/query callback work remains separate.
+
+Running boundary_border_regular_smoke
+borderRegularAlignment checks=45360 emptyWindows=true residueClipping=true
+borderRegularOrbits checks=1536 maxWork=4954 hugeExponent=100000000 independentWork=true
+borderRegular computing fixed two-state proof budget once
+borderRegular fixedTwoStateBudget=50094
+borderRegularLength n=0 texts=1 queries=4 accepted=0 maxWork=24
+borderRegularLength n=1 texts=3 queries=68 accepted=4 maxWork=254
+borderRegularLength n=2 texts=7 queries=500 accepted=35 maxWork=574
+borderRegularLength n=3 texts=15 queries=2548 accepted=195 maxWork=3612
+borderRegularLength n=4 texts=31 queries=10548 accepted=856 maxWork=5182
+borderRegularLength n=5 texts=47 queries=24372 accepted=2007 maxWork=5217
+borderRegularLength n=6 texts=63 queries=46324 accepted=3835 maxWork=5217
+borderRegularTotal texts=63 queries=46324 accepted=3835 rejected=42489 maxWork=5217 empty=true clipping=true noninjective=true
+borderRegularDeep n=512 period=1 queries=48 scales=10 maxWork=16734 fixedBudget=3125 exactSlices=true
+borderRegularDeep n=513 period=3 queries=48 scales=10 maxWork=12969 fixedBudget=3125 exactSlices=true
+
+Running boundary_range_near_smoke
+nearDependent slots=4096 work=36862 payloads=true
+nearExhaustive length=0 builds=2 queries=2
+nearExhaustive length=1 builds=14 queries=34
+nearExhaustive length=2 builds=62 queries=274
+nearTotal builds=71 queries=319 physicalComparisons=957 keyBits=175 separated=23 ends=10 starts=45 maxWork=1696
+nearDeep n=128 queries=645 keyBits=5 maxWork=9775 exactSlices=true
+
+real	1m8.484s
+user	1m8.486s
+sys	0m0.239s
+
+Running boundary_far_index_smoke
+farLeftProgress n=0 code=0 g=0 builds=1 queries=1
+farLeftProgress n=1 code=0 g=0 builds=2 queries=3
+farLeftProgress n=1 code=0 g=1 builds=3 queries=7
+farLeftProgress n=1 code=1 g=0 builds=4 queries=9
+farLeftProgress n=1 code=1 g=1 builds=5 queries=13
+farLeftProgress n=2 code=0 g=0 builds=6 queries=16
+farLeftProgress n=2 code=0 g=1 builds=7 queries=22
+farLeftProgress n=2 code=0 g=2 builds=8 queries=31
+farLeftProgress n=2 code=1 g=0 builds=9 queries=34
+farLeftProgress n=2 code=1 g=1 builds=10 queries=40
+farLeftProgress n=2 code=1 g=2 builds=11 queries=49
+farLeftProgress n=2 code=2 g=0 builds=12 queries=52
+farLeftProgress n=2 code=2 g=1 builds=13 queries=58
+farLeftProgress n=2 code=2 g=2 builds=14 queries=67
+farLeftProgress n=2 code=3 g=0 builds=15 queries=70
+farLeftProgress n=2 code=3 g=1 builds=16 queries=76
+farLeftProgress n=2 code=3 g=2 builds=17 queries=85
+farLeftProgress n=0 code=0 g=0 builds=18 queries=86
+farLeftProgress n=1 code=0 g=0 builds=19 queries=88
+farLeftProgress n=1 code=0 g=1 builds=20 queries=92
+farLeftProgress n=1 code=1 g=0 builds=21 queries=94
+farLeftProgress n=1 code=1 g=1 builds=22 queries=98
+farLeftProgress n=2 code=0 g=0 builds=23 queries=101
+farLeftProgress n=2 code=0 g=1 builds=24 queries=107
+farLeftProgress n=2 code=0 g=2 builds=25 queries=116
+farLeftProgress n=2 code=1 g=0 builds=26 queries=119
+farLeftProgress n=2 code=1 g=1 builds=27 queries=125
+farLeftProgress n=2 code=1 g=2 builds=28 queries=134
+farLeftProgress n=2 code=2 g=0 builds=29 queries=137
+farLeftProgress n=2 code=2 g=1 builds=30 queries=143
+farLeftProgress n=2 code=2 g=2 builds=31 queries=152
+farLeftProgress n=2 code=3 g=0 builds=32 queries=155
+farLeftProgress n=2 code=3 g=1 builds=33 queries=161
+farLeftProgress n=2 code=3 g=2 builds=34 queries=170
+farLeftProgress n=0 code=0 g=0 builds=35 queries=171
+farLeftProgress n=1 code=0 g=0 builds=36 queries=173
+farLeftProgress n=1 code=0 g=1 builds=37 queries=177
+farLeftProgress n=1 code=1 g=0 builds=38 queries=179
+farLeftProgress n=1 code=1 g=1 builds=39 queries=183
+farLeftProgress n=2 code=0 g=0 builds=40 queries=186
+farLeftProgress n=2 code=0 g=1 builds=41 queries=192
+farLeftProgress n=2 code=0 g=2 builds=42 queries=201
+farLeftProgress n=2 code=1 g=0 builds=43 queries=204
+farLeftProgress n=2 code=1 g=1 builds=44 queries=210
+farLeftProgress n=2 code=1 g=2 builds=45 queries=219
+farLeftProgress n=2 code=2 g=0 builds=46 queries=222
+farLeftProgress n=2 code=2 g=1 builds=47 queries=228
+farLeftProgress n=2 code=2 g=2 builds=48 queries=237
+farLeftProgress n=2 code=3 g=0 builds=49 queries=240
+farLeftProgress n=2 code=3 g=1 builds=50 queries=246
+farLeftProgress n=2 code=3 g=2 builds=51 queries=255
+farLeftProgress n=0 code=0 g=0 builds=52 queries=256
+farLeftProgress n=1 code=0 g=0 builds=53 queries=258
+farLeftProgress n=1 code=0 g=1 builds=54 queries=262
+farLeftProgress n=1 code=1 g=0 builds=55 queries=264
+farLeftProgress n=1 code=1 g=1 builds=56 queries=268
+farLeftProgress n=2 code=0 g=0 builds=57 queries=271
+farLeftProgress n=2 code=0 g=1 builds=58 queries=277
+farLeftProgress n=2 code=0 g=2 builds=59 queries=286
+farLeftProgress n=2 code=1 g=0 builds=60 queries=289
+farLeftProgress n=2 code=1 g=1 builds=61 queries=295
+farLeftProgress n=2 code=1 g=2 builds=62 queries=304
+farLeftProgress n=2 code=2 g=0 builds=63 queries=307
+farLeftProgress n=2 code=2 g=1 builds=64 queries=313
+farLeftProgress n=2 code=2 g=2 builds=65 queries=322
+farLeftProgress n=2 code=3 g=0 builds=66 queries=325
+farLeftProgress n=2 code=3 g=1 builds=67 queries=331
+farLeftProgress n=2 code=3 g=2 builds=68 queries=340
+farLeftProgress n=0 code=0 g=0 builds=69 queries=341
+farLeftProgress n=1 code=0 g=0 builds=70 queries=343
+farLeftProgress n=1 code=0 g=1 builds=71 queries=347
+farLeftProgress n=1 code=1 g=0 builds=72 queries=349
+farLeftProgress n=1 code=1 g=1 builds=73 queries=353
+farLeftProgress n=2 code=0 g=0 builds=74 queries=356
+farLeftProgress n=2 code=0 g=1 builds=75 queries=362
+farLeftProgress n=2 code=0 g=2 builds=76 queries=371
+farLeftProgress n=2 code=1 g=0 builds=77 queries=374
+farLeftProgress n=2 code=1 g=1 builds=78 queries=380
+farLeftProgress n=2 code=1 g=2 builds=79 queries=389
+farLeftProgress n=2 code=2 g=0 builds=80 queries=392
+farLeftProgress n=2 code=2 g=1 builds=81 queries=398
+farLeftProgress n=2 code=2 g=2 builds=82 queries=407
+farLeftProgress n=2 code=3 g=0 builds=83 queries=410
+farLeftProgress n=2 code=3 g=1 builds=84 queries=416
+farLeftProgress n=2 code=3 g=2 builds=85 queries=425
+far-left eager variant tables: builds=85, queries=425, accepted=85, maxQueryWork=76, mismatches=0 (22787 ms)
+far-left n=128, stored K rows=1, buildWork=294105, queries=8385, queryWork=120; factory used only in preparation
+Running masked_traversal_driver_smoke
+'REWB.MaskedTraversalFrontier.insert_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalFrontier.merge_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalFrontier.merge_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalFrontier.merge_measured' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_valid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.node_children_at_parent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_measured' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_imports' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.suffix_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_band_locus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.build_cover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.suffix_band_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.suffix_cover' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDriver.Regression.actual_suffix_coverage' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+deep traversal n=512, period=1, imports=512, bands=512, generated=1024, popped=1022, discarded=0, work=1264594
+deep traversal n=512, period=3, imports=851, bands=517, generated=2382, popped=1698, discarded=0, work=2012733
+actual suffix traversals=511, complete band/length classes=10080, unique source/length covers=14846, equal-depth skips=3133, light imports=4542, mismatches=0, elapsed=5685 ms
+Actual queue/leader/occurrence execution and full positive-length coverage checked. Bank preparation, local cached-bank repairs, and masked reporting costs are separate.
+Running masked_run_catalog_smoke
+runCatalogLength n=0 texts=1 runs=0 lookups=8 dense=0
+runCatalogLength n=1 texts=3 runs=0 lookups=62 dense=0
+runCatalogLength n=2 texts=7 runs=0 lookups=318 dense=0
+runCatalogLength n=3 texts=15 runs=2 lookups=1324 dense=4
+runCatalogLength n=4 texts=31 runs=8 lookups=4798 dense=22
+runCatalogLength n=5 texts=63 runs=24 lookups=15822 dense=80
+runCatalogLength n=6 texts=127 runs=66 lookups=15948 dense=246
+runCatalogLength n=7 texts=255 runs=168 lookups=16254 dense=246
+runCatalogTotal texts=255 runs=168 lookups=16254 counts=1132 aps=13608 dense=246 points=3164 maxLookup=113 maxDiscovery=171 exactIDs=true exactCounts=true
+runCatalogDeep n=1024 period=1 K=1 runs=1 cells=1025 catalogWork=13699 lookupWork=270 discoveryWork=491 shortTarget=true sourcePersistence=true
+runCatalogDeep n=513 period=3 K=1000000007 runs=1 cells=514 catalogWork=6002 lookupWork=249 discoveryWork=444 shortTarget=true sourcePersistence=true
+Running boundary_range_border_smoke
+borderIndexExhaustive length=0 builds=3 queries=3
+borderIndexExhaustive length=1 builds=9 queries=51
+borderIndexExhaustive length=2 builds=21 queries=411
+borderIndexTotal builds=23 copies=335 gaps=261 queries=571 accepted=30 maxWork=1037
+borderIndexAllFour queries=97 exactAt=true
+borderIndexDeep n=128 buildWork=390491 queries=16 maxWork=49173 exactSlices=true
+
+real	0m40.461s
+user	0m40.744s
+sys	0m0.239s
+Running residual_separated_smoke
+residualSeparated n=0 windows=5 p1=1 p2=1 runWindows=0
+residualSeparated n=1 windows=35 p1=9 p2=7 runWindows=0
+residualSeparated n=2 windows=165 p1=39 p2=35 runWindows=12
+residualSeparated n=3 windows=625 p1=143 p2=129 runWindows=56
+residualSeparated n=4 windows=2085 p1=472 p2=442 runWindows=204
+residualSeparatedComplete windows=2085 languageChecks=4170 runWindows=204 mismatches=0 elapsed=693ms; tests use independent bounded cut scans, not a fast query implementation
+Running residual_strip_schedule_smoke
+stripScheduleLength n=0 texts=1 schedules=27 jobs=0
+stripScheduleLength n=1 texts=3 schedules=81 jobs=0
+stripScheduleLength n=2 texts=7 schedules=189 jobs=6
+stripScheduleLength n=3 texts=15 schedules=405 jobs=36
+stripScheduleLength n=4 texts=31 schedules=837 jobs=170
+stripScheduleLength n=5 texts=63 schedules=1701 jobs=650
+stripScheduleLength n=6 texts=127 schedules=3429 jobs=2178
+stripScheduleTotal texts=127 schedules=3429 strips=2724 jobs=2178 copies=2428 storedCuts=3226 maxJobs=13 maxWork=4557 exactTriples=true
+stripScheduleDeep n=1024 period=1 s=16 L=32 D=128 strips=992 jobs=3841 cutProbes=4599 work=17979677 cachedCounts=true
+stripScheduleDeep n=513 period=3 s=17 L=33 D=1000 strips=160 jobs=75 cutProbes=85 work=4120807 cachedCounts=true
+Running masked_traversal_bank_ready_smoke
+'REWB.MaskedTraversalBankReady.prepare_dense_reset' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.compile_reset_present' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.anchorBounds_reset' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.previous_next' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.incoming_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.prepare_reset_geometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.prepare_work' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalBankReady.compile_reset_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.compile_reset_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalBankReady.write_selected' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalBankReady.write_other' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalBankReady.write_sources' depends on axioms: [propext, Quot.sound]
+mixed dense/singleton, full source window: occurrences=[0, 2, 4, 10, 12, 18], leaders=[0, 10, 18], catalog runs=2, { preparations := 36,
+  physicalCells := 7200,
+  replayCells := 124800,
+  incomingEnabled := 0,
+  dense := 24,
+  singleton := 12,
+  cleared := 1,
+  erases := 11,
+  work := 2525864 }
+mixed dense/singleton, one-source clipping: occurrences=[0, 2, 4, 10, 12, 18], leaders=[0, 10, 18], catalog runs=2, { preparations := 21,
+  physicalCells := 4200,
+  replayCells := 76800,
+  incomingEnabled := 0,
+  dense := 14,
+  singleton := 7,
+  cleared := 1,
+  erases := 6,
+  work := 1442462 }
+positive incoming overshoot: occurrences=[0, 3, 6], leaders=[0, 3, 6], catalog runs=1, { preparations := 18,
+  physicalCells := 3600,
+  replayCells := 67200,
+  incomingEnabled := 12,
+  dense := 0,
+  singleton := 18,
+  cleared := 1,
+  erases := 5,
+  work := 1633586 }
+unary dense endpoint: occurrences=[0, 1, 2, 3, 4, 5, 6], leaders=[0], catalog runs=1, { preparations := 8,
+  physicalCells := 1600,
+  replayCells := 28800,
+  incomingEnabled := 0,
+  dense := 8,
+  singleton := 0,
+  cleared := 1,
+  erases := 7,
+  work := 409040 }
+auto bank preparation: fixtures=4, preparations=83, physical cells=16600, replay cells=297600, erase requests=29, retired clears=4, mismatches=0, elapsed=6647 ms
+Actual catalog IDs, current erased-source rows, predecessor-derived incoming cursors and immutable target counts were used throughout. Global dirty-neighborhood completeness and lazy aggregate/frontier coherence remain separate.
+
+Current new continuation: completed individual compiled-path audits; unchanged successful 55-audit prefix retained above.
+
+Running one_use_range_border_smoke
+oneUseBorderPreparing fixed pattern budgets
+oneUseBorderCoefficient all=6771
+oneUseBorderCoefficient mixed=100709
+oneUseBorderExhaustive length=0 builds=3 points=48 regions=6
+oneUseBorderExhaustive length=1 builds=9 points=534 regions=114
+oneUseBorderExhaustive length=2 builds=21 points=3606 regions=978
+oneUseBorderExhaustive length=3 builds=45 points=18606 regions=5778
+oneUseBorderTotal builds=47 inners=375 points=23408 regions=7542 accepted=696 maxWork=21321
+oneUseBorderDeep n=256 buildWork=937999 queryWork=170347 answer=true exactSlices=true
+oneUseBorderDeep n=129 buildWork=392811 queryWork=294299 answer=true exactSlices=true
+
+real	0m11.833s
+user	0m11.823s
+sys	0m0.225s
+
+Running residual_dispatch_smoke
+residualDispatch n=0 schedules=4 selectors=0 languageChecks=30
+residualDispatch n=1 schedules=12 selectors=0 languageChecks=90
+residualDispatch n=2 schedules=28 selectors=18 languageChecks=210
+residualDispatch n=3 schedules=60 selectors=102 languageChecks=450
+residualDispatch n=4 schedules=124 selectors=402 languageChecks=930
+residualDispatch n=5 schedules=252 selectors=1288 languageChecks=930
+residualDispatch n=6 schedules=508 selectors=3802 languageChecks=930
+residualDispatchDeep n=512 period=1 runs=1 windows=7473 selectorWork=47377 totalWork=12947324
+residualDispatchDeep n=384 period=3 runs=9 windows=26143 selectorWork=1004364 totalWork=6292040
+residualDispatchComplete schedules=508 selectors=3802 languageChecks=930 nonshortP1=4 nonshortP2=31 mismatches=0 elapsed=12528ms; bounded query scans are audit references
+
+Running one_use_far_aggregate_smoke
+far aggregate small texts=127 builds=68580 queries=661104
+far aggregate deep n=200000 queries=200003 buildWork=3600013 queryWork≤4
+
+Running masked_traversal_dirty_smoke
+'REWB.MaskedTraversalDirty.markChange_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.importLoop_patches' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.merge_patches' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.patches_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.live_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalDirty.crossing_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalRepair.anchorsLoop_read' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalRepair.anchorsLoop_bounds' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalRepair.banksLoop_selected' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalRepair.banksLoop_budget' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalRepair.reset_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalRepair.reset_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+actual dirty provenance: insertion patches=18432, actual threshold crossings=11520, queue pops=35093, validated live records=35093, requested keys=282250, dedup keys=73937, unchanged outside-key descriptors=165679, changed descriptors captured=33361, mismatches=0, elapsed=12358 ms
+two-pass reset: n=22, complete occurrences=6, leaders=3, dedup reset keys=6, writes=6, physical cells=600, tracked work=211506, mismatches=0
+two-pass reset: n=10, complete occurrences=3, leaders=3, dedup reset keys=3, writes=3, physical cells=600, tracked work=270173, mismatches=0
+Dirty-set locality was tested exhaustively on bounded sets; its general theorem and global lazy aggregate/frontier coherence remain open. Reset correctness/cost and actual patch/live-record provenance are kernel checked.
+
+Running masked_traversal_context_smoke
+'REWB.MaskedTraversalContext.successors_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.pred_next' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.incoming_unchanged' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.prepare_some' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.compile_selected' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.runBacked_context' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.retained_geometry' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.store_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.compile_current' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.write_ready' depends on axioms: [propext, Quot.sound]
+'REWB.MaskedTraversalContext.compile_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalContext.applyLoop_work' depends on axioms: [propext, Classical.choice, Quot.sound]
+successor-only propagation: cases=20480, actual dedup successor keys=7968, unchanged incoming contexts=28128, mismatches=0, elapsed=1305 ms
+dense retained H, no cascade to next leader: H=8, L=7, occurrences=[0, 7, 10, 22], leaders=[0, 7, 22], reset keys=[0], successor keys=[7], retained dense=1, retained singleton=0, physical cells=200, untouched replay cells=6400, work=54490, mismatches=0
+singleton retained H, positive incoming: H=5, L=4, occurrences=[0, 3, 6], leaders=[0, 3, 6], reset keys=[0], successor keys=[3], retained dense=0, retained singleton=1, physical cells=200, untouched replay cells=6400, work=91533, mismatches=0
+adjacent simultaneous resets: H=5, L=4, occurrences=[0, 3, 6], leaders=[0, 3, 6], reset keys=[3, 0], successor keys=[3, 6], retained dense=0, retained singleton=1, physical cells=400, untouched replay cells=3200, work=184526, mismatches=0
+empty reset and refresh: H=5, L=5, occurrences=[0, 3, 6], leaders=[0, 3, 6], reset keys=[], successor keys=[], retained dense=0, retained singleton=0, physical cells=0, untouched replay cells=9600, work=1, mismatches=0
+All current-source physical checks passed. Own anchors and stored run IDs/counts were retained, and unrelated banks were unchanged. Structural dirty-set locality and whole traversal/aggregate coherence remain separate.
+
+Running one_use_range_cache_smoke
+oneUseCache fixture all-start rows are independently enumerated, not production preprocessing
+oneUseCacheExhaustive pattern=0 n=0 builds=3 queries=12
+oneUseCacheExhaustive pattern=0 n=1 builds=9 queries=66
+oneUseCacheExhaustive pattern=0 n=2 builds=21 queries=258
+oneUseCacheExhaustive pattern=0 n=3 builds=45 queries=858
+oneUseCacheExhaustive pattern=1 n=0 builds=48 queries=870
+oneUseCacheExhaustive pattern=1 n=1 builds=54 queries=924
+oneUseCacheExhaustive pattern=1 n=2 builds=66 queries=1116
+oneUseCacheExhaustive pattern=1 n=3 builds=90 queries=1716
+oneUseCacheExhaustive pattern=2 n=0 builds=93 queries=1728
+oneUseCacheExhaustive pattern=2 n=1 builds=99 queries=1782
+oneUseCacheExhaustive pattern=2 n=2 builds=111 queries=1974
+oneUseCacheExhaustive pattern=2 n=3 builds=135 queries=2574
+oneUseCacheExhaustive pattern=3 n=0 builds=138 queries=2586
+oneUseCacheExhaustive pattern=3 n=1 builds=144 queries=2640
+oneUseCacheExhaustive pattern=3 n=2 builds=156 queries=2832
+oneUseCacheExhaustive pattern=3 n=3 builds=180 queries=3432
+oneUseCacheTotal builds=181 queries=3457 accepted=346 farTarget=253 farSource=306 near=68 nearOnly=40 maxWork=4915
+oneUseCacheDeep n=128 width=8 slots=18 builds=1 queries=780 buildWork=505406 maxQueryWork=152403 exactCuts=true
+elapsed_seconds=45.223
+exit_code=0
+
+Running short_outer_band_smoke
+short outer band texts=127 builds=6900 queries=390078
+short outer band deep n=4096 L=32 keys=32 touches=261216 work=52704855
+
+Running masked_traversal_aggregate_smoke
+aggregateFixture point-length-band n=8 classes=3 members=3 queries=156 clippedQueries=60 positive=38 maxAggregate=4236 fullCutIndex=true sourceOnlyErases=true
+aggregateFixture dense-and-point n=22 classes=3 members=6 queries=192 clippedQueries=96 positive=100 maxAggregate=42673 fullCutIndex=true sourceOnlyErases=true
+aggregateFixture overshoot n=10 classes=3 members=3 queries=117 clippedQueries=45 positive=14 maxAggregate=4236 fullCutIndex=true sourceOnlyErases=true
+aggregateFixture stored-common-length-rejection n=5 classes=2 members=2 queries=18 clippedQueries=0 positive=0 maxAggregate=24169 fullCutIndex=false sourceOnlyErases=true
+aggregateComplete queries=483 positive=152 mismatches=0 elapsed=20996ms
+Independent references enumerate ordered copies in different actual clusters, including source windows cutting inside dense clusters. The J=16 correlation test scans actual-word stored tuples; the complete shared-index path is tested with smaller universes. Global geometry-repair coherence remains separate.
+
+Running masked_traversal_neighbor_smoke
+'REWB.MaskedTraversalNeighbor.around_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.around_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.describe_insert_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.add_describe_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.describe_additions_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.shorten_describe_away' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.crossing_describe_unmarked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.importLoop_describe_unmarked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.merge_describe_unmarked' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.add_anchorBoundsAway' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.crossing_anchorBoundsAway' depends on axioms: [propext, Classical.choice, Quot.sound]
+'REWB.MaskedTraversalNeighbor.merge_anchorBoundsAway' depends on axioms: [propext, Classical.choice, Quot.sound]
+actual pending-anchor Driver: texts=255, complete bands=1930, imports=1860, queue pops=2392, requested dirty keys=26799, complete-band reset keys=3480, safe unmarked clusters=9686, retained H-copy checks=10386, equal-depth skips=1437, mismatches=0, elapsed=1650 ms
+deep n=128/q=1: bands=128, imports=128, pops=254, reset keys=381, H-copy checks=24766, equal-depth skips=129, mismatches=0
+deep n=128/q=3: bands=132, imports=210, pops=418, reset keys=585, H-copy checks=8674, equal-depth skips=129, mismatches=0
+Insertion, validated threshold and heavy-merge descriptor locality plus pending anchor-bound transport are kernel proved. This execution also tests retained H-copy/overlap invariants; their full global bank/aggregate coherence proof remains separate.
+
+Evidence total: 64 completed compiled-path audits; no optional interrupted stress run is counted.

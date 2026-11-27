@@ -8,7 +8,7 @@ permissions:
 jobs:
   lean:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
       - name: Install pinned Lean toolchain
@@ -16,8 +16,46 @@ jobs:
           curl --fail --silent --show-error --location https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/elan-init.sh
           sh /tmp/elan-init.sh -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache@v4
+        with:
+          path: .lake/build
+          key: ${{ runner.os }}-lean-4-19-full-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-lean-4-19-full-
+            ${{ runner.os }}-lean-4-19-recovery-finite-initial-
+            ${{ runner.os }}-lean-4-19-recovery-initial-and-join-
       - name: Build and check theorem dependencies
         run: bash scripts/check.sh
+      - name: Execute checked word-RAM instruction programs
+        run: timeout 60s lake env lean --run audits/word_ram_smoke.lean
+  index-audits:
+    needs: lean
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Lean toolchain
+        run: |
+          curl --fail --silent --show-error --location https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/elan-init.sh
+          sh /tmp/elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache/restore@v4
+        id: compiled
+        with:
+          path: .lake/build
+          key: ${{ runner.os }}-lean-4-19-full-${{ github.sha }}
+      - name: Rebuild if the exact kernel cache is unavailable
+        if: steps.compiled.outputs.cache-hit != 'true'
+        run: bash scripts/check.sh
+      - name: Exercise compiled index and reporting paths
+        env:
+          REWB_AUDIT_SHARDS: 3
+          REWB_AUDIT_SHARD: ${{ matrix.shard }}
+        run: bash scripts/index-audit.sh
   reference-audits:
     runs-on: ubuntu-latest
     timeout-minutes: 20

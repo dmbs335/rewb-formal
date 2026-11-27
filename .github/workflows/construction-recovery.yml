@@ -1,0 +1,175 @@
+name: Construction checks
+on:
+  push:
+    branches:
+      - formalization/construction-recovery-20261125
+      - main
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  recovered-kernel:
+    name: Construction (${{ matrix.group }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - group: initial-and-join
+            targets: REWB.MaskedAllStartFullCostInitial REWB.PeriodicActualJoinCost
+            audit: audits/recovery_root_axioms.lean
+          - group: periodic-actual
+            targets: REWB.PeriodicActualPrepareCost REWB.PeriodicActualP2Cost
+            audit: audits/recovery_periodic_axioms.lean
+          - group: finite-cut
+            targets: REWB.PeriodicConstructionCutRegression
+            audit: audits/periodic_cut_construction_axioms.lean
+          - group: finite-initial
+            targets: REWB.MaskedAllStartFullCost
+            audit: audits/recovery_finite_initial_axioms.lean
+          - group: full-executor
+            targets: REWB.MaskedAllStartFullCostExecute
+            audit: audits/recovery_execution_axioms.lean
+          - group: periodic-branch
+            targets: REWB.PeriodicActualBranchCost
+            audit: audits/periodic_actual_branch_cost_axioms.lean
+          - group: periodic-residual
+            targets: REWB.ResidualActualPeriodicCost
+            audit: audits/residual_actual_periodic_cost_axioms.lean
+          - group: full-rows
+            targets: REWB.MaskedAllStartFullCostRowsRegression
+            audit: audits/recovery_full_rows_axioms.lean
+          - group: periodic-cache
+            targets: REWB.PeriodicConstructionCacheRegression
+            audit: audits/periodic_cache_construction_axioms.lean
+          - group: full-matcher
+            targets: REWB.ResidualActualFullCostMatcherCost
+            audit: audits/residual_actual_full_cost_matcher_axioms.lean
+          - group: periodic-runs
+            targets: REWB.PeriodicConstructionRunsCost
+            audit: audits/periodic_runs_construction_axioms.lean
+          - group: periodic-keys
+            targets: REWB.PeriodicConstructionKeysCost
+            audit: audits/periodic_keys_construction_axioms.lean
+          - group: full-periodic-p2
+            targets: REWB.PeriodicActualFullCostP2Cost
+            audit: audits/periodic_actual_full_cost_p2_axioms.lean
+          - group: full-periodic-prepare
+            targets: REWB.PeriodicActualFullCostPrepareCost
+            audit: audits/periodic_actual_full_cost_prepare_axioms.lean
+          - group: full-periodic-branch
+            targets: REWB.PeriodicActualFullCostBranchCost
+            audit: audits/periodic_actual_full_cost_branch_axioms.lean
+          - group: periodic-diagnostics
+            targets: REWB.PeriodicActualBranch
+            audit: audits/periodic_actual_branch_axioms.lean
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Lean toolchain
+        run: |
+          curl --fail --silent --show-error --location https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/elan-init.sh
+          sh /tmp/elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - uses: actions/cache/restore@v4
+        with:
+          path: .lake/build
+          key: ${{ runner.os }}-lean-4-19-recovery-${{ matrix.group }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-lean-4-19-recovery-${{ matrix.group }}-
+            ${{ runner.os }}-lean-4-19-recovery-initial-and-join-
+      - name: Reject incomplete proof constructs
+        run: |
+          if grep -nE '\b(sorry|admit|sorryAx|native_decide)\b|^[[:space:]]*(axiom|constant)[[:space:]]' REWB.lean REWB/*.lean; then
+            echo 'Untrusted or incomplete proof construct detected.' >&2
+            exit 1
+          fi
+      - name: Build recovered sources
+        run: lake build ${{ matrix.targets }}
+      - name: Audit recovered theorem dependencies
+        run: |
+          set -euo pipefail
+          lake env lean ${{ matrix.audit }} | tee /tmp/recovery-axioms.log
+          python3 scripts/check-principal-axioms.py ${{ matrix.audit }} /tmp/recovery-axioms.log
+          if grep -q sorryAx /tmp/recovery-axioms.log; then
+            echo 'Unexpected proof dependency.' >&2
+            exit 1
+          fi
+      - name: Compare actual chronological join execution
+        if: matrix.group == 'initial-and-join'
+        run: lake env lean --run audits/periodic_actual_join_smoke.lean
+      - name: Audit actual periodic branch value theorems
+        if: matrix.group == 'periodic-branch'
+        run: lake env lean audits/periodic_actual_branch_axioms.lean
+      - name: Compare measured finite cut execution
+        if: matrix.group == 'finite-cut'
+        run: lake env lean --run audits/periodic_cut_construction_smoke.lean
+      - name: Optional full positive periodic runtime diagnostic
+        if: matrix.group == 'periodic-branch' && github.event_name == 'workflow_dispatch'
+        run: timeout 300s lake env lean --run audits/periodic_actual_smoke.lean
+      - name: Audit actual periodic residual value theorems
+        if: matrix.group == 'periodic-residual'
+        run: lake env lean audits/residual_actual_periodic_axioms.lean
+      - name: Inspect full-cost execution generated code
+        if: matrix.group == 'full-executor'
+        run: python3 audits/masked_full_cost_execution_codegen.py
+      - name: Compare actual measured public solver
+        if: matrix.group == 'finite-initial'
+        run: timeout 300s lake env lean --run audits/masked_full_cost_solve_smoke.lean
+      - name: Audit full construction dispatcher and independent path
+        if: matrix.group == 'full-matcher'
+        run: |
+          lake env lean audits/residual_actual_full_cost_dispatch_axioms.lean
+          lake env lean audits/residual_actual_full_cost_independent_axioms.lean
+      - name: Compare actual compiled-form composition
+        if: matrix.group == 'full-matcher'
+        run: bash audits/run_full_matcher_composite.sh regular
+      - name: Compare actual measured row factories
+        if: matrix.group == 'full-rows'
+        run: timeout 180s lake env lean --run audits/masked_full_cost_rows_smoke.lean
+      - name: Inspect measured row generated code
+        if: matrix.group == 'full-rows'
+        run: python3 audits/masked_full_cost_rows_codegen.py
+      - name: Compare actual periodic cache construction
+        if: matrix.group == 'periodic-cache'
+        run: timeout 180s lake env lean --run audits/periodic_cache_construction_smoke.lean
+      - name: Compare actual run enumeration construction
+        if: matrix.group == 'periodic-runs'
+        run: timeout 180s lake env lean --run audits/periodic_runs_construction_smoke.lean
+      - name: Audit measured periodic event folds
+        if: matrix.group == 'full-periodic-prepare'
+        run: lake env lean audits/periodic_actual_full_cost_events_axioms.lean
+      - name: Compare actual key construction
+        if: matrix.group == 'periodic-keys'
+        run: timeout 120s lake env lean --run audits/periodic_keys_construction_smoke.lean
+      - name: Isolate actual positive P2 diagnostic
+        if: always() && matrix.group == 'periodic-branch' && github.event_name == 'workflow_dispatch'
+        run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean p2
+      - name: Isolate actual positive P1 projection diagnostic
+        if: always() && matrix.group == 'periodic-branch' && github.event_name == 'workflow_dispatch'
+        run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean projection
+      - name: Isolate actual long preparation and join diagnostic
+        if: always() && matrix.group == 'periodic-diagnostics' && github.event_name == 'workflow_dispatch'
+        run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean long
+      - name: Isolate actual short preparation and join diagnostic
+        if: always() && matrix.group == 'periodic-diagnostics' && github.event_name == 'workflow_dispatch'
+        run: timeout 120s lake env lean --run audits/periodic_actual_diagnostic.lean short
+      - name: Compare actual fully constructed periodic branches
+        if: matrix.group == 'full-periodic-branch'
+        run: timeout 120s lake env lean --run audits/periodic_actual_full_cost_smoke.lean
+      # These are resource observations, not passing regression claims.
+      # Preserve failing statuses in their logs and keep the mandatory
+      # compiled-form probe above strict.
+      - name: Optional normalization resource diagnostic
+        if: always() && matrix.group == 'full-matcher' && github.event_name == 'workflow_dispatch'
+        run: bash audits/run_full_matcher_composite.sh normalize
+      - name: Optional independent-row resource diagnostic
+        if: always() && matrix.group == 'full-matcher' && github.event_name == 'workflow_dispatch'
+        run: bash audits/run_full_matcher_composite.sh independent-stages
+      - name: Save compiled recovery dependencies
+        if: always() && !cancelled()
+        uses: actions/cache/save@v4
+        with:
+          path: .lake/build
+          key: ${{ runner.os }}-lean-4-19-recovery-${{ matrix.group }}-${{ github.sha }}

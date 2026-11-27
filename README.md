@@ -1,70 +1,193 @@
 # REWB Formal
 
-Lean 4 formalization and reproducibility repository for a proposed strongly subquadratic algorithm for fixed-pattern, dynamically 2-use, single-register regular expressions with backreferences.
+Lean 4 formalization of fixed-pattern, dynamically at-most-two-use, single-register regular expressions with backreferences.
 
-**Research in progress. The headline complexity bound is not a kernel-verified theorem.** This public repository records proof attempts, reference audits, and precise unresolved obligations. No novelty, priority or optimality is asserted.
+**The construction-refined six-form matcher is correct, and its actual returned operation ledger satisfies the soft-O(n^(25/13)) target.** Measured initialization, repair/reporting, row generation, periodic caches, keys, run enumeration, formula/event construction, and joins are installed in the final execution path. The theorem uses the explicit primitive-operation model described below; a full machine-cost preservation theorem is outside its scope.
 
-## Research question
+## Semantics and target
 
-For a fixed expression over a fixed finite alphabet, with at most two executed references on each successful trace, decide whether a word of length n is accepted. The register stores the most recently closed capture; starting another capture does not clear it. Nested captures include recalled text, and the initial register is empty. This is a theoretical semantics, not a claim about all regex engines.
+The register stores the most recently closed capture. Opening a capture preserves its previous value; nested captures include recalled text; the initial register is empty. A successful trace executes at most two references. This is a precisely defined theoretical semantics, rather than a specification of a particular regex engine.
 
-| Shape | Candidate upper bound |
+For a fixed expression over a fixed finite alphabet, the research target is soft-O(n^(25/13)) decision time. The P1 target is soft-O(n^(19/10)); the P2 target is soft-O(n^(25/13)). `FullMatcher` remains the semantic reference. `ResidualActual.FullCost.Matcher` has the exact source-language contract and target bound for the construction-refined returned ledger. Its API takes a fallback letter in `Fin σ`, so the public entry point assumes a nonempty finite alphabet; empty input words are included.
+
+## What is proved
+
+### Arbitrary expressions: complete compilation and decision
+
+`CompleteNormalization.normalization` constructs a finite list of concrete DFA normal forms and proves exact language preservation for every source expression. DFA closure, marker-boundary factorization, control-shape classification, unused captures, and initial empty references are included. There is no supplied normal-form or DFA-existence premise.
+
+`FullMatcher.compile_correct` and `FullMatcher.correctMatcher` prove the original `Spec.CorrectMatcher` contract for an actual executable matcher. Compile the fixed pattern once with `FullMatcher.compile`, then reuse `FullMatcher.run` on input words. This correctness result does not establish a subquadratic bound. Pattern preprocessing can be very large.
+
+### Constructed matcher and its accounted-work target
+
+The primary entry point is `REWB.ResidualActual.FullCost.Matcher`. Compile a fixed source expression once with `compile`, then reuse `run` on materialized texts. The convenience functions `solve` and `matchWord` also expose the original expression directly.
+
+`Matcher.correctMatcher` proves, for every input word,
+
+```lean
+matchWord p fallback w = true ↔ MatchesWithin p w 2
+```
+
+No ready-row, answer, split, frontier-invariant, exhaustion, or cost oracle is an input to that public contract. The six actual execution paths are:
+
+| Normal form | Actual path |
 | --- | --- |
-| Independent captures | soft-O(n) |
-| P1: A(B)x C(D\\x F)x G\\x H | soft-O(n^(19/10)) |
-| P2: A(B(C)x D\\x F)x G\\x H | soft-O(n^(25/13)) |
-| Fixed 2-use 1-REWB | soft-O(n^(25/13)) |
+| `regular` | Direct DFA execution |
+| `once` | `FullCost.P2.auto` on the proved one-use reduction |
+| `sameValue` | `FullCost.P1.auto` on the proved same-value reduction |
+| `independent` | Two measured all-start rows, a regular-gap aggregate, and an endpoint scan |
+| `nested1` | `FullCost.P1.auto` |
+| `nested2` | `FullCost.P2.auto` |
 
-Soft-O hides polylogarithmic factors. Constants depend on the fixed pattern.
+`MaskedAllStart.FullCost.solve` constructs and executes the suffix plan from the pattern, text, and independent source/target masks. Its first result component equals the complete previous result, including answers, history, state, and counters. Its second component records the new actual construction work. Measured finite-cut tables, initialization, bank compilation, repair, reporting, source erasure, and collection are used by the executed plan.
 
-## Layout
+`FullCost.Rows` materializes the prefix, forward, backward, far, and boundary rows once. Their literal value equalities transfer the existing Ready contracts to the actual retained tables. `ResidualActual.FullCost.P1/P2.inputs` and `Cached` connect those tables to actual residual schedules. The installed periodic branch additionally executes measured Cache, Runs, Keys, Events, projection, and chronological-join constructors. Old implementations occur as proof comparison targets; they are not rerun to recover an answer or budget.
 
-- REWB/Core.lean: DFA composition and transition preimages.
-- REWB/Semantics.lean: event traces, nested capture stack, dynamic use count.
-- REWB/NormalForms.lean: exact four fixed forms and conditional supplier interval classification.
-- REWB/Reductions.lean: disjoint identical-region reduction.
-- REWB/Cost.lean: exponent arithmetic only.
-- REWB/Specifications.lean: open matcher, normalization and index contracts.
-- REWB/Reference.lean: executable split-enumeration reference matchers and correctness statements.
-- REWB/MarkedDP.lean: marked-end absorption and single-switch dynamic programming.
-- REWB/TraceFacts.lean: balance and dynamic-use invariants for arbitrary traces.
-- REWB/OuterColumn.lean, REWB/NestedColumns.lean: common-suffix transport and exact nested endpoint reductions.
-- REWB/RangeProducts.lean, REWB/MarkedTransfer.lean, REWB/MatrixTable.lean: executable ordered range products and materialized Boolean transition relations.
-- REWB/DyadicIndex.lean: arbitrary interval index with logarithmic routing, at most one monoid multiplication, and checked construction counts.
-- REWB/LCSTable.lean: quadratic-space common-suffix table with checked comparison count and clipped maximum.
-- REWB/IndexedMarked.lean: P2 indexed query, conditional on its First2 mask.
-- REWB/OrderedExit.lean, REWB/P1Index.lean: P1 two-range indexed query, conditional on its Ready mask.
-- REWB/MaskScan.lean: materialized forward and backward DFA scans, with correctness of Ready and First2 given correct input masks.
-- REWB/IntervalDFA.lean, REWB/SeedBuckets.lean, REWB/OuterTables.lean: executable LCS-derived outer seeds and complete Outer/Ready tables.
-- REWB/Integrated.lean: complete executable P1 and P2 decisions with unconditional correctness against MatchesWithin.
-- REWB/EndpointCounts.lean: instrumented endpoint loops with verified quadratic candidate-test bounds.
-- REWB/FlatIndex.lean, REWB/Microblock.lean, REWB/BlockIndex.lean, REWB/BlockMatcher.lean: direct-addressed range products and complete nested matchers with checked correctness.
-- REWB/LiveCapture.lean, REWB/PrunedSkeletons.lean, REWB/LiveLanguage.lean, REWB/LiveCompiler.lean, REWB/CodeInterpretation.lean: exact dead-capture elimination and regular marked-code compilation with at most 3k retained markers.
-- REWB/Periodic.lean, REWB/PeriodicFactor.lean: Fine–Wilf, maximal equality regions, phase block and DFA transfer compression.
-- REWB/FiniteOrbit.lean: executable finite-state cycle search and ultimately periodic exponent sets.
-- REWB/ClusterGeometry.lean, REWB/PeriodicCoordinates.lean: dense occurrence gaps, long-factor phase alignment, quotient/phase coordinates, and regular factor descriptors.
-- REWB/PeriodicSystem.lean: joint regular/equality constraints over shared periodic endpoints (check current CI).
-- REWB/Tests.lean: regression examples and theorem dependency reports.
-- audits/: nine Python reference audits.
-- docs/PROOF_MAP.md: proof obligations and dependency map.
+The principal combined theorem is:
+
+```text
+REWB.ResidualActual.FullCost.Matcher.Cost.correctMatcher_with_accounting
+```
+
+It pairs `Spec.CorrectMatcher` with `Spec.Target25Over13` for `Cost.wordWork`, including actual row/periodic construction, word-array materialization, and any fixed charge per counted action build. For each fixed expression and charge it produces a coefficient uniform in the input length, contents, and fallback letter. Writing `H(n) = Nat.log2(n+2)+1` and `t = ThresholdBudget.base n`, it proves
+
+```text
+work <= C_P * t^75 * H(n)^3
+n+2 <= t^39 <= 2^39 * (n+2)
+work^13 <= C'_P * (n+2)^25 * H(n)^39.
+```
+
+Thus the target has logarithmic exponent 39. The coefficient is a proof bound, not a family enumerated by the runtime matcher.
+
+The matching ledger distinguishes fixed-pattern preprocessing from text processing. `compile` is reusable; the convenience `solve` calls it, but the returned text ledger does not separately meter normalization. Scalar arithmetic, DFA transitions, indexing, and the documented primitive LCM calls retain their declared unit costs. This is not a bit-operation, allocator, reference-count, garbage-collector, or general generated-C cost theorem. Some safe upper bounds deliberately count overlapping work.
+
+Detailed contracts and evidence are in [the final matcher audit](docs/FULL_MATCHER_CONSTRUCTION.md), [the all-start/row execution audit](docs/FULL_CONSTRUCTION_EXECUTION.md), and [the periodic construction audit](docs/PERIODIC_CONSTRUCTION_AUDIT.md).
+
+### Earlier component milestones
+
+The following component notes retain the local scope of their original milestones. Statements that work was pending describe those checkpoints; the current construction-refined contract above and the three integration audits supersede their end-to-end status. They remain useful references for the individual geometric, indexing, and invariant results.
+
+#### Generated periodic branches
+
+- `SmallPeriodRuns` constructs all maximal runs with least period at most Q, without taking a run list or an LCE oracle as input. It proves exact membership, uniqueness, and an O(nQ^3) comparison count.
+- `RunBudget` proves total run mass at most `2*n*(Nat.log2 n+1)` by injectively charging primitive-square occurrences. `PeriodicBudgets` derives cubic-run phase budgets.
+- `BoundaryContexts`, `PeriodicCache`, and `PhaseEqualityCache` materialize exterior DFA states, periodic transfers, and short equality tests. They avoid rescanning the text prefix, suffix, or period word at every phase.
+- `ExactKeys` implements a deterministic finite-alphabet trie with stable collision-free ranks, shared per-run phase arrays, and polynomially bounded integer join keys.
+- `SmallPeriodP2` constructs and evaluates the five-phase branch. It is sound for all generated candidates and complete for its stated cubic-run, long-outer witness class. Its actual projection/decision counter is at most `C_P * Q^4 * (2*n*heightFor n)`.
+- `P1Events` constructs actual cached source and target events and runs the chronological DFA-gap join. `SmallPeriodP1.solve_sound` proves unconditional soundness. `solve_complete_long` proves completeness for long inner sources. `P1ShortBranch` handles arbitrary earlier short sources with full-word trie keys. `P1Cubic` and `CountedP1Cubic` combine both branches, proving completeness for the entire stated cubic-run, long-outer target class without an inner-length restriction. The long-branch source and target counts are at most `3*Q*mass` and `3*Q^3*mass`, where `mass = 2*n*heightFor n`.
+- `CountedProjection` instruments the structural work inside integer projection. `PhaseMagnitude` and `P1Magnitude` bound every projection stage's affine constants by `C_P*(n+2)`, hence O(log(n+2)) bits for a fixed pattern.
+- `CountedSort` and `CountedJoin` measure stable sorting inside the actual chronological join. `ActualModulus` computes an LCM from emitted formulas, keeping finite-family proof envelopes out of the executable path.
+- `ThresholdBudget.ledger_target` verifies integer-rounded thresholds and the exponent of the explicit numeric phase ledger. It does not establish a matcher running time.
+- `PeriodicAccounting.measured_target` now applies the target exponent to the sum of the **actual returned counters** of both cubic P1 paths and the P2 phase matcher. Formula assembly and a complete machine-cost semantics remain separate.
+- `ArrayText` supplies a materialized-array input adapter with defined out-of-range reads, and transfers P2 correctness and measured bounds to finite input words.
+
+#### Concrete global indexing and coverage
+
+`RankIndex` constructs exact rank-doubling arrays by binary-trie interning. `LCEIndex` and `LCEIndexArray` implement logarithmic LCE/LCS queries, including finite-word correctness and counters for the actual descent. `IndexedGrid` uses one shared forward/reverse preparation and covers every outer-copy pair of length at least the grid stride.
+
+`RankIndexDivisors`, `RankIndexPeriod` and `RankIndexRuns` enumerate sampled runs of **all periods**. A minimum-period test checks only precomputed divisors of the equality-strip displacement, using an indexed LCE for each. `RunDedup` removes duplicate run triples with a fixed-width binary trie; it never scans the growing output list. `RankIndexSchedule` proves validity, uniqueness, long-run coverage and the actual low-start/large-period schedule bounds. These operations do not scan the total lengths of arbitrary runs.
+
+`IndexedGlobalCoverage.p1_cover` and `p2_cover` start from the original matching semantics. Each match is accepted by the implemented small-period branch or enters a residual class with membership in the **actual generated** strip/run schedule. `ResidualSeparatedP1/P2` now reduce separated outer windows to exact boundary/one-use range predicates; complete residual query execution remains to be connected. `RankIndexScheduleAccounting.measured_target` proves the target exponent for the index preparation, divisor, query, probe and deduplication counters, at the integer-rounded stride.
+
+#### Persistent boundary and masked-index components
+
+`BoundaryIndex` materializes finite DFA-state/color tables. Its persistent balanced tree supports arbitrary noninjective color maps, earlier-prefix queries, insertion and replacement. The counted small-to-large merge schedule imports only the light child's listed endpoints and shares one prepared static text tree. Boundary-cut and fixed-end modules include exact endpoint and reversed-label semantics; no inverse DFA transition is assumed.
+
+`BoundaryIndexMixed` includes silent source leaves when selecting the heavy child, while importing only target endpoints. It proves the total-mass light-path bound and the corresponding transfer/operation bounds. This removes the mismatch between target-only merging and a trie containing both sources and targets.
+
+`BoundaryTrie` now constructs the compressed descriptor trie itself. It prepares one exact rank index, sorts bounded substring descriptors using measured LCE comparisons, and partitions sorted intervals with measured binary search. Input records, paths and LCA/LCP depths are exact; the tree has at most `2*N` nodes and costs `O(n polylog n + N log N log n)` in the stated counter model. Empty, duplicate and proper-prefix keys use zero-length refinement edges. `BoundaryTrieLocus` selects the first depth threshold and proves it represents the entire matching prefix class; arbitrary binary refinement nodes are not treated as complete occurrence sets.
+
+`BoundaryApplication.FixedEnd.build` now constructs the actual reversed source/target descriptors, shared DFA range maps, mixed trie program and every saved node version. The n+2 records include both empty terminals. Exact local right-boundary queries handle empty and terminal E intervals; their cost includes the explicit terminal-path lookup. Materialized node R tables and heterogeneous D-state to A-subset imports are also exact, using shared cut queries and preimage edge propagation. `BoundaryApplication.HeavyIndex` now also constructs cached heavy-path subset versions, direct source addresses and head jumps. Its query visits at most `log2(n+2)+1` saved entries and has an explicit polylogarithmic work bound. `query_route_iff` connects those jumps to a genuine source route. `Coverage.query_iff_cuts` now closes complete source/target coverage: the actual builder/query is equivalent to the ordinary repeated-slice and A/B/D/E acceptance predicate, including empty captures. The C gap to the fixed split and full boundary-aware range assembly remain outer integration work.
+
+`BoundaryApplication.StartIndex` now constructs the complete fixed-second-copy-start primitive. Its actual query is equivalent to the repeated-slice and A/B/C/E predicate under only endpoint bounds. Cached target addresses and parent-doubling rows select one compressed-edge cutoff, including strict interior cuts and epsilon endpoints. Complete construction has an explicit `O_P(n log² n)` tracked bound and each query an `O_P(log n)` bound.
+
+`BoundaryApplication.Separated` now constructs the separated-endpoint primitive as well. Its reversed trie, C-filtered source rows, shared B cut summaries, D preimages and E endpoint aggregate are all internal constructions. The query has the exact original-slice A/B/C/D/E predicate, with independent source/target boundaries and empty endpoints included. Full construction has an `O_P(n log² n)` tracked bound and each E query an `O_P(log n)` bound. The same-block positive-copy primitive and four of the six boundary regions are connected below; the remaining far-right masked path and complete block assembly are still required.
+
+`BoundaryBorder.select` now solves the equality part on one periodic source component using at most three actual measured LCE queries. If the first copy ends within the component's right periodic extension, the answer is a clipped AP; if it passes the first period break, there is at most one possible source, which is checked by LCE. `select_from_seed` needs only one prefix equality at the first source and derives all other AP seed equalities from the measured period extension. Work is at most `39*(log2 n+1)+34`, with no length/phase/residue enumeration. `BoundaryBorder.Window` now extracts the complete short-window occurrence set as at most two AP components from the actual suffix index. `Dyadic` covers all positive lengths with logarithmically many windows. `BoundaryBorder.Regular.dyadic_correct` attaches the actual A/B/E filters using shared ranges, finite orbits and counted integer projection, without enumerating the represented lengths. Its full returned query work is at most `(2*fixedBudget(A,B,E)+521)*(log2(n+1)+1)^2`; finite formula construction is included. Empty captures remain a separate case.
+
+`MaskedReporting` proves exact output-sensitive reporting, including failed existence queries and output copying. Its source deletions preserve the supplied target mask. `MaskedEventBudget` verifies small-to-large endpoint transfers and bounds the creation and retirement of local density/overlap threshold records; the bound requires one-shot event processing. These components are not yet the complete arbitrary-mask index.
+
+`MaskedFiniteAction` and its persistent tree implement vectors of finite-state matrix summaries with lazy noninjective precomposition. `MaskedFiniteActionMaps` constructs the full finite DFA-map universe of size `m^m` and proves the common-prefix shortening action for different local anchors. The vector size depends only on the DFA, not the input length or a run period. The cluster compiler below now supplies actual source-filtered two-mode cursor blocks. `MaskedClusterBank` now tabulates those real blocks over the exact paired replay-map universe, with separate source-enabled/disabled components. Its common-prefix reindexing equals actual shorter-copy compilation, including different local anchors and noninjective transitions. Dynamic cluster maintenance remains open.
+
+`MaskedFiniteActionRange` adds ordered suffix and general interval products using at most two boundary paths, preserving lazy maps and fresh replacements. `MaskedProgression` builds an immutable-mask stepped prefix array in at most `13*len` tracked operations. Its exact clipped AP/residue query reads at most two array cells and charges at most 39 combined operations, without requiring a periodic mask.
+
+`MaskedCut` stores attainable prefix/suffix transformations from one common cut. One shared doubled-period index serves all rotations in `O_P(q log q)` indexed work, without enumerating rotation/cut pairs. Constrained tuples retain a B prefix, a C suffix to the period end and an E suffix to the run-end residue from the same cut; a lower cut bound handles positive remainders and empty positive windows.
+
+`MaskedPeriodic.phaseQuery_correct` connects the three arithmetic cases to actual shared range maps, joint positive-cut tuples, finite-orbit projection and the immutable-mask AP array. The pattern modulus is prepared once using LCM. `MaskedPeriodic.Text.query_full_run_correct` now connects that actual query to real capture/gap/full-input suffix factors and equal copies inside an actual run, at arbitrary source phase. The run tail comes from one shared range query. `MaskedPeriodic.Batch.solve` now builds the shared index, enumerates all cubic runs, prepares one target-mask array per run, queries every eligible source and unions the answers. Its output is exactly the within-run witness class, with unconditional soundness for `Spec.maskedStart`; source and target masks remain distinct. Total source visits and prefix-array lengths are at most `6*n*(log2 n+1)`. Finite compiler-construction accounting remains separate from the proved query ledger.
+
+`MaskedOrdered` supplies a sparse persistent position tree with cached counts and extrema. Membership, strict neighbors and insertion have logarithmic height bounds. Its actual bottom-up schedule retains the heavier cached-count state and imports only maintained light positions; work is at most `h+1+40*N*(log2 N+1)*(h+1)`, and fresh/retired event counts and balance are proved. The owner-based cubic-run enumeration now uses these actual sets and emitted events. `MaskedThresholdQueue` implements a persistent maximum queue, exact descending threshold draining and no replay without reinsertion. `MaskedThresholdEvents` creates only fresh-adjacency records and filters stale pairs against the actual current occurrence tree. These local operations have logarithmic bounds per generated/consumed record; compressed-edge processing order and dynamic cluster repair remain separate.
+
+`MaskedRunDiscovery` constructs an actual suffix descriptor trie and shares forward/reverse ranks. A surviving dense adjacency of a complete prefix class yields a valid cubic run with its actual minimum period after two indexed extension queries. First-coexistence and fresh-generation theorems connect the pair to the concrete merge trace. `MaskedRunCoverage.actual_suffix_coverage` now recovers every valid cubic run at the actual LCA-depth complete class. `MaskedRunTrieBridge` compiles the actual suffix trie to a distinct-position binary merge schedule in linear tracked work. `MaskedOrdered.Owner.enumerateAuto` now executes that construction: it saves completed owner snapshots, validates every fresh pair at its first equal-depth owner, extends surviving minimum-period pairs and removes exact duplicate triples. `enumerateAuto_mem` characterizes its output as exactly all valid cubic runs. Its complete returned work is at most `(32*(sigma+2)+800)*(n+1)*(log2(n+1)+1)^2`, including rank/trie preparation, events, queries and deduplication.
+
+`MaskedLocalAnchor` proves reset cursor safety from complete unmasked occurrence classes, including singleton/end-of-text cases, preserves certificates while overlap mode is unchanged, and derives the primitive-square certificate for density splits. The dynamic reset policy and injective charging along its actual execution remain open. `MaskedClusterStage` constructs the waiting/C/E finite machine and proves local anchor-tail replay equals the actual copy skip; two jumps have exactly the C-gap/E-suffix meaning. `MaskedCluster` materializes exact dense-cluster and nonperiodic singleton matrices, source-only interval clipping, no-jump paths, normal/overshoot cursor blocks and chronological block composition. Targets outside the source reporting window remain eligible.
+
+`MaskedCluster.Cut` now selects one actual copy length for the B prefix and C/E replay suffix together. It scans each stored joint tuple once; a kernel regression rejects an invalid combination whose separate B and E witnesses use different lengths. `MaskedCluster.Mutable` compiles the same complete finite banks from a persistent, erasable source index and immutable target counts. Shortening and shared-cut correctness hold for each actual current source snapshot. The Batch adapter obtains the source tree and period by actual run-ID lookup, with exact original-mask-minus-deletion-history semantics. `MaskedCluster.Mutable.Store` now locates and recompiles the one owned bank affected by an actual source deletion. Nonoccurrences inside a dense hull cause no bank repair, all other stored banks are shared, and targets remain unchanged. Correctness and the combined source-update/repair work are proved for a fixed cluster partition; changes of cluster geometry still need the global repair policy.
+
+`MaskedMutableProgression` uses sparse residue-major keys bounded by `(len+1)^2`, even for a very large step. It implements logarithmic physical source deletion and exact clipped AP queries without scanning residues or mask cells. `MaskedSourceFanout.prepare` enumerates actual cubic runs once and materializes reverse source-to-run addresses. Each address is delivered at most once, with at most `6*n*(log2 n+1)` deliveries over every deletion history. `MaskedMutableProgression.Batch` follows those addresses, updates only the affected run rows plus the global singleton-source tree, and preserves all previous persistent versions. Its complete preparation/update ledger includes the actual run enumeration.
+
+`MaskedClusterLeaders.execute` now maintains the exact starts of dense components of the full occurrence set through actual insertions and monotone length reductions. Inserting a position repairs only it and its strict successor; every new leader caused by shortening is justified by a live record actually retained in the queue. The full operation-stream work is at most `h+1+(305*h+416)*operations.length`. This is not yet the suffix-trie traversal or the constant-radius anchor/bank repair policy.
+
+`MaskedClusterDescriptor.describe` uses only cached tree membership and neighbor queries to obtain the containing cluster, its first/last starts, period, AP extent and relevant neighbors. For a complete unmasked class, it derives the exact AP and local reset certificate internally; singleton and terminal cases are included. Query work is at most `50*h+50`. `MaskedSuffixClass` now constructs the actual complete class through cached first-threshold lookup and a direct owner-array read, including interior compressed-edge cuts and equal-depth refinements. Query work is at most `6*(log2(n+1)+1)+15`. Temporary partial merge states still carry no periodicity claim.
+
+`MaskedTraversalEdge` now executes the actual descending event queue between child and parent depths. Its query bands cover each intervening positive length exactly once; the number of bands is at most actual popped records plus one. Parent-depth events are consumed in the correct order and equal-depth refinement edges emit no query. A billion-long singleton edge uses one band, zero pops and work 42. Bank preparation and query callbacks are outside this scheduler's proved cost.
+
+`BoundaryRange` partitions the original `Spec.boundaryRange` predicate into six exact cases. The near separated/end/start cases now use eager finite variant tables and at most a quadratic short-block scan; `NearIndex.queryThree_correct` proves their exact disjunction. `FarLeft.query_correct` connects the first far case to one cached K-state row and a fixed C-state scan. Their queries call no text-index builders. The other far case is reduced to reversed masked all-start instances with actual constructed target masks; its complete fast execution remains pending. `NearIndex.Border` now implements the fourth near case using one cached common-gap DFA variant and the positive dyadic border selector, plus a separate empty-capture branch. `NearIndex.Full.query_iff` assembles all four near cases exactly. Its scan ranges only over the two short-block endpoints.
+
+`MaskedTraversalDriver` now performs the entire actual suffix-trie traversal. Each child is lowered to the parent depth before merging; the heavier frontier retains its queue, only listed light positions are imported, and discarded queues are counted. The complete driver has an explicit geometric `O(n log² n)` work bound. `suffix_band_complete` identifies every emitted band with the full occurrence class; `suffix_exactly_once` proves that every real positive start/length pair belongs to exactly one band. `MaskedTraversalDriver.suffix_charges_budget` derives the `2*n*(log2 n+1)` density budget from local one-shot emission and genuine adjacency at the assigned doubled-period band. The actual repair events still need that local attribution proof.
+
+`MaskedRunCatalog` builds an explicit-ID binary trie and immutable target counts in one fold over the existing run batch. Dense bank setup reuses the same run array and modulus; it neither re-enumerates runs nor scans them to recover IDs. `MaskedTraversalBankReady.compile_reset_current` connects actual descriptor discovery, catalog selection and predecessor-derived incoming cursors to the literal current-source-history cursor relation. It includes dense and singleton banks, resets `H=L`, and retains an explicit neighbor-anchor invariant. Two-pass dirty-bank reset and retained-anchor successor refresh are now implemented. The complete changing-partition invariant and aggregate/reporting coherence remain open.
+
+`ResidualSeparatedP1/P2` now give exact finite-state reductions for an actual separated equality window. P1 preserves an earlier first source outside the window; P2 uses `Spec.oneUseRange` to enforce the first-source lower bound. `ResidualRunWindows` constructs bounded windows from the actual low-start and large-period run entries. `ResidualStripSchedule` deduplicates actual maximal equality strips, emits one window for a separated strip and local grid windows for an overlapping strip, and proves coverage. Its query count is at most `2*n²/D + 3*(n²/L)`; its span charging applies to equality strips, without summing arbitrary run spans. These are concrete schedules and exact query reductions; their complete fast query evaluation remains separate.
+
+`MaskedTraversalDirty/Repair` marks actual insertion patches and validated live threshold records, deduplicates their bounded neighborhoods and resets all selected anchors before rebuilding any bank. `MaskedTraversalContext` refreshes only the actual successors of reset leaders, retains their own anchors/run IDs/target counts, and proves unchanged incoming metadata elsewhere. `store_current` gives literal current-source transitions for retained anchors `H >= L`, with the actual run-array provenance and local certificates explicit.
+
+`MaskedTraversalNeighbor` now proves complete descriptor locality for actual insertion, live-threshold processing and heavy-side import accumulation. Outside the actual deduplicated dirty set, descriptors are unchanged and the pending `AnchorBoundsAway` condition propagates through those operations. Retained anchored-word and overlap certificates still require the global preservation proof.
+
+`MaskedTraversalAggregate` maintains a persistent product of actual replay banks, shares one identity template, refreshes only supplied slots and supports uniform shortening. `queryBand_correct` selects a single common length for the entire bank path and the B prefix. `store_shorter_current` identifies a replay cell of the real stored compiler with the physical transition at that shorter length. `queryWindow` recompiles at most two actual boundary banks and performs at most one shared-cut query. `plan_selection` proves exact physical-position clipping even inside dense clusters. `MaskedTraversalComplete.queryWindow_iff` now closes ordered cross-cluster soundness and completeness under the actual maintained frontier invariant; the full execution invariant remains the next obligation.
+
+`OneUseRange.Border` supplies the actual fourth/near region for the source-lower-bounded predicate, using common-gap states and shared short-window indexes. `OneUseRange.Cache` combines this with forward/reverse far aggregates and proves exact `Spec.oneUseRange` under an explicit finite all-start-row `Ready` condition. Cached queries perform no text reversal or index construction. The pending all-start row solver is still required; a supplied row is not counted as a proved fast implementation.
+
+`ResidualDispatch` now assembles the actual strip and sampled-run schedules once and proves the exact P1/P2 disjunction of the implemented periodic branch, a short-outer witness, and a concrete bounded boundary/one-use query. `ShortOuter.Band` constructs the short-outer equality/G-gap/H-suffix table without a witness oracle: exact keys and chronological DFA rows cost `O_P(n*L^2 + n*L*log n + n*log n)`, and each table query has eight tracked operations. The remaining nested matching joins must consume that table.
+
+`MaskedEmpty.solve` handles zero-length captures for every source boundary in one backwards scan with materialized C/E state vectors, including the terminal boundary and arbitrary short masks. Its exact returned work is `(12*C.states+6*E.states+64)*(n+1)`. `MaskedEmpty.SourceBatch.start` reports those sources once, erases them from the actual mutable run/global indexes and proves that every remaining masked witness has positive capture length. That initialization includes one run enumeration and has an `O_P(n log² n)` tracked bound. It removes the need to force the terminal empty occurrence into a positive-length cluster certificate.
+
+#### Actual reporting, repair and positive-witness coverage
+
+`MaskedTraversalComplete` proves that the concrete window query is equivalent to an original-slice masked witness whose copies belong to different clusters, at one common length in the band. It handles normal/overshoot paths, skipped targets and immutable target marks. `MaskedTraversalPeriodicCoverage` proves that every same-cluster witness is handled by the actual enumerated periodic batch; no periodic-case oracle is supplied.
+
+`MaskedTraversalAggregate.Reporting` now invokes the real existence query, reports every eligible source and erases those sources from the real mutable store. Its exact answers, post-report exhaustion and output-sensitive work include failed queries, output copies, current-length bank repairs and the one-shot source-fanout potential. `Collect` writes the actual answer bitmap and proves its history remains duplicate free, with at most n+1 outputs. Suspended disjoint frontiers retain their banks, incoming metadata and pending repairs across another subtree's actual erases and resets.
+
+`MaskedTraversalRepairCoherence` implements the complete local reset, successor-context refresh and sparse aggregate updates. It proves coherent compiled banks, complete actual leader coverage and linked predecessor metadata from a pending frontier. Snapshot theorems use the real current source history and immutable run catalog. Lazy shortening and live crossings preserve the pending model; overlap crossings that require reset are explicitly covered by a negative regression.
+
+`MaskedTraversalInitial.start` unions the actual empty-capture and periodic answers, constructs the output bitmap/history and removes those sources once. `MaskedTraversalPositiveCoverage.surviving_band` assigns every remaining original witness to an actual emitted complete-class band after any later source deletions. Its exhaustion-to-answer theorem identifies the exact remaining semantic obligation. `MaskedTraversalExecute` now runs child/child/merge/edge processing, actual repair, reporting, source deletion, replay shortening and live-event marking. Its compiled audit agrees with independent original-cut enumeration on 24 fixtures. Universal whole-plan preservation and exhaustion are now proved by the `MaskedTraversalExecute` invariant/effect/plan modules. Its actual reported, delivered, action-build and accounted-work bounds are composed by the `MaskedTraversalExecute.Cost` family.
+
+The [proof ledger](docs/PROOF_MAP.md) records exact scopes, new modules, and remaining obligations. Earlier milestone notes are preserved in [the historical ledger](docs/PROOF_HISTORY.md).
 
 ## Reproduce
 
-Pinned toolchain: leanprover/lean4:v4.19.0. No Mathlib dependency.
+Pinned toolchain: `leanprover/lean4:v4.19.0`. No Mathlib dependency.
 
 ```sh
 bash scripts/check.sh
 bash scripts/audit.sh
+bash scripts/index-audit.sh
+bash scripts/construction-audit.sh
 ```
 
-The complete nested-form matchers and endpoint-test bounds passed Lean 4.19 kernel checks and all nine Python reference audits at PR #6 (Actions run 45401399876). Their correctness theorems do not require externally supplied masks. PR #7 additionally verifies direct-addressed block range queries and both blocked matchers. PR #8 verifies the regular marked-code compiler, but the final finite union of DFA normal forms is still an obligation. The periodic core through PeriodicCoordinates passed CI at 624c2c4c407258d25499b8ca6c3ccc878fcf7418 (run 45410262387). A full machine-level cost proof, general normalization into the concrete normal forms, the global run and boundary indexes, Presburger projection, and the headline exponent remain open. No unresolved proof placeholders or custom axioms should be used to bypass the proof obligations. Python audits are independent finite tests; they do not validate the claimed asymptotic bounds.
+The main gate imports every production module and checks exactly 3,310 distinct selected principal reports against the allowlist `propext`, `Classical.choice`, `Quot.sound`. It also rejects incomplete proofs, custom assumptions, and native-evaluation proof shortcuts. The legacy 83-probe inventory is unchanged; CI partitions it into three shards. The nine Python reference audits remain separate. The new checked word-RAM probe executes arithmetic, linked-list copying and a connected LCM fold through the independently defined instruction interpreter.
 
-## Next milestones
+The unified code checkpoint `8614bf808df5bbb5f73bd629951f01617923fa6c` passed **772 build targets and all 3,017 principal reports**: 54 need no axioms and 2,963 use only the permitted standard axioms. See [its kernel job](https://github.com/dmbs335/rewb-formal/actions/runs/45601488688/job/139161244767). This continuation adds 78 Lean source modules and 674 distinct selected reports to the previous 694-target/2,343-report checkpoint. The [execution](docs/FULL_CONSTRUCTION_EXECUTION.md) and [periodic](docs/PERIODIC_CONSTRUCTION_AUDIT.md) audits identify exact successful jobs for the new component probes and generated-code checks. The final PR description records the published head and its CI status.
 
-1. Complete the machine-level cost proof for the verified blocked matchers.
-2. Convert the verified regular marked-code syntax to finite DFA factor languages and finish the normal-form coverage theorem.
-3. Use the verified periodic geometry and exponent descriptors to build the actual small-period P1/P2 solvers; prove joint integer projection, source/target joins, and run-count bounds.
-4. Verify the masked all-start and boundary-aware indexes, including dynamic cluster maintenance and amortization.
-5. Combine correctness, coverage, and actual cost inequalities into the final theorem.
+The earlier exact head `0f4ef4` passed its remote kernel and Python steps, but its serial runtime gate reached the 40-minute job limit. It is not recorded as a complete remote CI pass. The unchanged 83 probes subsequently passed all three shards at `8260ac2` ([run](https://github.com/dmbs335/rewb-formal/actions/runs/45596285777)) and again at the unified `8614bf8` checkpoint ([run](https://github.com/dmbs335/rewb-formal/actions/runs/45601488688)); later checkpoints are recorded separately.
 
-See [the proof ledger](docs/PROOF_MAP.md).
+## Cost model and remaining work
+
+The measured construction substitution is installed through the final six-form matcher in the stated primitive-operation model. No external answer, row, split, or complexity witness is supplied to the executable matcher. The public cost theorem is a bound for its concrete returned ledger.
+
+A concrete word-RAM refinement is now under construction. The 24 new modules prove an explicit instruction machine, checked finite-word arithmetic, a connected LCM fold, linked-list reverse/append programs, input representation and scoped links to the actual operation counters. The 293 new theorem reports are included in the principal gate. See [the exact RAM contracts and remaining obligations](docs/WORD_RAM_REFINEMENT.md).
+
+The complete matcher has not yet been compiled into that machine: its remaining array/tree/formula routines, callback/control composition and global address/allocation invariant must still be proved. The transfer theorem retains these hypotheses explicitly. The independent RAM route does not require verifying Lean's allocator, reference counts, garbage collector or generated-C compiler; no such verification is claimed. Compiler substitutions preserve logical counters, and named RAM refinements now cover specific extra traversal passes, but these local results do not yet give a whole-matcher instruction bound.
+
+Fixed-pattern automata, action maps and Presburger DNFs can be enormous. Positive P1 execution on a length-three input exceeded the recorded 300-second limit. Isolated diagnostics completed Long preparation but exceeded the total 120-second limit in its join; Short preparation also exceeded its separate limit. The split composition probe passed 32 direct regular/list cases, but executing the normalized 255-form result on its first empty input failed under the 3 GiB address-space limit. A separate independent-case probe hit interpreter deep recursion in its first reversed row. These unsuccessful cases remain manual diagnostics and are not counted as passes. See [runtime results and limits](docs/RUNTIME_LIMITS.md) for exact stages, resource limits and logs.
+
+Finite tests do not establish asymptotic complexity or practical scalability. No claim of a practical regex-engine speedup, novelty, priority, or optimality is made.

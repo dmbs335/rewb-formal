@@ -1,0 +1,38 @@
+Verified production checkpoint: 8614bf808df5bbb5f73bd629951f01617923fa6c
+Audit checkpoint: 660c578d59771e74ddd30101cd7552a9ead9dd5a
+Workflow run: 45605211457
+Job: 139174203518
+Strict regular regression: PASS
+Optional normalization and independent-stage resource diagnostics: FAILURE (not passing cases)
+
+Selected verbatim job output:
+
+2026-11-25T11:33:23.8280595Z Principal axiom audit PASS: 20 exact reports, 0 without axioms, 20 using only permitted standard axioms.
+2026-11-25T11:33:43.0885460Z Composite process: mode=regular, virtual-memory-limit=3145728 KiB, wall-limit=120s, kill-grace=5s
+2026-11-25T11:33:44.2653814Z composite audit: ENTER main mode=regular
+2026-11-25T11:33:44.2685079Z regular: COMPLETE fixtures=32, mismatches=0, elapsed=1 ms
+2026-11-25T11:33:44.3137506Z 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:01.22
+2026-11-25T11:33:44.3140232Z 	Maximum resident set size (kbytes): 1202016
+2026-11-25T11:33:44.3146483Z 	Exit status: 0
+2026-11-25T11:33:44.3415875Z Composite process: mode=normalize, virtual-memory-limit=3145728 KiB, wall-limit=120s, kill-grace=5s
+2026-11-25T11:33:45.3977351Z composite audit: ENTER main mode=normalize
+2026-11-25T11:33:45.3978017Z normalize: BEGIN original atom pattern; compilation is outside the returned text ledger
+2026-11-25T11:33:45.3978561Z normalize: START isolated marked source-DFA precursor probe
+2026-11-25T11:33:45.3982033Z normalize: precursor READY states=2; Matcher.compile will reconstruct its own source DFA
+2026-11-25T11:33:45.3982551Z normalize: START Matcher.compile over all control shapes
+2026-11-25T11:33:45.4025715Z normalize: compile READY forms=255, constructors={ regular := 7, once := 40, sameValue := 16, independent := 64, nested1 := 64, nested2 := 64 }
+2026-11-25T11:33:45.4027691Z normalize: START Matcher.run on compiled output n=0
+2026-11-25T11:33:48.4280103Z INTERNAL PANIC: out of memory
+2026-11-25T11:33:48.4783506Z 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:04.13
+2026-11-25T11:33:48.4785770Z 	Maximum resident set size (kbytes): 2328688
+2026-11-25T11:33:48.4791781Z 	Exit status: 1
+2026-11-25T11:33:48.4959120Z Composite process: mode=independent-stages, virtual-memory-limit=3145728 KiB, wall-limit=120s, kill-grace=5s
+2026-11-25T11:33:49.5722362Z composite audit: ENTER main mode=independent-stages
+2026-11-25T11:33:49.5723703Z independent-stages: BEGIN component diagnosis, not a whole-dispatch pass
+2026-11-25T11:33:49.5724194Z independent-stages: START reverse DFA constructors
+2026-11-25T11:33:49.5726703Z independent-stages: reverse DFAs READY states=2/2/2
+2026-11-25T11:33:49.5727400Z independent-stages: START actual reversed FullCost.Rows.row
+2026-11-25T11:34:22.3634822Z deep recursion was detected at 'interpreter' (potential solution: increase stack space in your system)
+2026-11-25T11:34:22.7304920Z 	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:33.93
+2026-11-25T11:34:22.7305443Z 	Maximum resident set size (kbytes): 1988672
+2026-11-25T11:34:22.7306816Z 	Exit status: 1

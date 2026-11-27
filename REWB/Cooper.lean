@@ -24,12 +24,13 @@ theorem Atom.factor_pos (a : Atom) : 0<a.factor := by
 
 def multiplier : Conj→Nat
   | [] => 1
-  | a::as => a.factor*multiplier as
+  | a::as => Nat.lcm a.factor (multiplier as)
 
 theorem multiplier_pos (C : Conj) : 0<multiplier C := by
   induction C with
   | nil => decide
-  | cons a as ih => exact Nat.mul_pos a.factor_pos ih
+  | cons a as ih =>
+    exact Nat.pos_of_ne_zero (Nat.lcm_ne_zero (Nat.ne_of_gt a.factor_pos) (Nat.ne_of_gt ih))
 
 theorem factor_dvd (C : Conj) (a : Atom) (ha : a∈C) : a.factor∣multiplier C := by
   induction C with
@@ -37,12 +38,8 @@ theorem factor_dvd (C : Conj) (a : Atom) (ha : a∈C) : a.factor∣multiplier C 
   | cons b bs ih =>
     rcases List.mem_cons.mp ha with h|h
     · subst b
-      exact ⟨multiplier bs,rfl⟩
-    · obtain ⟨k,hk⟩ := ih h
-      refine ⟨b.factor*k,?_⟩
-      change b.factor*multiplier bs=a.factor*(b.factor*k)
-      rw [hk]
-      simp only [Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm]
+      exact Nat.dvd_lcm_left _ _
+    · exact Nat.dvd_trans (ih h) (Nat.dvd_lcm_right _ _)
 
 theorem abs_factor (a : Aff) (ha : a.split.1≠0) :
     (Atom.le a).factor=a.split.1.natAbs := by
@@ -283,14 +280,15 @@ theorem normalize_moduli (C : Conj) (hC : Good C) :
 
 def commonPeriod : List Guard→Nat
   | [] => 1
-  | g::gs => g.modulus*commonPeriod gs
+  | g::gs => Nat.lcm g.modulus (commonPeriod gs)
 
 theorem commonPeriod_pos (gs : List Guard) (h : ∀ g,g∈gs→0<g.modulus) :
     0<commonPeriod gs := by
   induction gs with
   | nil => decide
   | cons g gs ih =>
-    exact Nat.mul_pos (h g (by simp)) (ih (fun a ha=>h a (by simp [ha])))
+    exact Nat.pos_of_ne_zero (Nat.lcm_ne_zero (Nat.ne_of_gt (h g (by simp)))
+      (Nat.ne_of_gt (ih (fun a ha=>h a (by simp [ha])))))
 
 theorem commonPeriod_dvd (gs : List Guard) (g : Guard) (hg : g∈gs) :
     g.modulus∣commonPeriod gs := by
@@ -299,12 +297,8 @@ theorem commonPeriod_dvd (gs : List Guard) (g : Guard) (hg : g∈gs) :
   | cons a as ih =>
     rcases List.mem_cons.mp hg with h|h
     · subst a
-      exact ⟨commonPeriod as,rfl⟩
-    · obtain ⟨k,hk⟩ := ih h
-      refine ⟨a.modulus*k,?_⟩
-      change a.modulus*commonPeriod as=g.modulus*(a.modulus*k)
-      rw [hk]
-      simp only [Nat.mul_assoc,Nat.mul_left_comm,Nat.mul_comm]
+      exact Nat.dvd_lcm_left _ _
+    · exact Nat.dvd_trans (ih h) (Nat.dvd_lcm_right _ _)
 
 def eliminateConj (C : Conj) : Formula :=
   let N := normalize C

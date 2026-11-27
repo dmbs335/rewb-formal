@@ -1,0 +1,61 @@
+Verified head: 8614bf808df5bbb5f73bd629951f01617923fa6c
+Workflow run: 45601488591
+Job: 139161245512 (periodic-cache)
+Conclusion: success
+Selected verbatim job output:
+
+2026-11-25T11:08:11.5018436Z ✔ [73/73] Built REWB.PeriodicConstructionCacheRegression
+2026-11-25T11:08:11.5020590Z Build completed successfully.
+2026-11-25T11:08:12.1979192Z 'REWB.PeriodicConstruction.Cache.array_value' does not depend on any axioms
+2026-11-25T11:08:12.1980468Z 'REWB.PeriodicConstruction.Cache.array_work' depends on axioms: [propext]
+2026-11-25T11:08:12.1981546Z 'REWB.PeriodicConstruction.Cache.word_value' depends on axioms: [propext]
+2026-11-25T11:08:12.1982510Z 'REWB.PeriodicConstruction.Cache.word_work' depends on axioms: [propext]
+2026-11-25T11:08:12.1983467Z 'REWB.PeriodicConstruction.Cache.prefix_value' depends on axioms: [propext]
+2026-11-25T11:08:12.1984471Z 'REWB.PeriodicConstruction.Cache.prefix_length' depends on axioms: [propext]
+2026-11-25T11:08:12.1985419Z 'REWB.PeriodicConstruction.Cache.prefix_work' depends on axioms: [propext]
+2026-11-25T11:08:12.1986334Z 'REWB.PeriodicConstruction.Cache.collect_value' depends on axioms: [propext]
+2026-11-25T11:08:12.1987361Z 'REWB.PeriodicConstruction.Cache.collect_length' depends on axioms: [propext]
+2026-11-25T11:08:12.1988387Z 'REWB.PeriodicConstruction.Cache.collect_work' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.1989372Z 'REWB.PeriodicConstruction.Cache.range_work' depends on axioms: [propext]
+2026-11-25T11:08:12.1991208Z 'REWB.PeriodicConstruction.Cache.stateRow_value' depends on axioms: [propext]
+2026-11-25T11:08:12.1992635Z 'REWB.PeriodicConstruction.Cache.stateRow_work' depends on axioms: [propext]
+2026-11-25T11:08:12.1993968Z 'REWB.PeriodicConstruction.Cache.phase_value' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.1995327Z 'REWB.PeriodicConstruction.Cache.phase_work' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.1996715Z 'REWB.PeriodicConstruction.Cache.transitions_value' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.1998033Z 'REWB.PeriodicConstruction.Cache.transitions_work' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.1999406Z 'REWB.PeriodicConstruction.Cache.equalScan_value' depends on axioms: [propext]
+2026-11-25T11:08:12.2000798Z 'REWB.PeriodicConstruction.Cache.equalScan_length' depends on axioms: [propext]
+2026-11-25T11:08:12.2001982Z 'REWB.PeriodicConstruction.Cache.equalScan_work' depends on axioms: [propext]
+2026-11-25T11:08:12.2003206Z 'REWB.PeriodicConstruction.Cache.equalPair_value' depends on axioms: [propext]
+2026-11-25T11:08:12.2004374Z 'REWB.PeriodicConstruction.Cache.equalPair_work' depends on axioms: [propext]
+2026-11-25T11:08:12.2005632Z 'REWB.PeriodicConstruction.Cache.equalRow_value' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2007006Z 'REWB.PeriodicConstruction.Cache.equalRow_work' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2008319Z 'REWB.PeriodicConstruction.Cache.equality_value' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2009894Z 'REWB.PeriodicConstruction.Cache.equality_work' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2011292Z 'REWB.PeriodicConstruction.Cache.vector_value' depends on axioms: [propext]
+2026-11-25T11:08:12.2012711Z 'REWB.PeriodicConstruction.Cache.vector_work' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2014082Z 'REWB.PeriodicConstruction.Cache.suffix_value' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2015384Z 'REWB.PeriodicConstruction.Cache.suffix_length' depends on axioms: [propext]
+2026-11-25T11:08:12.2017042Z 'REWB.PeriodicConstruction.Cache.suffix_work' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2018477Z 'REWB.PeriodicConstruction.Cache.contexts_value' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2019953Z 'REWB.PeriodicConstruction.Cache.contexts_work' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2021308Z 'REWB.PeriodicConstruction.Cache.prepareAt_value' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2022661Z 'REWB.PeriodicConstruction.Cache.prepareAt_work' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2024113Z 'REWB.PeriodicConstruction.Cache.contextsCost_bound' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2025611Z 'REWB.PeriodicConstruction.Cache.transitionsCost_bound' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2027073Z 'REWB.PeriodicConstruction.Cache.equalityCost_bound' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2028501Z 'REWB.PeriodicConstruction.Cache.prepareAtCost_bound' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2030038Z 'REWB.PeriodicConstruction.Cache.cube_next' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2031194Z 'REWB.PeriodicConstruction.Cache.contexts_work_le_old' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2032771Z 'REWB.PeriodicConstruction.Cache.prepareAt_work_le_old' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2034337Z 'REWB.PeriodicConstruction.Cache.prepareAt_work_le_old_pos' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2035811Z 'REWB.PeriodicConstruction.Cache.Regression.zero_transitions' does not depend on any axioms
+2026-11-25T11:08:12.2037288Z 'REWB.PeriodicConstruction.Cache.Regression.zero_equality' does not depend on any axioms
+2026-11-25T11:08:12.2038764Z 'REWB.PeriodicConstruction.Cache.Regression.zero_preparation' depends on axioms: [propext, Quot.sound]
+2026-11-25T11:08:12.2040515Z 'REWB.PeriodicConstruction.Cache.Regression.noninjective_row' depends on axioms: [propext]
+2026-11-25T11:08:12.2042079Z 'REWB.PeriodicConstruction.Cache.Regression.final_prefix_comparison' does not depend on any axioms
+2026-11-25T11:08:12.2043562Z 'REWB.PeriodicConstruction.Cache.Regression.empty_contexts' depends on axioms: [propext]
+2026-11-25T11:08:14.4561712Z periodic cache small: transition tables=1200, literal transition cells=16800, equality tables=300, literal equality cells=7800, contexts=60, preparations=1500
+2026-11-25T11:08:14.9776538Z periodic cache deep: n=1024, period=17, transition cells=612, equality cells=5202, old preparation=8670, construction work=114567
+2026-11-25T11:08:14.9792475Z periodic cache wide: states=64, zero preparation=72, literal transition cells=128
+2026-11-25T11:08:14.9807949Z periodic cache construction audit passed in 1601 ms

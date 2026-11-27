@@ -1,0 +1,37 @@
+import REWB.PeriodicConstructionRunsCost
+
+#print axioms REWB.PeriodicConstruction.Runs.arrayLoop_list
+#print axioms REWB.PeriodicConstruction.Runs.arrayLoop_work
+#print axioms REWB.PeriodicConstruction.Runs.materialize_value
+#print axioms REWB.PeriodicConstruction.Runs.materialize_work
+#print axioms REWB.PeriodicConstruction.Runs.ends_value
+#print axioms REWB.PeriodicConstruction.Runs.ends_length
+#print axioms REWB.PeriodicConstruction.Runs.ends_work
+#print axioms REWB.PeriodicConstruction.Runs.allCounted_value
+#print axioms REWB.PeriodicConstruction.Runs.allCounted_work
+#print axioms REWB.PeriodicConstruction.Runs.period_value
+#print axioms REWB.PeriodicConstruction.Runs.shorter_value
+#print axioms REWB.PeriodicConstruction.Runs.square_value
+#print axioms REWB.PeriodicConstruction.Runs.candidate_value
+#print axioms REWB.PeriodicConstruction.Runs.collect_value
+#print axioms REWB.PeriodicConstruction.Runs.collect_length
+#print axioms REWB.PeriodicConstruction.Runs.forPeriod_value
+#print axioms REWB.PeriodicConstruction.Runs.forPeriod_length
+#print axioms REWB.PeriodicConstruction.Runs.enumerate_value
+#print axioms REWB.PeriodicConstruction.Runs.enumerate_length
+#print axioms REWB.PeriodicConstruction.Runs.cubicFilter_value
+#print axioms REWB.PeriodicConstruction.Runs.cubicFilter_work
+#print axioms REWB.PeriodicConstruction.Runs.cubic_value
+#print axioms REWB.PeriodicConstruction.Runs.enumerate_comparisons
+#print axioms REWB.PeriodicConstruction.Runs.squareEnvelope_pos
+#print axioms REWB.PeriodicConstruction.Runs.periodEnvelope_ge
+#print axioms REWB.PeriodicConstruction.Runs.periodEnvelope_mono
+#print axioms REWB.PeriodicConstruction.Runs.period_work
+#print axioms REWB.PeriodicConstruction.Runs.shorter_work
+#print axioms REWB.PeriodicConstruction.Runs.square_work
+#print axioms REWB.PeriodicConstruction.Runs.candidate_work
+#print axioms REWB.PeriodicConstruction.Runs.collect_work
+#print axioms REWB.PeriodicConstruction.Runs.forPeriod_work
+#print axioms REWB.PeriodicConstruction.Runs.enumerate_work
+#print axioms REWB.PeriodicConstruction.Runs.enumerate_work_closed
+#print axioms REWB.PeriodicConstruction.Runs.cubic_work

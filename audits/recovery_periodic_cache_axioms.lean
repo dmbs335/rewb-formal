@@ -1,0 +1,37 @@
+import REWB.PeriodicConstructionCacheContexts
+
+#print axioms REWB.PeriodicConstruction.Cache.array_value
+#print axioms REWB.PeriodicConstruction.Cache.array_work
+#print axioms REWB.PeriodicConstruction.Cache.word_value
+#print axioms REWB.PeriodicConstruction.Cache.word_work
+#print axioms REWB.PeriodicConstruction.Cache.prefix_value
+#print axioms REWB.PeriodicConstruction.Cache.prefix_length
+#print axioms REWB.PeriodicConstruction.Cache.prefix_work
+#print axioms REWB.PeriodicConstruction.Cache.collect_value
+#print axioms REWB.PeriodicConstruction.Cache.collect_length
+#print axioms REWB.PeriodicConstruction.Cache.collect_work
+#print axioms REWB.PeriodicConstruction.Cache.range_work
+#print axioms REWB.PeriodicConstruction.Cache.stateRow_value
+#print axioms REWB.PeriodicConstruction.Cache.stateRow_work
+#print axioms REWB.PeriodicConstruction.Cache.phase_value
+#print axioms REWB.PeriodicConstruction.Cache.phase_work
+#print axioms REWB.PeriodicConstruction.Cache.transitions_value
+#print axioms REWB.PeriodicConstruction.Cache.transitions_work
+#print axioms REWB.PeriodicConstruction.Cache.vector_value
+#print axioms REWB.PeriodicConstruction.Cache.vector_work
+#print axioms REWB.PeriodicConstruction.Cache.suffix_value
+#print axioms REWB.PeriodicConstruction.Cache.suffix_length
+#print axioms REWB.PeriodicConstruction.Cache.suffix_work
+#print axioms REWB.PeriodicConstruction.Cache.contexts_value
+#print axioms REWB.PeriodicConstruction.Cache.contexts_work
+#print axioms REWB.PeriodicConstruction.Cache.prepareAt_value
+#print axioms REWB.PeriodicConstruction.Cache.prepareAt_work
+#print axioms REWB.PeriodicConstruction.Cache.equalScan_value
+#print axioms REWB.PeriodicConstruction.Cache.equalScan_length
+#print axioms REWB.PeriodicConstruction.Cache.equalScan_work
+#print axioms REWB.PeriodicConstruction.Cache.equalPair_value
+#print axioms REWB.PeriodicConstruction.Cache.equalPair_work
+#print axioms REWB.PeriodicConstruction.Cache.equalRow_value
+#print axioms REWB.PeriodicConstruction.Cache.equalRow_work
+#print axioms REWB.PeriodicConstruction.Cache.equality_value
+#print axioms REWB.PeriodicConstruction.Cache.equality_work
