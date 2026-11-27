@@ -1,6 +1,6 @@
 # Proof map and current verification ledger
 
-Updated 2026-11-25. This page describes the current code, superseding the milestone-by-milestone statements in [PROOF_HISTORY.md](PROOF_HISTORY.md).
+Updated 2026-11-27. This page describes the current code, superseding the milestone-by-milestone statements in [PROOF_HISTORY.md](PROOF_HISTORY.md).
 
 **Current result:** `ResidualActual.FullCost.Matcher` is correct for the original bounded-use source semantics, and its concrete returned operation ledger satisfies `Spec.Target25Over13`. Measured initialization, finite cuts, repair/reporting, row production, periodic caches, run/key construction, event generation, and joins are installed through the actual six-form execution. The remaining machine-cost boundaries are stated below; the numerical target is a theorem about the explicit primitive-operation ledger.
 
@@ -18,6 +18,8 @@ The unified code checkpoint is `8614bf808df5bbb5f73bd629951f01617923fa6c`. Its [
 | Cached dispatch and six forms | `ResidualActualFullCostCached/Dispatch/Independent/Matcher*` uses the refined branch costs and actual row production through the original source expression. |
 
 The detailed installation and validation records are [Full construction execution](FULL_CONSTRUCTION_EXECUTION.md), [Periodic construction audit](PERIODIC_CONSTRUCTION_AUDIT.md), and [Full matcher construction](FULL_MATCHER_CONSTRUCTION.md). They distinguish kernel contracts, executed probes, generated-C inspection, and unsuccessful diagnostics.
+
+The word-RAM continuation adds 24 production modules and 293 principal theorem reports, bringing the gate inventory to 796 build targets and 3,310 reports. It supplies concrete local instruction programs and representation/cost bridges, while keeping whole-matcher execution refinement open. [Word-RAM refinement](WORD_RAM_REFINEMENT.md) states the exact contracts, finite-word conditions, runtime checks and remaining composition obligations.
 
 Sections below retain useful earlier local interfaces and milestone evidence. An earlier statement that an interface consumer remained pending describes that checkpoint; this section and Section 10 give the current end-to-end scope.
 
@@ -432,7 +434,9 @@ The substitution is implemented, not merely supplied as a hypothetical family of
 - Pattern compilation is fixed-pattern preprocessing. `compile p = CompleteNormalization.forms p` can be run once and `run compiled` reused. Convenience `solve` calls compilation, but its returned text ledger does not separately meter normalization.
 - The alphabet is a fixed nonempty finite type at the public entry point, because `fallback : Fin σ` is required. Empty words are fully included.
 - Scalar arithmetic, direct array access, DFA operations, comparisons and the explicitly instrumented list/tree/array operations use their stated primitive costs. `ActualModulus` and `CountedProjection` retain unit-cost `Nat.lcm` calls. These are not replaced by the separately measured Euclidean-loop implementation in `PeriodicConstruction.Pattern`.
+- The independent `WordRAM` implementation now proves actual Euclidean and LCM instruction traces, including a connected list fold. `ActualModulusRAM` and `ActualProjectionModulusRAM` bound the concrete arithmetic contributions of the installed modulus/projection calls by fixed-pattern multiples of their counters. `ActualModulusFoldRAM` connects the whole list-fold program to a conjunction's modulus result. These local programs have not been composed into a complete matcher machine.
 - Source-cost equalities for compiler substitutions do not constitute a general cost-preserving compiler theorem. Arbitrary-precision bit work, additional runtime accumulator/reversal passes, reference-counting/copying, allocation, garbage collection and all generated C instructions are outside the final claimed ledger unless separately covered by a named bound.
+- Named finite-word list refinements now cover reverse, append and completed map/flatMap accumulator reversal. Their exact instruction/allocation bounds are proved from concrete heap representations. Arbitrary callback execution and a whole-matcher allocation invariant remain open. Verifying a separate RAM implementation does not require verifying the Lean runtime's collector or compiler.
 - Targeted generated-C checks show the inspected paths do not repeat the old public solver, report/erase, or row/input factory. They are scoped compiler regressions, not a universal runtime ownership theorem.
 - Conservative sums may count some operations more than once. This is safe for the proved upper bound; the counters are not presented as a bijection with machine instructions.
 

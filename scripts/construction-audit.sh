@@ -16,6 +16,7 @@ timeout 180s lake env lean --run audits/periodic_runs_construction_smoke.lean
 timeout 120s lake env lean --run audits/periodic_keys_construction_smoke.lean
 timeout 120s lake env lean --run audits/periodic_actual_full_cost_smoke.lean
 bash audits/run_full_matcher_composite.sh regular
+timeout 60s lake env lean --run audits/word_ram_smoke.lean
 
 python3 audits/masked_full_cost_execution_codegen.py
 python3 audits/masked_full_cost_rows_codegen.py

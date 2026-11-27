@@ -26,6 +26,8 @@ jobs:
             ${{ runner.os }}-lean-4-19-recovery-initial-and-join-
       - name: Build and check theorem dependencies
         run: bash scripts/check.sh
+      - name: Execute checked word-RAM instruction programs
+        run: timeout 60s lake env lean --run audits/word_ram_smoke.lean
   index-audits:
     needs: lean
     runs-on: ubuntu-latest
